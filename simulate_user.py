@@ -13,8 +13,8 @@ from utils import check_acceptance
 def mutation_based(candidate):
 
     positive, negative = generate_traces_by_mutation(candidate)
-    positive = set([p[1] for p in positive])
-    negative = set([p[1] for p in negative])
+    positive = [p[1] for p in positive]
+    negative = [p[1] for p in negative]
 
     return positive, negative
 
@@ -24,8 +24,8 @@ def automaton_traversal(candidate):
     positive1, negative1 = generate_traces_by_traversal(aut, max_visits=1)
     positive2, negative2 = generate_traces_by_traversal(aut, max_visits=2)
 
-    positive = set(positive1 + positive2)
-    negative = set(negative1 + negative2)
+    positive = positive1 + positive2
+    negative = negative1 + negative2
 
     return positive, negative
 
@@ -35,52 +35,79 @@ def simulate_user(candidate, ground_truth, get_traces):
 
     positive, negative = get_traces(candidate)
 
-    print("all positive")
-    for pos in positive:
-        print(pos)
+    # print("all positive")
+    # for pos in positive:
+    #     print(pos)
 
-    print("")
+    # print("")
 
-    print("all negative")
-    for neg in negative:
-        print(neg)
+    # print("all negative")
+    # for neg in negative:
+    #     print(neg)
 
-    print("")
+    # print("")
 
-    for pos in positive:
-        intersects = check_acceptance(spot.translate(ground_truth), pos)
-        if intersects is None:
-            print(f'{pos} inconclusive, the candidate is not the desired one')
-            return
-        elif intersects == False:
-            print(f'{pos} rejected, the candidate is not the desired one')
-            return
-        else:
-            print(f'{pos} accepted, keep going')
+    traces_seen = 0
 
-    for neg in negative:
-        intersects = check_acceptance(spot.translate(ground_truth), neg)
-        if intersects is None:
-            print(f'{pos} inconclusive, the candidate is not the desired one')
-            return
-        elif intersects == True:
-            print(f'{neg} accepted, the candidate is not the desired one')
-            return
-        else:
-            print(f'{neg} rejected, keep going')
+    for trace in set(positive + negative):
+        traces_seen += 1
+
+        user_accepts = check_acceptance(spot.translate(ground_truth), trace)
+
+        if user_accepts is None:
+            print(f'{trace} inconclusive, the candidate is not the desired one')
+            return traces_seen, True
+
+        elif user_accepts == False and trace in positive:
+            print(f'{trace} rejected, the candidate is not the desired one')
+            return traces_seen, True
+
+        elif user_accepts == True and trace in negative:
+            print(f'{trace} accepted, the candidate is not the desired one')
+            return traces_seen, True
+
+        elif user_accepts == False and trace in negative:
+            print(f'{trace} rejected, keep going')
+
+        elif user_accepts == True and trace in positive:
+            print(f'{trace} accepted, keep going')
+
+    return traces_seen, False
+
+
+test_list = [
+
+    ('(!a) U (b | G!a)', '!a U b'),
+    ('G(a -> F b)', 'G(a -> X b)'),
+    ('G(a -> Xa)', 'a -> Xa'),
+    ('F(a & XFa)', 'Fa')
+
+
+]
 
 
 
 if __name__ == "__main__":
 
 
-    # sys.argv[1] = candidate output of an LLM
-    # sys.argv[2] = what we really want, i.e., ground truth
-    # sys.argv[3] = get examples function [AUTOMATON, MUTATION]
-    if sys.argv[3] == "AUTOMATON":
+    if sys.argv[1] == "TRAVERSAL":
         func = automaton_traversal
-    elif sys.argv[3] == "MUTATION":
+    elif sys.argv[1] == "MUTATION":
         func = mutation_based
     else:
         raise("Incorrect example generation function")
-    simulate_user(sys.argv[1], sys.argv[2], func)
+
+    seen = 0
+    success = 0
+
+    for candidate, ground_truth in test_list:
+        traces_seen, rejected = simulate_user(candidate, ground_truth, func)
+
+        seen += traces_seen
+        if rejected:
+            success += 1
+
+
+    print(seen / len(test_list))
+    print(success / len(test_list))
+

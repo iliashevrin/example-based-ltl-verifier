@@ -44,6 +44,6 @@ def generate_traces_by_traversal(aut, max_visits=1):
                 visited[state] += 1
 
             for edge in aut.out(state):
-                paths.append((path + [edge], visited))
+                paths.append((path + [edge], visited.copy()))
 
     return positive, negative

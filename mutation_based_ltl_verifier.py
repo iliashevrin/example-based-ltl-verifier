@@ -153,7 +153,7 @@ def accepting_traces(formula):
     aut = spot.translate(formula)
     run = aut.accepting_run()
     if run is None:
-        return None
+        return []
 
 
     conditions = []
