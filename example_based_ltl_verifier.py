@@ -8,7 +8,11 @@ import itertools
 def simulate_user(candidate, ground_truth):
 
     aut = spot.translate(candidate, 'parity', 'sbacc', 'state-based', 'complete', 'colored', 'deterministic')
-    positive, negative = generate_traces(aut)
+    positive1, negative1 = generate_traces(aut, max_visits=1)
+    positive2, negative2 = generate_traces(aut, max_visits=2)
+
+    positive = set(positive1 + positive2)
+    negative = set(negative1 + negative2)
 
     print("all positive")
     for pos in positive:
@@ -34,6 +38,7 @@ def simulate_user(candidate, ground_truth):
         intersects = check_acceptance(spot.translate(ground_truth), neg)
         if intersects:
             print(f'{neg} accepted, the candidate is not the desired one')
+            return
         else:
             print(f'{neg} rejected, keep going')
 
@@ -77,26 +82,26 @@ def rec_separate(cond):
         return [spot.formula.And(single) for single in itertools.product(*separate)]
 
 
-def generate_traces(aut):
+def generate_traces(aut, max_visits=1):
 
     positive = []
     negative = []
     paths = []
 
     for edge in aut.out(aut.get_init_state_number()):
-        paths.append([edge])
+        paths.append(([edge], {edge.src:1}))
 
     all_vars = aut.ap()
 
     while paths:
 
-        path = paths.pop(0)
+        path, visited = paths.pop(0)
         state = path[-1].dst
-        visited = [edge.src for edge in path]
+        # visited = [edge.src for edge in path]
 
-        if state in visited:
+        if state in visited and visited[state] == max_visits:
 
-            index = visited.index(state)
+            index = [edge.src for edge in path].index(state)
             conditions = [spot.bdd_format_formula(aut.get_dict(), edge.cond) for edge in path]
             
             words = []
@@ -104,7 +109,9 @@ def generate_traces(aut):
             for single_cond in itertools.product(*[separate(cond) for cond in conditions]):
 
                 word = build_word(single_cond, index)
-                words.append(word)
+                word_ptr = spot.parse_word(word)
+                word_ptr.simplify()
+                words.append(str(word_ptr))
 
             if words:
                 if aut.intersects(spot.parse_word(words[0])):
@@ -113,8 +120,14 @@ def generate_traces(aut):
                     negative.extend(words)
 
         else:
+
+            if state not in visited:
+                visited[state] = 1
+            else:
+                visited[state] += 1
+
             for edge in aut.out(state):
-                paths.append(path + [edge])
+                paths.append((path + [edge], visited))
 
     return positive, negative
 
