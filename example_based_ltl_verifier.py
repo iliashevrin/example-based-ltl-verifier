@@ -5,9 +5,9 @@ spot.setup()
 import itertools
 
 
-def simulate_user(formula, ground_truth):
+def simulate_user(candidate, ground_truth):
 
-    aut = spot.translate(formula, 'parity', 'sbacc', 'state-based', 'complete', 'colored', 'deterministic')
+    aut = spot.translate(candidate, 'parity', 'sbacc', 'state-based', 'complete', 'colored', 'deterministic')
     positive, negative = generate_traces(aut)
 
     print("all positive")
@@ -25,14 +25,15 @@ def simulate_user(formula, ground_truth):
     for pos in positive:
         intersects = check_acceptance(spot.translate(ground_truth), pos)
         if not intersects:
-            print(f'{pos} rejected, the formula is not the desired one')
+            print(f'{pos} rejected, the candidate is not the desired one')
+            return
         else:
             print(f'{pos} accepted, keep going')
 
     for neg in negative:
         intersects = check_acceptance(spot.translate(ground_truth), neg)
         if intersects:
-            print(f'{neg} accepted, the formula is not the desired one')
+            print(f'{neg} accepted, the candidate is not the desired one')
         else:
             print(f'{neg} rejected, keep going')
 
@@ -122,6 +123,6 @@ if __name__ == "__main__":
 
 
 
-    # sys.argv[1] = formula output of an LLM
+    # sys.argv[1] = candidate output of an LLM
     # sys.argv[2] = what we really want, i.e., ground truth
     simulate_user(sys.argv[1], sys.argv[2])
