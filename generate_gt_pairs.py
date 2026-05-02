@@ -34,6 +34,9 @@ Do NOT use LaTeX or any mathematical symbols such as ◇, □, ¬, ∧, ∨, etc
 Do NOT use the equality sign.
 Do NOT include explanations, comments, or multiple formulas.
 
+Use the following atomic proposition mapping:
+{atomic_proposition}
+
 Return EXACTLY one LTL formula as a single line.
 The output must be directly parseable as an LTL formula.
 
@@ -56,14 +59,17 @@ def normalize_formula(text: str) -> str:
     return lines[0] if lines else ""
 
 
-def ask_chatgpt(client: OpenAI, model: str, requirement: str) -> str:
+def ask_chatgpt(client: OpenAI, model: str, requirement: str, atomic_proposition: str) -> str:
     response = client.chat.completions.create(
         model=model,
         temperature=0,
         messages=[
             {
                 "role": "user",
-                "content": PROMPT.format(requirement=requirement),
+                "content": PROMPT.format(
+                    requirement=requirement,
+                    atomic_proposition=atomic_proposition,
+                ),
             }
         ],
     )
@@ -71,12 +77,12 @@ def ask_chatgpt(client: OpenAI, model: str, requirement: str) -> str:
     return normalize_formula(response.choices[0].message.content or "")
 
 
-def semantically_equivalent(formula_a: str, formula_b: str) -> bool:
+def semantically_equivalent(formula_a: str, formula_b: str):
     """
-    Checks LTL semantic equivalence using Spot.
-
-    Two formulas are equivalent iff their XOR is unsatisfiable:
-        !(a <-> b)
+    Returns:
+        True  -> semantically equivalent
+        False -> valid syntax but not equivalent
+        None  -> syntax error, exclude from accuracy
     """
     try:
         f_a = spot.formula(formula_a)
@@ -86,14 +92,22 @@ def semantically_equivalent(formula_a: str, formula_b: str) -> bool:
         return spot.translate(xor_formula).is_empty()
 
     except Exception as exc:
+        msg = str(exc)
+
+        if "syntax error" in msg.lower():
+            print(
+                f"Syntax error; excluding from accuracy:\n"
+                f"  Error:        {exc}",
+                file=sys.stderr,
+            )
+            return None
+
         print(
             f"Warning: could not compare formulas:\n"
-            f"  Ground Truth: {formula_a}\n"
-            f"  Response:     {formula_b}\n"
             f"  Error:        {exc}",
             file=sys.stderr,
         )
-        return False
+        return None
 
 
 def main() -> None:
@@ -115,7 +129,7 @@ def main() -> None:
 
     df = pd.read_csv(args.input_csv)
 
-    required_columns = {"Natural Language", "Ground Truth"}
+    required_columns = {"Natural Language", "Ground Truth", "Atomic Proposition"}
     missing = required_columns - set(df.columns)
     if missing:
         raise ValueError(f"Missing required columns: {sorted(missing)}")
@@ -125,36 +139,50 @@ def main() -> None:
     rows = []
     correct = 0
     total = 0
+    syntax_errors = 0
 
     for _, row in df.iterrows():
         requirement = str(row["Natural Language"])
         ground_truth = str(row["Ground Truth"]).strip()
+        atomic_proposition = str(row["Atomic Proposition"]).strip()
 
-        model_response = ask_chatgpt(client, args.model, requirement)
+        model_response = ask_chatgpt(client, args.model, requirement, atomic_proposition)
 
         equivalent = semantically_equivalent(ground_truth, model_response)
 
-        rows.append(
-            {
-                "Ground Truth": ground_truth,
-                "Response": model_response,
-                "Equivalent": equivalent,
-            }
+        print(
+            f"  Requirement: {requirement}\n"
+            f"  Ground Truth: {ground_truth}\n"
+            f"  Response:     {model_response}\n"
+            f"  Equivalent:     {equivalent}\n",
+            file=sys.stderr,
         )
 
-        total += 1
-        correct += int(equivalent)
+        if equivalent is None:
+            syntax_errors += 1
+        else:
+            total += 1
+            correct += int(equivalent)
+
+        if not equivalent:
+            rows.append(
+                {
+                    "Ground Truth": ground_truth,
+                    "Response": model_response,
+                }
+            )
 
     with open(args.output_csv, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(
             f,
-            fieldnames=["Ground Truth", "Response", "Equivalent"],
+            fieldnames=["Ground Truth", "Response"],
         )
         writer.writeheader()
         writer.writerows(rows)
 
     accuracy = correct / total if total else 0.0
     print(f"Total accuracy: {accuracy:.4f} ({correct}/{total})")
+    print(f"Syntax errors excluded: {syntax_errors}")
 
 
 if __name__ == "__main__":

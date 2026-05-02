@@ -7,144 +7,130 @@ spot.setup()
 from utils import get_words_from_conditions, check_acceptance
 
 
-MUTATIONS = [
-    (r"\bF\b", "G"),
-    (r"\bG\b", "F"),
-    (r"\bU\b", "W"),
-    (r"\bW\b", "U"),
-    (r"\bR\b", "M"),
-    (r"\bM\b", "R"),
-    (r"\bG\b", "X"),
-    (r"\bX\b", "G"),
-    (r"\bF\b", "X"),
-    (r"\bX\b", "F"),
-    (r"\bX\b\s*", ""),
-    (r"\bF\b\s*", ""),
-    (r"\bG\b\s*", ""),
-    (r"&&|\band\b|&", "|"),
-    (r"\|\||\bor\b|\|", "&"),
-    (r"->", "<->"),
-    (r"<->", "->"),
-]
 
 
-def parse_formula(s):
-    try:
-        return spot.formula(s)
-    except RuntimeError:
-        return None
+
+def children_count(f):
+    return f.size()
 
 
-def canonical(s):
-    f = parse_formula(s)
-    return str(f) if f else None
+def replace_child(f, target_idx, new_child):
+    idx = -1
+
+    def mapper(child):
+        nonlocal idx
+        idx += 1
+        return new_child if idx == target_idx else child
+
+    return f.map(mapper)
 
 
-def regex_mutations(formula):
-    mutants = []
-
-    for pattern, replacement in MUTATIONS:
-        for m in re.finditer(pattern, formula):
-            candidate = formula[:m.start()] + replacement + formula[m.end():]
-            mutants.append(candidate)
-
-    return mutants
+def is_negated_literal(f):
+    return f._is(spot.op_Not) and children_count(f) == 1 and f[0]._is(spot.op_ap)
 
 
-def literal_negation_mutations(formula):
+def is_plain_literal(f):
+    return f._is(spot.op_ap)
+
+
+def current_node_mutations(f):
+    muts = []
+
+    # 1. Swap F with G and X
+    if f._is(spot.op_F):
+        muts.append(spot.formula.G(f[0]))
+        muts.append(spot.formula.X(f[0]))
+
+    elif f._is(spot.op_G):
+        muts.append(spot.formula.F(f[0]))
+        muts.append(spot.formula.X(f[0]))
+
+    elif f._is(spot.op_X):
+        # 5. Remove X if it is in front of a literal
+        if is_plain_literal(f[0]) or is_negated_literal(f[0]):
+            muts.append(f[0])
+
+        # 1. Swap X with F and G
+        muts.append(spot.formula.F(f[0]))
+        muts.append(spot.formula.G(f[0]))
+
+    # 2. Swap U with W
+    if f._is(spot.op_U):
+        muts.append(spot.formula.W(f[0], f[1]))
+
+        # 3. Swap operands in U
+        muts.append(spot.formula.U(f[1], f[0]))
+
+    elif f._is(spot.op_W):
+        muts.append(spot.formula.U(f[0], f[1]))
+
+        # 3. Swap operands in W
+        muts.append(spot.formula.W(f[1], f[0]))
+
+    # 4. Negate literals and un-negate negated literals
+    if is_plain_literal(f):
+        muts.append(spot.formula.Not(f))
+
+        # 5. Add X in front of literals
+        muts.append(spot.formula.X(f))
+
+    elif is_negated_literal(f):
+        muts.append(f[0])
+
+        # 5. Add X in front of negated literals
+        muts.append(spot.formula.X(f))
+
+    # 6. Swap & with |
+    if f._is(spot.op_And):
+        muts.append(spot.formula.Or([f[i] for i in range(children_count(f))]))
+
+    elif f._is(spot.op_Or):
+        muts.append(spot.formula.And([f[i] for i in range(children_count(f))]))
+
+    # 7. Swap -> with <->
+    if f._is(spot.op_Implies):
+        muts.append(spot.formula.Equiv(f[0], f[1]))
+
+    elif f._is(spot.op_Equiv):
+        muts.append(spot.formula.Implies(f[0], f[1]))
+
+    return muts
+
+
+def generate_mutants_at_all_nodes(f):
     """
-    Toggle every atomic proposition:
-      a  -> !a
-      !a -> a
-
-    This assumes atomic propositions are simple identifiers:
-      a, b, req, grant, p1, etc.
+    Generate formulas where exactly one mutation is applied somewhere in the AST.
     """
-    mutants = []
+    # Mutations at this node
+    for m in current_node_mutations(f):
+        yield m
 
-    token_pattern = re.compile(r"!?\b[a-zA-Z_][a-zA-Z0-9_]*\b")
-
-    reserved = {
-        "F", "G", "X", "U", "W", "R", "M",
-        "true", "false", "tt", "ff",
-        "and", "or",
-    }
-
-    for m in token_pattern.finditer(formula):
-        token = m.group()
-
-        bare = token[1:] if token.startswith("!") else token
-
-        if bare in reserved:
-            continue
-
-        if token.startswith("!"):
-            replacement = bare
-        else:
-            replacement = f"!{token}"
-
-        candidate = formula[:m.start()] + replacement + formula[m.end():]
-        mutants.append(candidate)
-
-    return mutants
+    # Mutations inside children
+    for i in range(children_count(f)):
+        child = f[i]
+        for mutated_child in generate_mutants_at_all_nodes(child):
+            yield replace_child(f, i, mutated_child)
 
 
-def until_like_swap_mutations(formula):
+def mutate_ltl_formula(formula_str):
     """
-    Swap operands in simple binary temporal expressions:
-      a U b -> b U a
-      a W b -> b W a
-      a R b -> b R a
-      a M b -> b M a
+    Args:
+        formula_str: LTL formula string
 
-    This handles simple operands such as:
-      a U b
-      !a U b
-      X a U F b
-      (a && b) U c
-      a U (b || c)
-
-    Complex nested cases are still validated by Spot afterward.
+    Returns:
+        list[str]: unified deduplicated list of mutated formulas
     """
-    mutants = []
-
-    ops = ["U", "W", "R", "M"]
-
-    operand = r"(?:!?[a-zA-Z_][a-zA-Z0-9_]*|[FGX]\s+!?[a-zA-Z_][a-zA-Z0-9_]*|\([^()]+\))"
-
-    for op in ops:
-        pattern = re.compile(rf"({operand})\s+\b{op}\b\s+({operand})")
-
-        for m in pattern.finditer(formula):
-            left = m.group(1)
-            right = m.group(2)
-
-            swapped = f"{right} {op} {left}"
-            candidate = formula[:m.start()] + swapped + formula[m.end():]
-            mutants.append(candidate)
-
-    return mutants
-
-
-def mutate_formula(formula):
-    original = canonical(formula)
-    if original is None:
-        raise ValueError(f"Invalid LTL formula: {formula}")
-
-    candidates = []
-    candidates.extend(regex_mutations(formula))
-    candidates.extend(literal_negation_mutations(formula))
-    candidates.extend(until_like_swap_mutations(formula))
+    original = spot.formula(formula_str)
 
     mutants = []
-    seen = {original}
+    seen = set()
 
-    for candidate in candidates:
-        cand_canon = canonical(candidate)
+    for mutant in generate_mutants_at_all_nodes(original):
+        mutant_str = str(mutant)
 
-        if cand_canon and cand_canon not in seen:
-            seen.add(cand_canon)
-            mutants.append(cand_canon)
+        if mutant_str not in seen and mutant_str != str(original):
+            seen.add(mutant_str)
+            mutants.append(mutant_str)
 
     return mutants
 
@@ -183,7 +169,7 @@ def rejecting_traces(formula):
 
 
 def generate_traces_by_mutation(formula):
-    mutants = mutate_formula(formula)
+    mutants = mutate_ltl_formula(formula)
 
     positives = []
     negatives = []

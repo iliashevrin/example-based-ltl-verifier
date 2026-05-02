@@ -8,7 +8,7 @@ from utils import get_words_from_conditions, check_acceptance
 
 
 
-def generate_traces_by_traversal(aut, max_visits=1):
+def generate_traces_by_traversal(aut, max_visits=1, max_generate=200):
 
     positive = []
     negative = []
@@ -35,6 +35,9 @@ def generate_traces_by_traversal(aut, max_visits=1):
                     positive.extend(words)
                 else:
                     negative.extend(words)
+
+                if len(positive) + len(negative) >= 200:
+                    break
 
         else:
 

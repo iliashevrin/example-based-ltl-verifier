@@ -8,6 +8,8 @@ from mutation_based_ltl_verifier import generate_traces_by_mutation
 from traversal_based_ltl_verifier import generate_traces_by_traversal 
 from utils import check_acceptance
 
+import csv
+
 
 
 def mutation_based(candidate):
@@ -35,6 +37,8 @@ def simulate_user(candidate, ground_truth, get_traces):
 
     positive, negative = get_traces(candidate)
 
+    print(len(positive + negative))
+
     # print("all positive")
     # for pos in positive:
     #     print(pos)
@@ -55,33 +59,35 @@ def simulate_user(candidate, ground_truth, get_traces):
         user_accepts = check_acceptance(spot.translate(ground_truth), trace)
 
         if user_accepts is None:
-            print(f'{trace} inconclusive, the candidate is not the desired one')
+            # print(f'{trace} inconclusive, the candidate is not the desired one')
             return traces_seen, True
 
         elif user_accepts == False and trace in positive:
-            print(f'{trace} rejected, the candidate is not the desired one')
+            # print(f'{trace} rejected, the candidate is not the desired one')
             return traces_seen, True
 
         elif user_accepts == True and trace in negative:
-            print(f'{trace} accepted, the candidate is not the desired one')
+            # print(f'{trace} accepted, the candidate is not the desired one')
             return traces_seen, True
 
         elif user_accepts == False and trace in negative:
-            print(f'{trace} rejected, keep going')
+            # print(f'{trace} rejected, keep going')
+            continue
 
         elif user_accepts == True and trace in positive:
-            print(f'{trace} accepted, keep going')
+            # print(f'{trace} accepted, keep going')
+            continue
 
     return traces_seen, False
 
 
 test_list = [
 
-    ('(!a) U (b | G!a)', '!a U b'),
-    ('G(a -> F b)', 'G(a -> X b)'),
-    ('G(a -> Xa)', 'a -> Xa'),
-    ('F(a & XFa)', 'Fa')
-
+    # ('(!a) U (b | G!a)', '!a U b'),
+    # ('G(a -> F b)', 'G(a -> X b)'),
+    # ('G(a -> Xa)', 'a -> Xa'),
+    # ('F(a & XFa)', 'Fa'),
+    ('G (x1 -> (F (x2 & F x3)))', 'G(x1->F(x3 & F(x2)))'),
 
 ]
 
@@ -99,15 +105,28 @@ if __name__ == "__main__":
 
     seen = 0
     success = 0
-
-    for candidate, ground_truth in test_list:
-        traces_seen, rejected = simulate_user(candidate, ground_truth, func)
-
-        seen += traces_seen
-        if rejected:
-            success += 1
+    total = 0
 
 
-    print(seen / len(test_list))
-    print(success / len(test_list))
+    with open(sys.argv[2], newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+
+        for row in reader:
+            ground_truth = row["Ground Truth"]
+            candidate = row["Response"]
+            total += 1
+
+    # for candidate, ground_truth in test_list:
+
+            print(ground_truth, candidate)
+
+            traces_seen, rejected = simulate_user(candidate, ground_truth, func)
+
+            seen += traces_seen
+            if rejected:
+                success += 1
+
+
+    print(seen / total)
+    print(success / total)
 
