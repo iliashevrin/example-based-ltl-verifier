@@ -16,7 +16,7 @@ x1 is true in exactly one state.,F(x1) & G(x1 -> X(G(!x1))),x1 : x1
 Make x2 hold in any and only those states which come after the last state in which x1 holds.,G (x1-> X(!x1 U X2)),"x1 : x1 , x2 : x2"
 "Given a request signal x1, the grant signal x2 should eventually be asserted.",G(x1 -> F(X(x2))),"x1 : x1 , x2 : x2"
 "It is never eventually false that if x1 is true then x2 and x3 are true, but only after x4 is true (which will happen).",G (F(x4 -> (!(F !x1->(x2 & x3))))),"x1 : x1 , x2 : x2 , x3 : x3"
-"There are 2 clients who perform read/write on the same file. Only one client can write at a time and while writing no one can read the file. x1 is true if client 1 is writing, x2 is true if client 2 is writing, x3 is true is true if client 1 is reading, x4 is true if client 2 is reading.",G(!(x1 & x3) & !(x2 & x4) !(x2 & x3) &!(x1 & x4) & ((x2 | x3)  ->!(x1 | x4))),"x1 : x1 , x2 : x2 , x3 : x3, x4 : x4"
+"There are 2 clients who perform read/write on the same file. Only one client can write at a time and while writing no one can read the file. x1 is true if client 1 is writing, x2 is true if client 2 is writing, x3 is true is true if client 1 is reading, x4 is true if client 2 is reading.",G(!(x1 & x3) & !(x2 & x4) & !(x2 & x3) &!(x1 & x4) & ((x2 | x3)  ->!(x1 | x4))),"x1 : x1 , x2 : x2 , x3 : x3, x4 : x4"
 It is always true that x1 is true and that x1 will eventually become false.,G(x1 &  F(!x1)),x1 : x1
 The pattern of true and false of x1 in the first 3 entries repeats.,G((x1 & X(!x1) & X(X(x1))) | (!x1 & X(x1) & X(X(!x1)))),x1 : x1
 "x1 starts true, and then never again becomes true.",x1 & X(G(!x1)),x1 : x1

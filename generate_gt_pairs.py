@@ -17,9 +17,25 @@ import config
 os.environ['OPENAI_API_KEY'] = config.OPENAI_API_KEY
 
 
-PROMPT = """Translate the following natural language requirement into Linear Temporal Logic.
+PROMPT = """Translate the following natural language requirement into Linear Temporal Logic (LTL).
 
-Return EXACTLY one LTL formula and nothing else.
+Use STRICT programming-style notation:
+- F for "finally"
+- G for "globally"
+- X for "next"
+- U for "until"
+- ! for negation
+- & for AND
+- | for OR
+- -> for implication
+- <-> for equivalence (iff)
+
+Do NOT use LaTeX or any mathematical symbols such as ◇, □, ¬, ∧, ∨, etc.
+Do NOT use the equality sign.
+Do NOT include explanations, comments, or multiple formulas.
+
+Return EXACTLY one LTL formula as a single line.
+The output must be directly parseable as an LTL formula.
 
 Requirement:
 {requirement}
@@ -66,7 +82,7 @@ def semantically_equivalent(formula_a: str, formula_b: str) -> bool:
         f_a = spot.formula(formula_a)
         f_b = spot.formula(formula_b)
 
-        xor_formula = spot.formula.Not(spot.formula.EEquiv(f_a, f_b))
+        xor_formula = spot.formula.Not(spot.formula.Equiv(f_a, f_b))
         return spot.translate(xor_formula).is_empty()
 
     except Exception as exc:
