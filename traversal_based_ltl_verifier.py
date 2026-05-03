@@ -8,7 +8,21 @@ from utils import get_words_from_conditions, check_acceptance
 
 
 
-def generate_traces_by_traversal(aut, max_visits=1, max_generate=200):
+
+
+def generate_traces_by_traversal(candidate):
+
+    aut = spot.translate(candidate, 'parity', 'sbacc', 'state-based', 'complete', 'colored', 'deterministic')
+    positive1, negative1 = generate_traces(aut, max_visits=1)
+    positive2, negative2 = generate_traces(aut, max_visits=2)
+
+    positive = positive1 + positive2
+    negative = negative1 + negative2
+
+    return positive, negative
+
+
+def generate_traces(aut, max_visits=1, max_generate=200):
 
     positive = []
     negative = []
@@ -30,11 +44,15 @@ def generate_traces_by_traversal(aut, max_visits=1, max_generate=200):
             conditions = [spot.bdd_format_formula(aut.get_dict(), edge.cond) for edge in path]
             words = get_words_from_conditions(conditions, index)
 
+            props = visited.copy()
+            props[state] += 1
+            props = str([props[edge.src] for edge in path] + [props[state]])
+
             if words:
                 if aut.intersects(spot.parse_word(words[0])):
-                    positive.extend(words)
+                    positive.extend([(word, props) for word in words])
                 else:
-                    negative.extend(words)
+                    negative.extend([(word, props) for word in words])
 
                 if len(positive) + len(negative) >= 200:
                     break

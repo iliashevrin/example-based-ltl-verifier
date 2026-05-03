@@ -12,24 +12,7 @@ import csv
 
 
 
-def mutation_based(candidate):
 
-    positive, negative = generate_traces_by_mutation(candidate)
-    positive = [p[1] for p in positive]
-    negative = [p[1] for p in negative]
-
-    return positive, negative
-
-def automaton_traversal(candidate):
-
-    aut = spot.translate(candidate, 'parity', 'sbacc', 'state-based', 'complete', 'colored', 'deterministic')
-    positive1, negative1 = generate_traces_by_traversal(aut, max_visits=1)
-    positive2, negative2 = generate_traces_by_traversal(aut, max_visits=2)
-
-    positive = positive1 + positive2
-    negative = negative1 + negative2
-
-    return positive, negative
 
 
 
@@ -53,22 +36,22 @@ def simulate_user(candidate, ground_truth, get_traces):
 
     traces_seen = 0
 
-    for trace in set(positive + negative):
+    for trace, props in set(positive + negative):
         traces_seen += 1
 
         user_accepts = check_acceptance(spot.translate(ground_truth), trace)
 
         if user_accepts is None:
             # print(f'{trace} inconclusive, the candidate is not the desired one')
-            return traces_seen, True
+            return traces_seen, props
 
         elif user_accepts == False and trace in positive:
             # print(f'{trace} rejected, the candidate is not the desired one')
-            return traces_seen, True
+            return traces_seen, props
 
         elif user_accepts == True and trace in negative:
             # print(f'{trace} accepted, the candidate is not the desired one')
-            return traces_seen, True
+            return traces_seen, props
 
         elif user_accepts == False and trace in negative:
             # print(f'{trace} rejected, keep going')
@@ -78,7 +61,7 @@ def simulate_user(candidate, ground_truth, get_traces):
             # print(f'{trace} accepted, keep going')
             continue
 
-    return traces_seen, False
+    return traces_seen, None
 
 
 test_list = [
@@ -97,15 +80,17 @@ if __name__ == "__main__":
 
 
     if sys.argv[1] == "TRAVERSAL":
-        func = automaton_traversal
+        func = generate_traces_by_traversal
     elif sys.argv[1] == "MUTATION":
-        func = mutation_based
+        func = generate_traces_by_mutation
     else:
         raise("Incorrect example generation function")
 
     seen = 0
     success = 0
     total = 0
+
+    props_map = {}
 
 
     with open(sys.argv[2], newline="", encoding="utf-8") as f:
@@ -120,13 +105,22 @@ if __name__ == "__main__":
 
             print(ground_truth, candidate)
 
-            traces_seen, rejected = simulate_user(candidate, ground_truth, func)
+            traces_seen, props = simulate_user(candidate, ground_truth, func)
 
             seen += traces_seen
-            if rejected:
+            # Incorrect candidate was successfully rejected, look at the props of the discriminating trace
+            if props is not None:
                 success += 1
+
+                if props not in props_map:
+                    props_map[props] = 1
+                else:
+                    props_map[props] += 1
 
 
     print(seen / total)
     print(success / total)
+
+    for prop in props_map:
+        print(f'{str(prop)}:{props_map[prop]}')
 

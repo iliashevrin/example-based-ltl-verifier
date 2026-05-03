@@ -6,7 +6,35 @@ import spot
 spot.setup()
 from utils import get_words_from_conditions, check_acceptance
 
+from enum import Enum
 
+
+
+class Mutation(str, Enum):
+    SWAP_F_WITH_G = "SWAP_F_WITH_G"
+    SWAP_F_WITH_X = "SWAP_F_WITH_X"
+    SWAP_G_WITH_F = "SWAP_G_WITH_F"
+    SWAP_G_WITH_X = "SWAP_G_WITH_X"
+    SWAP_X_WITH_F = "SWAP_X_WITH_F"
+    SWAP_X_WITH_G = "SWAP_X_WITH_G"
+
+    SWAP_U_WITH_W = "SWAP_U_WITH_W"
+    SWAP_W_WITH_U = "SWAP_W_WITH_U"
+
+    SWAP_U_OPERANDS = "SWAP_U_OPERANDS"
+    SWAP_W_OPERANDS = "SWAP_W_OPERANDS"
+
+    NEGATE_LITERAL = "NEGATE_LITERAL"
+    UNNEGATE_LITERAL = "UNNEGATE_LITERAL"
+
+    ADD_X_TO_LITERAL = "ADD_X_TO_LITERAL"
+    REMOVE_X_FROM_LITERAL = "REMOVE_X_FROM_LITERAL"
+
+    SWAP_AND_WITH_OR = "SWAP_AND_WITH_OR"
+    SWAP_OR_WITH_AND = "SWAP_OR_WITH_AND"
+
+    SWAP_IMPLIES_WITH_EQUIV = "SWAP_IMPLIES_WITH_EQUIV"
+    SWAP_EQUIV_WITH_IMPLIES = "SWAP_EQUIV_WITH_IMPLIES"
 
 
 
@@ -34,65 +62,78 @@ def is_plain_literal(f):
 
 
 def current_node_mutations(f):
+    """
+    Returns:
+        list[tuple[spot.formula, Mutation]]
+    """
     muts = []
 
     # 1. Swap F with G and X
     if f._is(spot.op_F):
-        muts.append(spot.formula.G(f[0]))
-        muts.append(spot.formula.X(f[0]))
+        muts.append((spot.formula.G(f[0]), Mutation.SWAP_F_WITH_G))
+        muts.append((spot.formula.X(f[0]), Mutation.SWAP_F_WITH_X))
 
     elif f._is(spot.op_G):
-        muts.append(spot.formula.F(f[0]))
-        muts.append(spot.formula.X(f[0]))
+        muts.append((spot.formula.F(f[0]), Mutation.SWAP_G_WITH_F))
+        muts.append((spot.formula.X(f[0]), Mutation.SWAP_G_WITH_X))
 
     elif f._is(spot.op_X):
+        muts.append((spot.formula.F(f[0]), Mutation.SWAP_X_WITH_F))
+        muts.append((spot.formula.G(f[0]), Mutation.SWAP_X_WITH_G))
+
         # 5. Remove X if it is in front of a literal
         if is_plain_literal(f[0]) or is_negated_literal(f[0]):
-            muts.append(f[0])
-
-        # 1. Swap X with F and G
-        muts.append(spot.formula.F(f[0]))
-        muts.append(spot.formula.G(f[0]))
+            muts.append((f[0], Mutation.REMOVE_X_FROM_LITERAL))
 
     # 2. Swap U with W
     if f._is(spot.op_U):
-        muts.append(spot.formula.W(f[0], f[1]))
+        muts.append((spot.formula.W(f[0], f[1]), Mutation.SWAP_U_WITH_W))
 
         # 3. Swap operands in U
-        muts.append(spot.formula.U(f[1], f[0]))
+        muts.append((spot.formula.U(f[1], f[0]), Mutation.SWAP_U_OPERANDS))
 
     elif f._is(spot.op_W):
-        muts.append(spot.formula.U(f[0], f[1]))
+        muts.append((spot.formula.U(f[0], f[1]), Mutation.SWAP_W_WITH_U))
 
         # 3. Swap operands in W
-        muts.append(spot.formula.W(f[1], f[0]))
+        muts.append((spot.formula.W(f[1], f[0]), Mutation.SWAP_W_OPERANDS))
 
     # 4. Negate literals and un-negate negated literals
     if is_plain_literal(f):
-        muts.append(spot.formula.Not(f))
+        muts.append((spot.formula.Not(f), Mutation.NEGATE_LITERAL))
 
         # 5. Add X in front of literals
-        muts.append(spot.formula.X(f))
+        muts.append((spot.formula.X(f), Mutation.ADD_X_TO_LITERAL))
 
     elif is_negated_literal(f):
-        muts.append(f[0])
+        muts.append((f[0], Mutation.UNNEGATE_LITERAL))
 
         # 5. Add X in front of negated literals
-        muts.append(spot.formula.X(f))
+        muts.append((spot.formula.X(f), Mutation.ADD_X_TO_LITERAL))
 
     # 6. Swap & with |
     if f._is(spot.op_And):
-        muts.append(spot.formula.Or([f[i] for i in range(children_count(f))]))
+        muts.append(
+            (
+                spot.formula.Or([f[i] for i in range(children_count(f))]),
+                Mutation.SWAP_AND_WITH_OR,
+            )
+        )
 
     elif f._is(spot.op_Or):
-        muts.append(spot.formula.And([f[i] for i in range(children_count(f))]))
+        muts.append(
+            (
+                spot.formula.And([f[i] for i in range(children_count(f))]),
+                Mutation.SWAP_OR_WITH_AND,
+            )
+        )
 
     # 7. Swap -> with <->
     if f._is(spot.op_Implies):
-        muts.append(spot.formula.Equiv(f[0], f[1]))
+        muts.append((spot.formula.Equiv(f[0], f[1]), Mutation.SWAP_IMPLIES_WITH_EQUIV))
 
     elif f._is(spot.op_Equiv):
-        muts.append(spot.formula.Implies(f[0], f[1]))
+        muts.append((spot.formula.Implies(f[0], f[1]), Mutation.SWAP_EQUIV_WITH_IMPLIES))
 
     return muts
 
@@ -100,16 +141,18 @@ def current_node_mutations(f):
 def generate_mutants_at_all_nodes(f):
     """
     Generate formulas where exactly one mutation is applied somewhere in the AST.
-    """
-    # Mutations at this node
-    for m in current_node_mutations(f):
-        yield m
 
-    # Mutations inside children
+    Yields:
+        tuple[spot.formula, Mutation]
+    """
+    for mutated, mutation_type in current_node_mutations(f):
+        yield mutated, mutation_type
+
     for i in range(children_count(f)):
         child = f[i]
-        for mutated_child in generate_mutants_at_all_nodes(child):
-            yield replace_child(f, i, mutated_child)
+
+        for mutated_child, mutation_type in generate_mutants_at_all_nodes(child):
+            yield replace_child(f, i, mutated_child), mutation_type
 
 
 def mutate_ltl_formula(formula_str):
@@ -118,19 +161,22 @@ def mutate_ltl_formula(formula_str):
         formula_str: LTL formula string
 
     Returns:
-        list[str]: unified deduplicated list of mutated formulas
+        list[tuple[str, Mutation]]:
+            Each item is (mutated_formula_string, mutation_type).
     """
     original = spot.formula(formula_str)
+    original_str = str(original)
 
     mutants = []
     seen = set()
 
-    for mutant in generate_mutants_at_all_nodes(original):
+    for mutant, mutation_type in generate_mutants_at_all_nodes(original):
         mutant_str = str(mutant)
+        key = (mutant_str, mutation_type)
 
-        if mutant_str not in seen and mutant_str != str(original):
-            seen.add(mutant_str)
-            mutants.append(mutant_str)
+        if mutant_str != original_str and key not in seen:
+            seen.add(key)
+            mutants.append((mutant_str, mutation_type))
 
     return mutants
 
@@ -177,7 +223,7 @@ def generate_traces_by_mutation(formula):
 
     original_aut = spot.translate(formula)
 
-    for mutant in mutants:
+    for mutant, mutation_type in mutants:
         # Generate candidate traces from mutant and negated mutant
         candidates = []
         candidates.extend(accepting_traces(mutant))
@@ -193,8 +239,8 @@ def generate_traces_by_mutation(formula):
             used_traces.add(trace)
 
             if is_positive == True:
-                positives.append((mutant, trace))
+                positives.append((trace, mutation_type))
             elif is_positive == False:
-                negatives.append((mutant, trace))
+                negatives.append((trace, mutation_type))
 
     return positives, negatives
