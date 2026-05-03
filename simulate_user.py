@@ -9,10 +9,25 @@ from traversal_based_ltl_verifier import generate_traces_by_traversal
 from utils import check_acceptance
 
 import csv
+import random
 
 
 
 
+def unified(formula):
+
+    positive = []
+    negative = []
+
+    pos, neg = generate_traces_by_mutation(formula)
+    positive.extend(pos)
+    negative.extend(neg)
+
+    pos, neg = generate_traces_by_traversal(formula)
+    positive.extend(pos)
+    negative.extend(neg)
+
+    return positive, negative
 
 
 
@@ -22,21 +37,12 @@ def simulate_user(candidate, ground_truth, get_traces):
 
     print(len(positive + negative))
 
-    # print("all positive")
-    # for pos in positive:
-    #     print(pos)
-
-    # print("")
-
-    # print("all negative")
-    # for neg in negative:
-    #     print(neg)
-
-    # print("")
-
     traces_seen = 0
 
-    for trace, props in set(positive + negative):
+    traces = positive + negative
+    random.shuffle(traces)
+
+    for trace, props in traces:
         traces_seen += 1
 
         user_accepts = check_acceptance(spot.translate(ground_truth), trace)
@@ -45,19 +51,19 @@ def simulate_user(candidate, ground_truth, get_traces):
             # print(f'{trace} inconclusive, the candidate is not the desired one')
             return traces_seen, props
 
-        elif user_accepts == False and trace in positive:
+        elif user_accepts == False and (trace, props) in positive:
             # print(f'{trace} rejected, the candidate is not the desired one')
             return traces_seen, props
 
-        elif user_accepts == True and trace in negative:
+        elif user_accepts == True and (trace, props) in negative:
             # print(f'{trace} accepted, the candidate is not the desired one')
             return traces_seen, props
 
-        elif user_accepts == False and trace in negative:
+        elif user_accepts == False and (trace, props) in negative:
             # print(f'{trace} rejected, keep going')
             continue
 
-        elif user_accepts == True and trace in positive:
+        elif user_accepts == True and (trace, props) in positive:
             # print(f'{trace} accepted, keep going')
             continue
 
@@ -83,6 +89,8 @@ if __name__ == "__main__":
         func = generate_traces_by_traversal
     elif sys.argv[1] == "MUTATION":
         func = generate_traces_by_mutation
+    elif sys.argv[1] == "BOTH":
+        func = unified
     else:
         raise("Incorrect example generation function")
 
@@ -123,9 +131,9 @@ if __name__ == "__main__":
 
     print(f'Total Formulas: {total}')
     print(f'Total Detected: {success}')
-    print(f'Detection Ratio: {success / total}')
-    print(f'Average Inspected Traces Until Detection: {seen_in_success / success}')
-    print(f'Average Inspected Traces When No Detection: {seen_in_failure / (total - success)}')
+    print(f'Detection Ratio: {(success / total):.3f}')
+    print(f'Average Inspected Traces Until Detection: {(seen_in_success / success):.3f}')
+    print(f'Average Inspected Traces When No Detection: {(seen_in_failure / (total - success)):.3f}')
 
     for prop in props_map:
         print(f'{str(prop)}:{props_map[prop]}')

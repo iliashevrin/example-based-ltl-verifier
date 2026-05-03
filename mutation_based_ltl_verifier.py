@@ -18,24 +18,25 @@ class Mutation(str, Enum):
     SWAP_X_WITH_F = "SWAP_X_WITH_F"
     SWAP_X_WITH_G = "SWAP_X_WITH_G"
 
+    REMOVE_F = "REMOVE_F"
+    REMOVE_G = "REMOVE_G"
+
     SWAP_U_WITH_W = "SWAP_U_WITH_W"
     SWAP_W_WITH_U = "SWAP_W_WITH_U"
-
     SWAP_U_OPERANDS = "SWAP_U_OPERANDS"
     SWAP_W_OPERANDS = "SWAP_W_OPERANDS"
 
-    NEGATE_LITERAL = "NEGATE_LITERAL"
-    UNNEGATE_LITERAL = "UNNEGATE_LITERAL"
+    ADD_NEGATION = "ADD_NEGATION"
+    REMOVE_NEGATION = "REMOVE_NEGATION"
 
-    ADD_X_TO_LITERAL = "ADD_X_TO_LITERAL"
-    REMOVE_X_FROM_LITERAL = "REMOVE_X_FROM_LITERAL"
+    ADD_X = "ADD_X"
+    REMOVE_X = "REMOVE_X"
 
     SWAP_AND_WITH_OR = "SWAP_AND_WITH_OR"
     SWAP_OR_WITH_AND = "SWAP_OR_WITH_AND"
 
     SWAP_IMPLIES_WITH_EQUIV = "SWAP_IMPLIES_WITH_EQUIV"
     SWAP_EQUIV_WITH_IMPLIES = "SWAP_EQUIV_WITH_IMPLIES"
-
 
 
 def children_count(f):
@@ -53,65 +54,49 @@ def replace_child(f, target_idx, new_child):
     return f.map(mapper)
 
 
-def is_negated_literal(f):
-    return f._is(spot.op_Not) and children_count(f) == 1 and f[0]._is(spot.op_ap)
-
-
-def is_plain_literal(f):
-    return f._is(spot.op_ap)
-
-
 def current_node_mutations(f):
-    """
-    Returns:
-        list[tuple[spot.formula, Mutation]]
-    """
     muts = []
 
-    # 1. Swap F with G and X
+    # Add negation to any subformula
+    if not f._is(spot.op_Not):
+        muts.append((spot.formula.Not(f), Mutation.ADD_NEGATION))
+
+    # Remove negation from any negated subformula
+    if f._is(spot.op_Not) and f.size() == 1:
+        muts.append((f[0], Mutation.REMOVE_NEGATION))
+
+    # Add X to any subformula
+    muts.append((spot.formula.X(f), Mutation.ADD_X))
+
+    # Remove X from any X-subformula
+    if f._is(spot.op_X) and f.size() == 1:
+        muts.append((f[0], Mutation.REMOVE_X))
+
+    # Swap F/G/X
     if f._is(spot.op_F):
         muts.append((spot.formula.G(f[0]), Mutation.SWAP_F_WITH_G))
         muts.append((spot.formula.X(f[0]), Mutation.SWAP_F_WITH_X))
+        muts.append((f[0], Mutation.REMOVE_F))
 
     elif f._is(spot.op_G):
         muts.append((spot.formula.F(f[0]), Mutation.SWAP_G_WITH_F))
         muts.append((spot.formula.X(f[0]), Mutation.SWAP_G_WITH_X))
+        muts.append((f[0], Mutation.REMOVE_G))
 
     elif f._is(spot.op_X):
         muts.append((spot.formula.F(f[0]), Mutation.SWAP_X_WITH_F))
         muts.append((spot.formula.G(f[0]), Mutation.SWAP_X_WITH_G))
 
-        # 5. Remove X if it is in front of a literal
-        if is_plain_literal(f[0]) or is_negated_literal(f[0]):
-            muts.append((f[0], Mutation.REMOVE_X_FROM_LITERAL))
-
-    # 2. Swap U with W
+    # U/W mutations
     if f._is(spot.op_U):
         muts.append((spot.formula.W(f[0], f[1]), Mutation.SWAP_U_WITH_W))
-
-        # 3. Swap operands in U
         muts.append((spot.formula.U(f[1], f[0]), Mutation.SWAP_U_OPERANDS))
 
     elif f._is(spot.op_W):
         muts.append((spot.formula.U(f[0], f[1]), Mutation.SWAP_W_WITH_U))
-
-        # 3. Swap operands in W
         muts.append((spot.formula.W(f[1], f[0]), Mutation.SWAP_W_OPERANDS))
 
-    # 4. Negate literals and un-negate negated literals
-    if is_plain_literal(f):
-        muts.append((spot.formula.Not(f), Mutation.NEGATE_LITERAL))
-
-        # 5. Add X in front of literals
-        muts.append((spot.formula.X(f), Mutation.ADD_X_TO_LITERAL))
-
-    elif is_negated_literal(f):
-        muts.append((f[0], Mutation.UNNEGATE_LITERAL))
-
-        # 5. Add X in front of negated literals
-        muts.append((spot.formula.X(f), Mutation.ADD_X_TO_LITERAL))
-
-    # 6. Swap & with |
+    # Boolean mutations
     if f._is(spot.op_And):
         muts.append(
             (
@@ -128,7 +113,7 @@ def current_node_mutations(f):
             )
         )
 
-    # 7. Swap -> with <->
+    # Implication / equivalence mutations
     if f._is(spot.op_Implies):
         muts.append((spot.formula.Equiv(f[0], f[1]), Mutation.SWAP_IMPLIES_WITH_EQUIV))
 
@@ -136,6 +121,7 @@ def current_node_mutations(f):
         muts.append((spot.formula.Implies(f[0], f[1]), Mutation.SWAP_EQUIV_WITH_IMPLIES))
 
     return muts
+
 
 
 def generate_mutants_at_all_nodes(f):

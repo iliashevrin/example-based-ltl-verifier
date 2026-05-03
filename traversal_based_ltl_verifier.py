@@ -10,19 +10,22 @@ from utils import get_words_from_conditions, check_acceptance
 
 
 
-def generate_traces_by_traversal(candidate):
+def generate_traces_by_traversal(candidate, max_visits=4):
 
     aut = spot.translate(candidate, 'parity', 'sbacc', 'state-based', 'complete', 'colored', 'deterministic')
-    positive1, negative1 = generate_traces(aut, max_visits=1)
-    positive2, negative2 = generate_traces(aut, max_visits=2)
+    positive = []
+    negative = []
 
-    positive = positive1 + positive2
-    negative = negative1 + negative2
+    for i in range(1, max_visits):
+        pos, neg = generate_traces(aut, max_visits=i)
+        positive.extend(pos)
+        negative.extend(neg)
+
 
     return positive, negative
 
 
-def generate_traces(aut, max_visits=1, max_generate=200):
+def generate_traces(aut, max_visits=1, max_generate=400):
 
     positive = []
     negative = []
