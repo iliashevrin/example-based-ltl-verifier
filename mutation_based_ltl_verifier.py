@@ -32,6 +32,9 @@ class Mutation(str, Enum):
     ADD_X = "ADD_X"
     REMOVE_X = "REMOVE_X"
 
+    ADD_F = "ADD_F"
+    ADD_G = "ADD_G"
+
     SWAP_AND_WITH_OR = "SWAP_AND_WITH_OR"
     SWAP_OR_WITH_AND = "SWAP_OR_WITH_AND"
 
@@ -67,6 +70,14 @@ def current_node_mutations(f):
 
     # Add X to any subformula
     muts.append((spot.formula.X(f), Mutation.ADD_X))
+
+    # Add F to any subformula, except if it already starts with F
+    if not f._is(spot.op_F):
+        muts.append((spot.formula.F(f), Mutation.ADD_F))
+
+    # Add G to any subformula, except if it already starts with G
+    if not f._is(spot.op_G):
+        muts.append((spot.formula.G(f), Mutation.ADD_G))
 
     # Remove X from any X-subformula
     if f._is(spot.op_X) and f.size() == 1:

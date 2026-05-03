@@ -112,8 +112,6 @@ if __name__ == "__main__":
 
     # for candidate, ground_truth in test_list:
 
-            print(ground_truth, candidate)
-
             traces_seen, props = simulate_user(candidate, ground_truth, func)
 
             # Incorrect candidate was successfully rejected, look at the props of the discriminating trace
@@ -128,6 +126,7 @@ if __name__ == "__main__":
 
             else:
                 seen_in_failure += traces_seen
+                print(f'Ground Truth: {ground_truth}; Candidate: {candidate}')
 
     print(f'Total Formulas: {total}')
     print(f'Total Detected: {success}')
@@ -135,6 +134,7 @@ if __name__ == "__main__":
     print(f'Average Inspected Traces Until Detection: {(seen_in_success / success):.3f}')
     print(f'Average Inspected Traces When No Detection: {(seen_in_failure / (total - success)):.3f}')
 
+    props_map = dict(sorted(props_map.items(), key=lambda item: item[1]))
     for prop in props_map:
         print(f'{str(prop)}:{props_map[prop]}')
 
