@@ -132,8 +132,8 @@ def main() -> None:
     parser.add_argument("output_csv", help="Output CSV file")
     parser.add_argument(
         "--model",
-        default="gpt-4.1-mini",
-        help="OpenAI model to use, default: gpt-4.1-mini",
+        default="gpt-5.4-mini",
+        help="OpenAI model to use, default: gpt-5.4-mini",
     )
 
     args = parser.parse_args()
@@ -143,7 +143,7 @@ def main() -> None:
 
     dataset = []
     gt_parse_errors = 0
-    
+
     if args.input.endswith("csv"):
 
         df = pd.read_csv(args.input)
