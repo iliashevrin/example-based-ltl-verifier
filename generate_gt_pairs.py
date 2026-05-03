@@ -3,6 +3,7 @@ import argparse
 import csv
 import os
 import sys
+import re
 
 import pandas as pd
 
@@ -13,6 +14,7 @@ import spot
 spot.setup()
 
 import config
+import json
 
 os.environ['OPENAI_API_KEY'] = config.OPENAI_API_KEY
 
@@ -110,11 +112,23 @@ def semantically_equivalent(formula_a: str, formula_b: str):
         return None
 
 
+def extract_ap_mapping(ltl_formula: str) -> str:
+    """
+    Extract AP names from the GT formula using Spot.
+    Return them as a set of strings (stringified for the prompt).
+    """
+    f = spot.formula(ltl_formula)
+    aps = sorted(str(ap) for ap in spot.atomic_prop_collect(f))
+
+    return "{" + ", ".join(aps) + "}"
+
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Translate natural language requirements to LTL and compare with ground truth."
     )
-    parser.add_argument("input_csv", help="Input CSV file")
+    parser.add_argument("input", help="Input file")
     parser.add_argument("output_csv", help="Output CSV file")
     parser.add_argument(
         "--model",
@@ -127,12 +141,59 @@ def main() -> None:
     if not os.getenv("OPENAI_API_KEY"):
         raise RuntimeError("OPENAI_API_KEY environment variable is not set.")
 
-    df = pd.read_csv(args.input_csv)
+    dataset = []
+    gt_parse_errors = 0
+    
+    if args.input.endswith("csv"):
 
-    required_columns = {"Natural Language", "Ground Truth", "Atomic Proposition"}
-    missing = required_columns - set(df.columns)
-    if missing:
-        raise ValueError(f"Missing required columns: {sorted(missing)}")
+        df = pd.read_csv(args.input)
+
+        required_columns = {"Natural Language", "Ground Truth", "Atomic Proposition"}
+        missing = required_columns - set(df.columns)
+        if missing:
+            raise ValueError(f"Missing required columns: {sorted(missing)}")
+
+        for _, row in df.iterrows():
+            requirement = str(row["Natural Language"])
+            ground_truth = str(row["Ground Truth"]).strip()
+            atomic_proposition = str(row["Atomic Proposition"]).strip()
+
+            dataset.append((requirement, ground_truth, atomic_proposition))
+
+
+    if args.input.endswith("json"):
+
+        with open(args.input, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+        if not isinstance(data, list):
+            raise ValueError("Input JSON must contain an array of objects.")
+
+
+        for idx, item in enumerate(data):
+            if "nlTask" not in item or "ltlequ" not in item:
+                raise ValueError(f"Element {idx} is missing 'nlTask' or 'ltlequ'.")
+
+            requirement = str(item["nlTask"]).strip()
+            ground_truth = str(item["ltlequ"][0]).strip()[:-1]
+
+            # dataset cleanup before Spot parsing
+            ground_truth = ground_truth.replace("U", " U ")
+
+            try:
+                atomic_proposition = extract_ap_mapping(ground_truth)
+            except Exception as exc:
+                print(
+                    f"Ground-truth parse error at item {idx}; excluding:\n"
+                    f"  Ground Truth: {ground_truth}\n"
+                    f"  Error:        {exc}",
+                    file=sys.stderr,
+                )
+                gt_parse_errors += 1
+                continue
+
+            dataset.append((requirement, ground_truth, atomic_proposition))
+                       
 
     client = OpenAI()
 
@@ -141,10 +202,8 @@ def main() -> None:
     total = 0
     syntax_errors = 0
 
-    for _, row in df.iterrows():
-        requirement = str(row["Natural Language"])
-        ground_truth = str(row["Ground Truth"]).strip()
-        atomic_proposition = str(row["Atomic Proposition"]).strip()
+
+    for requirement, ground_truth, atomic_proposition in dataset:
 
         model_response = ask_chatgpt(client, args.model, requirement, atomic_proposition)
 
