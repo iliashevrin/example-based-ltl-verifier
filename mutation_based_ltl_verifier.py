@@ -7,6 +7,8 @@ spot.setup()
 from utils import get_words_from_conditions, check_acceptance
 
 from enum import Enum
+import random
+
 
 
 
@@ -40,6 +42,21 @@ class Mutation(str, Enum):
 
     SWAP_IMPLIES_WITH_EQUIV = "SWAP_IMPLIES_WITH_EQUIV"
     SWAP_EQUIV_WITH_IMPLIES = "SWAP_EQUIV_WITH_IMPLIES"
+
+
+ORDER = [
+Mutation.SWAP_G_WITH_X,
+Mutation.REMOVE_F,
+Mutation.SWAP_AND_WITH_OR,
+Mutation.SWAP_IMPLIES_WITH_EQUIV,
+Mutation.SWAP_G_WITH_F,
+Mutation.REMOVE_NEGATION,
+Mutation.ADD_X,
+Mutation.ADD_F,
+Mutation.ADD_G,
+Mutation.ADD_NEGATION,
+]
+
 
 
 def children_count(f):
@@ -209,13 +226,24 @@ def rejecting_traces(formula):
     return accepting_traces(f"!({formula})")
 
 
+def mutation_expert(candidate):
+
+    traces = mutation_gradual(candidate)
+    rank = {str(value): i for i, value in enumerate(ORDER)}
+    traces.sort(key=lambda trace: rank.get(trace[2], -1), reverse=True)
+
+    return traces
 
 
-def generate_traces_by_mutation(formula):
+def mutation_random(formula):
+    traces = mutation_gradual(formula)
+    random.shuffle(traces)
+    return traces
+
+def mutation_gradual(formula):
     mutants = mutate_ltl_formula(formula)
 
-    positives = []
-    negatives = []
+    traces = []
     used_traces = set()
 
     original_aut = spot.translate(formula)
@@ -231,13 +259,13 @@ def generate_traces_by_mutation(formula):
             if trace is None or trace in used_traces:
                 continue
 
-            is_positive = check_acceptance(original_aut, trace)
-
             used_traces.add(trace)
 
+            is_positive = check_acceptance(original_aut, trace)
             if is_positive == True:
-                positives.append((trace, mutation_type))
+                traces.append((trace, True, mutation_type))
             elif is_positive == False:
-                negatives.append((trace, mutation_type))
+                traces.append((trace, False, mutation_type))
 
-    return positives, negatives
+
+    return traces

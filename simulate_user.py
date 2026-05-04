@@ -4,45 +4,71 @@ sys.path.insert(0,'/usr/local/lib/python3.10/site-packages/')
 import spot
 spot.setup()
 import itertools
-from mutation_based_ltl_verifier import generate_traces_by_mutation 
-from traversal_based_ltl_verifier import generate_traces_by_traversal 
+from mutation_based_ltl_verifier import mutation_random, mutation_gradual, mutation_expert, Mutation
+from traversal_based_ltl_verifier import traversal_random, traversal_gradual, traversal_expert
 from utils import check_acceptance
 
 import csv
 import random
 
 
+ORDER = [
+Mutation.SWAP_G_WITH_X,
+Mutation.REMOVE_F,
+Mutation.SWAP_IMPLIES_WITH_EQUIV,
+Mutation.SWAP_G_WITH_F,
+[1, 1, 2, 2, 3, 3],
+[1, 2, 1],
+Mutation.SWAP_AND_WITH_OR,
+[1, 2, 2, 3, 3],
+[1, 1, 2, 3, 3],
+Mutation.REMOVE_NEGATION,
+Mutation.ADD_F,
+[1, 2, 3, 4, 1],
+Mutation.ADD_G,
+Mutation.ADD_X,
+[1, 2, 3, 2],
+[1, 1, 1, 2, 2],
+[1, 2, 3, 4, 4],
+[1, 1, 2, 1, 1],
+Mutation.ADD_NEGATION,
+[1, 1, 2, 2, 2],
+[1, 2, 3, 3],
+[1, 2, 2],
+[1, 1],
+]
 
 
-def unified(formula):
 
-    positive = []
-    negative = []
+def unified_expert(formula):
 
-    pos, neg = generate_traces_by_mutation(formula)
-    positive.extend(pos)
-    negative.extend(neg)
+    traces = mutation_gradual(formula)
+    traces.extend(traversal_gradual(formula))
 
-    pos, neg = generate_traces_by_traversal(formula)
-    positive.extend(pos)
-    negative.extend(neg)
+    rank = {str(value): i for i, value in enumerate(ORDER)}
+    traces.sort(key=lambda trace: rank.get(trace[2], -1), reverse=True)
 
-    return positive, negative
+    return traces
 
 
+def unified_random(formula):
 
-def simulate_user(candidate, ground_truth, get_traces):
+    traces = mutation_gradual(formula)
+    traces.extend(traversal_gradual(formula))
+    random.shuffle(traces)
+    return traces
 
-    positive, negative = get_traces(candidate)
 
-    print(len(positive + negative))
+
+
+def simulate_user(candidate, ground_truth, method):
+
+    traces = method(candidate)
 
     traces_seen = 0
 
-    traces = positive + negative
-    random.shuffle(traces)
 
-    for trace, props in traces:
+    for trace, is_positive, props in traces:
         traces_seen += 1
 
         user_accepts = check_acceptance(spot.translate(ground_truth), trace)
@@ -51,19 +77,19 @@ def simulate_user(candidate, ground_truth, get_traces):
             # print(f'{trace} inconclusive, the candidate is not the desired one')
             return traces_seen, props
 
-        elif user_accepts == False and (trace, props) in positive:
+        elif user_accepts == False and is_positive:
             # print(f'{trace} rejected, the candidate is not the desired one')
             return traces_seen, props
 
-        elif user_accepts == True and (trace, props) in negative:
+        elif user_accepts == True and not is_positive:
             # print(f'{trace} accepted, the candidate is not the desired one')
             return traces_seen, props
 
-        elif user_accepts == False and (trace, props) in negative:
+        elif user_accepts == False and not is_positive:
             # print(f'{trace} rejected, keep going')
             continue
 
-        elif user_accepts == True and (trace, props) in positive:
+        elif user_accepts == True and is_positive:
             # print(f'{trace} accepted, keep going')
             continue
 
@@ -85,14 +111,24 @@ test_list = [
 if __name__ == "__main__":
 
 
-    if sys.argv[1] == "TRAVERSAL":
-        func = generate_traces_by_traversal
-    elif sys.argv[1] == "MUTATION":
-        func = generate_traces_by_mutation
-    elif sys.argv[1] == "BOTH":
-        func = unified
+    if sys.argv[1] == "TRAVERSAL_RANDOM":
+        generation_method = traversal_random
+    elif sys.argv[1] == "TRAVERSAL_GRADUAL":
+        generation_method = traversal_gradual
+    elif sys.argv[1] == "TRAVERSAL_EXPERT":
+        generation_method = traversal_expert
+    elif sys.argv[1] == "MUTATION_RANDOM":
+        generation_method = mutation_random
+    elif sys.argv[1] == "MUTATION_GRADUAL":
+        generation_method = mutation_gradual
+    elif sys.argv[1] == "MUTATION_EXPERT":
+        generation_method = mutation_expert
+    elif sys.argv[1] == "UNIFIED_RANDOM":
+        generation_method = unified_random
+    elif sys.argv[1] == "UNIFIED_EXPERT":
+        generation_method = unified_expert
     else:
-        raise("Incorrect example generation function")
+        raise ValueError("Incorrect example generation function")
 
     seen_in_success = 0
     seen_in_failure = 0
@@ -112,7 +148,7 @@ if __name__ == "__main__":
 
     # for candidate, ground_truth in test_list:
 
-            traces_seen, props = simulate_user(candidate, ground_truth, func)
+            traces_seen, props = simulate_user(candidate, ground_truth, generation_method)
 
             # Incorrect candidate was successfully rejected, look at the props of the discriminating trace
             if props is not None:

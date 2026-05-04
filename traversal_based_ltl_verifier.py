@@ -5,31 +5,57 @@ import spot
 spot.setup()
 import itertools
 from utils import get_words_from_conditions, check_acceptance
+import random
+
+
+ORDER = [
+[1, 1, 2, 2, 3, 3],
+[1, 2, 1],
+[1, 2, 3, 4, 1],
+[1, 2, 2, 3, 3],
+[1, 1, 2, 3, 3],
+[1, 2, 3, 2],
+[1, 1, 1, 2, 2],
+[1, 2, 3, 4, 4],
+[1, 1, 2, 1, 1],
+[1, 1, 2, 2],
+[1, 2, 3, 3],
+[1, 2, 2],
+[1, 1],
+]
 
 
 
+def traversal_expert(candidate, max_visits=2):
+
+    traces = traversal_gradual(candidate, max_visits)
+    rank = {str(value): i for i, value in enumerate(ORDER)}
+    traces.sort(key=lambda trace: rank.get(trace[2], -1), reverse=True)
+
+    return traces
 
 
-def generate_traces_by_traversal(candidate, max_visits=4):
+def traversal_random(candidate, max_visits=2):
+
+    traces = traversal_gradual(candidate, max_visits)
+    random.shuffle(traces)
+    return traces
+
+
+def traversal_gradual(candidate, max_visits=2):
 
     aut = spot.translate(candidate, 'parity', 'sbacc', 'state-based', 'complete', 'colored', 'deterministic')
-    positive = []
-    negative = []
 
+    traces = []
     for i in range(1, max_visits):
-        pos, neg = generate_traces(aut, max_visits=i)
-        positive.extend(pos)
-        negative.extend(neg)
-
-
-    return positive, negative
+        traces.extend(generate_traces(aut, i))
+    return traces
 
 
 
-def generate_traces(aut, max_visits=1, max_generate=200):
+def generate_traces(aut, max_visits, max_generate=200):
 
-    positive = []
-    negative = []
+    traces = []
     paths = []
 
     for edge in aut.out(aut.get_init_state_number()):
@@ -63,11 +89,11 @@ def generate_traces(aut, max_visits=1, max_generate=200):
 
             if words:
                 if aut.intersects(spot.parse_word(words[0])):
-                    positive.extend([(word, props) for word in words])
+                    traces.extend([(word, True, props) for word in words])
                 else:
-                    negative.extend([(word, props) for word in words])
+                    traces.extend([(word, False, props) for word in words])
 
-                if len(positive) + len(negative) >= max_generate:
+                if len(traces) >= max_generate:
                     break
 
         else:
@@ -80,4 +106,4 @@ def generate_traces(aut, max_visits=1, max_generate=200):
             for edge in aut.out(state):
                 paths.append((path + [edge], visited.copy()))
 
-    return positive, negative
+    return traces
