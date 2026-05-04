@@ -25,7 +25,8 @@ def generate_traces_by_traversal(candidate, max_visits=4):
     return positive, negative
 
 
-def generate_traces(aut, max_visits=1, max_generate=400):
+
+def generate_traces(aut, max_visits=1, max_generate=200):
 
     positive = []
     negative = []
@@ -47,9 +48,18 @@ def generate_traces(aut, max_visits=1, max_generate=400):
             conditions = [spot.bdd_format_formula(aut.get_dict(), edge.cond) for edge in path]
             words = get_words_from_conditions(conditions, index)
 
-            props = visited.copy()
-            props[state] += 1
-            props = str([props[edge.src] for edge in path] + [props[state]])
+            # props = visited.copy()
+            # props[state] += 1
+            # props = str([props[edge.src] for edge in path] + [props[state]])
+
+            props = []
+            distinct = {}
+
+            for node in [edge.src for edge in path] + [state]:
+                if node not in distinct:
+                    distinct[node] = len(distinct) + 1
+                props.append(distinct[node])
+            props = str(props)
 
             if words:
                 if aut.intersects(spot.parse_word(words[0])):
@@ -57,7 +67,7 @@ def generate_traces(aut, max_visits=1, max_generate=400):
                 else:
                     negative.extend([(word, props) for word in words])
 
-                if len(positive) + len(negative) >= 200:
+                if len(positive) + len(negative) >= max_generate:
                     break
 
         else:
