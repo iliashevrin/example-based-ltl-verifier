@@ -67,24 +67,31 @@ def simulate_user(candidate, ground_truth, method):
     traces = method(candidate)
 
     traces_seen = 0
+    trace_length = 0
+
+    distinguish_props = None
 
 
     for trace, is_positive, props in traces:
         traces_seen += 1
+        trace_length += (trace.count(";") + 1)
 
         user_accepts = check_acceptance(spot.translate(ground_truth), trace)
 
         if user_accepts is None:
             # print(f'{trace} inconclusive, the candidate is not the desired one')
-            return traces_seen, props
+            distinguish_props = props
+            break
 
         elif user_accepts == False and is_positive:
             # print(f'{trace} rejected, the candidate is not the desired one')
-            return traces_seen, props
+            distinguish_props = props
+            break
 
         elif user_accepts == True and not is_positive:
             # print(f'{trace} accepted, the candidate is not the desired one')
-            return traces_seen, props
+            distinguish_props = props
+            break
 
         elif user_accepts == False and not is_positive:
             # print(f'{trace} rejected, keep going')
@@ -94,7 +101,7 @@ def simulate_user(candidate, ground_truth, method):
             # print(f'{trace} accepted, keep going')
             continue
 
-    return traces_seen, None
+    return traces_seen, trace_length/traces_seen, distinguish_props
 
 
 test_list = [
@@ -115,7 +122,7 @@ def stats(data):
     std_val = statistics.stdev(data)     # Standard Deviation (sample)
     max_val = max(data)                  # Built-in max function
 
-    return f"Avg: {avg_val:.3f}, Median: {med_val}, Std: {std_val:.2f}, Max: {max_val}"
+    return f"Avg: {avg_val:.3f}, Median: {med_val:.2f}, Std: {std_val:.2f}, Max: {max_val:.2f}"
 
 
 
@@ -143,6 +150,7 @@ if __name__ == "__main__":
 
     seen_in_success = []
     seen_in_failure = []
+    trace_lengths = []
     success = 0
     total = 0
 
@@ -157,9 +165,9 @@ if __name__ == "__main__":
             candidate = row["Response"]
             total += 1
 
-    # for candidate, ground_truth in test_list:
+            traces_seen, trace_length, props = simulate_user(candidate, ground_truth, generation_method)
 
-            traces_seen, props = simulate_user(candidate, ground_truth, generation_method)
+            trace_lengths.append(trace_length)
 
             # Incorrect candidate was successfully rejected, look at the props of the discriminating trace
             if props is not None:
@@ -179,9 +187,10 @@ if __name__ == "__main__":
     print(f'Total Detected: {success}')
     print(f'Detection Ratio: {(success / total):.3f}')
 
-
     print(f'Inspected Traces Until Detection: {stats(seen_in_success)}')
     print(f'Inspected Traces When No Detection: {stats(seen_in_failure)}')
+
+    print(f'Trace Lengths: {stats(trace_lengths)}')
 
     props_map = dict(sorted(props_map.items(), key=lambda item: item[1]))
     for prop in props_map:
