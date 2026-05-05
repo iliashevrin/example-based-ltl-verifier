@@ -26,7 +26,7 @@ ORDER = [
 
 
 
-def traversal_expert(candidate, max_visits=2):
+def traversal_expert(candidate, max_visits=3):
 
     traces = traversal_gradual(candidate, max_visits)
     rank = {str(value): i for i, value in enumerate(ORDER)}
@@ -35,14 +35,14 @@ def traversal_expert(candidate, max_visits=2):
     return traces
 
 
-def traversal_random(candidate, max_visits=2):
+def traversal_random(candidate, max_visits=3):
 
     traces = traversal_gradual(candidate, max_visits)
     random.shuffle(traces)
     return traces
 
 
-def traversal_gradual(candidate, max_visits=2):
+def traversal_gradual(candidate, max_visits=3):
 
     aut = spot.translate(candidate, 'parity', 'sbacc', 'state-based', 'complete', 'colored', 'deterministic')
 
@@ -51,6 +51,18 @@ def traversal_gradual(candidate, max_visits=2):
         traces.extend(generate_traces(aut, i))
     return traces
 
+
+
+def largest_repeated_sublist(nums: list[int]) -> int:
+    n = len(nums)
+
+    for size in range(1, n + 1):
+        if n % size == 0:
+            pattern = nums[:size]
+            if pattern * (n // size) == nums:
+                return size
+
+    return nums
 
 
 def generate_traces(aut, max_visits, max_generate=200):
@@ -70,22 +82,24 @@ def generate_traces(aut, max_visits, max_generate=200):
 
         if state in visited and visited[state] == max_visits:
 
-            index = [edge.src for edge in path].index(state)
+            nodes = [edge.src for edge in path]
+            index = nodes.index(state)
+            sublist = largest_repeated_sublist(nodes[index:])
+
+            path = path[:index+sublist]
+
+            
             conditions = [spot.bdd_format_formula(aut.get_dict(), edge.cond) for edge in path]
             words = get_words_from_conditions(conditions, index)
 
-            # props = visited.copy()
-            # props[state] += 1
-            # props = str([props[edge.src] for edge in path] + [props[state]])
+            mapping = []
+            nodes = nodes[:index+sublist] + [state]
 
-            props = []
-            distinct = {}
+            for node in nodes:
+                if node not in mapping:
+                    mapping.append(node)
 
-            for node in [edge.src for edge in path] + [state]:
-                if node not in distinct:
-                    distinct[node] = len(distinct) + 1
-                props.append(distinct[node])
-            props = str(props)
+            props = str([mapping.index(node) for node in nodes])
 
             if words:
                 if aut.intersects(spot.parse_word(words[0])):

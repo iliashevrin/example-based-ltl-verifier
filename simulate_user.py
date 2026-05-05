@@ -10,6 +10,7 @@ from utils import check_acceptance
 
 import csv
 import random
+import statistics
 
 
 ORDER = [
@@ -32,7 +33,7 @@ Mutation.ADD_X,
 [1, 2, 3, 4, 4],
 [1, 1, 2, 1, 1],
 Mutation.ADD_NEGATION,
-[1, 1, 2, 2, 2],
+[1, 1, 2, 2],
 [1, 2, 3, 3],
 [1, 2, 2],
 [1, 1],
@@ -107,6 +108,16 @@ test_list = [
 ]
 
 
+def stats(data):
+
+    avg_val = statistics.mean(data)      # Average (Arithmetic Mean)
+    med_val = statistics.median(data)    # Median
+    std_val = statistics.stdev(data)     # Standard Deviation (sample)
+    max_val = max(data)                  # Built-in max function
+
+    return f"Avg: {avg_val:.3f}, Median: {med_val}, Std: {std_val:.2f}, Max: {max_val}"
+
+
 
 if __name__ == "__main__":
 
@@ -130,8 +141,8 @@ if __name__ == "__main__":
     else:
         raise ValueError("Incorrect example generation function")
 
-    seen_in_success = 0
-    seen_in_failure = 0
+    seen_in_success = []
+    seen_in_failure = []
     success = 0
     total = 0
 
@@ -153,7 +164,7 @@ if __name__ == "__main__":
             # Incorrect candidate was successfully rejected, look at the props of the discriminating trace
             if props is not None:
                 success += 1
-                seen_in_success += traces_seen
+                seen_in_success.append(traces_seen)
 
                 if props not in props_map:
                     props_map[props] = 1
@@ -161,14 +172,16 @@ if __name__ == "__main__":
                     props_map[props] += 1
 
             else:
-                seen_in_failure += traces_seen
+                seen_in_failure.append(traces_seen)
                 print(f'Ground Truth: {ground_truth}; Candidate: {candidate}')
 
     print(f'Total Formulas: {total}')
     print(f'Total Detected: {success}')
     print(f'Detection Ratio: {(success / total):.3f}')
-    print(f'Average Inspected Traces Until Detection: {(seen_in_success / success):.3f}')
-    print(f'Average Inspected Traces When No Detection: {(seen_in_failure / (total - success)):.3f}')
+
+
+    print(f'Inspected Traces Until Detection: {stats(seen_in_success)}')
+    print(f'Inspected Traces When No Detection: {stats(seen_in_failure)}')
 
     props_map = dict(sorted(props_map.items(), key=lambda item: item[1]))
     for prop in props_map:
