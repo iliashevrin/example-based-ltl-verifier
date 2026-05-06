@@ -46,15 +46,16 @@ class Mutation(str, Enum):
     # SWAP_APS = "SWAP_APS"
 
 
-BEST_ORDER = [
+EXPERT_ORDER = [
+    Mutation.SWAP_G_WITH_F,
+    Mutation.SWAP_F_WITH_X,
+    Mutation.REMOVE_G,
+    Mutation.SWAP_IMPLIES_WITH_EQUIV,
     Mutation.SWAP_G_WITH_X,
     Mutation.REMOVE_F,
-    Mutation.SWAP_AND_WITH_OR,
-    Mutation.SWAP_IMPLIES_WITH_EQUIV,
-    Mutation.SWAP_G_WITH_F,
     Mutation.REMOVE_NEGATION,
-    Mutation.ADD_X,
     Mutation.ADD_F,
+    Mutation.ADD_X,
     Mutation.ADD_G,
     Mutation.ADD_NEGATION,
 ]
