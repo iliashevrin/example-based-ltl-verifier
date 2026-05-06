@@ -45,16 +45,16 @@ class Mutation(str, Enum):
 
 
 BEST_ORDER = [
-Mutation.SWAP_G_WITH_X,
-Mutation.REMOVE_F,
-Mutation.SWAP_AND_WITH_OR,
-Mutation.SWAP_IMPLIES_WITH_EQUIV,
-Mutation.SWAP_G_WITH_F,
-Mutation.REMOVE_NEGATION,
-Mutation.ADD_X,
-Mutation.ADD_F,
-Mutation.ADD_G,
-Mutation.ADD_NEGATION,
+    Mutation.SWAP_G_WITH_X,
+    Mutation.REMOVE_F,
+    Mutation.SWAP_AND_WITH_OR,
+    Mutation.SWAP_IMPLIES_WITH_EQUIV,
+    Mutation.SWAP_G_WITH_F,
+    Mutation.REMOVE_NEGATION,
+    Mutation.ADD_X,
+    Mutation.ADD_F,
+    Mutation.ADD_G,
+    Mutation.ADD_NEGATION,
 ]
 
 
@@ -229,7 +229,7 @@ def rejecting_traces(formula):
 def mutation_expert(candidate):
 
     traces = mutation_gradual(candidate)
-    rank = {str(value): i for i, value in enumerate(ORDER)}
+    rank = {str(value): i for i, value in enumerate(EXPERT_ORDER)}
     traces.sort(key=lambda trace: rank.get(trace[2], -1), reverse=True)
 
     return traces

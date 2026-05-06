@@ -8,41 +8,41 @@ from utils import get_words_from_conditions, check_acceptance
 import random
 
 
-BEST_ORDER = [
-[1, 1, 2, 2, 3, 3],
-[1, 2, 1],
-[1, 2, 3, 4, 1],
-[1, 2, 2, 3, 3],
-[1, 1, 2, 3, 3],
-[1, 2, 3, 2],
-[1, 1, 1, 2, 2],
-[1, 2, 3, 4, 4],
-[1, 1, 2, 1, 1],
-[1, 1, 2, 2],
-[1, 2, 3, 3],
-[1, 2, 2],
-[1, 1],
+EXPERT_ORDER = [
+    [1, 1, 2, 2, 3, 3],
+    [1, 2, 1],
+    [1, 2, 3, 4, 1],
+    [1, 2, 2, 3, 3],
+    [1, 1, 2, 3, 3],
+    [1, 2, 3, 2],
+    [1, 1, 1, 2, 2],
+    [1, 2, 3, 4, 4],
+    [1, 1, 2, 1, 1],
+    [1, 1, 2, 2],
+    [1, 2, 3, 3],
+    [1, 2, 2],
+    [1, 1],
 ]
 
 
 
-def traversal_expert(candidate, max_visits=3):
+def traversal_expert(candidate, max_visits=4):
 
     traces = traversal_gradual(candidate, max_visits)
-    rank = {str(value): i for i, value in enumerate(ORDER)}
+    rank = {str(value): i for i, value in enumerate(EXPERT_ORDER)}
     traces.sort(key=lambda trace: rank.get(trace[2], -1), reverse=True)
 
     return traces
 
 
-def traversal_random(candidate, max_visits=3):
+def traversal_random(candidate, max_visits=4):
 
     traces = traversal_gradual(candidate, max_visits)
     random.shuffle(traces)
     return traces
 
 
-def traversal_gradual(candidate, max_visits=3):
+def traversal_gradual(candidate, max_visits=4):
 
     aut = spot.translate(candidate, 'parity', 'sbacc', 'state-based', 'complete', 'colored', 'deterministic')
 

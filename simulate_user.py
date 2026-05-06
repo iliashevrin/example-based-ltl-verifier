@@ -14,29 +14,29 @@ import statistics
 
 
 BEST_ORDER = [
-Mutation.SWAP_G_WITH_X,
-Mutation.REMOVE_F,
-Mutation.SWAP_IMPLIES_WITH_EQUIV,
-Mutation.SWAP_G_WITH_F,
-[1, 1, 2, 2, 3, 3],
-[1, 2, 1],
-Mutation.SWAP_AND_WITH_OR,
-[1, 2, 2, 3, 3],
-[1, 1, 2, 3, 3],
-Mutation.REMOVE_NEGATION,
-Mutation.ADD_F,
-[1, 2, 3, 4, 1],
-Mutation.ADD_G,
-Mutation.ADD_X,
-[1, 2, 3, 2],
-[1, 1, 1, 2, 2],
-[1, 2, 3, 4, 4],
-[1, 1, 2, 1, 1],
-Mutation.ADD_NEGATION,
-[1, 1, 2, 2],
-[1, 2, 3, 3],
-[1, 2, 2],
-[1, 1],
+    Mutation.SWAP_G_WITH_X,
+    Mutation.REMOVE_F,
+    Mutation.SWAP_IMPLIES_WITH_EQUIV,
+    Mutation.SWAP_G_WITH_F,
+    [1, 1, 2, 2, 3, 3],
+    [1, 2, 1],
+    Mutation.SWAP_AND_WITH_OR,
+    [1, 2, 2, 3, 3],
+    [1, 1, 2, 3, 3],
+    Mutation.REMOVE_NEGATION,
+    Mutation.ADD_F,
+    [1, 2, 3, 4, 1],
+    Mutation.ADD_G,
+    Mutation.ADD_X,
+    [1, 2, 3, 2],
+    [1, 1, 1, 2, 2],
+    [1, 2, 3, 4, 4],
+    [1, 1, 2, 1, 1],
+    Mutation.ADD_NEGATION,
+    [1, 1, 2, 2],
+    [1, 2, 3, 3],
+    [1, 2, 2],
+    [1, 1],
 ]
 
 
@@ -46,7 +46,7 @@ def unified_expert(formula):
     traces = mutation_gradual(formula)
     traces.extend(traversal_gradual(formula))
 
-    rank = {str(value): i for i, value in enumerate(ORDER)}
+    rank = {str(value): i for i, value in enumerate(EXPERT_ORDER)}
     traces.sort(key=lambda trace: rank.get(trace[2], -1), reverse=True)
 
     return traces
@@ -182,7 +182,7 @@ if __name__ == "__main__":
             else:
                 seen_in_failure.append(traces_seen)
                 print(f'Ground Truth: {ground_truth}; Candidate: {candidate}')
-                print(f'Vector of candidate: {ltl_structure_vector(candidate)}')
+                # print(f'Vector of candidate: {ltl_structure_vector(candidate)}')
 
     print(f'Total Formulas: {total}')
     print(f'Total Detected: {success}')
