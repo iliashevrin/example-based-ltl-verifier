@@ -8,7 +8,7 @@ from utils import get_words_from_conditions, check_acceptance
 import random
 
 
-ORDER = [
+BEST_ORDER = [
 [1, 1, 2, 2, 3, 3],
 [1, 2, 1],
 [1, 2, 3, 4, 1],
@@ -65,7 +65,7 @@ def largest_repeated_sublist(nums: list[int]) -> int:
     return nums
 
 
-def generate_traces(aut, max_visits, max_generate=200):
+def generate_traces(aut, max_visits, max_generate=100):
 
     traces = []
     paths = []

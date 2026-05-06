@@ -44,7 +44,7 @@ class Mutation(str, Enum):
     SWAP_EQUIV_WITH_IMPLIES = "SWAP_EQUIV_WITH_IMPLIES"
 
 
-ORDER = [
+BEST_ORDER = [
 Mutation.SWAP_G_WITH_X,
 Mutation.REMOVE_F,
 Mutation.SWAP_AND_WITH_OR,

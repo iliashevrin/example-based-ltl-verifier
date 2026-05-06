@@ -146,7 +146,7 @@ def main() -> None:
 
     if args.input.endswith("csv"):
 
-        df = pd.read_csv(args.input)
+        df = pd.read_csv(args.input, sep=',')
 
         required_columns = {"Natural Language", "Ground Truth", "Atomic Proposition"}
         missing = required_columns - set(df.columns)

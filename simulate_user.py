@@ -6,14 +6,14 @@ spot.setup()
 import itertools
 from mutation_based_ltl_verifier import mutation_random, mutation_gradual, mutation_expert, Mutation
 from traversal_based_ltl_verifier import traversal_random, traversal_gradual, traversal_expert
-from utils import check_acceptance
+from utils import check_acceptance, ltl_structure_vector
 
 import csv
 import random
 import statistics
 
 
-ORDER = [
+BEST_ORDER = [
 Mutation.SWAP_G_WITH_X,
 Mutation.REMOVE_F,
 Mutation.SWAP_IMPLIES_WITH_EQUIV,
@@ -182,6 +182,7 @@ if __name__ == "__main__":
             else:
                 seen_in_failure.append(traces_seen)
                 print(f'Ground Truth: {ground_truth}; Candidate: {candidate}')
+                print(f'Vector of candidate: {ltl_structure_vector(candidate)}')
 
     print(f'Total Formulas: {total}')
     print(f'Total Detected: {success}')
