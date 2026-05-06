@@ -4,8 +4,8 @@ sys.path.insert(0,'/usr/local/lib/python3.10/site-packages/')
 import spot
 spot.setup()
 import itertools
-from mutation_based_ltl_verifier import mutation_random, mutation_gradual, mutation_expert, Mutation
-from traversal_based_ltl_verifier import traversal_random, traversal_gradual, traversal_expert
+from mutation_based import mutation_random, mutation_gradual, mutation_expert, Mutation
+from traversal_based import traversal_random, traversal_gradual, traversal_expert
 from utils import check_acceptance, ltl_structure_vector
 
 import csv

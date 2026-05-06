@@ -65,7 +65,7 @@ def largest_repeated_sublist(nums: list[int]) -> int:
     return nums
 
 
-def generate_traces(aut, max_visits, max_generate=50):
+def generate_traces(aut, max_visits, max_generate=40):
 
     traces = []
     paths = []
