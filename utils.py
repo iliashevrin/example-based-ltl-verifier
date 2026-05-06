@@ -54,7 +54,7 @@ def get_words_from_conditions(conditions, index):
 
         word = build_word(single_cond, index)
         word_ptr = spot.parse_word(word)
-        word_ptr.simplify()
+        # word_ptr.simplify()
         words.append(str(word_ptr))
 
     return words

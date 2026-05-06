@@ -43,6 +43,8 @@ class Mutation(str, Enum):
     SWAP_IMPLIES_WITH_EQUIV = "SWAP_IMPLIES_WITH_EQUIV"
     SWAP_EQUIV_WITH_IMPLIES = "SWAP_EQUIV_WITH_IMPLIES"
 
+    SWAP_APS = "SWAP_APS"
+
 
 BEST_ORDER = [
     Mutation.SWAP_G_WITH_X,
@@ -56,6 +58,45 @@ BEST_ORDER = [
     Mutation.ADD_G,
     Mutation.ADD_NEGATION,
 ]
+
+
+def collect_aps(f):
+    return sorted(str(ap) for ap in spot.atomic_prop_collect(f))
+
+
+def ap_formula(name: str):
+    return spot.formula.ap(name)
+
+
+def build_ap_swap_map(aps):
+    """
+    If 2 APs: a <-> b
+    If >=3 APs: cyclic shift a->b, b->c, ..., last->first
+    """
+    if len(aps) < 2:
+        return {}
+
+    if len(aps) == 2:
+        return {
+            aps[0]: aps[1],
+            aps[1]: aps[0],
+        }
+
+    return {
+        aps[i]: aps[(i + 1) % len(aps)]
+        for i in range(len(aps))
+    }
+
+
+def apply_ap_swap(f, swap_map):
+    def mapper(node):
+        if node._is(spot.op_ap):
+            name = str(node)
+            if name in swap_map:
+                return ap_formula(swap_map[name])
+        return node.map(mapper)
+
+    return mapper(f)
 
 
 
@@ -183,6 +224,21 @@ def mutate_ltl_formula(formula_str):
 
     mutants = []
     seen = set()
+
+
+    # # AP swap/cycle mutation, applied once globally
+    # aps = collect_aps(original)
+    # swap_map = build_ap_swap_map(aps)
+
+    # if swap_map:
+    #     ap_swapped = apply_ap_swap(original, swap_map)
+    #     ap_swapped_str = str(ap_swapped)
+
+    #     if ap_swapped_str != original_str:
+    #         key = (ap_swapped_str, Mutation.SWAP_APS)
+    #         seen.add(key)
+    #         mutants.append((ap_swapped_str, Mutation.SWAP_APS))
+            
 
     for mutant, mutation_type in generate_mutants_at_all_nodes(original):
         mutant_str = str(mutant)

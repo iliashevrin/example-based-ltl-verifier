@@ -156,6 +156,8 @@ if __name__ == "__main__":
 
     props_map = {}
 
+    rows = []
+
 
     with open(sys.argv[2], newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -184,6 +186,13 @@ if __name__ == "__main__":
                 print(f'Ground Truth: {ground_truth}; Candidate: {candidate}')
                 # print(f'Vector of candidate: {ltl_structure_vector(candidate)}')
 
+                rows.append(
+                    {
+                        "Ground Truth": ground_truth,
+                        "Candidate": candidate,
+                    }
+                )
+
     print(f'Total Formulas: {total}')
     print(f'Total Detected: {success}')
     print(f'Detection Ratio: {(success / total):.3f}')
@@ -196,4 +205,14 @@ if __name__ == "__main__":
     props_map = dict(sorted(props_map.items(), key=lambda item: item[1]))
     for prop in props_map:
         print(f'{str(prop)}:{props_map[prop]}')
+
+
+    if len(sys.argv) >= 4:
+        with open(sys.argv[3], "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(
+                f,
+                fieldnames=["Ground Truth", "Candidate"],
+            )
+            writer.writeheader()
+            writer.writerows(rows)
 

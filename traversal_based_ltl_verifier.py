@@ -26,7 +26,7 @@ EXPERT_ORDER = [
 
 
 
-def traversal_expert(candidate, max_visits=4):
+def traversal_expert(candidate, max_visits=3):
 
     traces = traversal_gradual(candidate, max_visits)
     rank = {str(value): i for i, value in enumerate(EXPERT_ORDER)}
@@ -35,14 +35,14 @@ def traversal_expert(candidate, max_visits=4):
     return traces
 
 
-def traversal_random(candidate, max_visits=4):
+def traversal_random(candidate, max_visits=3):
 
     traces = traversal_gradual(candidate, max_visits)
     random.shuffle(traces)
     return traces
 
 
-def traversal_gradual(candidate, max_visits=4):
+def traversal_gradual(candidate, max_visits=3):
 
     aut = spot.translate(candidate, 'parity', 'sbacc', 'state-based', 'complete', 'colored', 'deterministic')
 
@@ -65,7 +65,7 @@ def largest_repeated_sublist(nums: list[int]) -> int:
     return nums
 
 
-def generate_traces(aut, max_visits, max_generate=100):
+def generate_traces(aut, max_visits, max_generate=50):
 
     traces = []
     paths = []
