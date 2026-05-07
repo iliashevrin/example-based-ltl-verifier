@@ -117,6 +117,9 @@ test_list = [
 
 def stats(data):
 
+    if len(data) <= 1:
+        return f"N/A"
+
     avg_val = statistics.mean(data)      # Average (Arithmetic Mean)
     med_val = statistics.median(data)    # Median
     std_val = statistics.stdev(data)     # Standard Deviation (sample)

@@ -18,6 +18,8 @@ import json
 
 os.environ['OPENAI_API_KEY'] = config.OPENAI_API_KEY
 
+from utils import collect_aps
+
 
 PROMPT = """Translate the following natural language requirement into Linear Temporal Logic (LTL).
 
@@ -142,7 +144,7 @@ def main() -> None:
         raise RuntimeError("OPENAI_API_KEY environment variable is not set.")
 
     dataset = []
-    gt_parse_errors = 0
+    parse_errors = 0
 
     if args.input.endswith("csv"):
 
@@ -161,7 +163,65 @@ def main() -> None:
             dataset.append((requirement, ground_truth, atomic_proposition))
 
 
-    if args.input.endswith("json"):
+    elif args.input == "spacewire.json":
+
+        with open(args.input, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+        if not isinstance(data, list):
+            raise ValueError("Input JSON must contain an array of objects.")
+
+
+        for idx, item in enumerate(data):
+            requirement = str(item.get("text", "")).strip()
+
+            logic_entries = item.get("logics", [])
+
+            if not isinstance(logic_entries, list):
+                continue
+
+            found_ltl = False
+
+            for logic in logic_entries:
+                if logic.get("type") != "LTL":
+                    continue
+
+                found_ltl = True
+
+                f_code = logic.get("f_code", "")
+
+                if not f_code or not str(f_code).strip():
+                    break
+
+                ground_truth = str(f_code).strip()
+
+                ground_truth = ground_truth.replace("-->", "->")
+                ground_truth = re.sub(r"\bnot\b", "!", ground_truth)
+                ground_truth = re.sub(r"\band\b", "&", ground_truth)
+                ground_truth = re.sub(r"\bor\b", "&", ground_truth)
+
+                try:
+                    ap_set = extract_ap_mapping(ground_truth)
+                except Exception as exc:
+                    print(
+                        f"Skipping item {idx} due to Spot parse error:\n"
+                        f"  Formula: {ground_truth}\n"
+                        f"  Error:   {exc}",
+                        file=sys.stderr,
+                    )
+                    parse_errors += 1
+                    break
+
+                dataset.append((requirement, ground_truth, ap_set))
+
+                # only take the first valid LTL formula
+                break
+
+            if not found_ltl:
+                continue
+                                  
+
+    elif args.input.endswith("json"):
 
         with open(args.input, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -189,7 +249,7 @@ def main() -> None:
                     f"  Error:        {exc}",
                     file=sys.stderr,
                 )
-                gt_parse_errors += 1
+                parse_errors += 1
                 continue
 
             dataset.append((requirement, ground_truth, atomic_proposition))
