@@ -4,7 +4,7 @@ import sys
 sys.path.insert(0,'/usr/local/lib/python3.10/site-packages/')
 import spot
 spot.setup()
-from utils import get_words_from_conditions, check_acceptance
+from utils import get_words_from_conditions, check_acceptance, collect_aps
 
 from enum import Enum
 import random
@@ -59,10 +59,6 @@ EXPERT_ORDER = [
     Mutation.ADD_G,
     Mutation.ADD_NEGATION,
 ]
-
-
-def collect_aps(f):
-    return sorted(str(ap) for ap in spot.atomic_prop_collect(f))
 
 
 def ap_formula(name: str):

@@ -6,7 +6,7 @@ spot.setup()
 import itertools
 from mutation_based import mutation_random, mutation_gradual, mutation_expert, Mutation
 from traversal_based import traversal_random, traversal_gradual, traversal_expert
-from utils import check_acceptance, ltl_structure_vector
+from utils import check_acceptance, ltl_structure_vector, collect_aps
 
 import csv
 import random
@@ -158,6 +158,8 @@ if __name__ == "__main__":
 
     rows = []
 
+    success_map = {}
+
 
     with open(sys.argv[2], newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -167,6 +169,9 @@ if __name__ == "__main__":
             candidate = row["Response"]
             total += 1
 
+            # if len(collect_aps(spot.formula(candidate))) <= 2:
+            #     continue
+
             traces_seen, trace_length, props = simulate_user(candidate, ground_truth, generation_method)
 
             trace_lengths.append(trace_length)
@@ -175,6 +180,11 @@ if __name__ == "__main__":
             if props is not None:
                 success += 1
                 seen_in_success.append(traces_seen)
+
+                if traces_seen in success_map:
+                    success_map[traces_seen] += 1
+                else:
+                    success_map[traces_seen] = 1
 
                 if props not in props_map:
                     props_map[props] = 1
@@ -205,6 +215,15 @@ if __name__ == "__main__":
     props_map = dict(sorted(props_map.items(), key=lambda item: item[1]))
     for prop in props_map:
         print(f'{str(prop)}:{props_map[prop]}')
+
+
+    cummulative = 0
+    for i in range(1,max(success_map.keys())):
+        if i not in success_map:
+            continue
+        cummulative += success_map[i]
+        print(f'{str(i)}:{(cummulative / success):.3f}')
+
 
 
     if len(sys.argv) >= 4:

@@ -20,6 +20,9 @@ def check_acceptance(aut, trace):
     return None
 
 
+def collect_aps(f):
+    return sorted(str(ap) for ap in spot.atomic_prop_collect(f))
+
 
 def rec_separate(cond):
     
