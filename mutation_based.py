@@ -287,6 +287,13 @@ def mutation_expert(candidate):
 
     return traces
 
+def mutation_by_length(candidate):
+
+    traces = mutation_gradual(candidate)
+    traces.sort(key=lambda trace: trace.count(";"))
+
+    return traces
+
 
 def mutation_random(formula):
     traces = mutation_gradual(formula)

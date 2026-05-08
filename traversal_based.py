@@ -35,6 +35,13 @@ def traversal_expert(candidate, max_visits=3):
 
     return traces
 
+def traversal_by_length(candidate, max_visits=3):
+
+    traces = traversal_gradual(candidate, max_visits)
+    traces.sort(key=lambda trace: trace.count(";"))
+
+    return traces
+
 
 def traversal_random(candidate, max_visits=3):
 
@@ -66,7 +73,7 @@ def largest_repeated_sublist(nums: list[int]) -> int:
     return nums
 
 
-def generate_traces(aut, max_visits, max_generate=40):
+def generate_traces(aut, max_visits, max_generate=30):
 
     traces = []
     paths = []

@@ -4,8 +4,8 @@ sys.path.insert(0,'/usr/local/lib/python3.10/site-packages/')
 import spot
 spot.setup()
 import itertools
-from mutation_based import mutation_random, mutation_gradual, mutation_expert, Mutation
-from traversal_based import traversal_random, traversal_gradual, traversal_expert
+from mutation_based import mutation_random, mutation_gradual, mutation_expert, mutation_by_length, Mutation
+from traversal_based import traversal_random, traversal_gradual, traversal_expert, traversal_by_length
 from utils import check_acceptance, ltl_structure_vector, collect_aps
 
 import csv
@@ -13,30 +13,31 @@ import random
 import statistics
 
 
-BEST_ORDER = [
+EXPERT_ORDER = [
     Mutation.SWAP_G_WITH_X,
     Mutation.REMOVE_F,
     Mutation.SWAP_IMPLIES_WITH_EQUIV,
     Mutation.SWAP_G_WITH_F,
-    [1, 1, 2, 2, 3, 3],
-    [1, 2, 1],
+    [0, 0, 1, 0],
+    [0, 1, 2, 3, 0],
     Mutation.SWAP_AND_WITH_OR,
-    [1, 2, 2, 3, 3],
-    [1, 1, 2, 3, 3],
+    [0, 1, 2, 3, 4, 5, 5],
     Mutation.REMOVE_NEGATION,
     Mutation.ADD_F,
-    [1, 2, 3, 4, 1],
+    [0, 1, 2, 3, 1],
+    [0, 1, 2, 3, 4, 4],
+    [0, 0, 1, 1, 2, 2],
     Mutation.ADD_G,
     Mutation.ADD_X,
-    [1, 2, 3, 2],
-    [1, 1, 1, 2, 2],
-    [1, 2, 3, 4, 4],
-    [1, 1, 2, 1, 1],
+    [0, 1, 1, 2, 2],
+    [0, 1, 2, 1],
+    [0, 1, 2, 3, 3],
     Mutation.ADD_NEGATION,
-    [1, 1, 2, 2],
-    [1, 2, 3, 3],
-    [1, 2, 2],
-    [1, 1],
+    [0, 1, 0],
+    [0, 0, 1, 1],
+    [0, 1, 2, 2],
+    [0, 0],
+    [0, 1, 1],
 ]
 
 
@@ -48,6 +49,15 @@ def unified_expert(formula):
 
     rank = {str(value): i for i, value in enumerate(EXPERT_ORDER)}
     traces.sort(key=lambda trace: rank.get(trace[2], -1), reverse=True)
+
+    return traces
+
+def unified_by_length(formula):
+
+    traces = mutation_gradual(formula)
+    traces.extend(traversal_gradual(formula))
+
+    traces.sort(key=lambda trace: trace.count(";"))
 
     return traces
 
@@ -134,18 +144,20 @@ if __name__ == "__main__":
 
     if sys.argv[1] == "TRAVERSAL_RANDOM":
         generation_method = traversal_random
-    elif sys.argv[1] == "TRAVERSAL_GRADUAL":
-        generation_method = traversal_gradual
+    elif sys.argv[1] == "TRAVERSAL_BY_LENGTH":
+        generation_method = traversal_by_length
     elif sys.argv[1] == "TRAVERSAL_EXPERT":
         generation_method = traversal_expert
     elif sys.argv[1] == "MUTATION_RANDOM":
         generation_method = mutation_random
-    elif sys.argv[1] == "MUTATION_GRADUAL":
-        generation_method = mutation_gradual
+    elif sys.argv[1] == "MUTATION_BY_LENGTH":
+        generation_method = mutation_by_length
     elif sys.argv[1] == "MUTATION_EXPERT":
         generation_method = mutation_expert
     elif sys.argv[1] == "UNIFIED_RANDOM":
         generation_method = unified_random
+    elif sys.argv[1] == "UNIFIED_BY_LENGTH":
+        generation_method = unified_by_length
     elif sys.argv[1] == "UNIFIED_EXPERT":
         generation_method = unified_expert
     else:
