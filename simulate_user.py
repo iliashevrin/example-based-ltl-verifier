@@ -134,8 +134,9 @@ def stats(data):
     med_val = statistics.median(data)    # Median
     std_val = statistics.stdev(data)     # Standard Deviation (sample)
     max_val = max(data)                  # Built-in max function
+    min_val = min(data)                  # Built-in min function
 
-    return f"Avg: {avg_val:.3f}, Median: {med_val:.2f}, Std: {std_val:.2f}, Max: {max_val:.2f}"
+    return f"Avg: {avg_val:.3f}, Median: {med_val:.2f}, Std: {std_val:.2f}, Max: {max_val:.2f}, Min: {min_val:.2f}"
 
 
 
@@ -175,6 +176,9 @@ if __name__ == "__main__":
 
     success_map = {}
 
+    gt_6 = 0
+    gt_10 = 0
+
 
     with open(sys.argv[2], newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -206,11 +210,17 @@ if __name__ == "__main__":
                 else:
                     props_map[props] += 1
 
+                if traces_seen > 6:
+                    gt_6 += 1
+                if traces_seen > 10:
+                    gt_10 += 1
+
             else:
                 seen_in_failure.append(traces_seen)
                 print(f'Ground Truth: {ground_truth}; Candidate: {candidate}')
                 # print(f'Vector of candidate: {ltl_structure_vector(candidate)}')
 
+                # Missed detections
                 rows.append(
                     {
                         "Ground Truth": ground_truth,
@@ -218,9 +228,15 @@ if __name__ == "__main__":
                     }
                 )
 
+                gt_6 += 1
+                gt_10 += 1
+
     print(f'Total Formulas: {total}')
     print(f'Total Detected: {success}')
     print(f'Detection Ratio: {(success / total):.3f}')
+
+    print(f'More than 6 traces ratio: {(gt_6 / total):.3f}')
+    print(f'More than 10 traces ratio: {(gt_10 / total):.3f}')
 
     print(f'Inspected Traces Until Detection: {stats(seen_in_success)}')
     print(f'Inspected Traces When No Detection: {stats(seen_in_failure)}')
