@@ -5,6 +5,9 @@ import os
 import sys
 import re
 
+from openpyxl import load_workbook
+import random
+
 import pandas as pd
 
 from openai import OpenAI
@@ -145,6 +148,180 @@ def main() -> None:
 
     dataset = []
     parse_errors = 0
+
+
+    if args.input.endswith("xlsx"):
+
+
+        wb = load_workbook(args.input, data_only=True)
+        ws = wb.active
+
+        pairs = []
+        malformed_count = 0
+
+        for row_idx, row in enumerate(ws.iter_rows(min_row=2), start=2):
+
+            try:
+                nl_text = row[1].value  # Column B
+
+                # ------------------------------------------------------------
+                # STEP 1-3 : decision2 / bool_expr2
+                # ------------------------------------------------------------
+                ltl_prefix = None
+                used_bool_expr2 = False
+                bool_expr2 = None
+
+                h_val = row[7].value  # Column H
+
+                if h_val:
+                    h_json = json.loads(h_val)
+                    decision2 = h_json[0]["decision2"]
+
+                    if "upon bool_exp2" in decision2[0]:
+                        i_val = row[8].value  # Column I
+
+                        if not i_val:
+                            raise ValueError("Missing column I")
+
+                        i_json = json.loads(i_val)
+
+                        bool_expr2 = i_json[0]["bool_exp2"][0]
+                        used_bool_expr2 = True
+
+                # ------------------------------------------------------------
+                # STEP 4-6 : decision1 / bool_expr1
+                # ------------------------------------------------------------
+                j_val = row[9].value  # Column J
+
+                if not j_val:
+                    raise ValueError("Missing column J")
+
+                j_json = json.loads(j_val)
+                decision1 = j_json[0]["decision1"]
+
+                bool_expr1 = None
+
+                if "while bool_exp1" in decision1[0] or "whenever bool_exp1" in decision1[0]:
+                    k_val = row[10].value  # Column K
+
+                    if not k_val:
+                        raise ValueError("Missing column K")
+
+                    k_json = json.loads(k_val)
+                    bool_expr1 = k_json[0]["bool_exp1"][0]
+
+                    if used_bool_expr2:
+                        ltl_prefix = (
+                            f"G(({bool_expr1} & !{bool_expr2} & X({bool_expr2})) -> "
+                        )
+                    else:
+                        ltl_prefix = f"G({bool_expr1} -> "
+
+                else:
+
+                    if "upon bool_exp1" in decision1[0]:
+
+                        k_val = row[10].value  # Column K
+
+                        if not k_val:
+                            raise ValueError("Missing column K")
+
+                        k_json = json.loads(k_val)
+                        bool_expr1 = k_json[0]["bool_exp1"][0]
+
+                        ltl_prefix = (
+                            f"G((!{bool_expr1} & X({bool_expr1})) -> "
+                        )
+
+                    elif used_bool_expr2:
+                        ltl_prefix = (
+                            f"G((!{bool_expr2} & X({bool_expr2})) -> "
+                        )
+                    else:
+
+                        ltl_prefix = "("
+
+                        # raise ValueError("No usable decision1/decision2 logic")
+
+                # ------------------------------------------------------------
+                # STEP 7-8 : decision3 random selection
+                # ------------------------------------------------------------
+                f_val = row[5].value  # Column F
+
+                if not f_val:
+                    raise ValueError("Missing column F")
+
+                f_json = json.loads(f_val)
+                decision3 = f_json[0]["decision3"]
+
+                valid_choices = [
+                    s for s in decision3
+                    if "N_DURATION" not in s
+                ]
+
+                if not valid_choices:
+                    raise ValueError("No valid decision3 entries")
+
+                chosen = random.choice(valid_choices)
+
+                # ------------------------------------------------------------
+                # STEP 9 : bool_expr3 / bool_expr4
+                # ------------------------------------------------------------
+                g_val = row[6].value  # Column G
+
+                if not g_val:
+                    raise ValueError("Missing column G")
+
+                g_json = json.loads(g_val)
+                g_first = g_json[0]
+
+                bool_expr3 = g_first["bool_exp3"][0]
+
+                # ------------------------------------------------------------
+                # STEP 10-11 : finish formula
+                # ------------------------------------------------------------
+                suffix = None
+
+                if chosen == "eventually satisfy bool_exp3":
+                    suffix = f"F({bool_expr3})"
+
+                elif chosen == "always satisfy bool_exp3":
+                    suffix = f"G({bool_expr3})"
+
+                elif chosen == "at the next timepoint satisfy bool_exp3":
+                    suffix = f"X({bool_expr3})"
+
+                elif chosen == "immediately satisfy bool_exp3":
+                    suffix = f"({bool_expr3})"
+
+                elif chosen == "until bool_exp4, satisfy bool_exp3":
+                    bool_expr4 = g_first["bool_exp4"][0]
+                    suffix = f"({bool_expr3} U {bool_expr4})"
+
+                else:
+                    raise ValueError(f"Unsupported decision3 option: {chosen}")
+
+                ltl_formula = ltl_prefix + suffix + ")"
+
+                try:
+                    ap_set = extract_ap_mapping(ltl_formula)
+                except Exception as exc:
+                    print(
+                        f"Skipping item {idx} due to Spot parse error:\n"
+                        f"  Formula: {ground_truth}\n"
+                        f"  Error:   {exc}",
+                        file=sys.stderr,
+                    )
+                    parse_errors += 1
+                    break
+
+                dataset.append((nl_text, ltl_formula, ap_set))
+
+            except Exception as e:
+                malformed_count += 1
+                print(f"Malformed row {row_idx}: {e}")
+
+
 
     if args.input.endswith("csv"):
 
