@@ -17,7 +17,10 @@ DATASIZE = {
     
     "syntaxiseasy":446,
     "ARTEMIS":136,
-    "spacewire":39
+    "spacewire":39,
+
+    "ConformalLTL":678,
+    "Synthetic":1000,
 }
 
 
