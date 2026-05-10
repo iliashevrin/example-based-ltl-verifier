@@ -1,7 +1,0 @@
-Ground Truth,Candidate
-(r U !r) & (G(!r -> G(!r))),F G !r
-(x1 U x2) | G(x1 -> X(!x1)),x1 U (x2 | G(x1 -> X(!x1)))
-<>(intersection_5&&<>(p_cone_5&&<>(street_2&&pd))),F(intersection_5 & p_cone_5 & F(street_2 & pd))
-<>(intersection_5&&<>(p_cone_5&&<>(street_2&&pd))),F(intersection_5 & p_cone_5 & F(street_2 & pd))
-<>(office_3&&<>(p_document_1&&<>(street_2&&pd))),F(office_3 & p_document_1 & F(street_2 & pd))
-<>(intersection_5&&<>(p_cone_5&&<>(street_2&&pd))),F(intersection_5 & p_cone_5 & F(street_2 & pd))

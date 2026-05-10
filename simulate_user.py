@@ -13,6 +13,14 @@ import random
 import statistics
 
 
+DATASIZE = {
+    
+    "syntaxiseasy":446,
+    "ARTEMIS":136,
+    "spacewire":39
+}
+
+
 EXPERT_ORDER = [
     Mutation.SWAP_G_WITH_X,
     Mutation.REMOVE_F,
@@ -140,6 +148,14 @@ def stats(data):
 
 
 
+def confidence(undetected_under_n, total, dataset):
+
+    mismatch = total / DATASIZE[dataset]
+    match = (1 - mismatch)
+
+    return match / (match + (mismatch * (undetected_under_n / total)))
+
+
 if __name__ == "__main__":
 
 
@@ -176,8 +192,17 @@ if __name__ == "__main__":
 
     success_map = {}
 
-    gt_6 = 0
-    gt_10 = 0
+    undetected_under_6 = 0
+    undetected_under_10 = 0
+
+    dataset = None
+    for key in DATASIZE.keys():
+        if key in sys.argv[2]:
+            dataset = key
+
+    if dataset is None:
+        raise ValueError("Incorrect dataset")
+
 
 
     with open(sys.argv[2], newline="", encoding="utf-8") as f:
@@ -211,9 +236,9 @@ if __name__ == "__main__":
                     props_map[props] += 1
 
                 if traces_seen > 6:
-                    gt_6 += 1
+                    undetected_under_6 += 1
                 if traces_seen > 10:
-                    gt_10 += 1
+                    undetected_under_10 += 1
 
             else:
                 seen_in_failure.append(traces_seen)
@@ -228,15 +253,15 @@ if __name__ == "__main__":
                     }
                 )
 
-                gt_6 += 1
-                gt_10 += 1
+                undetected_under_6 += 1
+                undetected_under_10 += 1
 
     print(f'Total Formulas: {total}')
     print(f'Total Detected: {success}')
     print(f'Detection Ratio: {(success / total):.3f}')
 
-    print(f'More than 6 traces ratio: {(gt_6 / total):.3f}')
-    print(f'More than 10 traces ratio: {(gt_10 / total):.3f}')
+    print(f'Confidence score for n=6: {confidence(undetected_under_6, total, dataset):.3f}')
+    print(f'Confidence score for n=10: {confidence(undetected_under_10, total, dataset):.3f}')
 
     print(f'Inspected Traces Until Detection: {stats(seen_in_success)}')
     print(f'Inspected Traces When No Detection: {stats(seen_in_failure)}')

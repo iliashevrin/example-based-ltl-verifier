@@ -156,13 +156,36 @@ def main() -> None:
         wb = load_workbook(args.input, data_only=True)
         ws = wb.active
 
+        # ------------------------------------------------------------
+        # Detect NL column dynamically from header row
+        # ------------------------------------------------------------
+        header_row = next(ws.iter_rows(min_row=1, max_row=1, values_only=True))
+
+        nl_col_idx = None
+
+        for idx, value in enumerate(header_row):
+            if value == "NL":
+                nl_col_idx = idx
+                break
+
+        if nl_col_idx is None:
+            raise ValueError('Could not find header column named "NL"')
+
+        # Relative offsets from NL column
+        OFFSET_F = 4   # decision3
+        OFFSET_G = 5   # bool_expr3 / bool_expr4
+        OFFSET_H = 6   # decision2
+        OFFSET_I = 7   # bool_expr2
+        OFFSET_J = 8   # decision1
+        OFFSET_K = 9   # bool_expr1
+
         pairs = []
         malformed_count = 0
 
         for row_idx, row in enumerate(ws.iter_rows(min_row=2), start=2):
 
             try:
-                nl_text = row[1].value  # Column B
+                nl_text = row[nl_col_idx].value  # Column B
 
                 # ------------------------------------------------------------
                 # STEP 1-3 : decision2 / bool_expr2
@@ -171,14 +194,14 @@ def main() -> None:
                 used_bool_expr2 = False
                 bool_expr2 = None
 
-                h_val = row[7].value  # Column H
+                h_val = row[nl_col_idx + OFFSET_H].value  # Column H
 
                 if h_val:
                     h_json = json.loads(h_val)
                     decision2 = h_json[0]["decision2"]
 
                     if "upon bool_exp2" in decision2[0]:
-                        i_val = row[8].value  # Column I
+                        i_val = row[nl_col_idx + OFFSET_I].value  # Column I
 
                         if not i_val:
                             raise ValueError("Missing column I")
@@ -191,7 +214,7 @@ def main() -> None:
                 # ------------------------------------------------------------
                 # STEP 4-6 : decision1 / bool_expr1
                 # ------------------------------------------------------------
-                j_val = row[9].value  # Column J
+                j_val = row[nl_col_idx + OFFSET_J].value  # Column J
 
                 if not j_val:
                     raise ValueError("Missing column J")
@@ -202,7 +225,7 @@ def main() -> None:
                 bool_expr1 = None
 
                 if "while bool_exp1" in decision1[0] or "whenever bool_exp1" in decision1[0]:
-                    k_val = row[10].value  # Column K
+                    k_val = row[nl_col_idx + OFFSET_K].value  # Column K
 
                     if not k_val:
                         raise ValueError("Missing column K")
@@ -221,7 +244,7 @@ def main() -> None:
 
                     if "upon bool_exp1" in decision1[0]:
 
-                        k_val = row[10].value  # Column K
+                        k_val = row[nl_col_idx + OFFSET_K].value  # Column K
 
                         if not k_val:
                             raise ValueError("Missing column K")
@@ -246,7 +269,7 @@ def main() -> None:
                 # ------------------------------------------------------------
                 # STEP 7-8 : decision3 random selection
                 # ------------------------------------------------------------
-                f_val = row[5].value  # Column F
+                f_val = row[nl_col_idx + OFFSET_F].value  # Column F
 
                 if not f_val:
                     raise ValueError("Missing column F")
@@ -267,7 +290,7 @@ def main() -> None:
                 # ------------------------------------------------------------
                 # STEP 9 : bool_expr3 / bool_expr4
                 # ------------------------------------------------------------
-                g_val = row[6].value  # Column G
+                g_val = row[nl_col_idx + OFFSET_G].value  # Column G
 
                 if not g_val:
                     raise ValueError("Missing column G")
