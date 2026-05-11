@@ -1,0 +1,18 @@
+Natural Language,Ground Truth
+"When the green light is on, vehicles are allowed to
+pass, but turning vehicles shall not hinder the passing of
+straight vehicles and pedestrians that are being released.",G((trafficLightColor_green & stoplineAhead & !PriorityNPCAhead & !PriorityPedsAhead) -> F drive)
+"When the yellow light is on, vehicles that have crossed
+the stop line can continue to pass",G(((trafficLightColor_yellow & !stoplineAhead) -> F drive) & ((trafficLightcolor_yellow & stoplineAhead) -> F !drive))
+"When the red light is on, vehicles are prohibited from
+passing. When the red light is on, vehicles turning right
+can pass without hindering the passage of vehicles or
+pedestrians.",G(((trafficLightColor_red & stoplineAhead & !directionRight) -> F !drive) & ((trafficLightColor_red & stoplineAhead & directionRight & !PriorityNPCAhead & !PriorityPedsAhead) -> F drive))
+"When the green arrow light is on, allow vehicles in the
+lane to pass in the direction indicated;",G((trafficLightColor_green & stoplineAhead) -> F drive)
+"When the red cross-shaped light or arrow light is on,
+vehicles in the lane are prohibited from passing",G(((trafficLightColor_red & stoplineAhead) -> F !drive)
+"The flashing warning
+signal light is a yellow light that continues to flash, remind-
+ing vehicles and pedestrians to pay attention when passing
+through, and pass after confirming safety.",

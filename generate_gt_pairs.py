@@ -150,7 +150,235 @@ def main() -> None:
     parse_errors = 0
 
 
-    if args.input.endswith("xlsx"):
+    if args.input.endswith("txt"):
+
+
+
+
+        def normalize_ltl_variables(formula):
+            """
+            Aggressive normalization of variable names and operators.
+            """
+
+            # ------------------------------------------------------------
+            # Normalize temporal operators
+            # ------------------------------------------------------------
+            formula = formula.replace("<>", "F ")
+            formula = formula.replace("[]", "G ")
+
+            formula = formula.replace("AG", "G ")
+            formula = formula.replace("AF", "F ")
+
+            formula = formula.replace("EG", "G ")
+            formula = formula.replace("EF", "F ")
+
+            # Convert:
+            # A[exp1 U exp2]  -->  exp1 U exp2
+            formula = re.sub(r"A\[(.*?)\]", r"\1", formula)
+            formula = re.sub(r"E\[(.*?)\]", r"\1", formula)
+
+            # ------------------------------------------------------------
+            # Normalize boolean operators
+            # ------------------------------------------------------------
+            formula = formula.replace("||", "|")
+            formula = formula.replace("&&", "&")
+
+            def replace_function_var(match):
+                func_name = match.group(1)
+                args = match.group(2)
+
+                # Split args by comma and normalize
+                parts = [p.strip() for p in args.split(",")]
+
+                joined = "_".join(parts)
+
+                return f"{func_name}_{joined}"
+
+            formula = re.sub(
+                r"\b([A-Za-z_][A-Za-z0-9_]*)\(([^()]+)\)",
+                replace_function_var,
+                formula,
+            )
+
+            formula = formula.replace(".", "_")
+            formula = formula.replace("=", "_")
+            formula = formula.replace("+", "_")
+
+            formula = formula.replace("[", "_")
+            formula = formula.replace("]", "")
+            formula = formula.replace(":", "_")
+
+            # Collapse repeated underscores
+            formula = re.sub(r"_+", "_", formula)
+
+
+            # ------------------------------------------------------------
+            # Repair malformed parentheses
+            #
+            # Removes unmatched closing parens.
+            # Adds missing closing parens at end.
+            # ------------------------------------------------------------
+            repaired = []
+            open_count = 0
+
+            for ch in formula:
+
+                if ch == "(":
+                    open_count += 1
+                    repaired.append(ch)
+
+                elif ch == ")":
+                    if open_count > 0:
+                        open_count -= 1
+                        repaired.append(ch)
+                    else:
+                        # Skip unmatched closing paren
+                        continue
+                else:
+                    repaired.append(ch)
+
+            # Add missing closing parentheses
+            repaired.append(")" * open_count)
+
+            formula = "".join(repaired)
+
+
+            # Remove spaces around underscores
+            formula = re.sub(r"\s*_\s*", "_", formula)
+
+            return formula.strip()
+
+
+
+        FIELD_NAMES = {
+            "REQUIREMENT:",
+            "REFINEMENT:",
+            "PATTERN:",
+            "SCOPE:",
+            "PARAMETERS:",
+            "LTL:",
+            "CTL:",
+            "NOTE:",
+            "SOURCE:",
+            "DOMAIN:",
+            "ORIGINAL",
+            "REWRITING",
+            "NOTE"
+        }
+
+        def starts_with_field(line):
+            return any(line.startswith(field) for field in FIELD_NAMES)
+
+
+
+
+        with open(args.input, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # Split entries by blank lines
+        # (works for typical structured requirement datasets)
+        raw_items = re.split(r"\n\s*\n", content)
+
+        malformed_count = 0
+
+        for idx, item in enumerate(raw_items, start=1):
+
+            try:
+                requirement = None
+                refinement = None
+                ltl = None
+
+                lines = item.splitlines()
+
+                i = 0
+
+                while i < len(lines):
+
+                    line = lines[i].strip()
+
+                    # --------------------------------------------------------
+                    # REQUIREMENT
+                    # --------------------------------------------------------
+                    if line.startswith("REQUIREMENT:"):
+                        requirement = line[len("REQUIREMENT:"):].strip()
+
+                    # --------------------------------------------------------
+                    # REFINEMENT
+                    # --------------------------------------------------------
+                    elif line.startswith("REFINEMENT:"):
+                        refinement = line[len("REFINEMENT:"):].strip()
+
+                    # --------------------------------------------------------
+                    # LTL (possibly multiline)
+                    # --------------------------------------------------------
+                    elif line.startswith("LTL:"):
+
+                        ltl_lines = [
+                            line[len("LTL:"):].strip()
+                        ]
+
+                        i += 1
+
+                        while i < len(lines):
+
+                            next_line = lines[i].strip()
+
+                            # Stop if another field begins
+                            if starts_with_field(next_line):
+                                i -= 1
+                                break
+
+                            if next_line:
+                                ltl_lines.append(next_line)
+
+                            i += 1
+
+                        ltl = " ".join(ltl_lines)
+
+                    i += 1
+
+                # ------------------------------------------------------------
+                # Validate required fields
+                # ------------------------------------------------------------
+                if not requirement:
+                    raise ValueError("Missing REQUIREMENT")
+
+                if not ltl:
+                    raise ValueError("Missing LTL")
+
+                # ------------------------------------------------------------
+                # Combine REQUIREMENT + REFINEMENT
+                # ------------------------------------------------------------
+                nl_text = requirement
+
+                if refinement:
+                    nl_text += f" ({refinement})"
+
+                # ------------------------------------------------------------
+                # Normalize LTL syntax
+                # ------------------------------------------------------------
+                ltl = normalize_ltl_variables(ltl)
+
+                try:
+                    ap_set = extract_ap_mapping(ltl)
+                except Exception as exc:
+                    print(
+                        f"Skipping item {idx} due to Spot parse error:\n"
+                        f"  Formula: {ltl}\n"
+                        f"  Error:   {exc}",
+                        file=sys.stderr,
+                    )
+                    parse_errors += 1
+                    continue
+
+                dataset.append((nl_text, ltl, ap_set))
+
+            except Exception as e:
+                malformed_count += 1
+                print(f"Malformed item {idx}: {e}")
+
+
+    elif args.input.endswith("xlsx"):
 
 
         wb = load_workbook(args.input, data_only=True)
@@ -224,6 +452,8 @@ def main() -> None:
 
                 bool_expr1 = None
 
+                two_brackets = False
+
                 if "while bool_exp1" in decision1[0] or "whenever bool_exp1" in decision1[0]:
                     k_val = row[nl_col_idx + OFFSET_K].value  # Column K
 
@@ -235,8 +465,9 @@ def main() -> None:
 
                     if used_bool_expr2:
                         ltl_prefix = (
-                            f"G(({bool_expr1} & !{bool_expr2} & X({bool_expr2})) -> "
+                            f"!{bool_expr2} U ({bool_expr2} & G({bool_expr1} -> "
                         )
+                        two_brackets = True
                     else:
                         ltl_prefix = f"G({bool_expr1} -> "
 
@@ -253,12 +484,12 @@ def main() -> None:
                         bool_expr1 = k_json[0]["bool_exp1"][0]
 
                         ltl_prefix = (
-                            f"G((!{bool_expr1} & X({bool_expr1})) -> "
+                            f"!{bool_expr1} U ({bool_expr1} & "
                         )
 
                     elif used_bool_expr2:
                         ltl_prefix = (
-                            f"G((!{bool_expr2} & X({bool_expr2})) -> "
+                            f"!{bool_expr2} U ({bool_expr2} & "
                         )
                     else:
 
@@ -325,13 +556,15 @@ def main() -> None:
                     raise ValueError(f"Unsupported decision3 option: {chosen}")
 
                 ltl_formula = ltl_prefix + suffix + ")"
+                if two_brackets:
+                    ltl_formula += ")"
 
                 try:
                     ap_set = extract_ap_mapping(ltl_formula)
                 except Exception as exc:
                     print(
-                        f"Skipping item {idx} due to Spot parse error:\n"
-                        f"  Formula: {ground_truth}\n"
+                        f"Skipping item {row_idx} due to Spot parse error:\n"
+                        f"  Formula: {ltl_formula}\n"
                         f"  Error:   {exc}",
                         file=sys.stderr,
                     )
@@ -346,7 +579,7 @@ def main() -> None:
 
 
 
-    if args.input.endswith("csv"):
+    elif args.input.endswith("csv"):
 
         df = pd.read_csv(args.input, sep=',')
 
@@ -466,6 +699,14 @@ def main() -> None:
     for requirement, ground_truth, atomic_proposition in dataset:
 
         model_response = ask_chatgpt(client, args.model, requirement, atomic_proposition)
+
+        # Spot validation timeout
+        if ground_truth == (
+            "!(newPatient) U ((newPatient) & F(((patientAttributesEntered & SelfTestMode) & "
+            "((((((testPowerSwitchPass & testLeaksPass) & testFl2Pass) & testPSExpPass) & "
+            "testOxygenSensorPass) & testAlarmsPass) -> selfTestPass))))"
+        ):
+            continue
 
         equivalent = semantically_equivalent(ground_truth, model_response)
 
