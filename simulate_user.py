@@ -28,11 +28,9 @@ DATASIZE = {
 EXPERT_ORDER = [
     Mutation.SWAP_G_WITH_X,
     Mutation.REMOVE_F,
-    Mutation.SWAP_IMPLIES_WITH_EQUIV,
     Mutation.SWAP_G_WITH_F,
     [0, 0, 1, 0],
     [0, 1, 2, 3, 0],
-    Mutation.SWAP_AND_WITH_OR,
     [0, 1, 2, 3, 4, 5, 5],
     Mutation.REMOVE_NEGATION,
     Mutation.ADD_F,
@@ -60,7 +58,7 @@ def unified_expert(formula):
     traces.extend(traversal_gradual(formula))
 
     rank = {str(value): i for i, value in enumerate(EXPERT_ORDER)}
-    traces.sort(key=lambda trace: rank.get(trace[2], -1), reverse=True)
+    traces.sort(key=lambda trace: rank.get(str(trace[2]), -1), reverse=True)
 
     return traces
 
@@ -69,7 +67,7 @@ def unified_by_length(formula):
     traces = mutation_gradual(formula)
     traces.extend(traversal_gradual(formula))
 
-    traces.sort(key=lambda trace: trace.count(";"))
+    traces.sort(key=lambda trace: str(trace).count(";"))
 
     return traces
 
@@ -91,10 +89,15 @@ def simulate_user(candidate, ground_truth, method):
     traces_seen = 0
     trace_length = 0
 
+    # for trace, is_positive, props in traces:
+    #     print(is_positive, props)
+    # print('-----')
+
+
     distinguish_props = None
 
-
     for trace, is_positive, props in traces:
+
         traces_seen += 1
         trace_length += (trace.count(";") + 1)
 
@@ -122,6 +125,8 @@ def simulate_user(candidate, ground_truth, method):
         elif user_accepts == True and is_positive:
             # print(f'{trace} accepted, keep going')
             continue
+
+
 
     return traces_seen, trace_length/traces_seen, distinguish_props
 
@@ -207,8 +212,6 @@ if __name__ == "__main__":
     if dataset is None:
         raise ValueError("Incorrect dataset")
 
-
-
     with open(sys.argv[2], newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
 
@@ -258,7 +261,7 @@ if __name__ == "__main__":
                 )
 
                 undetected_under_5 += 1
-                undetected_under_10 += 1
+                undetected_under_10 += 1        
 
     print(f'Total Formulas: {total}')
     print(f'Total Detected: {success}')

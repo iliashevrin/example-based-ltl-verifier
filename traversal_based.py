@@ -31,14 +31,14 @@ def traversal_expert(candidate, max_visits=3):
 
     traces = traversal_gradual(candidate, max_visits)
     rank = {str(value): i for i, value in enumerate(EXPERT_ORDER)}
-    traces.sort(key=lambda trace: rank.get(trace[2], -1), reverse=True)
+    traces.sort(key=lambda trace: rank.get(str(trace[2]), -1), reverse=True)
 
     return traces
 
 def traversal_by_length(candidate, max_visits=3):
 
     traces = traversal_gradual(candidate, max_visits)
-    traces.sort(key=lambda trace: trace.count(";"))
+    traces.sort(key=lambda trace: str(trace).count(";"))
 
     return traces
 

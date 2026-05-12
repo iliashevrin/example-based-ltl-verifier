@@ -23,10 +23,10 @@ class Mutation(str, Enum):
     REMOVE_F = "REMOVE_F"
     REMOVE_G = "REMOVE_G"
 
-    SWAP_U_WITH_W = "SWAP_U_WITH_W"
-    SWAP_W_WITH_U = "SWAP_W_WITH_U"
-    SWAP_U_OPERANDS = "SWAP_U_OPERANDS"
-    SWAP_W_OPERANDS = "SWAP_W_OPERANDS"
+    # SWAP_U_WITH_W = "SWAP_U_WITH_W"
+    # SWAP_W_WITH_U = "SWAP_W_WITH_U"
+    # SWAP_U_OPERANDS = "SWAP_U_OPERANDS"
+    # SWAP_W_OPERANDS = "SWAP_W_OPERANDS"
 
     ADD_NEGATION = "ADD_NEGATION"
     REMOVE_NEGATION = "REMOVE_NEGATION"
@@ -37,26 +37,29 @@ class Mutation(str, Enum):
     ADD_F = "ADD_F"
     ADD_G = "ADD_G"
 
-    SWAP_AND_WITH_OR = "SWAP_AND_WITH_OR"
-    SWAP_OR_WITH_AND = "SWAP_OR_WITH_AND"
+    # SWAP_AND_WITH_OR = "SWAP_AND_WITH_OR"
+    # SWAP_OR_WITH_AND = "SWAP_OR_WITH_AND"
 
-    SWAP_IMPLIES_WITH_EQUIV = "SWAP_IMPLIES_WITH_EQUIV"
-    SWAP_EQUIV_WITH_IMPLIES = "SWAP_EQUIV_WITH_IMPLIES"
+    # SWAP_IMPLIES_WITH_EQUIV = "SWAP_IMPLIES_WITH_EQUIV"
+    # SWAP_EQUIV_WITH_IMPLIES = "SWAP_EQUIV_WITH_IMPLIES"
 
     # SWAP_APS = "SWAP_APS"
 
 
 EXPERT_ORDER = [
-    Mutation.SWAP_G_WITH_F,
-    Mutation.SWAP_F_WITH_X,
+    Mutation.REMOVE_X,
     Mutation.REMOVE_G,
-    Mutation.SWAP_IMPLIES_WITH_EQUIV,
-    Mutation.SWAP_G_WITH_X,
     Mutation.REMOVE_F,
+    Mutation.SWAP_X_WITH_G,
+    Mutation.SWAP_X_WITH_F,
+    Mutation.SWAP_F_WITH_G,
+    Mutation.SWAP_F_WITH_X,
+    Mutation.SWAP_G_WITH_F,
+    Mutation.SWAP_G_WITH_X,
     Mutation.REMOVE_NEGATION,
+    Mutation.ADD_G,
     Mutation.ADD_F,
     Mutation.ADD_X,
-    Mutation.ADD_G,
     Mutation.ADD_NEGATION,
 ]
 
@@ -113,6 +116,7 @@ def replace_child(f, target_idx, new_child):
 
 
 def current_node_mutations(f):
+
     muts = []
 
     # Add negation to any subformula
@@ -153,38 +157,38 @@ def current_node_mutations(f):
         muts.append((spot.formula.F(f[0]), Mutation.SWAP_X_WITH_F))
         muts.append((spot.formula.G(f[0]), Mutation.SWAP_X_WITH_G))
 
-    # U/W mutations
-    if f._is(spot.op_U):
-        muts.append((spot.formula.W(f[0], f[1]), Mutation.SWAP_U_WITH_W))
-        muts.append((spot.formula.U(f[1], f[0]), Mutation.SWAP_U_OPERANDS))
+    # # U/W mutations
+    # if f._is(spot.op_U):
+    #     muts.append((spot.formula.W(f[0], f[1]), Mutation.SWAP_U_WITH_W))
+    #     muts.append((spot.formula.U(f[1], f[0]), Mutation.SWAP_U_OPERANDS))
 
-    elif f._is(spot.op_W):
-        muts.append((spot.formula.U(f[0], f[1]), Mutation.SWAP_W_WITH_U))
-        muts.append((spot.formula.W(f[1], f[0]), Mutation.SWAP_W_OPERANDS))
+    # elif f._is(spot.op_W):
+    #     muts.append((spot.formula.U(f[0], f[1]), Mutation.SWAP_W_WITH_U))
+    #     muts.append((spot.formula.W(f[1], f[0]), Mutation.SWAP_W_OPERANDS))
 
-    # Boolean mutations
-    if f._is(spot.op_And):
-        muts.append(
-            (
-                spot.formula.Or([f[i] for i in range(children_count(f))]),
-                Mutation.SWAP_AND_WITH_OR,
-            )
-        )
+    # # Boolean mutations
+    # if f._is(spot.op_And):
+    #     muts.append(
+    #         (
+    #             spot.formula.Or([f[i] for i in range(children_count(f))]),
+    #             Mutation.SWAP_AND_WITH_OR,
+    #         )
+    #     )
 
-    elif f._is(spot.op_Or):
-        muts.append(
-            (
-                spot.formula.And([f[i] for i in range(children_count(f))]),
-                Mutation.SWAP_OR_WITH_AND,
-            )
-        )
+    # elif f._is(spot.op_Or):
+    #     muts.append(
+    #         (
+    #             spot.formula.And([f[i] for i in range(children_count(f))]),
+    #             Mutation.SWAP_OR_WITH_AND,
+    #         )
+    #     )
 
-    # Implication / equivalence mutations
-    if f._is(spot.op_Implies):
-        muts.append((spot.formula.Equiv(f[0], f[1]), Mutation.SWAP_IMPLIES_WITH_EQUIV))
+    # # Implication / equivalence mutations
+    # if f._is(spot.op_Implies):
+    #     muts.append((spot.formula.Equiv(f[0], f[1]), Mutation.SWAP_IMPLIES_WITH_EQUIV))
 
-    elif f._is(spot.op_Equiv):
-        muts.append((spot.formula.Implies(f[0], f[1]), Mutation.SWAP_EQUIV_WITH_IMPLIES))
+    # elif f._is(spot.op_Equiv):
+    #     muts.append((spot.formula.Implies(f[0], f[1]), Mutation.SWAP_EQUIV_WITH_IMPLIES))
 
     return muts
 
@@ -282,7 +286,8 @@ def rejecting_traces(formula):
 def mutation_expert(candidate):
 
     traces = mutation_gradual(candidate)
-    rank = {str(value): i for i, value in enumerate(EXPERT_ORDER)}
+
+    rank = {value: i for i, value in enumerate(EXPERT_ORDER)}
     traces.sort(key=lambda trace: rank.get(trace[2], -1), reverse=True)
 
     return traces
@@ -290,8 +295,7 @@ def mutation_expert(candidate):
 def mutation_by_length(candidate):
 
     traces = mutation_gradual(candidate)
-    traces.sort(key=lambda trace: trace.count(";"))
-
+    traces.sort(key=lambda trace: str(trace).count(";"))
     return traces
 
 
@@ -309,6 +313,7 @@ def mutation_gradual(formula):
     original_aut = spot.translate(formula)
 
     for mutant, mutation_type in mutants:
+
         # Generate candidate traces from mutant and negated mutant
         candidates = []
         candidates.extend(accepting_traces(mutant))
