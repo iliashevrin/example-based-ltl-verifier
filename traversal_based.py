@@ -38,7 +38,7 @@ def traversal_expert(candidate, max_visits=3):
 def traversal_by_length(candidate, max_visits=3):
 
     traces = traversal_gradual(candidate, max_visits)
-    traces.sort(key=lambda trace: str(trace).count(";"))
+    traces.sort(key=lambda trace: str(trace[0]).count(";"))
 
     return traces
 

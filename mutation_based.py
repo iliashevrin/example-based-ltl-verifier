@@ -8,8 +8,8 @@ from utils import get_words_from_conditions, check_acceptance, collect_aps
 
 from enum import Enum
 import random
-
-
+from collections import defaultdict
+import itertools
 
 
 class Mutation(str, Enum):
@@ -115,47 +115,47 @@ def replace_child(f, target_idx, new_child):
     return f.map(mapper)
 
 
-def current_node_mutations(f):
+def current_node_mutations(f, depth):
 
     muts = []
 
     # Add negation to any subformula
     if not f._is(spot.op_Not):
-        muts.append((spot.formula.Not(f), Mutation.ADD_NEGATION))
+        muts.append((spot.formula.Not(f), (Mutation.ADD_NEGATION, depth)))
 
     # Remove negation from any negated subformula
     if f._is(spot.op_Not) and f.size() == 1:
-        muts.append((f[0], Mutation.REMOVE_NEGATION))
+        muts.append((f[0], (Mutation.REMOVE_NEGATION, depth)))
 
     # Add X to any subformula
-    muts.append((spot.formula.X(f), Mutation.ADD_X))
+    muts.append((spot.formula.X(f), (Mutation.ADD_X, depth)))
 
     # Add F to any subformula, except if it already starts with F
     if not f._is(spot.op_F):
-        muts.append((spot.formula.F(f), Mutation.ADD_F))
+        muts.append((spot.formula.F(f), (Mutation.ADD_F, depth)))
 
     # Add G to any subformula, except if it already starts with G
     if not f._is(spot.op_G):
-        muts.append((spot.formula.G(f), Mutation.ADD_G))
+        muts.append((spot.formula.G(f), (Mutation.ADD_G, depth)))
 
     # Remove X from any X-subformula
     if f._is(spot.op_X) and f.size() == 1:
-        muts.append((f[0], Mutation.REMOVE_X))
+        muts.append((f[0], (Mutation.REMOVE_X, depth)))
 
     # Swap F/G/X
     if f._is(spot.op_F):
-        muts.append((spot.formula.G(f[0]), Mutation.SWAP_F_WITH_G))
-        muts.append((spot.formula.X(f[0]), Mutation.SWAP_F_WITH_X))
+        muts.append((spot.formula.G(f[0]), (Mutation.SWAP_F_WITH_G, depth)))
+        muts.append((spot.formula.X(f[0]), (Mutation.SWAP_F_WITH_X, depth)))
         muts.append((f[0], Mutation.REMOVE_F))
 
     elif f._is(spot.op_G):
-        muts.append((spot.formula.F(f[0]), Mutation.SWAP_G_WITH_F))
-        muts.append((spot.formula.X(f[0]), Mutation.SWAP_G_WITH_X))
+        muts.append((spot.formula.F(f[0]), (Mutation.SWAP_G_WITH_F, depth)))
+        muts.append((spot.formula.X(f[0]), (Mutation.SWAP_G_WITH_X, depth)))
         muts.append((f[0], Mutation.REMOVE_G))
 
     elif f._is(spot.op_X):
-        muts.append((spot.formula.F(f[0]), Mutation.SWAP_X_WITH_F))
-        muts.append((spot.formula.G(f[0]), Mutation.SWAP_X_WITH_G))
+        muts.append((spot.formula.F(f[0]), (Mutation.SWAP_X_WITH_F, depth)))
+        muts.append((spot.formula.G(f[0]), (Mutation.SWAP_X_WITH_G, depth)))
 
     # # U/W mutations
     # if f._is(spot.op_U):
@@ -194,20 +194,20 @@ def current_node_mutations(f):
 
 
 
-def generate_mutants_at_all_nodes(f):
+def generate_mutants_at_all_nodes(f, depth=1):
     """
     Generate formulas where exactly one mutation is applied somewhere in the AST.
 
     Yields:
         tuple[spot.formula, Mutation]
     """
-    for mutated, mutation_type in current_node_mutations(f):
+    for mutated, mutation_type in current_node_mutations(f, depth):
         yield mutated, mutation_type
 
     for i in range(children_count(f)):
         child = f[i]
 
-        for mutated_child, mutation_type in generate_mutants_at_all_nodes(child):
+        for mutated_child, mutation_type in generate_mutants_at_all_nodes(child, depth+1):
             yield replace_child(f, i, mutated_child), mutation_type
 
 
@@ -283,11 +283,46 @@ def rejecting_traces(formula):
     return accepting_traces(f"!({formula})")
 
 
-def mutation_expert(candidate):
+
+
+def mutation_interleaved(candidate):
 
     traces = mutation_gradual(candidate)
 
     rank = {value: i for i, value in enumerate(EXPERT_ORDER)}
+    buckets = defaultdict(list)
+
+    for trace in traces:
+        buckets[trace[2]].append(trace)
+
+    for mutation in buckets:
+        buckets[mutation].sort(key=lambda trace: str(trace[0]).count(";"))
+
+    ordered_mutations = sorted(
+        buckets.keys(),
+        key=lambda m: rank.get(m, -1)
+    )
+
+    result = []
+
+    max_bucket_size = max(len(buckets[m]) for m in ordered_mutations)
+
+    for i in range(max_bucket_size):
+        for mutation in ordered_mutations:
+            if i < len(buckets[mutation]):
+                result.append(buckets[mutation][i])
+
+    return result
+
+
+
+def mutation_expert(candidate):
+
+    traces = mutation_gradual(candidate)
+
+    expert_order = list(itertools.product(EXPERT_ORDER, range(1,5)))
+
+    rank = {value: i for i, value in enumerate(expert_order)}
     traces.sort(key=lambda trace: rank.get(trace[2], -1), reverse=True)
 
     return traces
@@ -295,7 +330,7 @@ def mutation_expert(candidate):
 def mutation_by_length(candidate):
 
     traces = mutation_gradual(candidate)
-    traces.sort(key=lambda trace: str(trace).count(";"))
+    traces.sort(key=lambda trace: str(trace[0]).count(";"))
     return traces
 
 
