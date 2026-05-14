@@ -1,0 +1,149 @@
+Ground Truth,Response
+!G!(deliver_aid_safe_hostile & X deliver_aid_safe_hostile),G(deliver_aid_safe_hostile | X(deliver_aid_safe_hostile) | X(X(deliver_aid_safe_hostile)))
+!G!(avoid_inactive_fire_source & X avoid_inactive_fire_source),G(avoid_inactive_fire_source | X avoid_inactive_fire_source | X X avoid_inactive_fire_source)
+!G!(deliver_handbag_loading_dock & X deliver_handbag_loading_dock),G(deliver_handbag_loading_dock | X(deliver_handbag_loading_dock) | X(X(deliver_handbag_loading_dock)))
+!G!(search_toothbrush & X search_toothbrush),G(search_toothbrush | X(search_toothbrush) | X X(search_toothbrush))
+!G!(record_motorcycle_south_10th_street & X record_motorcycle_south_10th_street),G(record_motorcycle_south_10th_street | X(record_motorcycle_south_10th_street) | X(X(record_motorcycle_south_10th_street)))
+!G!(photo_debris & X photo_debris),G(photo_debris | X(photo_debris) | XX(photo_debris))
+!G!(record_collision_northwest_4th_street & X record_collision_northwest_4th_street),G(record_collision_northwest_4th_street)
+!G!(deliver_aid_injured_victim & X deliver_aid_injured_victim),G(deliver_aid_injured_victim)
+!G!(search_cake & X search_cake),G search_cake
+!G!(photo_person_northwest_6th_street & X photo_person_northwest_6th_street),G(photo_person_northwest_6th_street | X photo_person_northwest_6th_street | X X photo_person_northwest_6th_street)
+!G!(deliver_chair_loading_dock & X deliver_chair_loading_dock),G(deliver_chair_loading_dock | X(deliver_chair_loading_dock) | X(X(deliver_chair_loading_dock)))
+!change_light_west_yellow U change_light_south_green,change_light_west_yellow -> change_light_south_green
+!get_help U change_light_east_red,get_help -> change_light_east_red
+!record_flood U get_help,G(record_flood -> get_help)
+!get_help U idle,G(get_help -> idle)
+!communicate_safe_hostile U get_help,communicate_safe_hostile -> get_help
+!deliver_aid_injured_rescuer U get_help,get_help -> deliver_aid_injured_rescuer
+!record_debris U get_help,G(record_debris -> get_help)
+!photo_safe_rescuer U avoid_inactive_unstable_beam,G(photo_safe_rescuer -> !avoid_inactive_unstable_beam U photo_safe_rescuer)
+(photo_vehicle_south_9th_street U change_light_west_yellow) | G photo_vehicle_south_9th_street,(change_light_west_yellow U photo_vehicle_south_9th_street) | G photo_vehicle_south_9th_street
+(pickup_person U get_help) | G pickup_person,(get_help U pickup_person) | G pickup_person
+(go_home U photo_safe_victim) | G go_home,(photo_safe_victim U go_home) | G(go_home)
+F go_home & F avoid_impending_debris,F(go_home & avoid_impending_debris)
+F deliver_sink_loading_dock -> (!deliver_sink_loading_dock U (!deliver_sink_loading_dock & pickup_scissors)),G(deliver_sink_loading_dock -> O(pickup_scissors))
+F deliver_book_loading_dock -> (!deliver_book_loading_dock U (!deliver_book_loading_dock & pickup_toothbrush)),deliver_book_loading_dock -> F pickup_toothbrush
+F communicate_injured_rescuer -> (!communicate_injured_rescuer U (!communicate_injured_rescuer & deliver_aid_injured_victim)),communicate_injured_rescuer -> F deliver_aid_injured_victim
+F avoid_active_unstable_beam -> (!avoid_active_unstable_beam U (!avoid_active_unstable_beam & communicate_injured_rescuer)),F avoid_active_unstable_beam -> communicate_injured_rescuer
+F change_light_west_red -> (!change_light_west_red U (!change_light_west_red & photo_cyclist_northwest_10th_street)),F change_light_west_red -> photo_cyclist_northwest_10th_street
+F record_cyclist_southeast_10th_avenue -> (!record_cyclist_southeast_10th_avenue U (!record_cyclist_southeast_10th_avenue & record_motorcycle_southwest_4th_avenue)),record_cyclist_southeast_10th_avenue -> F record_motorcycle_southwest_4th_avenue
+F deliver_bird_shelf -> (!deliver_bird_shelf U (!deliver_bird_shelf & search_bench)),deliver_bird_shelf -> F search_bench
+F photo_vehicle_north_2nd_avenue -> (!photo_vehicle_north_2nd_avenue U (!photo_vehicle_north_2nd_avenue & record_vehicle_northwest_2nd_street)),F photo_vehicle_north_2nd_avenue -> F record_vehicle_northwest_2nd_street
+F get_help -> (!get_help U (!get_help & photo_jaywalker_southeast_4th_avenue)),F get_help -> F photo_jaywalker_southeast_4th_avenue
+F get_help -> (!get_help U (!get_help & photo_vehicle_south_3rd_street)),F get_help -> F photo_vehicle_south_3rd_street
+F pickup_cell_phone -> (!pickup_cell_phone U (!pickup_cell_phone & pickup_motorbike)),G(pickup_cell_phone -> F pickup_motorbike)
+F deliver_cake_loading_dock -> (!deliver_cake_loading_dock U (!deliver_cake_loading_dock & search_cake)),deliver_cake_loading_dock -> search_cake
+F record_safe_civilian -> (!record_safe_civilian U (photo_safe_civilian & !record_safe_civilian)),G(record_safe_civilian -> F photo_safe_civilian)
+F pickup_laptop -> (!pickup_laptop U (deliver_boat_loading_dock & !pickup_laptop)),pickup_laptop -> deliver_boat_loading_dock
+F record_car_west_1st_street -> (!record_car_west_1st_street U (get_help & !record_car_west_1st_street)),G(record_car_west_1st_street -> F get_help)
+F search_laptop -> (!search_laptop U (pickup_toaster & !search_laptop)),search_laptop -> F pickup_toaster
+F search_toothbrush -> (!search_toothbrush U (idle & !search_toothbrush)),search_toothbrush -> F idle
+F avoid_probable_gas_leak -> (!avoid_probable_gas_leak U (avoid_impending_flood & !avoid_probable_gas_leak)),F avoid_probable_gas_leak -> avoid_impending_flood
+F idle -> (!idle U (deliver_zebra_shelf & !idle)),F idle -> (!idle U deliver_zebra_shelf)
+F get_help -> (!get_help U (deliver_tie_loading_dock & !get_help)),G(get_help -> F(deliver_tie_loading_dock))
+F get_help -> (!get_help U (deliver_spoon_shelf & !get_help)),F get_help -> F deliver_spoon_shelf
+F record_pedestrian_west_9th_street -> (!record_pedestrian_west_9th_street U (get_help & !record_pedestrian_west_9th_street)),G(record_pedestrian_west_9th_street -> F get_help)
+F photo_person_southeast_10th_avenue -> (!photo_person_southeast_10th_avenue U (get_help & !photo_person_southeast_10th_avenue)),F photo_person_southeast_10th_avenue -> F get_help
+F pickup_aeroplane -> (!pickup_aeroplane U (get_help & !pickup_aeroplane)),pickup_aeroplane -> F get_help
+G!_get_help & idle& G_get_help | idle,G(!(idle & get_help)) & G(idle | get_help)
+G!(change_light_east_yellow & record_person_southeast_2nd_avenue) & G(change_light_east_yellow | record_person_southeast_2nd_avenue),(change_light_east_yellow & !record_person_southeast_2nd_avenue) | (!change_light_east_yellow & record_person_southeast_2nd_avenue) | (G(change_light_east_yellow) | G(record_person_southeast_2nd_avenue))
+G(!(get_help & pickup_truck) -> F search_banana),G((!pickup_truck & !get_help) -> F(search_banana))
+G(!(deliver_aid_injured_hostile & get_help) -> F communicate_safe_rescuer),G((!deliver_aid_injured_hostile & !get_help) -> F communicate_safe_rescuer)
+G(!(communicate_safe_victim & go_home) -> F get_help),G((!communicate_safe_victim & !go_home) -> F(get_help))
+G(!(go_home & record_unstable_beam) -> F communicate_safe_rescuer),G((!record_unstable_beam & !go_home) -> F(communicate_safe_rescuer))
+G(!(change_light_south_red & record_pedestrian_southeast_10th_street) -> F change_light_west_green),G((!change_light_south_red & !record_pedestrian_southeast_10th_street) -> F(change_light_west_green))
+G(!(get_help & photo_vehicle_northeast_6th_street) -> F change_light_east_yellow),G((!get_help & !photo_vehicle_northeast_6th_street) -> F(change_light_east_yellow))
+G(!(photo_pedestrian_southwest_4th_avenue & record_collision_north_8th_street) -> F get_help),G((!photo_pedestrian_southwest_4th_avenue & !record_collision_north_8th_street) -> F(get_help))
+G(!(communicate_injured_hostile & deliver_aid_injured_rescuer) -> F get_help),G((!deliver_aid_injured_rescuer & !communicate_injured_hostile) -> F get_help)
+G(!(deliver_aid_injured_rescuer & deliver_aid_safe_rescuer) -> F avoid_inactive_unstable_beam),G((!deliver_aid_injured_rescuer & !deliver_aid_safe_rescuer) -> F(avoid_inactive_unstable_beam))
+G(!(go_home & photo_flood) -> F deliver_aid_safe_hostile),G((!go_home & !photo_flood) -> F(deliver_aid_safe_hostile))
+G(!(idle & search_bowl) -> F deliver_skateboard_loading_dock),G((!idle & !search_bowl) -> F(deliver_skateboard_loading_dock))
+G(!(change_light_east_green & get_help) -> F record_motorcycle_southeast_2nd_avenue),G((!change_light_east_green & !get_help) -> F(record_motorcycle_southeast_2nd_avenue))
+G((deliver_aid_safe_rescuer & X communicate_safe_victim) -> XX communicate_injured_hostile),(deliver_aid_safe_rescuer & X communicate_safe_victim) -> X X communicate_injured_hostile
+G((get_help & X pickup_umbrella) -> XX pickup_bear),(get_help & X pickup_umbrella) -> XX pickup_bear
+G((photo_cyclist_north_7th_avenue & X photo_motorcycle_southwest_4th_avenue) -> XX get_help),(photo_cyclist_north_7th_avenue & X photo_motorcycle_southwest_4th_avenue) -> XX get_help
+G((get_help & X pickup_teddy_bear) -> XX pickup_spoon),(get_help & X pickup_teddy_bear) -> XX pickup_spoon
+G((photo_injured_rescuer & X record_flood) -> XX communicate_injured_rescuer),(photo_injured_rescuer & X record_flood) -> XX communicate_injured_rescuer
+G((communicate_injured_victim & X communicate_injured_hostile) -> XX communicate_safe_hostile),(communicate_injured_victim & X communicate_injured_hostile) -> XX communicate_safe_hostile
+G((deliver_orange_shelf & X deliver_bear_loading_dock) -> XX pickup_surfboard),(deliver_orange_shelf & X deliver_bear_loading_dock) -> XX pickup_surfboard
+G((photo_safe_rescuer & X go_home) -> XX avoid_inactive_fire_source),(photo_safe_rescuer & X go_home) -> XX avoid_inactive_fire_source
+G((record_vehicle_northwest_3rd_street & X change_light_east_red) -> XX record_pedestrian_northwest_6th_avenue),(record_vehicle_northwest_3rd_street & X change_light_east_red) -> XX record_pedestrian_northwest_6th_avenue
+G((avoid_impending_fire_source & X communicate_safe_victim) -> XX communicate_injured_victim),(avoid_impending_fire_source & X communicate_safe_victim) -> X X communicate_injured_victim
+G((get_help & X change_light_west_red) -> XX photo_cyclist_southeast_7th_avenue),(get_help & X(change_light_west_red)) -> XX(photo_cyclist_southeast_7th_avenue)
+G((idle & X deliver_carrot_shelf) -> XX search_sheep),(idle & X deliver_carrot_shelf) -> XX search_sheep
+G((change_light_west_red <-> record_jaywalker_east_10th_street) -> (record_jaywalker_east_10th_street <-> record_person_southeast_3rd_street)),G((change_light_west_red & record_jaywalker_east_10th_street) -> record_person_southeast_3rd_street)
+G((avoid_probable_flood <-> deliver_aid_injured_victim) -> (avoid_probable_flood <-> go_home)),G((deliver_aid_injured_victim) <-> (avoid_probable_flood & go_home))
+G((record_collision_northwest_9th_street <-> record_vehicle_north_8th_avenue) -> (get_help <-> record_vehicle_north_8th_avenue)),G((record_collision_northwest_9th_street & record_vehicle_north_8th_avenue) -> (record_vehicle_north_8th_avenue & get_help))
+G(avoid_probable_unstable_beam -> (communicate_safe_hostile | X communicate_safe_hostile)),avoid_probable_unstable_beam -> (communicate_safe_hostile | X communicate_safe_hostile)
+G(photo_car_southeast_8th_street -> (photo_vehicle_southeast_7th_avenue | X photo_vehicle_southeast_7th_avenue)),photo_car_southeast_8th_street -> (photo_vehicle_southeast_7th_avenue | X photo_vehicle_southeast_7th_avenue)
+G(get_help -> (change_light_north_red | X change_light_north_red)),get_help -> (change_light_north_red | X change_light_north_red)
+G(idle -> (deliver_sheep_shelf | X deliver_sheep_shelf)),idle -> (deliver_sheep_shelf | X deliver_sheep_shelf)
+G(get_help -> (deliver_book_shelf | X deliver_book_shelf)),get_help -> (deliver_book_shelf | X deliver_book_shelf)
+G(get_help -> (pickup_carrot | X pickup_carrot)),get_help -> (pickup_carrot | X pickup_carrot)
+G(deliver_aid_injured_victim -> (deliver_aid_safe_rescuer | X deliver_aid_safe_rescuer)),deliver_aid_injured_victim -> (deliver_aid_safe_rescuer | X deliver_aid_safe_rescuer)
+G(search_snowboard->_idle | X idle),search_snowboard -> (idle | X idle)
+G(get_help -> (record_safe_person | X record_safe_person)),get_help -> (record_safe_person | X record_safe_person)
+G(communicate_injured_hostile -> (deliver_aid_injured_victim | X deliver_aid_injured_victim)),communicate_injured_hostile -> (deliver_aid_injured_victim | X deliver_aid_injured_victim)
+G(deliver_aid_injured_victim -> (avoid_inactive_debris | X avoid_inactive_debris)),deliver_aid_injured_victim -> (avoid_inactive_debris | X avoid_inactive_debris)
+G_idle -> F get_help,G(idle -> F(get_help))
+G(get_help -> F change_light_west_green) -> GF change_light_west_yellow,(G(F(get_help -> F(change_light_west_green))) -> G(F(change_light_west_yellow)))
+G(go_home -> F avoid_nearest_fire_source) -> GF deliver_aid_injured_rescuer,G((go_home -> F avoid_nearest_fire_source) -> G F deliver_aid_injured_rescuer)
+G_go_home -> F get_help -> GF deliver_aid_safe_hostile,(G(go_home -> F get_help) -> G F deliver_aid_safe_hostile)
+G(change_light_north_green -> F change_light_south_red) -> GF change_light_west_red,G((change_light_north_green -> F change_light_south_red) -> G F change_light_west_red)
+G_get_help -> F go_home -> GF record_unstable_beam,(G(F get_help -> F go_home) -> G F record_unstable_beam)
+G(deliver_elephant_loading_dock -> XF search_elephant),deliver_elephant_loading_dock -> X F search_elephant
+G(deliver_bed_loading_dock -> XG!search_wine_glass),G(deliver_bed_loading_dock -> G(!search_wine_glass))
+G(photo_jaywalker_northeast_1st_street -> XG!photo_motorcycle_west_6th_street),G(photo_jaywalker_northeast_1st_street -> G(!photo_motorcycle_west_6th_street))
+G(get_help -> XG!pickup_tie),G(get_help -> G(!pickup_tie))
+G(change_light_north_yellow -> XG!photo_vehicle_south_2nd_street),G(change_light_north_yellow -> G(!photo_vehicle_south_2nd_street))
+G(get_help -> XG!pickup_parking_meter),G(get_help -> G(!pickup_parking_meter))
+G(photo_unsafe_civilian -> XG!go_home),G(photo_unsafe_civilian -> G(!go_home))
+G(get_help -> XG!change_light_east_red),G(get_help -> G(!change_light_east_red))
+G(get_help -> XG!deliver_refrigerator_shelf),G(get_help -> G(!deliver_refrigerator_shelf))
+G(avoid_inactive_flood -> XG!record_safe_civilian),G(avoid_inactive_flood -> G(!record_safe_civilian))
+G(get_help -> XG!change_light_south_green),G(get_help -> G(!change_light_south_green))
+G_idle -> XG!get_help,G(idle -> G(!get_help))
+G(get_help -> XG!deliver_aid_injured_victim),G(get_help -> G(!deliver_aid_injured_victim))
+G_get_help -> X idle,G(get_help -> X(idle))
+G(go_home -> avoid_nearest_flood),G(go_home -> !avoid_nearest_flood)
+G(pickup_person -> pickup_cow),pickup_person -> pickup_cow
+G(go_home -> avoid_inactive_flood),G(go_home -> !avoid_inactive_flood)
+G(avoid_probable_flood <-> X go_home),G(!(avoid_probable_flood <-> X(go_home)))
+G(avoid_active_flood <-> X communicate_safe_victim),G(!(avoid_active_flood <-> X(communicate_safe_victim)))
+G(communicate_safe_rescuer <-> X photo_unsafe_rescuer),G(communicate_safe_rescuer -> X(photo_unsafe_rescuer))
+GF communicate_safe_rescuer -> GF get_help,G(F(communicate_safe_rescuer) -> F(get_help))
+GF record_safe_civilian -> GF get_help,G(F(record_safe_civilian) -> F(get_help))
+GF photo_pedestrian_north_3rd_street -> GF get_help,G(F(photo_pedestrian_north_3rd_street) -> F(get_help))
+GF photo_person_southeast_5th_avenue -> GF record_person_east_2nd_avenue,G(F(photo_person_southeast_5th_avenue) -> F(record_person_east_2nd_avenue))
+GF change_light_north_yellow -> GF get_help,G(F(change_light_north_yellow) -> F(get_help))
+GF record_safe_victim -> GF go_home,G(F(record_safe_victim) -> F(go_home))
+GF deliver_sofa_loading_dock | GF idle,G F idle | deliver_sofa_loading_dock
+record_cyclist_southwest_6th_street -> X((change_light_south_yellow U get_help) | G change_light_south_yellow),record_cyclist_southwest_6th_street -> (X(change_light_south_yellow U get_help) | G(change_light_south_yellow))
+get_help -> X((search_tv_monitor U search_refrigerator) | G search_tv_monitor),get_help -> (X(search_tv_monitor U search_refrigerator) | G(search_tv_monitor))
+get_help -> X((search_sheep U idle) | G search_sheep),get_help -> (X(search_sheep U idle) | G(search_sheep))
+get_help -> X((deliver_aid_injured_rescuer U go_home) | G deliver_aid_injured_rescuer),get_help -> (X(deliver_aid_injured_rescuer U go_home) | G(deliver_aid_injured_rescuer))
+deliver_fork_loading_dock -> X((idle U search_umbrella) | G idle),deliver_fork_loading_dock -> (X(idle U search_umbrella) | G idle)
+record_motorcycle_south_2nd_street -> X((photo_motorcycle_south_3rd_avenue U record_collision_northwest_9th_street) | G photo_motorcycle_south_3rd_avenue),record_motorcycle_south_2nd_street -> (X (photo_motorcycle_south_3rd_avenue U record_collision_northwest_9th_street) | G photo_motorcycle_south_3rd_avenue)
+search_chair -> X((deliver_tv_monitor_loading_dock U deliver_cat_loading_dock) | G deliver_tv_monitor_loading_dock),(search_chair -> (X deliver_tv_monitor_loading_dock U deliver_cat_loading_dock)) | (!search_chair -> G deliver_tv_monitor_loading_dock)
+get_help -> X((record_motorcycle_north_2nd_street U change_light_west_green) | G record_motorcycle_north_2nd_street),get_help -> ((X record_motorcycle_north_2nd_street) U change_light_west_green | G record_motorcycle_north_2nd_street)
+communicate_injured_hostile -> X((record_unsafe_person U photo_unsafe_civilian) | G record_unsafe_person),communicate_injured_hostile -> (X(record_unsafe_person U photo_unsafe_civilian) | G(record_unsafe_person))
+record_flood -> X((avoid_probable_debris U communicate_safe_hostile) | G avoid_probable_debris),record_flood -> (X(avoid_probable_debris U communicate_safe_hostile) | G avoid_probable_debris)
+search_tv_monitor -> X((pickup_cup U get_help) | G pickup_cup),(search_tv_monitor -> (X(pickup_cup U get_help) | G(pickup_cup)))
+deliver_hair_drier_loading_dock -> X((get_help U search_tie) | G get_help),(deliver_hair_drier_loading_dock -> (X(get_help U search_tie) | G(get_help)))
+pickup_clock U GF search_remote,pickup_clock -> (pickup_clock U G F search_remote)
+record_unsafe_rescuer U GF avoid_probable_unstable_beam,record_unsafe_rescuer U F G avoid_probable_unstable_beam
+deliver_aid_injured_hostile U GF communicate_injured_hostile,deliver_aid_injured_hostile U F G communicate_injured_hostile
+pickup_laptop U GF deliver_dog_loading_dock,pickup_laptop -> (pickup_laptop U G F deliver_dog_loading_dock)
+change_light_south_green U get_help,change_light_south_green & get_help
+photo_car_west_2nd_street U record_pedestrian_west_4th_avenue,photo_car_west_2nd_street -> F record_pedestrian_west_4th_avenue
+record_person_north_7th_avenue U get_help,record_person_north_7th_avenue -> get_help
+change_light_west_green U get_help,change_light_west_green -> get_help
+photo_cyclist_southwest_10th_avenue U record_jaywalker_southwest_6th_street,photo_cyclist_southwest_10th_avenue & X record_jaywalker_southwest_6th_street
+pickup_microwave U search_boat,pickup_microwave & X search_boat
+get_help U deliver_bottle_shelf,get_help -> F deliver_bottle_shelf
+change_light_west_red U photo_pedestrian_southeast_4th_street,change_light_west_red & F photo_pedestrian_southeast_4th_street
+photo_car_southwest_1st_street U get_help,photo_car_southwest_1st_street & X get_help
+change_light_west_red U get_help,F(change_light_west_red & get_help)
+deliver_aid_safe_hostile U get_help,deliver_aid_safe_hostile -> get_help
+get_help U pickup_sports_ball,get_help -> pickup_sports_ball

@@ -123,14 +123,6 @@ def normalize_formula(text: str) -> str:
 
 def ask_chatgpt(client: OpenAI, model: str, prompt: str, requirement: str, atomic_proposition: str) -> str:
 
-
-
-    print(globals()[prompt].format(
-                    requirement=requirement,
-                    atomic_proposition=atomic_proposition,
-                ) + INSTRUCTION)
-
-
     response = client.chat.completions.create(
         model=model,
         temperature=0,
@@ -220,6 +212,7 @@ def main() -> None:
 
     for requirement, ground_truth, atomic_proposition in dataset:
 
+            # TODO
             if args.model == "gpt-5.4-mini":
                 client = OpenAI()
                 model_response = ask_chatgpt(client, args.model, args.prompt, requirement, atomic_proposition)
@@ -252,7 +245,7 @@ def main() -> None:
                     }
                 )
 
-    with open(f"data_{model}_{prompt}.csv", "w", newline="", encoding="utf-8") as f:
+    with open(f"data_{args.model}_{args.prompt}.csv", "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(
             f,
             fieldnames=["Ground Truth", "Response"],
