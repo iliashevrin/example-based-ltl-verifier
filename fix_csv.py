@@ -10,16 +10,21 @@ OLD_DELIMITER = ";|||;"
 NEW_DELIMITER = ";"
 
 # Regex:
-# Matches all of these variants:
+# Matches:
+#   "text1(text2)"
+#   "text1(text2
+#   text1(text2)"
 #
-# "text1(text2)"
-# "text1(text2
-# text1(text2)"
-# "text1(text2,text3)"
+# Does NOT match:
+#   text1(text2)
 #
-# Quotes on either side are optional.
-#
-PATTERN_QUOTES = re.compile(r'"?([^"\(\)]+)\(([^"\(\)]+)\)"?')
+PATTERN_QUOTES = re.compile(
+    r'(?:'
+    r'"([^"\(\)]+)\(([^"\(\)]+)\)"?'   # left quote exists
+    r'|'
+    r'([^"\(\)]+)\(([^"\(\)]+)\)"'     # right quote exists
+    r')'
+)
 
 # Regex:
 # In column 2 only:
@@ -40,25 +45,36 @@ PATTERN_HYPHEN = re.compile(r'-(?!>)')
 def transform_quotes(value: str) -> str:
     """
     Replace:
+
         "text1(text2)"
+        "text1(text2
+        text1(text2)"
         "text1(text2,text3)"
-        "text1(text2,text3,...,textN)"
 
     with:
+
         text1_text2
         text1_text2_text3
-        text1_text2_..._textN
+
+    BUT do not touch:
+
+        text1(text2)
     """
 
     def replacer(match):
 
-        text1 = match.group(1).strip()
-        inner = match.group(2).strip()
+        # Depending on which side had the quote,
+        # one pair of groups will be None
+        text1 = match.group(1) or match.group(3)
+        inner = match.group(2) or match.group(4)
 
-        # Split by commas and remove extra spaces
+        text1 = text1.strip()
+        inner = inner.strip()
+
+        # Split comma-separated items
         parts = [p.strip() for p in inner.split(",")]
 
-        # Combine everything with underscores
+        # Join using underscores
         return "_".join([text1] + parts)
 
     return PATTERN_QUOTES.sub(replacer, value)

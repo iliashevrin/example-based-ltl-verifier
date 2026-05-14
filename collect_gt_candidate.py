@@ -212,38 +212,38 @@ def main() -> None:
 
     for requirement, ground_truth, atomic_proposition in dataset:
 
-            # TODO
-            if args.model == "gpt-5.4-mini":
-                client = OpenAI()
-                model_response = ask_chatgpt(client, args.model, args.prompt, requirement, atomic_proposition)
-            elif args.model == "qwen":
-                model_response = ask_chatgpt(client, args.model, args.prompt, requirement, atomic_proposition)
-            elif args.model == "codellama":
-                model_response = ask_chatgpt(client, args.model, args.prompt, requirement, atomic_proposition)
+        # TODO
+        if args.model == "gpt-5.4-mini":
+            client = OpenAI()
+            model_response = ask_chatgpt(client, args.model, args.prompt, requirement, atomic_proposition)
+        elif args.model == "qwen":
+            model_response = ask_chatgpt(client, args.model, args.prompt, requirement, atomic_proposition)
+        elif args.model == "codellama":
+            model_response = ask_chatgpt(client, args.model, args.prompt, requirement, atomic_proposition)
 
-            equivalent = semantically_equivalent(ground_truth, model_response)
+        equivalent = semantically_equivalent(ground_truth, model_response)
 
-            print(
-                f"  Requirement: {requirement}\n"
-                f"  Ground Truth: {ground_truth}\n"
-                f"  Response:     {model_response}\n"
-                f"  Equivalent:     {equivalent}\n",
-                file=sys.stderr,
+        print(
+            f"  Requirement: {requirement}\n"
+            f"  Ground Truth: {ground_truth}\n"
+            f"  Response:     {model_response}\n"
+            f"  Equivalent:     {equivalent}\n",
+            file=sys.stderr,
+        )
+
+        if equivalent is None:
+            syntax_errors += 1
+        else:
+            total += 1
+            correct += int(equivalent)
+
+        if not equivalent:
+            rows.append(
+                {
+                    "Ground Truth": ground_truth,
+                    "Response": model_response,
+                }
             )
-
-            if equivalent is None:
-                syntax_errors += 1
-            else:
-                total += 1
-                correct += int(equivalent)
-
-            if not equivalent:
-                rows.append(
-                    {
-                        "Ground Truth": ground_truth,
-                        "Response": model_response,
-                    }
-                )
 
     with open(f"data_{args.model}_{args.prompt}.csv", "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(

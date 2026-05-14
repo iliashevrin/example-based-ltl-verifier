@@ -1,0 +1,269 @@
+Ground Truth,Response
+((prop_4 -> prop_2) -> prop_1) -> prop_3,((prop_4 -> prop_2) & (prop_2 -> prop_1)) -> prop_3
+G(!prop_2 & F prop_1),G(prop_1 & !prop_2)
+G(prop_1 | F prop_2),G(prop_1) | G(prop_2)
+G(F prop_1 & G prop_2),G(prop_1) & G(prop_2)
+prop_2 & (!prop_1 -> prop_3),!prop_1 -> (prop_3 & prop_2)
+prop_3 | (prop_2 & (prop_4 -> prop_1)),(prop_4 -> prop_1) & (prop_2 | prop_3)
+G(prop_1 -> (prop_2 | prop_3)),G(prop_1 -> (prop_2 | X prop_3))
+prop_1 <-> (prop_2 U prop_3),(F prop_2 U prop_3) <-> prop_1
+F prop_1 -> GF prop_2,G(prop_1 -> G(prop_2))
+(prop_2 -> prop_3) U (prop_1 <-> prop_4),(prop_2 <-> prop_3) -> (prop_1 -> prop_4)
+(prop_1 <-> prop_4) U (prop_3 -> prop_2),G((!prop_1 | prop_4) -> (prop_3 <-> prop_2))
+(prop_1 & prop_2) <-> G prop_3,G(prop_3 <-> (prop_1 & prop_2))
+prop_2 <-> ((prop_1 & prop_4) U prop_3),((prop_4 & prop_1 & (prop_1 U prop_3)) -> prop_2)
+F(prop_1 & prop_2),prop_2 & F prop_1
+(!prop_2 -> prop_1) -> F prop_3,!prop_2 -> (prop_1 & F prop_3)
+G prop_3 -> (prop_1 <-> prop_2),G(prop_3) -> G(prop_2 <-> prop_1)
+(prop_2 & prop_3) | G prop_1,G(prop_1 | (prop_3 & prop_2))
+prop_2 & (prop_1 -> prop_3),prop_2 & prop_1 & prop_3
+prop_4 | (prop_1 <-> (prop_2 | prop_3)),(prop_3 | (prop_2 <-> prop_1) | prop_4)
+F(prop_1 | G prop_2),G(prop_1 | prop_2)
+F(prop_1 & F prop_2),G(prop_1) & G(prop_2)
+(prop_1 | prop_3) & F prop_2,(prop_1 | prop_3) & prop_2
+((prop_2 <-> prop_4) U prop_3) -> prop_1,G(((prop_4 <-> prop_2) U prop_3) -> prop_1)
+!prop_1 | (prop_2 <-> prop_3),!prop_1 | (prop_2 & prop_3)
+prop_3 <-> ((prop_2 -> prop_4) U prop_1),((prop_2 & prop_4) U prop_1) <-> prop_3
+!(prop_1 & prop_3) -> prop_2,(!(prop_3) & prop_1) -> prop_2
+G(F prop_1 U G!prop_2),G(prop_1) & G(!prop_2)
+(prop_1 & prop_2) -> G prop_3,G(((prop_1 & prop_2) -> prop_3))
+prop_1 & G(prop_2 -> prop_3),G((prop_2 -> prop_3) & prop_1)
+F prop_2 -> (prop_1 & prop_3),F prop_2 -> F (prop_1 & prop_3)
+G((prop_1 & prop_2) -> !F prop_3),(prop_1 & prop_2) -> !F((prop_3) & (F prop_3))
+(prop_1 -> prop_4) U (prop_2 <-> prop_3),(prop_1 -> (prop_4 U (prop_2 <-> prop_3)))
+(prop_1 -> prop_3) & G prop_2,G(prop_2 -> (prop_1 -> prop_3))
+G((prop_1 & prop_2) -> prop_3),(prop_2 & prop_1) -> prop_3
+F(prop_1 | !prop_2),F prop_1 | ! prop_2
+G((prop_1 | prop_3) -> !G prop_2),((prop_3 | prop_1) -> G(!prop_2))
+prop_1 <-> G(prop_3 -> prop_2),G((prop_3 -> prop_2) <-> prop_1)
+prop_2 | G(prop_1 & prop_3),G((prop_1 & prop_3) | prop_2)
+prop_3 <-> F(prop_1 <-> prop_2),((prop_1 <-> prop_2) & prop_3) <-> prop_3
+!(prop_1 & prop_3) -> prop_2,(!(prop_1) & prop_3) -> prop_2
+!prop_3 U (prop_1 & prop_2),!prop_2 U (prop_3 & prop_1)
+prop_1 | GF prop_2,prop_1 | G prop_2
+G((prop_2 | prop_3) -> prop_1),((prop_2 | prop_3) -> X prop_1)
+prop_3 & (prop_1 | (prop_2 U prop_4)),((F(prop_2 & (!prop_2 U prop_4))) | prop_1) & prop_3
+G prop_3 -> (prop_1 <-> prop_2),G(prop_3) -> G(prop_1 <-> prop_2)
+(prop_2 <-> prop_3) <-> F prop_1,F((prop_1 <-> prop_3) <-> prop_2)
+(prop_1 -> prop_3) U !prop_2,(!prop_1) U (prop_3 -> prop_2)
+F prop_1 -> GF prop_2,G(prop_1 -> G(prop_2))
+(prop_1 & (prop_3 -> prop_4)) -> prop_2,(prop_3 -> (prop_4 & prop_1)) -> prop_2
+G((prop_2 | prop_3) -> FG prop_1),G((prop_2 | prop_3) -> F(prop_1))
+prop_2 & F(prop_3 -> prop_1),F(prop_3 & (prop_3 -> (prop_1 & prop_2)))
+F prop_1 -> prop_2,G(prop_1 -> prop_2)
+prop_4 <-> (prop_3 | (prop_2 -> prop_1)),prop_2 <-> ((prop_1 -> prop_3) | prop_4)
+(prop_1 <-> prop_3) -> !prop_2,F(prop_1 <-> prop_3) -> G(!prop_2)
+prop_4 & (prop_1 | (prop_2 U prop_3)),((prop_2 & (prop_2 U prop_3)) | prop_1) & prop_4
+F(prop_1 & !prop_2),prop_1 & !prop_2
+prop_1 | !(prop_2 -> prop_3),!(prop_2 -> (prop_3 | prop_1))
+!(prop_1 U F prop_2),!prop_1 U G prop_2
+prop_3 & (prop_1 <-> (prop_2 U prop_4)),(F(prop_2) & (prop_2 U prop_4)) -> ((prop_1 & prop_3))
+(prop_1 <-> prop_3) | G prop_2,G(prop_2) | (F(prop_1) <-> F(prop_3))
+G!prop_1 -> G!prop_2,G(!prop_1 -> G(!prop_2))
+(prop_2 U prop_3) -> (prop_1 & prop_4),((prop_2 & (!prop_3 U prop_3)) -> (prop_1 & prop_4))
+!(F prop_1 U F prop_2),!prop_1 U prop_2
+F(prop_1 U G!prop_2),(prop_1) U (!prop_2)
+G(prop_1 -> G prop_2),prop_1 -> prop_2
+F(prop_1 U G!prop_2),(prop_1) U G(!prop_2)
+F(prop_1 & G prop_2),F(prop_1) & G(prop_2)
+prop_3 <-> (prop_1 | prop_2 | prop_4),((prop_4 | prop_2 | prop_1) -> prop_3)
+prop_4 | ((prop_1 <-> prop_2) U prop_3),((F((prop_2 <-> prop_1) U prop_3)) | prop_4)
+(prop_1 & (prop_2 | prop_4)) -> prop_3,F((prop_2 | prop_4) & prop_1) -> prop_3
+prop_2 | G(prop_1 & prop_3),G((prop_3 & prop_1) | prop_2)
+G((prop_2 & prop_3) -> !F prop_1),(prop_3 & prop_2) -> X ! F prop_1
+(prop_2 & prop_3) U (prop_1 <-> prop_4),(prop_2 & prop_3) -> (prop_4 <-> prop_1)
+prop_1 | (!prop_3 U prop_2),(F(!prop_3 U prop_2) | prop_1)
+prop_1 | !(prop_2 <-> prop_3),(!(prop_3 <-> prop_2) -> prop_1)
+prop_3 | (prop_2 <-> (prop_1 | prop_4)),((prop_1 | prop_4) -> (prop_2 | prop_3))
+G((prop_2 | prop_3) -> !F prop_1),(prop_2 | prop_3) -> !prop_1
+(prop_2 -> prop_1) <-> G prop_3,G((prop_2 & X prop_1) <-> prop_3)
+!prop_1 U (prop_2 | prop_3),(!prop_2) U (prop_1 | prop_3)
+prop_4 <-> ((prop_1 -> prop_2) U prop_3),((prop_1 & prop_2) U prop_3) <-> prop_4
+(prop_3 -> prop_1) | (prop_4 U prop_2),(prop_3 -> prop_1) & (!prop_3 -> (prop_4 U prop_2))
+(prop_2 <-> prop_3) <-> G prop_1,G(prop_1 <-> (prop_2 <-> prop_3))
+(prop_1 & prop_3) -> G prop_2,G(((prop_1 & prop_3) -> prop_2))
+!(prop_1 | GF prop_2),!prop_1 | G prop_2
+prop_1 | G(prop_2 | prop_3),G((prop_2 | prop_3) | prop_1)
+!prop_1 & prop_2 & (prop_4 -> prop_3),G((prop_4 -> (prop_3 & !prop_1)) U prop_2)
+(prop_1 & prop_2) <-> G prop_3,G(prop_3 <-> (prop_1 & prop_2))
+prop_2 & F(prop_1 <-> prop_3),F(prop_3) & (prop_1 <-> prop_3) & G(prop_2)
+prop_1 <-> !(prop_3 U prop_2),(!(prop_3) U F(prop_2)) <-> prop_1
+G(prop_1 -> F prop_2),prop_1 -> F prop_2
+(prop_1 -> prop_2) & (prop_3 <-> prop_4),(prop_1 -> prop_2) & G(prop_3 <-> prop_4)
+prop_3 & ((prop_2 <-> prop_4) -> prop_1),((prop_4 <-> prop_2) -> (prop_1 & prop_3))
+(prop_2 & (prop_3 -> prop_4)) -> prop_1,(prop_3 -> prop_4) & (prop_2 -> prop_1)
+prop_1 -> GF prop_2,G(prop_1 <-> G(prop_2))
+F(prop_1 U !prop_2),prop_1 U !prop_2
+(prop_1 & prop_3) U (prop_2 -> prop_4),((prop_3 & prop_1) -> ((prop_3 & prop_1) U prop_2)) & G(prop_2 -> prop_4)
+prop_2 | (prop_4 & (prop_1 U prop_3)),((F(prop_1 & (!prop_3 U prop_1)) & prop_4) | prop_2)
+G(F prop_1 & F prop_2),G(prop_2 -> F(prop_1)) & G(F(prop_1))
+(prop_1 | prop_4) & (prop_3 U prop_2),(prop_1) | ((prop_3) U (prop_2))
+prop_3 & (prop_2 | G!prop_1),G((!prop_1 | prop_2) & prop_3)
+G((prop_1 & prop_2) -> prop_3),G(((prop_2 & !prop_1)) -> X(prop_3))
+F prop_1 -> G!prop_2,G(prop_1 -> G(!prop_2))
+prop_2 | G(prop_1 | prop_3),G(prop_3 | prop_1 | prop_2)
+prop_2 | (prop_1 <-> (prop_3 U prop_4)),(G(prop_3) U F(prop_4)) <-> (prop_1 | prop_2)
+(prop_2 <-> prop_3) | F prop_1,G(prop_3 <-> prop_2) | F(prop_1)
+prop_3 <-> ((prop_1 & prop_2) U prop_4),((F prop_2) & (prop_1 U prop_4)) -> prop_3
+!prop_1 <-> (prop_3 & F prop_2),F(prop_2 & prop_3) <-> !prop_1
+(prop_4 -> prop_3) | (prop_1 & prop_2),((prop_2 & prop_1) | prop_4) -> prop_3
+(prop_1 | prop_3) <-> F prop_2,F(prop_2) <-> F(prop_3 | prop_1)
+((prop_3 U prop_2) -> prop_4) -> prop_1,((prop_3 U prop_2) -> (prop_4 -> prop_1))
+prop_1 & prop_4 & (prop_2 | prop_3),((prop_3) | ((prop_2) & (prop_1))) & (prop_4)
+(prop_1 & prop_2) U (prop_3 <-> prop_4),(prop_2 & prop_1) -> (prop_4 <-> prop_3)
+G prop_2 -> (prop_1 <-> prop_3),G(prop_2 -> (prop_1 <-> prop_3))
+(prop_1 | prop_3) U (prop_2 <-> prop_4),((prop_3 | prop_1) -> (prop_2 <-> prop_4))
+prop_4 | ((prop_1 U prop_3) -> prop_2),(prop_1 U prop_3) -> F(prop_2 | prop_4)
+!(prop_1 & prop_2) -> prop_3,(!(prop_2) & prop_1) -> prop_3
+prop_2 | (prop_1 & (prop_4 -> prop_3)),(prop_4 -> prop_3) & (prop_1 | prop_2)
+prop_2 -> prop_1,prop_1 -> prop_2
+F(prop_1 | G!prop_2),G(prop_1) | G(!prop_2)
+F prop_1 -> (prop_2 <-> prop_3),F(prop_1 -> (prop_2 <-> prop_3))
+G prop_2 -> (prop_1 | prop_3),G(prop_2 -> (prop_1 | prop_3))
+!prop_3 | (prop_2 -> prop_1),((!prop_3) | prop_2) -> prop_1
+G((prop_1 | prop_2) -> FG prop_3),((prop_2 | prop_1) -> F prop_3)
+prop_4 & ((prop_1 & prop_3) U prop_2),(prop_3 & prop_1 & (prop_1 U prop_2) & prop_4)
+G(prop_1 -> GF prop_2),G(prop_1 -> F((X prop_2)))
+(prop_1 <-> prop_3) & F prop_2,prop_3 <-> (prop_1 & F prop_2)
+!prop_3 -> (prop_1 U prop_2),G(!prop_3 -> (prop_1 U prop_2))
+G prop_3 -> (prop_2 -> prop_1),G(prop_3) -> G(prop_2 -> prop_1)
+G((prop_1 | prop_2) -> GF prop_3),G((!prop_2 | prop_1) -> F prop_3)
+(prop_2 <-> prop_4) | (prop_3 -> prop_1),((prop_2 <-> prop_4) | prop_3) -> prop_1
+prop_1 & prop_3 & G prop_2,G(prop_2 & prop_3 & prop_1)
+F(prop_1 & F prop_2),G(prop_1 & prop_2)
+prop_3 & (prop_1 | prop_2),F((prop_1 | prop_2) & prop_3)
+!(prop_2 & F prop_1),!prop_1 & prop_2
+!prop_2 U (prop_1 | prop_3),!prop_2 -> (!prop_2 U (prop_3 | prop_1))
+prop_1 | !(prop_2 -> prop_3),!((prop_2 -> F prop_3)) | prop_1
+prop_1 & ((prop_2 -> prop_4) U prop_3),F prop_2 -> ((prop_4 & prop_1) U prop_3)
+G((prop_2 | prop_3) -> !F prop_1),((prop_3 | prop_2) -> X F prop_1)
+G((prop_1 & prop_3) -> !F prop_2),(prop_3 & prop_1) -> !(F(prop_2))
+G(prop_1 & F prop_2),G(prop_1) & G(prop_2)
+G(!prop_1 U G!prop_2),!prop_1 U !prop_2
+prop_2 | prop_3 | G prop_1,(prop_3 | prop_2) | prop_1
+G(prop_1 | F prop_2),G(prop_1) | G(prop_2)
+F(prop_1 & F prop_2),G(prop_1) & G(prop_2)
+prop_1 -> G prop_2,prop_1 <-> G prop_2
+G((prop_3 U prop_2) -> FG prop_1),(F(prop_3) & (prop_2 U prop_3)) -> F(F(prop_1))
+G prop_2 -> (prop_1 & !prop_3),G(prop_2) -> G(!prop_3 & prop_1)
+prop_1 | G(prop_2 -> prop_3),G((prop_2 -> prop_3) | prop_1)
+prop_2 | prop_3 | F prop_1,F(prop_1) | F(prop_2) | F(prop_3)
+G((prop_1 | prop_3) -> !G prop_2),G(((prop_1) | (prop_3)) -> !(G((!prop_2))))
+(prop_1 | prop_2 | prop_4) -> prop_3,(F(prop_4) | F(prop_1) | F(prop_2)) -> prop_3
+(prop_1 <-> prop_4) U (prop_2 -> prop_3),(prop_2 <-> prop_3) U (prop_1 & prop_4)
+prop_3 & ((prop_2 | prop_4) U prop_1),((prop_4 | prop_2) U prop_1) & G(prop_3)
+G((prop_2 | prop_3) -> GF prop_1),G(((prop_2 | prop_3) -> F((X prop_1))))
+G prop_2 -> (prop_1 -> prop_3),G(prop_2) -> G(prop_1 -> prop_3)
+(prop_3 -> prop_2) U (prop_1 <-> prop_4),(prop_3 -> (prop_2 U (prop_1 <-> prop_4)))
+F prop_1 -> GF prop_2,G(prop_1 -> G(prop_2))
+G((prop_1 | prop_2) -> !G prop_3),((prop_1 | prop_2) -> G(!prop_3))
+prop_2 -> ((prop_1 & prop_3) U prop_4),prop_2 -> (prop_1 & prop_3 U prop_4)
+(!prop_2 -> prop_3) U prop_1,!prop_2 -> (prop_3 U prop_1)
+F(prop_1 & prop_2),prop_1 & prop_2
+prop_2 | prop_3 | G prop_1,G(prop_1 | prop_2 | prop_3)
+prop_1 -> prop_2,prop_1 <-> prop_2
+!prop_2 U (prop_1 | prop_3),(!prop_3) U (prop_2 | prop_1)
+prop_1 & (prop_2 | (prop_4 U prop_3)),F((prop_4 U prop_3) | prop_2) & prop_1
+prop_3 | G(prop_1 <-> prop_2),(G(prop_2) <-> prop_1) | prop_3
+prop_2 <-> (prop_3 | (prop_1 & prop_4)),((prop_4 & prop_1) | prop_3) -> prop_2
+((prop_2 & prop_6) -> (prop_4 U prop_5)) & (prop_1 U !prop_3),((prop_2 & prop_6) -> ((prop_4 U prop_5) & (prop_1 U !prop_3)))
+!prop_1 & (prop_3 -> prop_2),prop_3 -> (prop_2 & !prop_1)
+(!prop_1 & prop_3) | G prop_2,F(!prop_1 & prop_3) | G(prop_2)
+(prop_1 | prop_2) U (prop_3 & prop_4),((prop_1 | prop_2) -> ((!prop_3 | !prop_4) U (prop_3 & prop_4)))
+(F prop_1 -> prop_2) -> prop_3,F prop_1 -> (prop_2 -> prop_3)
+F prop_1 -> (prop_2 | prop_3),F prop_1 -> F (prop_2 | prop_3)
+(prop_2 <-> prop_3) & (prop_1 -> prop_4),((prop_2 <-> prop_3) & prop_1) -> prop_4
+(prop_3 & prop_4) | (prop_2 U prop_1),((prop_3 & prop_4) | prop_2) -> prop_1
+(prop_2 U prop_1) -> !prop_3,((prop_2 & (!prop_1 U prop_2)) -> G !prop_3)
+(prop_1 <-> F prop_3) -> !prop_2,((prop_3 <-> prop_1) -> !prop_2)
+prop_3 & (!prop_1 <-> prop_2),(!prop_1 -> (prop_2 & prop_3)) & ((prop_2 & prop_3) -> !prop_1)
+F prop_1 -> G!prop_2,G(prop_1 -> G(!prop_2))
+G((prop_1 | prop_3) -> F prop_2),G((prop_1 | prop_3) -> F(!prop_2))
+F(prop_1 & G prop_2),G(prop_1 & prop_2)
+F(prop_1 | F prop_2),F(prop_1) | G(prop_2)
+G(!prop_1 & F prop_2),!prop_1 & G(prop_2)
+prop_1 & F(prop_2 <-> prop_3),F((prop_2 <-> prop_3) & prop_1)
+(prop_2 -> prop_3) -> G prop_1,G((prop_2 -> prop_3) -> prop_1)
+F(prop_1 | G prop_2),F(prop_1) | G(prop_2)
+F(prop_1 | !F prop_2),G(prop_1 | !prop_2)
+G((prop_1 | prop_3) -> (prop_2 & prop_4)),G((prop_1 | prop_3) -> (F prop_2 & prop_4))
+prop_1 <-> F(prop_2 -> prop_3),F((prop_2 -> prop_3) <-> prop_1)
+(prop_2 | prop_3) & G prop_1,G((prop_3 | prop_2) & prop_1)
+F(prop_1 | prop_2) -> prop_3,F((prop_1 | prop_2) & (prop_3 -> (prop_1 | prop_2)))
+G(prop_1 -> GF prop_2),prop_1 -> G F prop_2
+F(prop_1 & !prop_2),F(prop_1) & !prop_2
+!prop_1 -> F prop_2,G(!prop_1 -> prop_2)
+prop_3 | ((prop_2 -> prop_4) -> prop_1),(prop_2 -> (prop_4 -> (prop_1 | prop_3)))
+(prop_2 & (prop_3 U prop_1)) -> prop_4,((prop_3 U prop_1) & prop_2) -> X prop_4
+prop_2 & F(prop_1 | prop_3),F((prop_3 | prop_1) & prop_2)
+prop_2 | G(prop_1 | prop_3),G((prop_3) | (prop_1) | (prop_2))
+(prop_4 -> prop_3) -> (prop_1 <-> prop_2),(prop_4 & prop_3) -> (prop_1 <-> prop_2)
+G((prop_1 U prop_3) -> FG prop_2),G((F prop_1 & !prop_1 U prop_3) -> F(G prop_2))
+prop_2 & G(prop_1 -> prop_3),G(prop_1 -> (prop_3 & prop_2))
+!prop_1 | (prop_2 -> prop_3),(!prop_1 | prop_2) -> prop_3
+(prop_2 -> prop_4) <-> (prop_1 | prop_3),(X prop_2 & X prop_4) <-> (prop_1 | prop_3)
+prop_3 | ((prop_1 <-> prop_4) -> prop_2),prop_4 <-> (prop_1 -> prop_2 | prop_3)
+!prop_1 | (prop_2 <-> G prop_3),!prop_1 | G(prop_3 <-> prop_2)
+F prop_1 -> F prop_2,G(prop_1 -> G(prop_2))
+!prop_2 | (prop_1 U prop_3),(prop_1 U prop_3) | G(!prop_2)
+prop_3 & ((prop_4 U prop_2) -> prop_1),(prop_4 U prop_2) -> (prop_1 & prop_3)
+prop_3 <-> (prop_1 | (prop_4 U prop_2)),((prop_4 & (prop_4 U (prop_2 | prop_1))) -> prop_3)
+(prop_1 | (prop_3 -> prop_2)) U prop_4,G((F prop_3) -> ((prop_2 | prop_1) U prop_4))
+G((prop_1 & prop_2) -> (prop_4 U prop_3)),(prop_2 & prop_1) -> (prop_4 & (!prop_4 U prop_3))
+prop_1 & F(prop_2 | prop_3),F((prop_2 | prop_3) & prop_1)
+(prop_3 -> prop_1) <-> (prop_2 U prop_4),((prop_2 U prop_4) <-> (prop_3 & X prop_1))
+prop_1 & G(prop_3 -> prop_2),G((prop_3 -> prop_2) & prop_1)
+G(!prop_1 & F prop_2),!prop_1 & F prop_2
+F(prop_1 & G!prop_2),F(prop_1) & G(!prop_2)
+prop_1 & ((prop_3 <-> prop_4) U prop_2),F((prop_3 <-> prop_4) U prop_2) & prop_1
+G prop_3 -> (prop_1 <-> prop_2),G(prop_3) -> G(prop_1 <-> prop_2)
+prop_1 -> F prop_2,G(prop_1 -> F(prop_2))
+G((prop_1 | prop_3) -> G prop_2),G((prop_3 | prop_1) -> prop_2)
+F prop_3 -> (prop_1 | prop_2),F prop_3 -> (F prop_2 | F prop_1)
+G((prop_2 | prop_3) -> G prop_1),((prop_3 | prop_2) -> G(prop_1))
+!prop_3 U (prop_1 | prop_2),(!prop_1) U (prop_2 | prop_3)
+prop_2 <-> (!prop_1 -> prop_3),(!prop_1 -> prop_3) & (prop_3 -> prop_2)
+(prop_3 -> prop_2) -> G prop_1,G((prop_3 -> prop_2) -> prop_1)
+G(prop_1 | G!prop_2),G(prop_1) | G(!prop_2)
+F prop_1 -> G!prop_2,G(prop_1 -> !prop_2)
+prop_2 -> (prop_1 & prop_3),prop_2 -> X(prop_3 & prop_1)
+(prop_3 U prop_2) -> prop_1,F(prop_3) -> (prop_2 U prop_1)
+F prop_2 -> (prop_1 & prop_3),prop_2 -> (prop_1 & prop_3)
+prop_3 & F(prop_1 & prop_2),F(prop_2 & prop_1 & prop_3)
+prop_2 | prop_3 | G prop_1,G(prop_1 | prop_3 | prop_2)
+prop_2 & prop_3 & F prop_1,F(prop_1) & F(prop_2) & F(prop_3)
+G prop_1 -> F prop_2,G(prop_1 -> F(prop_2))
+G((prop_3 & prop_4) -> (prop_1 & prop_2)),((prop_4 & prop_3) -> (prop_1 & prop_2))
+prop_3 | !(prop_1 | prop_2),!(prop_1 | prop_2 | prop_3)
+prop_1 | G(!prop_3 -> prop_2),G((!prop_3 -> prop_2) | prop_1)
+G!prop_1 -> F prop_2,G(!prop_1 -> prop_2)
+(prop_3 -> prop_2) <-> (prop_1 U prop_4),G((prop_1 & (prop_1 U prop_4)) -> (prop_3 -> prop_2))
+(prop_1 | prop_2) U !prop_3,(!prop_1) U (prop_2 | prop_3)
+!(prop_1 & F prop_2),!prop_1 & G(prop_2)
+(prop_2 <-> (prop_3 & prop_4)) -> prop_1,((prop_4 & prop_3) | prop_2) -> prop_1
+!prop_3 & (prop_2 <-> F prop_1),F(prop_1 <-> prop_2) & !prop_3
+(prop_1 & prop_2) <-> (prop_3 | prop_4),((prop_1 & prop_2) -> prop_4) <-> ((!prop_4) -> prop_3)
+F prop_1 -> prop_2,G(prop_1 -> prop_2)
+!F prop_1 -> prop_2,!prop_1 -> prop_2
+!prop_3 U (prop_1 <-> prop_2),!prop_2 U prop_3<->prop_1
+prop_2 & prop_3 & G prop_1,G(prop_1 & (prop_2 & prop_3))
+G prop_2 -> (prop_1 & prop_3),G(prop_2) -> G(prop_1 & prop_3)
+prop_1 <-> ((prop_2 & prop_3) U prop_4),((prop_3 & prop_2 & (prop_2 U prop_4)) -> prop_1)
+(!prop_3 -> prop_1) & F prop_2,!prop_3 -> (prop_1 & F prop_2)
+G(prop_3 -> (prop_1 U prop_2)),G(prop_3 -> F(!prop_1 & !prop_2))
+F prop_1 -> G!prop_2,G(prop_1 -> G(!prop_2))
+G((prop_3 & prop_4) -> (prop_1 | prop_2)),G((prop_3 & prop_4) -> X(prop_1 | prop_2))
+!(prop_1 | prop_2) -> prop_3,(!(prop_2) | prop_1) -> prop_3
+G((prop_1 & prop_2) -> (prop_3 | prop_4)),G((prop_1 & prop_2) -> (prop_3 | X prop_4))
+prop_3 & ((prop_2 U prop_4) -> prop_1),((prop_2 U prop_4) -> (prop_1 & prop_3))
+!(prop_1 & prop_2) -> prop_3,(!(prop_1) & !(prop_2)) -> prop_3
+prop_1 & F(prop_2 | prop_3),F((prop_3 | prop_2) & prop_1)
+prop_1 | G(prop_2 & prop_3),G((prop_2 & prop_3) | prop_1)
+prop_1 <-> !(prop_2 | prop_3),((!prop_3 | prop_2) -> prop_1) <-> prop_1
+F(prop_1 <-> prop_2) -> prop_3,F((prop_1 <-> prop_2) & prop_3)
+((prop_1 -> prop_4) U prop_3) -> prop_2,(prop_1 -> (prop_4 U prop_3)) & (prop_3 -> prop_2)
+(prop_1 | prop_3) U (prop_2 <-> prop_4),(!((prop_3 <-> prop_1)) U (prop_4 | prop_2))
+(prop_2 -> prop_3) -> !prop_1,(prop_2 -> prop_3) & X !prop_1
+(prop_2 | prop_3) -> G prop_1,G((prop_3 | prop_2) -> G prop_1)
+G(F prop_1 U G prop_2),prop_1 U G prop_2
+prop_3 & !(prop_1 | prop_2),(!(prop_2) | !(prop_1)) & prop_3

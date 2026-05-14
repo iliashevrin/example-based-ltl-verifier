@@ -1,0 +1,438 @@
+Ground Truth,Response
+!locality_5 U (house_2 & F(p_pass_5 & F(office_3 & pd))),(!locality_5) U (p_pass_5 & house_2 & office_3)
+!room_2 U (kitchen_1 & F(p_bottle_4 & F(pd & table_4))),(!room_2) U (p_bottle_4 & kitchen_1 & table_4)
+!room_2 U (kitchen_1 & F(p_bottle_4 & F(pd & table_4))),(!room_2) U (p_bottle_4 & table_4)
+!locality_5 U (house_2 & F(p_pass_5 & F(office_3 & pd))),(!locality_5) U (p_pass_5 & house_2 & office_3)
+!locality_5 U (house_2 & F(p_pass_5 & F(office_3 & pd))),!locality_5 U (p_pass_5 & house_2 & office_3)
+!room_2 U (kitchen_1 & F(p_bottle_4 & F(pd & table_4))),(!room_2) U (p_bottle_4 & X table_4)
+!locality_5 U (house_2 & F(p_pass_5 & F(office_3 & pd))),(!locality_5) U (p_pass_5 & F office_3)
+!room_2 U (kitchen_1 & F(p_bottle_4 & F(pd & table_4))),!(room_2) U (p_bottle_4 & table_4)
+!locality_5 U (house_2 & F(p_pass_5 & F(office_3 & pd))),(!locality_5) U (p_pass_5 & house_2 & F office_3)
+!garage_1 U (landmark_5 & photo),!garage_1 U photo
+!park_6 U p_pass_4,!park_6 -> p_pass_4
+(!store_4 U street_6) & F(office_2 & F(p_package_8 & F(pd & store_4))),(!store_4 U street_6) & (p_package_8 & office_2)
+(!building_3 U street_6) & F(store_3 & F(p_box_8 & F(house_2 & pd))),(!pd U street_6) & (street_6 -> F(store_3 & F(p_box_8 & F(house_2))))
+(!office_4 U p_pass_6) & F(house_5 & F(p_pass_6 & F(office_4 & pd))),(!office_4) U (p_pass_6 & house_5)
+(!office_4 U p_pass_6) & F(house_5 & F(p_pass_6 & F(office_4 & pd))),(!office_4 U p_pass_6) & G(p_pass_6 -> X(house_5 & X(office_4)))
+(!intersection_1 U street_6) & F(street_2 & F(p_cone_3 & F(intersection_1 & pd))),(!intersection_1 U street_6) & F(street_2 & p_cone_3 & F(intersection_1))
+(!intersection_1 U street_6) & F(street_2 & F(p_cone_3 & F(intersection_1 & pd))),(!intersection_1 U street_6) & (street_6 -> F(p_cone_3 & street_2 & F intersection_1))
+(!intersection_1 U street_6) & F(street_2 & F(p_cone_3 & F(intersection_1 & pd))),(!intersection_1) U (street_6 & p_cone_3 & street_2 & X(intersection_1))
+(!intersection_5 U street_4) & F(house_4 & F(p_pass_4 & F(office_1 & pd))),(!intersection_5 U street_4) & F house_4 & F p_pass_4 & F office_1
+(!store_4 U street_6) & F(office_2 & F(p_package_8 & F(pd & store_4))),(!store_4) U (street_6 & p_package_8 & office_2)
+(!intersection_1 U street_6) & F(street_2 & F(p_cone_3 & F(intersection_1 & pd))),(!pd U street_6) & (street_6 -> (F intersection_1 & F p_cone_3))
+(!intersection_5 U street_4) & F(house_4 & F(p_pass_4 & F(office_1 & pd))),(!intersection_5) U street_4
+(!intersection_1 U street_6) & F(street_2 & F(p_cone_3 & F(intersection_1 & pd))),(!pd U street_6) & (street_6 -> F(p_cone_3 & intersection_1))
+(!parking_lot_4 U street_5) & F(parking_lot_4 & G parking_lot_4),(!parking_lot_4 U street_5) & G(street_5 -> X(parking_lot_4))
+(!parking_lot_4 U street_5) & F(parking_lot_4 & G parking_lot_4),(!parking_lot_4) U (street_5 & parking_lot_4)
+(!parking_lot_4 U street_5) & F(parking_lot_4 & G parking_lot_4),(!parking_lot_4) U (street_5 & parking_lot_4 & G(parking_lot_4))
+(!parking_lot_4 U street_5) & F(parking_lot_4 & G parking_lot_4),(!parking_lot_4 U street_5) & G(street_5 -> X(parking_lot_4 & G(parking_lot_4)))
+(!park_5 U intersection_5) & F(monument_3 & photo),(!park_5 U intersection_5) & G(intersection_5 -> F photo)
+(!garage_1 U photo) & F(landmark_5 & photo),!garage_1 U (photo & landmark_5)
+(!park_5 U intersection_5) & F(monument_3 & photo),(!park_5) U (intersection_5 & photo & monument_3)
+(!garage_1 U photo) & F(landmark_5 & photo),(!garage_1) U (photo & landmark_5)
+(!park_5 U intersection_5) & F(monument_3 & photo),(!park_5) U (intersection_5 & photo & monument_3)
+(!park_5 U intersection_5) & F(monument_3 & photo),(!park_5 U intersection_5) & F photo & F monument_3
+(!landmark_5 U park_5) & F(landmark_5 & photo),(!landmark_5 U park_5) & F photo
+(!street_5 U store_1) & F(p_package_4 & store_1),(!street_5) U (store_1 & p_package_4)
+(!street_4 U intersection_6) & FG street_4,(!street_4) U (intersection_6 & X G street_4)
+(!street_4 U intersection_6) & FG street_4,(!street_4 U intersection_6) & G(street_4)
+(!street_4 U intersection_6) & FG street_4,(!street_4 U intersection_6) & G(intersection_6 -> X(street_4 & G(street_4)))
+(!street_4 U intersection_6) & FG street_4,(!street_4 U intersection_6) & G(intersection_6 -> X G street_4)
+(!building_3 U garage_3) & FG building_3,(!building_3 U garage_3) & G(g garage_3 -> G building_3)
+(!intersection_8 U street_3) & F locality_5,(!intersection_8 U street_3) & G(street_3 -> F locality_5)
+(!intersection_8 U street_3) & F locality_5,(!intersection_8 U street_3) & G(street_3 -> F locality_5)
+(!intersection_8 U street_3) & F locality_5,(!intersection_8) U (street_3 & F locality_5)
+(!intersection_8 U street_3) & F locality_5,(!intersection_8) U (street_3 & locality_5)
+(park_5 U bench_4) & F(store_2 & F(p_bottle_5 & F(bench_4 & pd))),(park_5 U bench_4) & F(store_2 & p_bottle_5 & bench_4)
+(park_5 U bench_4) & F(store_2 & F(p_bottle_5 & F(bench_4 & pd))),(park_5 U bench_4) & F(p_bottle_5 & store_2 & bench_4)
+(park_5 U bench_4) & F(store_2 & F(p_bottle_5 & F(bench_4 & pd))),(park_5 & !bench_4) U (bench_4 & p_bottle_5)
+(locality_1 U intersection_4) & F(warehouse_9 & F(p_package_5 & F(pd & store_2))),(locality_1 U intersection_4) & (intersection_4 -> X(p_package_5 & warehouse_9 U store_2))
+(locality_1 U intersection_4) & F(warehouse_9 & F(p_package_5 & F(pd & store_2))),(locality_1 U intersection_4) & p_package_5
+(locality_1 U intersection_4) & F(warehouse_9 & F(p_package_5 & F(pd & store_2))),(!locality_1 U intersection_4) & G((warehouse_9 & p_package_5) -> F store_2)
+(locality_1 U intersection_4) & F(warehouse_9 & F(p_package_5 & F(pd & store_2))),(locality_1 U intersection_4) & (intersection_4 -> F(p_package_5 & warehouse_9 & F(store_2)))
+(park_5 U bench_4) & F(store_2 & F(p_bottle_5 & F(bench_4 & pd))),(park_5 U (bench_4 & F(store_2 & F(p_bottle_5 & F(bench_4)))))
+(park_5 U bench_4) & F(store_2 & F(p_bottle_5 & F(bench_4 & pd))),(p_bottle_5 & store_2) U (bench_4 & park_5)
+(locality_1 U intersection_4) & F(warehouse_9 & F(p_package_5 & F(pd & store_2))),locality_1 U intersection_4
+F(office_3 & F(p_document_1 & F(street_2 & G street_2))),F office_3 & F p_document_1 & G street_2
+F(office_3 & F(p_document_1 & F(street_2 & G street_2))),F(p_document_1 & office_3) & F(street_2) & G(street_2)
+F(office_3 & F(p_document_1 & F(street_2 & G street_2))),F(p_document_1 & office_3) & F(street_2) & G(street_2)
+F(house_4 & F(p_stack_4 & F(street_2 & G street_2))),p_stack_4 & F(street_2 & G(street_2))
+F(table_2 & F(p_brochure_9 & F(park_4 & G park_4))),table_2 & p_brochure_9 & park_4
+F(house_4 & F(p_stack_4 & F(street_2 & G street_2))),F(p_stack_4 & street_2 & G(street_2))
+F(kitchen_1 & F(p_bottle_2 & F(hall_2 & G hall_2))),p_bottle_2 & X(hall_2 & G(hall_2))
+F(office_3 & F(p_document_1 & F(street_2 & G street_2))),F(office_3 & p_document_1 & G street_2)
+F(house_4 & F(p_stack_4 & F(street_2 & G street_2))),p_stack_4 & X street_2 & G street_2
+F(kitchen_1 & F(p_bottle_2 & F(hall_2 & G hall_2))),p_bottle_2 & kitchen_1 & F hall_2 & G hall_2
+F(table_2 & F(p_brochure_9 & F(park_4 & G park_4))),p_brochure_9 & F park_4 & G park_4
+F(house_4 & F(p_stack_4 & F(street_2 & G street_2))),F house_4 & F p_stack_4 & F street_2 & G(street_2 -> X street_2)
+F(warehouse_3 & F(p_package_2 & F(house_1 & pd & photo))),warehouse_3 & p_package_2 & F(pd & F(house_1 & photo))
+F(warehouse_3 & F(p_package_2 & F(house_1 & pd & photo))),warehouse_3 & p_package_2 & F(house_1 & photo)
+F(warehouse_3 & F(p_package_2 & F(house_1 & pd & photo))),F(warehouse_3 & pd & X(house_1 & p_package_2 & photo))
+F(warehouse_3 & F(p_package_2 & F(house_1 & pd & photo))),warehouse_3 & p_package_2 & F(pd & F(house_1 & photo))
+F(warehouse_3 & F(p_package_2 & F(house_1 & pd & photo))),F((warehouse_3 & p_package_2) U (house_1 & pd & photo))
+F(store_2 & F(p_package_4 & F(house_4 & pd))),p_package_4 & F house_4
+F(office_4 & F(p_box_2 & F(house_1 & pd))),(p_box_2 & office_4) & F house_1
+F(house_1 & F(p_trash_can_4 & F(garbage_dump_3 & pd))),F(pd & house_1 & p_trash_can_4 & F(garbage_dump_3))
+F(parking_lot_2 & F(p_cone_5 & F(pd & street_1))),F(parking_lot_2 & p_cone_5 & F(street_1 & pd))
+F(post_office_1 & F(p_lettter_2 & F(building_3 & pd))),post_office_1 & p_lettter_2 -> F building_3
+F(house_3 & F(p_box_8 & F(office_2 & pd))),(p_box_8 & house_3) -> F(pd & office_2)
+F(house_4 & F(p_package_2 & F(pd & warehouse_5))),house_4 & p_package_2 & warehouse_5
+F(house_5 & F(p_box_4 & F(office_2 & pd))),F(p_box_4 & pd & house_5 & F(office_2 & pd))
+F(office_5 & F(p_letter_4 & F(house_2 & pd))),office_5 & F(p_letter_4 & F house_2)
+F(street_4 & F(p_traffic_cone_5 & F(intersection_6 & pd))),street_4 & p_traffic_cone_5 & F intersection_6
+F(office_4 & F(p_box_2 & F(house_1 & pd))),pd & p_box_2 & office_4 & house_1
+F(house_3 & F(p_pass_2 & F(office_2 & pd))) & (!street_5 U p_pass_2),(!street_5 U p_pass_2) & F(pd & house_3 & office_2)
+F(house_3 & F(p_pass_2 & F(office_2 & pd))) & (!street_5 U p_pass_2),house_3 & F(p_pass_2 & F(office_2)) & !street_5 U p_pass_2
+F(house_3 & F(p_pass_2 & F(office_2 & pd))) & (!street_5 U p_pass_2),F (house_3 & p_pass_2 & office_2 & (!street_5 U p_pass_2))
+F(house_3 & F(p_pass_2 & F(office_2 & pd))) & (!street_5 U p_pass_2),(!street_5 U p_pass_2) & F(pd & office_2)
+F(house_3 & F(p_pass_2 & F(office_2 & pd))) & (!street_5 U p_pass_2),(p_pass_2 -> (!street_5 U (house_3 & pd & F office_2)))
+F(store_6 & F(p_box_1 & F(house_9 & pd))) & F(intersection_5 & G intersection_5),(p_box_1 & store_6 & !house_9) -> F((p_box_1 & house_9) & F(G intersection_5))
+F(store_6 & F(p_box_1 & F(house_9 & pd))) & F(intersection_5 & G intersection_5),p_box_1 & store_6 & F(house_9 & F(intersection_5 & G(intersection_5)))
+F(store_6 & F(p_box_1 & F(house_9 & pd))) & F(intersection_5 & G intersection_5),p_box_1 & store_6 & F(house_9 & F(intersection_5 & G(intersection_5)))
+F(store_6 & F(p_box_1 & F(house_9 & pd))) & F(intersection_5 & G intersection_5),F(pd & store_6 & p_box_1 & F(house_9 & F(G(intersection_5))))
+F(store_6 & F(p_box_1 & F(house_9 & pd))) & F(intersection_5 & G intersection_5),F(pd & store_6 & F(house_9 & F(intersection_5 & G(intersection_5))))
+F(store_3 & F(p_package_2 & F(house_2 & pd))) & G!mall_1,p_package_2 & store_3 & F house_2 & G !mall_1
+F(table_4 & F(p_tin_can_4 & F(pd & trash_can_5))) & G!hallway_2,G(!hallway_2) & F(p_tin_can_4 & table_4) & F(trash_can_5)
+F(table_4 & F(p_tin_can_4 & F(pd & trash_can_5))) & G!hallway_2,F(pd & table_4 & p_tin_can_4 & trash_can_5 & !hallway_2)
+F(table_4 & F(p_tin_can_4 & F(pd & trash_can_5))) & G!hallway_2,F(pd & table_4 & p_tin_can_4) & F(trash_can_5) & G(!hallway_2)
+F(store_3 & F(p_package_2 & F(house_2 & pd))) & G!mall_1,store_3 & p_package_2 & F house_2 & G !mall_1
+F(table_4 & F(p_tin_can_4 & F(pd & trash_can_5))) & G!hallway_2,G((pd & table_4 & p_tin_can_4) -> F(trash_can_5)) & G(!hallway_2)
+F(table_4 & F(p_tin_can_4 & F(pd & trash_can_5))) & G!hallway_2,(p_tin_can_4 & table_4) & F(trash_can_5) & G(!hallway_2)
+F(store_3 & F(p_package_2 & F(house_2 & pd))) & G!mall_1,store_3 & F(pd & house_2) & G(!mall_1)
+F(store_3 & F(p_package_2 & F(house_2 & pd))) & G!mall_1,F(p_package_2 & store_3) & F(house_2) & G(!mall_1)
+F(store_3 & F(p_package_2 & F(house_2 & pd))) & G!mall_1,store_3 & p_package_2 & F(house_2) & G(!mall_1)
+F(police_station_1 & F(p_cone_2 & F(intersection_2 & pd))) & G!park_3,p_cone_2 & police_station_1 & F intersection_2 & G !park_3
+F(pd & F(park_4 & G park_4)),F(pd & X(park_4 & G park_4))
+F(street_5 & F(building_2 & G building_2)),street_5 & X(F building_2 & G building_2)
+F(pd & F(park_4 & G park_4)),(pd -> F park_4) & G(park_4)
+F(street_5 & F(building_2 & G building_2)),street_5 & X(building_2 & G(building_2))
+F(pd & F(park_4 & G park_4)),pd & F park_4 & G park_4
+F(pd & F(park_4 & G park_4)),(pd & X park_4 & G park_4)
+F(street_5 & F(building_2 & G building_2)),street_5 & X(F(building_2 & G(building_2)))
+F(pd & F(park_4 & G park_4)),F(pd & X(park_4 & G(park_4)))
+F(garage_4 & F(building_3 & G building_3)),!building_3 U (garage_4 & G garage_4)
+F(street_5 & F(building_2 & G building_2)),street_5 & X(building_2 & G(building_2))
+F(p_crate_4 & F(park_1 & pd & G park_1)),F(p_crate_4 & X(pd & X(park_1 & G(park_1))))
+F(p_crate_4 & F(park_1 & pd & G park_1)),F(p_crate_4 & X(pd & X(G park_1)))
+F(p_crate_4 & F(park_1 & pd & G park_1)),p_crate_4 & F(park_1 & G(park_1))
+F(p_crate_4 & F(park_1 & pd & G park_1)),F(p_crate_4 & X(pd & X(G park_1)))
+F(p_crate_4 & F(park_1 & pd & G park_1)),F(p_crate_4 & F(pd & park_1))
+F(park_5 & F(monument_3 & photo)),park_5 & F photo
+F(park_5 & F(photo & statue_2)),park_5 -> (!photo U statue_2)
+F(park_7 & F(monument_4 & photo)),park_7 & F photo & F monument_4
+F(p_luggage_2 & F(pd & room_402)),p_luggage_2 & pd & F room_402
+F(park_7 & F(monument_4 & photo)),park_7 & photo & monument_4
+F(park_5 & F(monument_3 & photo)),park_5 & X photo & X monument_3
+F(park_7 & F(monument_4 & photo)),park_7 & photo & monument_4
+F(park_7 & F(monument_4 & photo)),park_7 & F monument_4
+F(park_5 & F(monument_3 & photo)),park_5 & X photo
+F(park_7 & F(monument_4 & photo)),park_7 & F photo
+F(park_5 & F(monument_3 & photo)),park_5 & X photo & X monument_3
+F(pd & F parking_lot_2),pd & parking_lot_2
+F(pd & F parking_lot_2),pd & parking_lot_2
+F(street_5 & F house_4),!house_4 U street_5
+F(street_5 & F house_4),street_5 & F house_4
+F(street_5 & F house_4),street_5 & X house_4
+F(pd & F parking_lot_2),pd -> F parking_lot_2
+F(pd & F parking_lot_2),pd & F parking_lot_2
+F(pd & F parking_lot_2),G(pd -> !parking_lot_2 U pd)
+F(street_5 & F house_4),street_5 & X house_4
+F(street_5 & F house_4),street_5 & F house_4
+F(building_4 & photo & F(parking_lot_2 & G parking_lot_2)),photo & X(parking_lot_2 & G(parking_lot_2))
+F(monument_3 & photo & F(pathway_8 & G pathway_8)),photo & monument_3 & X(pathway_8 & G(pathway_8))
+F(building_4 & photo & F(parking_lot_2 & G parking_lot_2)),photo & X(parking_lot_2 & G(parking_lot_2))
+F(photo & statue_6 & F(bench_4 & G bench_4)),photo & statue_6 & X(bench_4 & G(bench_4))
+F(building_4 & photo & F(parking_lot_2 & G parking_lot_2)),photo & X(parking_lot_2 & G(parking_lot_2))
+F(photo & statue_6 & F(bench_4 & G bench_4)),photo & statue_6 & X(bench_4 & G(bench_4))
+F(arch_2 & photo & F(park_8 & G park_8)),photo & X(park_8 & G(park_8))
+F(monument_3 & photo & F(pathway_8 & G pathway_8)),photo & F(pathway_8 & G(pathway_8))
+F(arch_2 & photo & F(park_8 & G park_8)),photo & X(park_8 & G park_8)
+F(photo & statue_6 & F(bench_4 & G bench_4)),photo & statue_6 & X(bench_4 & G(bench_4))
+F(photo & statue_6 & F(bench_4 & G bench_4)),photo & F(bench_4 & G(bench_4))
+F(arch_2 & photo & F(park_8 & G park_8)),photo -> X(park_8 & G park_8)
+F(intersection_7 & photo & G intersection_7),F(intersection_7 & photo)
+F(monument_12 & photo & G monument_12),photo & X G monument_12
+F(landmark_9 & photo & G landmark_9),F(landmark_9 & photo) & G(landmark_9)
+F(bench_4 & photo & G bench_4),F(bench_4 & photo)
+F(intersection_7 & photo & G intersection_7),F(photo & intersection_7)
+F(monument_12 & photo & G monument_12),F(photo & monument_12)
+F(landmark_9 & photo & G landmark_9),F(photo & landmark_9)
+F(intersection_7 & photo & G intersection_7),F(photo & intersection_7) & G(intersection_7)
+F(monument_12 & photo & G monument_12),F(photo & monument_12)
+F(p_dish_2 & parking_lot_2),parking_lot_2 & p_dish_2
+F(photo & statue_5),statue_5 & photo
+F(arch_1 & photo),arch_1 & photo
+F(building_2 & photo),photo & building_2
+F(photo & statue_5),statue_5 & photo
+F(house_2 & p_trash_can_2),house_2 & p_trash_can_2
+F(building_2 & photo),photo & building_2
+F(photo & statue_7),statue_7 -> F photo
+F(landmark_6 & photo),photo & landmark_6
+F(photo & statue_7),statue_7 & photo
+F(photo & statue_5),statue_5 -> F photo
+F(monument_1 & photo) & (!monument_1 U park_4),photo & (!monument_1 U park_4)
+F(photo & statue_2) & (!statue_2 U park_5),photo & (!statue_2 U park_5)
+F(photo & statue_2) & (!statue_2 U park_5),(!statue_2) U (park_5 & photo)
+F(photo & statue_2) & (!statue_2 U park_5),F photo & (!statue_2 U park_5)
+F(monument_1 & photo) & (!monument_1 U park_4),photo & (!monument_1 U park_4)
+F(photo & statue_2) & (!statue_2 U park_5),(!statue_2) U (park_5 & photo)
+F(monument_1 & photo) & (!monument_1 U park_4),photo & (!monument_1 U park_4)
+F(monument_1 & photo) & (!monument_1 U park_4),F photo & (!monument_1 U park_4)
+F(hospital_3 & p_bottle_4) & G!pharmacy_2,p_bottle_4 & hospital_3 & !pharmacy_2
+F(arch_4 & photo) & G!park_2,F(photo) & G(!park_2)
+F(arch_4 & photo) & G!park_2,photo & G(!park_2)
+F(arch_4 & photo) & G!park_2,F photo & G !park_2
+F(arch_4 & photo) & G!park_2,F photo & G !park_2
+F(hospital_3 & p_bottle_4) & G!pharmacy_2,(hospital_3 & p_bottle_4) & G(!pharmacy_2)
+F(hospital_3 & p_bottle_4) & G!pharmacy_2,hospital_3 & !pharmacy_2 & p_bottle_4
+F(arch_4 & photo) & G!park_2,photo & G(!park_2)
+F(hospital_3 & p_bottle_4) & G!pharmacy_2,hospital_3 & p_bottle_4 & G(!pharmacy_2)
+F(kitchen_2 & p_bottle_3) & G!living_room_1,p_bottle_3 & G(!living_room_1)
+F(kitchen_2 & p_bottle_3) & G!living_room_1,kitchen_2 & !living_room_1 & F p_bottle_3
+F(kitchen_2 & p_bottle_3) & G!living_room_1,kitchen_2 & F p_bottle_3 & G !living_room_1
+F(photo & statue_6) & G park_5,(statue_6 -> F photo) & G park_5
+F(photo & statue_6) & G park_5,statue_6 & photo & G park_5
+F(photo & statue_6) & G park_5,F(statue_6 & photo & park_5)
+F(photo & statue_6) & G park_5,statue_6 & photo & park_5
+F(photo & statue_6) & G park_5,G(park_5 -> (statue_6 & photo))
+FG house_5,F house_5 & G house_5
+FG intersection_5,F intersection_5 & G intersection_5
+FG intersection_5,F intersection_5 & G intersection_5
+FG park_8,G(park_8)
+FG house_5,F house_5 & G house_5
+FG park_8,F park_8 & G park_8
+FG hotel_3,F hotel_3 & G hotel_3
+FG parking_lot_5,parking_lot_5 & G(parking_lot_5)
+FG street_2,street_2 & G street_2
+FG intersection_4,G(intersection_4)
+FG house_5,G(house_5)
+FG hotel_3,F hotel_3 & G hotel_3
+FG building_3 & (!building_3 U garage_3),F garage_3 & G(garage_3 -> building_3)
+FG building_9 & (!building_9 U street_6),G(building_9) & (!building_9 U street_6)
+FG building_3 & (!building_3 U garage_3),(!building_3 U garage_3) & F building_3 & G(building_3 -> !garage_3)
+FG building_9 & (!building_9 U street_6),(!building_9) U street_6 & F building_9
+F park_5,park_5
+F section_3 & G!hall_5,section_3 & !hall_5
+F parking_lot_2 & G!pd,parking_lot_2 & G !pd
+F street_5 & G!parking_lot_2,G(street_5 & !parking_lot_2)
+F parking_lot_2 & G!pd,parking_lot_2 & !pd
+F street_5 & G!parking_lot_2,street_5 & !parking_lot_2
+F street_5 & G!parking_lot_2,street_5 & !parking_lot_2
+G!(hall_1 & p_file_6),G(!hall_1)
+G!(hall_1 & p_file_6),G(!hall_1)
+G!(house_4 & p_bottle_2),G(!p_bottle_2)
+G!(hall_1 & p_file_6),G(!hall_1)
+G!(house_4 & p_bottle_2),G(!p_bottle_2 -> !house_4)
+G!(p_cone_1 | p_cone_2),G !(p_cone_1 & p_cone_2)
+G!(street_3 | street_4),G(!(street_3 & street_4))
+G!street_4 & F(store_7 & F(p_package_8 & F(house_2 & pd))),G(!(pd & street_4))
+G!street_7 & F(store_9 & F(p_package_3 & F(house_1 & pd))),!(street_7) & (p_package_3 & store_9 & house_1)
+G!street_7 & F(store_9 & F(p_package_3 & F(house_1 & pd))),G(!(street_7) -> (p_package_3 & store_9 & !house_1))
+G!street_4 & F(store_7 & F(p_package_8 & F(house_2 & pd))),(p_package_8 & store_7 & !street_4) U house_2
+G!street_4 & F(store_7 & F(p_package_8 & F(house_2 & pd))),G(!street_4 -> (F(p_package_8 & F(pd & F(house_2)))))
+G!street_7 & F(store_9 & F(p_package_3 & F(house_1 & pd))),G((p_package_3 & store_9 & !house_1) -> !street_7)
+G!street_7 & F(store_9 & F(p_package_3 & F(house_1 & pd))),G(!street_7 -> !pd)
+G!street_4 & F(store_7 & F(p_package_8 & F(house_2 & pd))),G((p_package_8 & store_7 & house_2) -> !street_4)
+G!street_7 & F(store_9 & F(p_package_3 & F(house_1 & pd))),G((p_package_3 & store_9 & !house_1) -> (!street_7 U house_1))
+G!street_4 & F(store_7 & F(p_package_8 & F(house_2 & pd))),G(pd -> !street_4)
+G!park_3 & F(p_cone_2 & police_station_1 & F(intersection_2 & pd)),G((p_cone_2 & police_station_1 & X F intersection_2) -> !park_3)
+G!park_3 & F(p_cone_2 & police_station_1 & F(intersection_2 & pd)),!park_3 & F(police_station_1 & p_cone_2 & F(intersection_2))
+G!park_3 & F(p_cone_2 & police_station_1 & F(intersection_2 & pd)),G(!park_3 -> (p_cone_2 & police_station_1 & F intersection_2))
+G!park_3 & F(p_cone_2 & police_station_1 & F(intersection_2 & pd)),G(!(park_3 & p_cone_2 & police_station_1 & intersection_2))
+G!street_5 & F(house_2 & p_box_4),G(p_box_4 -> !street_5)
+G!street_5 & F(house_2 & p_box_4),G(p_box_4 -> !street_5)
+G!parking_lot_5 & F(car_3 & photo),G(photo -> !parking_lot_5)
+G!building_2 & F(office_6 & p_letter_5),!building_2 & F p_letter_5
+G!parking_lot_5 & F(car_3 & photo),G(photo -> !parking_lot_5)
+G!building_2 & F(office_6 & p_letter_5),G(!building_2 & p_letter_5)
+G!street_6 & F(car_1 & photo),G !street_6 & photo
+G!park_3 & F(monument_3 & photo),G(photo -> !park_3)
+G!street_6 & F(car_1 & photo),G(!street_6) & F(photo)
+G!park_3 & F(monument_3 & photo),photo & !park_3 & monument_3
+G!parking_lot_8 & F street_5,G(street_5 -> !parking_lot_8)
+G!street_3 & F building_4,building_4 -> !street_3
+G!parking_lot_8 & F street_5,G(!parking_lot_8)
+G!street_3 & F building_4,building_4 & G(!street_3)
+G!parking_lot_8 & F street_5,G(!parking_lot_8)
+G!parking_lot_8 & F street_5,G(!(parking_lot_8) -> !street_5)
+G!parking_lot_8 & F street_5,G(!parking_lot_8)
+G!street_3 & F building_4,G(building_4 -> !street_3)
+G!parking_lot_5 & GF(car_9 & photo),G(!(parking_lot_5) & photo)
+G!parking_lot_5 & GF(car_9 & photo),G(!parking_lot_5 & photo)
+G!parking_lot_5 & GF(car_9 & photo),G(photo -> !parking_lot_5)
+G!parking_lot_5 & GF(car_9 & photo),G(photo & !parking_lot_5)
+G!parking_lot_5 & GF(car_9 & photo),G(photo -> !parking_lot_5)
+GF(storage_4 & F(p_crate_1 & F(office_2 & pd))),G(p_crate_1 -> F office_2)
+GF(warehouse_4 & F(p_crate_3 & F(mall_3 & pd))),G(pd -> F(p_crate_3 & warehouse_4 & F(mall_3)))
+GF(store_4 & F(p_box_2 & F(hall_8 & pd))),G(pd & store_4 & p_box_2 & hall_8)
+GF(mall_5 & F(p_crate_8 & F(office_6 & pd))),G(F(p_crate_8 & mall_5 & F(office_6)))
+GF(store_4 & F(p_box_2 & F(hall_8 & pd))),G(p_box_2 -> F(hall_8))
+GF(store_2 & F(p_crate_6 & F(building_5 & pd))),G((pd & store_2 & p_crate_6) -> F(building_5))
+GF(store_2 & F(p_crate_6 & F(building_5 & pd))),G(F(pd & store_2 & p_crate_6) & F(pd & building_5 & p_crate_6))
+GF(store_2 & F(p_crate_6 & F(building_5 & pd))),G((p_crate_6 & store_2) -> F building_5)
+GF(warehouse_4 & F(p_crate_3 & F(mall_3 & pd))),G(p_crate_3 -> F(mall_3))
+GF(storage_4 & F(p_crate_1 & F(office_2 & pd))),G(F(pd & p_crate_1 & storage_4 & office_2))
+GF(storage_4 & F(p_crate_1 & F(office_2 & pd))),G(pd -> (storage_4 & F office_2))
+GF(store_2 & F(p_crate_6 & F(building_5 & pd))),G(p_crate_6 -> (store_2 & F building_5))
+GF(table_2 & F(p_brochure_8 & F(pd & street_9))) & GF charger_6,G(charger_6 -> F(pd & p_brochure_8 & !table_2 & street_9))
+GF(warehouse_4 & F(p_crate_8 & F(pd & store_8))) & GF charger_2,G((p_crate_8 & warehouse_4) -> F(store_8)) & G(F(charger_2))
+GF(warehouse_1 & F(p_package_5 & F(pd & store_5))) & GF charging_station_5,G((p_package_5 & warehouse_1) -> F(store_5)) & G(F(charging_station_5))
+GF(warehouse_4 & F(p_crate_8 & F(pd & store_8))) & GF charger_2,G(F(pd & p_crate_8 & warehouse_4 & X(store_8)) & F(charger_2))
+GF(warehouse_3 & F(p_crate_4 & F(pd & store_9))) & GF charger_3,G((warehouse_3 & p_crate_4 & pd & store_9) -> F charger_3)
+GF(warehouse_4 & F(p_crate_8 & F(pd & store_8))) & GF charger_2,G((p_crate_8 & warehouse_4 & store_8) & G F charger_2)
+GF(warehouse_4 & F(p_crate_8 & F(pd & store_8))) & GF charger_2,G((p_crate_8 & warehouse_4 & X store_8) -> F charger_2)
+GF(warehouse_4 & F(p_crate_8 & F(pd & store_8))) & GF charger_2,G((p_crate_8 & warehouse_4 & !store_8) -> F(store_8)) & G(F(charger_2))
+GF(warehouse_3 & F(p_crate_4 & F(pd & store_9))) & GF charger_3,G(F(warehouse_3 & p_crate_4 & pd & store_9) & F(charger_3))
+GF(table_2 & F(p_brochure_8 & F(pd & street_9))) & GF charger_6,G(F((table_2 & p_brochure_8) -> F(street_9)) & F(charger_6))
+GF(table_2 & F(p_brochure_8 & F(pd & street_9))) & GF charger_6,G((pd & table_2 & p_brochure_8) -> F(street_9)) & G(F(charger_6))
+GF(warehouse_3 & F(p_crate_4 & F(pd & store_9))) & GF charger_3,G(F(warehouse_3 & p_crate_4 & pd & store_9) & F(charger_3))
+GF(photo & street_3),G photo
+GF(house_2 & p_trash_can_4),G(house_2 & p_trash_can_4)
+GF(intersection_4 & photo),G F photo
+GF(area_2 & photo),G(area_2 -> photo)
+GF(photo & street_3),G(photo -> street_3)
+GF(intersection_4 & photo),G photo
+GF(monument_8 & photo) & (!monument_8 U park_4),G(photo) & (!monument_8 U park_4)
+GF(monument_8 & photo) & (!monument_8 U park_4),G(photo & (!monument_8 U park_4))
+GF(monument_8 & photo) & (!monument_8 U park_4),G(F photo) & (!park_4 U monument_8)
+GF(monument_8 & photo) & (!monument_8 U park_4),(!park_4 U photo) & G(photo -> !monument_8)
+GF(monument_8 & photo) & (!monument_8 U park_4),G(photo -> (!monument_8 U park_4))
+GF(locality_7 & photo) & G!park_3,G(photo & locality_7 & !park_3)
+GF(car_1 & photo) & G!parking_lot_9,G(photo & !parking_lot_9)
+GF(locality_7 & photo) & G!park_3,G(!park_3 -> F(photo & locality_7))
+GF(car_1 & photo) & G!parking_lot_9,G(photo & car_1 & !parking_lot_9)
+GF(locality_7 & photo) & G!park_3,G(photo & locality_7 & !park_3)
+GF(car_1 & photo) & G!parking_lot_9,G(photo & car_1 & !parking_lot_9)
+GF(locality_7 & photo) & G!park_3,G(photo & locality_7 & !park_3)
+GF(car_1 & photo) & G!parking_lot_9,G(photo & car_1 & !parking_lot_9)
+GF(car_1 & photo) & G!parking_lot_9,G(photo & !parking_lot_9)
+GF(locality_7 & photo) & G!park_3,G(photo & locality_7 & !park_3)
+GF(area_9 & photo) & GF(camp_4 & F(p_ordnance_3 & F(camp_9 & pd))),G(photo & area_9) & G(F(p_ordnance_3 & camp_4 & X F(camp_9)))
+GF(area_9 & photo) & GF(camp_4 & F(p_ordnance_3 & F(camp_9 & pd))),G(photo & area_9) & G(F(p_ordnance_3 & camp_4 & X camp_9))
+GF(area_9 & photo) & GF(camp_4 & F(p_ordnance_3 & F(camp_9 & pd))),G((photo & area_9) -> F(photo & area_9)) & G((p_ordnance_3 & camp_4 & !camp_9) -> F(camp_9))
+GF(area_9 & photo) & GF(camp_4 & F(p_ordnance_3 & F(camp_9 & pd))),G(photo & area_9) & G(F(p_ordnance_3 & camp_4 & X(!camp_4 U camp_9)))
+GF(area_9 & photo) & GF(camp_4 & F(p_ordnance_3 & F(camp_9 & pd))),G(photo & area_9) & G(F(p_ordnance_3 & camp_4 & camp_9))
+GF(area_4 & photo) & GF(area_3 & photo),G(area_4 & photo & area_3)
+GF(area_4 & photo) & GF(area_3 & photo),G(area_4 & photo) & G F area_3
+GF(area_4 & photo) & GF(area_3 & photo),G(photo & area_4) & G F area_3
+GF(area_4 & photo) & GF(area_3 & photo),G(photo & area_4) & G F area_3
+GF(area_4 & photo) & GF(area_3 & photo),G(photo & area_4) & G(F area_3)
+GF(area_51 & photo) & GF charger_4,G(photo & charger_4)
+GF(building_5 & photo) & GF charger_4,G(photo & building_5) & G F charger_4
+GF(area_51 & photo) & GF charger_4,G(photo & charger_4)
+GF(building_5 & photo) & GF charger_4,G(photo & building_5 & charger_4)
+GF(building_5 & photo) & GF charger_4,G(F(photo & building_5) & G(charger_4))
+GF(area_51 & photo) & GF charger_4,G F photo & G F charger_4
+GF(photo & statue_4) & GF charger_4,G(photo & charger_4)
+GF(photo & statue_4) & GF charger_4,G(charger_4 -> F photo) & G(photo -> F charger_4)
+GF(area_51 & photo) & GF charger_4,G(photo & charger_4)
+GF(photo & statue_4) & GF charger_4,G(photo & charger_4)
+GF(building_5 & photo) & GF charger_4,G(photo & building_5 & charger_4)
+GF(photo & statue_4) & GF charger_4,G(photo & charger_4)
+GF street_5,G street_5
+GF street_4,G street_4
+GF charger_2 & F(table_2 & F(p_plate_4 & F(pd & table_4))),G(charger_2 & F(p_plate_4 & table_4))
+GF charger_1 & F(house_4 & F(box_4 & F(house_9 & pd))),G(box_4 -> (!house_4 U (charger_1 & F house_9)))
+GF parking_lot_4 & F(car_5 & F(p_document_4 & F(car_6 & pd))),G F parking_lot_4 & F car_5 & F p_document_4 & F (car_6)
+GF charger_1 & F(house_4 & F(box_4 & F(house_9 & pd))),G((pd & house_4 & !house_9) -> (charger_1 U house_9))
+GF charger_2 & F(table_2 & F(p_plate_4 & F(pd & table_4))),G(p_plate_4 -> F charger_2)
+GF charger_1 & F(house_4 & F(box_4 & F(house_9 & pd))),G((box_4 & house_4) -> F(house_9 & box_4)) & G((house_4 | house_9) -> F charger_1)
+GF charger_2 & F(table_2 & F(p_plate_4 & F(pd & table_4))),G((p_plate_4 & table_2) -> F(charger_2))
+GF parking_lot_4 & F(car_5 & F(p_document_4 & F(car_6 & pd))),G(parking_lot_4 & car_5 & p_document_4 & car_6)
+GF parking_lot_4 & F(car_5 & F(p_document_4 & F(car_6 & pd))),G(p_document_4 -> F(car_5 & F(p_document_4 & F(car_6 & F(parking_lot_4)))))
+GF parking_lot_4 & F(car_5 & F(p_document_4 & F(car_6 & pd))),G(p_document_4 -> parking_lot_4)
+GF parking_lot_4 & F(car_5 & F(p_document_4 & F(car_6 & pd))),G((pd & car_5 & p_document_4) -> F(parking_lot_4 & car_6))
+GF intersection_4 & F locality_9,G(intersection_4 -> X(intersection_4 U locality_9))
+GF car_3 & F building_2,G(building_2 -> car_3)
+GF car_3 & F building_2,G(building_2 -> F car_3)
+GF intersection_4 & F locality_9,G(intersection_4) & F(locality_9)
+GF car_3 & F building_2,G(car_3 -> F(building_2))
+GF intersection_4 & F locality_9,G(intersection_4) & F(locality_9)
+GF intersection_4 & F locality_9,G(locality_9 -> F(intersection_4))
+GF car_3 & F building_2,G(F(car_3) & F(building_2))
+GF charging_station_9 & GF(warehouse_5 & F(p_crate_4 & F(mall_4 & pd))),G(p_crate_4 -> F(charging_station_9))
+GF charger_12 & GF(house_5 & F(p_box_1 & F(house_23 & pd))),G(charger_12) & G(F(pd & house_5 & p_box_1 & F(house_23)))
+GF charger_9 & GF(warehouse_8 & F(p_crate_2 & F(pd & store_2))),G(charger_9 & p_crate_2)
+GF charger_12 & GF(house_5 & F(p_box_1 & F(house_23 & pd))),G((p_box_1 & house_5 & X(!house_5 U house_23)) -> F charger_12)
+GF charging_station_9 & GF(warehouse_5 & F(p_crate_4 & F(mall_4 & pd))),G(F(charging_station_9) & G(F(p_crate_4 & warehouse_5 & F(mall_4))))
+GF charging_station_9 & GF(warehouse_5 & F(p_crate_4 & F(mall_4 & pd))),G(p_crate_4 -> (F(charging_station_9) & F(mall_4)))
+GF charging_station_5 & GF(warehouse_1 & F(p_package_5 & F(pd & store_5))),G(charging_station_5 & p_package_5)
+GF charger_9 & GF(warehouse_8 & F(p_crate_2 & F(pd & store_2))),G(p_crate_2 -> F(charger_9))
+GF charging_station_9 & GF(warehouse_5 & F(p_crate_4 & F(mall_4 & pd))),G(p_crate_4 -> F(charging_station_9))
+GF charger_9 & GF(warehouse_8 & F(p_crate_2 & F(pd & store_2))),G((p_crate_2 & warehouse_8) -> F(store_2 & F(charger_9)))
+GF charging_station_5 & GF(warehouse_1 & F(p_package_5 & F(pd & store_5))),G(p_package_5 -> (F(charging_station_5) & F(store_5) & F(warehouse_1)))
+GF charger_12 & GF(house_5 & F(p_box_1 & F(house_23 & pd))),G(charger_12 -> (p_box_1 U house_23))
+GF charger_6 & GF(p_brochure_4 & table_4),G(charger_6 -> F(table_4 & p_brochure_4))
+GF charger_5 & GF(photo & region_4),G(photo -> F charger_5)
+GF charger_6 & GF(p_brochure_4 & table_4),G(charger_6 & F p_brochure_4)
+GF charger_4 & GF(area_5 & photo),G(photo -> F charger_4)
+GF charger_4 & GF(area_5 & photo),G(charger_4 -> photo)
+GF charger_4 & GF(area_5 & photo),G(photo -> F charger_4) & G(photo -> area_5)
+GF charger_3 & GF(area_3 & photo),G(F(charger_3) & F(photo) & area_3)
+GF charger_3 & GF(area_3 & photo),G(photo -> F charger_3)
+GF charger_6 & GF(p_brochure_4 & table_4),G(charger_6 & F p_brochure_4)
+GF charger_6 & GF(p_brochure_4 & table_4),G(p_brochure_4 -> F charger_6)
+GF charger_3 & GF(area_3 & photo),G(photo -> F charger_3)
+GF charger_5 & GF(photo & region_4),G F charger_5 & G F photo
+G area_5,G !area_5
+G locality_7 & F(office_4 & F(p_letter_1 & F(house_1 & pd))),G(locality_7)
+G locality_5 & F(office_3 & F(p_package_5 & F(office_6 & pd))),G((pd & office_3 & p_package_5) -> (locality_5 U office_6))
+G locality_5 & F(office_3 & F(p_package_5 & F(office_6 & pd))),G((p_package_5 & office_3 & X(!office_3 U office_6)) -> locality_5)
+G locality_2 & F(office_4 & F(p_document_5 & F(office_9 & pd))),G(locality_2 & F(p_document_5 & office_4 & F(office_9)))
+G locality_7 & F(office_4 & F(p_letter_1 & F(house_1 & pd))),G(locality_7 & pd & office_4 & p_letter_1 -> F(house_1 & pd))
+G locality_7 & F(office_4 & F(p_letter_1 & F(house_1 & pd))),(p_letter_1 & office_4 & G(locality_7)) U house_1
+G locality_2 & F(office_4 & F(p_document_5 & F(office_9 & pd))),G((p_document_5 & office_4) -> (locality_2 U office_9))
+G locality_2 & F(office_4 & F(p_document_5 & F(office_9 & pd))),G((p_document_5 & office_4 & locality_2) -> (locality_2 U office_9))
+G locality_2 & F(office_4 & F(p_document_5 & F(office_9 & pd))),G(locality_2) & F(p_document_5 & office_4) & F(office_9 & pd)
+G locality_5 & F(office_3 & F(p_package_5 & F(office_6 & pd))),G(locality_5 & pd -> (F(p_package_5 & office_3) & F(office_6)))
+G locality_7 & F(office_4 & F(p_letter_1 & F(house_1 & pd))),G((p_letter_1 & office_4) -> (locality_7 U house_1))
+G locality_5 & F(office_3 & F(p_package_5 & F(office_6 & pd))),G((p_package_5 & office_3 & !office_6) -> (!locality_5 U office_6))
+G county_4 & GF(office_3 & F(p_package_4 & F(office_8 & pd))),G(county_4 & p_package_4 & office_3 -> X(county_4 & p_package_4 & office_8))
+G county_4 & GF(office_3 & F(p_package_4 & F(office_8 & pd))),G(county_4 & p_package_4)
+G county_4 & GF(office_3 & F(p_package_4 & F(office_8 & pd))),G(county_4 & (p_package_4 -> (office_3 U office_8)))
+G county_4 & GF(office_3 & F(p_package_4 & F(office_8 & pd))),G(county_4 & p_package_4 & pd)
+G county_4 & GF(office_3 & F(p_package_4 & F(office_8 & pd))),G(county_4 & pd -> F(office_3 & F(office_8 & F(pd))))
+G area_2 & GF(building_8 & photo),area_2 & F photo
+G street_5 & GF(parking_lot_4 & photo),G(street_5 & photo & parking_lot_4)
+G street_5 & GF(parking_lot_4 & photo),G(street_5 & photo)
+G street_5 & GF(parking_lot_4 & photo),G(street_5 & F photo)
+G street_5 & GF(parking_lot_4 & photo),G(street_5 & F photo & G F photo & G parking_lot_4)
+G area_2 & GF(building_8 & photo),G(area_2 & photo)
+G area_2 & GF(building_8 & photo),G(area_2 -> F(building_8 & photo))
+G street_5 & GF(parking_lot_4 & photo),G(street_5 -> photo)
+building_4 U (room_43 & F(p_folder_3 & F(pd & room_12))),building_4 U (pd & p_folder_3 & room_43 & room_12)
+locality_6 U (store_8 & F(p_package_3 & F(house_5 & pd))),locality_6 U (p_package_3 & store_8 & house_5)
+building_9 U (room_2 & F(p_bottle_3 & F(pd & room_6))),building_9 U (p_bottle_3 & room_2 & room_6)
+building_9 U (room_2 & F(p_bottle_3 & F(pd & room_6))),building_9 U (p_bottle_3 & room_2 & room_6)
+area_5 U (store_2 & F(p_package_8 & F(house_9 & pd))),area_5 U (p_package_8 & store_2 & house_9)
+building_9 U (room_2 & F(p_bottle_3 & F(pd & room_6))),building_9 U (p_bottle_3 & room_2 & room_6)
+building_9 U (room_2 & F(p_bottle_3 & F(pd & room_6))),building_9 U (pd & p_bottle_3 & room_2 & room_6)
+area_5 U (store_2 & F(p_package_8 & F(house_9 & pd))),(!p_package_8 U area_5) & (p_package_8 -> (store_2 & X(!area_5 U house_9)))
+area_5 U (store_2 & F(p_package_8 & F(house_9 & pd))),area_5 U (pd & p_package_8 & store_2 & house_9)
+area_5 U (store_2 & F(p_package_8 & F(house_9 & pd))),area_5 U (pd & store_2 & p_package_8 & house_9)
+area_5 U (store_2 & F(p_package_8 & F(house_9 & pd))),area_5 U (pd & store_2 & p_package_8 & house_9)
+building_4 U (room_43 & F(p_folder_3 & F(pd & room_12))),G((p_folder_3 & room_43) -> (building_4 U room_12))
+park_5 U (monument_2 & photo & F(intersection_5 & G intersection_5)),(park_5 U photo) & G(photo -> X(intersection_5 & G(intersection_5)))
+park_8 U (monument_2 & photo & F(bench_5 & G bench_5)),(park_8 U (photo & monument_2 & X(bench_5 & G bench_5)))
+park_8 U (monument_2 & photo & F(bench_5 & G bench_5)),park_8 U (photo & monument_2 & X(bench_5 & G bench_5))
+park_5 U (monument_2 & photo & F(intersection_5 & G intersection_5)),(park_5 U (photo & X(intersection_5 & G(intersection_5))))
+park_5 U (monument_2 & photo & F(intersection_5 & G intersection_5)),(park_5 U (photo & X(intersection_5 & G(intersection_5))))
+park_8 U (monument_2 & photo & F(bench_5 & G bench_5)),(park_8 U photo) & X(bench_5 & G bench_5)
+park_5 U (monument_2 & photo & F(intersection_5 & G intersection_5)),(park_5 U photo) & G(photo -> X(intersection_5 & G(intersection_5)))
+park_8 U (monument_2 & photo & F(bench_5 & G bench_5)),park_8 U (photo & monument_2 & X(bench_5 & G bench_5))
+park_8 U (monument_2 & photo & F(bench_5 & G bench_5)),park_8 U (photo & monument_2 & X(bench_5 & G bench_5))
+park_5 U (monument_2 & photo & F(intersection_5 & G intersection_5)),park_5 U (photo & X(intersection_5 & G(intersection_5)))
+parking_lot_5 U (car_5 & photo),parking_lot_5 U photo
+park_4 U (photo & statue_9),!park_4 U photo
+street_4 U (house_1 & photo),street_4 U photo
+park_2 U (monument_13 & photo),park_2 U photo
+park_2 U (monument_13 & photo),park_2 U photo
+park_2 U (monument_13 & photo),park_2 U photo
+parking_lot_4 U (car_5 & photo),parking_lot_4 U photo
+parking_lot_9 U (car_2 & photo),parking_lot_9 U photo
+park_2 U (monument_13 & photo),park_2 U photo
+street_4 U (house_1 & photo),street_4 U photo
+parking_lot_9 U (car_2 & photo),parking_lot_9 U photo
+parking_lot_9 U (car_2 & photo),parking_lot_9 U photo
+parking_lot_4 U car_5,!parking_lot_4 U car_5
+park_1 U table_3,park_1 & (park_1 U table_3)
