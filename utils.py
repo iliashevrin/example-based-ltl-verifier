@@ -49,6 +49,20 @@ def build_word(conditions, index):
 
 
 
+
+
+def simulate_user(ground_truth, trace, is_positive):
+
+    acceptance = check_acceptance(spot.translate(ground_truth), trace)
+
+    # User rejects candidate based on trace
+    if acceptance is None or (acceptance == False and is_positive) or (acceptance == True and not is_positive):
+        return True
+
+    return False
+
+
+
 def get_words_from_conditions(conditions, index):
 
     words = []
@@ -63,14 +77,13 @@ def get_words_from_conditions(conditions, index):
     return words
 
 
-def ltl_structure_vector(formula_str: str):
+def get_formula_features(formula_str: str):
     f = spot.formula(formula_str)
 
     ops = [
         ("G", spot.op_G),
         ("F", spot.op_F),
         ("U", spot.op_U),
-        ("W", spot.op_W),
         ("X", spot.op_X),
         ("Not", spot.op_Not),
         ("And", spot.op_And),
@@ -106,7 +119,6 @@ def ltl_structure_vector(formula_str: str):
         counts["G"],
         counts["F"],
         counts["U"],
-        counts["W"],
         counts["X"],
         counts["Not"],
         counts["And"],
@@ -116,7 +128,6 @@ def ltl_structure_vector(formula_str: str):
         max_depths["G"],
         max_depths["F"],
         max_depths["U"],
-        max_depths["W"],
         max_depths["X"],
         max_depths["Not"],
         max_depths["And"],

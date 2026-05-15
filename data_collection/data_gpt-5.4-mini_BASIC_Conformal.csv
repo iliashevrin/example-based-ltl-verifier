@@ -38,7 +38,6 @@ Ground Truth,Response
 (!street_4 U intersection_6) & FG street_4,(!street_4 U intersection_6) & G(street_4)
 (!street_4 U intersection_6) & FG street_4,(!street_4 U intersection_6) & G(intersection_6 -> X(street_4 & G(street_4)))
 (!street_4 U intersection_6) & FG street_4,(!street_4 U intersection_6) & G(intersection_6 -> X G street_4)
-(!building_3 U garage_3) & FG building_3,(!building_3 U garage_3) & G(g garage_3 -> G building_3)
 (!intersection_8 U street_3) & F locality_5,(!intersection_8 U street_3) & G(street_3 -> F locality_5)
 (!intersection_8 U street_3) & F locality_5,(!intersection_8 U street_3) & G(street_3 -> F locality_5)
 (!intersection_8 U street_3) & F locality_5,(!intersection_8) U (street_3 & F locality_5)

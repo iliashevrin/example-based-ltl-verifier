@@ -1,0 +1,1129 @@
+Ground Truth,Response
+!locality_5 U (house_2 & F(p_pass_5 & F(office_3 & pd))),(!locality_5) U (p_pass_5 & house_2 & office_3)
+!room_2 U (kitchen_1 & F(p_bottle_4 & F(pd & table_4))),(!room_2) U (p_bottle_4 & kitchen_1 & table_4)
+!room_2 U (kitchen_1 & F(p_bottle_4 & F(pd & table_4))),(!room_2) U (p_bottle_4 & table_4)
+!locality_5 U (house_2 & F(p_pass_5 & F(office_3 & pd))),(!locality_5) U (p_pass_5 & house_2 & office_3)
+!locality_5 U (house_2 & F(p_pass_5 & F(office_3 & pd))),!locality_5 U (p_pass_5 & house_2 & office_3)
+!room_2 U (kitchen_1 & F(p_bottle_4 & F(pd & table_4))),(!room_2) U (p_bottle_4 & X table_4)
+!locality_5 U (house_2 & F(p_pass_5 & F(office_3 & pd))),(!locality_5) U (p_pass_5 & F office_3)
+!room_2 U (kitchen_1 & F(p_bottle_4 & F(pd & table_4))),!(room_2) U (p_bottle_4 & table_4)
+!locality_5 U (house_2 & F(p_pass_5 & F(office_3 & pd))),(!locality_5) U (p_pass_5 & house_2 & F office_3)
+!garage_1 U (landmark_5 & photo),!garage_1 U photo
+!park_6 U p_pass_4,!park_6 -> p_pass_4
+(!store_4 U street_6) & F(office_2 & F(p_package_8 & F(pd & store_4))),(!store_4 U street_6) & (p_package_8 & office_2)
+(!building_3 U street_6) & F(store_3 & F(p_box_8 & F(house_2 & pd))),(!pd U street_6) & (street_6 -> F(store_3 & F(p_box_8 & F(house_2))))
+(!office_4 U p_pass_6) & F(house_5 & F(p_pass_6 & F(office_4 & pd))),(!office_4) U (p_pass_6 & house_5)
+(!office_4 U p_pass_6) & F(house_5 & F(p_pass_6 & F(office_4 & pd))),(!office_4 U p_pass_6) & G(p_pass_6 -> X(house_5 & X(office_4)))
+(!intersection_1 U street_6) & F(street_2 & F(p_cone_3 & F(intersection_1 & pd))),(!intersection_1 U street_6) & F(street_2 & p_cone_3 & F(intersection_1))
+(!intersection_1 U street_6) & F(street_2 & F(p_cone_3 & F(intersection_1 & pd))),(!intersection_1 U street_6) & (street_6 -> F(p_cone_3 & street_2 & F intersection_1))
+(!intersection_1 U street_6) & F(street_2 & F(p_cone_3 & F(intersection_1 & pd))),(!intersection_1) U (street_6 & p_cone_3 & street_2 & X(intersection_1))
+(!intersection_5 U street_4) & F(house_4 & F(p_pass_4 & F(office_1 & pd))),(!intersection_5 U street_4) & F house_4 & F p_pass_4 & F office_1
+(!store_4 U street_6) & F(office_2 & F(p_package_8 & F(pd & store_4))),(!store_4) U (street_6 & p_package_8 & office_2)
+(!intersection_1 U street_6) & F(street_2 & F(p_cone_3 & F(intersection_1 & pd))),(!pd U street_6) & (street_6 -> (F intersection_1 & F p_cone_3))
+(!intersection_5 U street_4) & F(house_4 & F(p_pass_4 & F(office_1 & pd))),(!intersection_5) U street_4
+(!intersection_1 U street_6) & F(street_2 & F(p_cone_3 & F(intersection_1 & pd))),(!pd U street_6) & (street_6 -> F(p_cone_3 & intersection_1))
+(!parking_lot_4 U street_5) & F(parking_lot_4 & G parking_lot_4),(!parking_lot_4 U street_5) & G(street_5 -> X(parking_lot_4))
+(!parking_lot_4 U street_5) & F(parking_lot_4 & G parking_lot_4),(!parking_lot_4) U (street_5 & parking_lot_4)
+(!parking_lot_4 U street_5) & F(parking_lot_4 & G parking_lot_4),(!parking_lot_4) U (street_5 & parking_lot_4 & G(parking_lot_4))
+(!parking_lot_4 U street_5) & F(parking_lot_4 & G parking_lot_4),(!parking_lot_4 U street_5) & G(street_5 -> X(parking_lot_4 & G(parking_lot_4)))
+(!park_5 U intersection_5) & F(monument_3 & photo),(!park_5 U intersection_5) & G(intersection_5 -> F photo)
+(!garage_1 U photo) & F(landmark_5 & photo),!garage_1 U (photo & landmark_5)
+(!park_5 U intersection_5) & F(monument_3 & photo),(!park_5) U (intersection_5 & photo & monument_3)
+(!garage_1 U photo) & F(landmark_5 & photo),(!garage_1) U (photo & landmark_5)
+(!park_5 U intersection_5) & F(monument_3 & photo),(!park_5) U (intersection_5 & photo & monument_3)
+(!park_5 U intersection_5) & F(monument_3 & photo),(!park_5 U intersection_5) & F photo & F monument_3
+(!landmark_5 U park_5) & F(landmark_5 & photo),(!landmark_5 U park_5) & F photo
+(!street_5 U store_1) & F(p_package_4 & store_1),(!street_5) U (store_1 & p_package_4)
+(!street_4 U intersection_6) & FG street_4,(!street_4) U (intersection_6 & X G street_4)
+(!street_4 U intersection_6) & FG street_4,(!street_4 U intersection_6) & G(street_4)
+(!street_4 U intersection_6) & FG street_4,(!street_4 U intersection_6) & G(intersection_6 -> X(street_4 & G(street_4)))
+(!street_4 U intersection_6) & FG street_4,(!street_4 U intersection_6) & G(intersection_6 -> X G street_4)
+(!intersection_8 U street_3) & F locality_5,(!intersection_8 U street_3) & G(street_3 -> F locality_5)
+(!intersection_8 U street_3) & F locality_5,(!intersection_8 U street_3) & G(street_3 -> F locality_5)
+(!intersection_8 U street_3) & F locality_5,(!intersection_8) U (street_3 & F locality_5)
+(!intersection_8 U street_3) & F locality_5,(!intersection_8) U (street_3 & locality_5)
+(park_5 U bench_4) & F(store_2 & F(p_bottle_5 & F(bench_4 & pd))),(park_5 U bench_4) & F(store_2 & p_bottle_5 & bench_4)
+(park_5 U bench_4) & F(store_2 & F(p_bottle_5 & F(bench_4 & pd))),(park_5 U bench_4) & F(p_bottle_5 & store_2 & bench_4)
+(park_5 U bench_4) & F(store_2 & F(p_bottle_5 & F(bench_4 & pd))),(park_5 & !bench_4) U (bench_4 & p_bottle_5)
+(locality_1 U intersection_4) & F(warehouse_9 & F(p_package_5 & F(pd & store_2))),(locality_1 U intersection_4) & (intersection_4 -> X(p_package_5 & warehouse_9 U store_2))
+(locality_1 U intersection_4) & F(warehouse_9 & F(p_package_5 & F(pd & store_2))),(locality_1 U intersection_4) & p_package_5
+(locality_1 U intersection_4) & F(warehouse_9 & F(p_package_5 & F(pd & store_2))),(!locality_1 U intersection_4) & G((warehouse_9 & p_package_5) -> F store_2)
+(locality_1 U intersection_4) & F(warehouse_9 & F(p_package_5 & F(pd & store_2))),(locality_1 U intersection_4) & (intersection_4 -> F(p_package_5 & warehouse_9 & F(store_2)))
+(park_5 U bench_4) & F(store_2 & F(p_bottle_5 & F(bench_4 & pd))),(park_5 U (bench_4 & F(store_2 & F(p_bottle_5 & F(bench_4)))))
+(park_5 U bench_4) & F(store_2 & F(p_bottle_5 & F(bench_4 & pd))),(p_bottle_5 & store_2) U (bench_4 & park_5)
+(locality_1 U intersection_4) & F(warehouse_9 & F(p_package_5 & F(pd & store_2))),locality_1 U intersection_4
+F(office_3 & F(p_document_1 & F(street_2 & G street_2))),F office_3 & F p_document_1 & G street_2
+F(office_3 & F(p_document_1 & F(street_2 & G street_2))),F(p_document_1 & office_3) & F(street_2) & G(street_2)
+F(office_3 & F(p_document_1 & F(street_2 & G street_2))),F(p_document_1 & office_3) & F(street_2) & G(street_2)
+F(house_4 & F(p_stack_4 & F(street_2 & G street_2))),p_stack_4 & F(street_2 & G(street_2))
+F(table_2 & F(p_brochure_9 & F(park_4 & G park_4))),table_2 & p_brochure_9 & park_4
+F(house_4 & F(p_stack_4 & F(street_2 & G street_2))),F(p_stack_4 & street_2 & G(street_2))
+F(kitchen_1 & F(p_bottle_2 & F(hall_2 & G hall_2))),p_bottle_2 & X(hall_2 & G(hall_2))
+F(office_3 & F(p_document_1 & F(street_2 & G street_2))),F(office_3 & p_document_1 & G street_2)
+F(house_4 & F(p_stack_4 & F(street_2 & G street_2))),p_stack_4 & X street_2 & G street_2
+F(kitchen_1 & F(p_bottle_2 & F(hall_2 & G hall_2))),p_bottle_2 & kitchen_1 & F hall_2 & G hall_2
+F(table_2 & F(p_brochure_9 & F(park_4 & G park_4))),p_brochure_9 & F park_4 & G park_4
+F(house_4 & F(p_stack_4 & F(street_2 & G street_2))),F house_4 & F p_stack_4 & F street_2 & G(street_2 -> X street_2)
+F(warehouse_3 & F(p_package_2 & F(house_1 & pd & photo))),warehouse_3 & p_package_2 & F(pd & F(house_1 & photo))
+F(warehouse_3 & F(p_package_2 & F(house_1 & pd & photo))),warehouse_3 & p_package_2 & F(house_1 & photo)
+F(warehouse_3 & F(p_package_2 & F(house_1 & pd & photo))),F(warehouse_3 & pd & X(house_1 & p_package_2 & photo))
+F(warehouse_3 & F(p_package_2 & F(house_1 & pd & photo))),warehouse_3 & p_package_2 & F(pd & F(house_1 & photo))
+F(warehouse_3 & F(p_package_2 & F(house_1 & pd & photo))),F((warehouse_3 & p_package_2) U (house_1 & pd & photo))
+F(store_2 & F(p_package_4 & F(house_4 & pd))),p_package_4 & F house_4
+F(office_4 & F(p_box_2 & F(house_1 & pd))),(p_box_2 & office_4) & F house_1
+F(house_1 & F(p_trash_can_4 & F(garbage_dump_3 & pd))),F(pd & house_1 & p_trash_can_4 & F(garbage_dump_3))
+F(parking_lot_2 & F(p_cone_5 & F(pd & street_1))),F(parking_lot_2 & p_cone_5 & F(street_1 & pd))
+F(post_office_1 & F(p_lettter_2 & F(building_3 & pd))),post_office_1 & p_lettter_2 -> F building_3
+F(house_3 & F(p_box_8 & F(office_2 & pd))),(p_box_8 & house_3) -> F(pd & office_2)
+F(house_4 & F(p_package_2 & F(pd & warehouse_5))),house_4 & p_package_2 & warehouse_5
+F(house_5 & F(p_box_4 & F(office_2 & pd))),F(p_box_4 & pd & house_5 & F(office_2 & pd))
+F(office_5 & F(p_letter_4 & F(house_2 & pd))),office_5 & F(p_letter_4 & F house_2)
+F(street_4 & F(p_traffic_cone_5 & F(intersection_6 & pd))),street_4 & p_traffic_cone_5 & F intersection_6
+F(office_4 & F(p_box_2 & F(house_1 & pd))),pd & p_box_2 & office_4 & house_1
+F(house_3 & F(p_pass_2 & F(office_2 & pd))) & (!street_5 U p_pass_2),(!street_5 U p_pass_2) & F(pd & house_3 & office_2)
+F(house_3 & F(p_pass_2 & F(office_2 & pd))) & (!street_5 U p_pass_2),house_3 & F(p_pass_2 & F(office_2)) & !street_5 U p_pass_2
+F(house_3 & F(p_pass_2 & F(office_2 & pd))) & (!street_5 U p_pass_2),F (house_3 & p_pass_2 & office_2 & (!street_5 U p_pass_2))
+F(house_3 & F(p_pass_2 & F(office_2 & pd))) & (!street_5 U p_pass_2),(!street_5 U p_pass_2) & F(pd & office_2)
+F(house_3 & F(p_pass_2 & F(office_2 & pd))) & (!street_5 U p_pass_2),(p_pass_2 -> (!street_5 U (house_3 & pd & F office_2)))
+F(store_6 & F(p_box_1 & F(house_9 & pd))) & F(intersection_5 & G intersection_5),(p_box_1 & store_6 & !house_9) -> F((p_box_1 & house_9) & F(G intersection_5))
+F(store_6 & F(p_box_1 & F(house_9 & pd))) & F(intersection_5 & G intersection_5),p_box_1 & store_6 & F(house_9 & F(intersection_5 & G(intersection_5)))
+F(store_6 & F(p_box_1 & F(house_9 & pd))) & F(intersection_5 & G intersection_5),p_box_1 & store_6 & F(house_9 & F(intersection_5 & G(intersection_5)))
+F(store_6 & F(p_box_1 & F(house_9 & pd))) & F(intersection_5 & G intersection_5),F(pd & store_6 & p_box_1 & F(house_9 & F(G(intersection_5))))
+F(store_6 & F(p_box_1 & F(house_9 & pd))) & F(intersection_5 & G intersection_5),F(pd & store_6 & F(house_9 & F(intersection_5 & G(intersection_5))))
+F(store_3 & F(p_package_2 & F(house_2 & pd))) & G!mall_1,p_package_2 & store_3 & F house_2 & G !mall_1
+F(table_4 & F(p_tin_can_4 & F(pd & trash_can_5))) & G!hallway_2,G(!hallway_2) & F(p_tin_can_4 & table_4) & F(trash_can_5)
+F(table_4 & F(p_tin_can_4 & F(pd & trash_can_5))) & G!hallway_2,F(pd & table_4 & p_tin_can_4 & trash_can_5 & !hallway_2)
+F(table_4 & F(p_tin_can_4 & F(pd & trash_can_5))) & G!hallway_2,F(pd & table_4 & p_tin_can_4) & F(trash_can_5) & G(!hallway_2)
+F(store_3 & F(p_package_2 & F(house_2 & pd))) & G!mall_1,store_3 & p_package_2 & F house_2 & G !mall_1
+F(table_4 & F(p_tin_can_4 & F(pd & trash_can_5))) & G!hallway_2,G((pd & table_4 & p_tin_can_4) -> F(trash_can_5)) & G(!hallway_2)
+F(table_4 & F(p_tin_can_4 & F(pd & trash_can_5))) & G!hallway_2,(p_tin_can_4 & table_4) & F(trash_can_5) & G(!hallway_2)
+F(store_3 & F(p_package_2 & F(house_2 & pd))) & G!mall_1,store_3 & F(pd & house_2) & G(!mall_1)
+F(store_3 & F(p_package_2 & F(house_2 & pd))) & G!mall_1,F(p_package_2 & store_3) & F(house_2) & G(!mall_1)
+F(store_3 & F(p_package_2 & F(house_2 & pd))) & G!mall_1,store_3 & p_package_2 & F(house_2) & G(!mall_1)
+F(police_station_1 & F(p_cone_2 & F(intersection_2 & pd))) & G!park_3,p_cone_2 & police_station_1 & F intersection_2 & G !park_3
+F(pd & F(park_4 & G park_4)),F(pd & X(park_4 & G park_4))
+F(street_5 & F(building_2 & G building_2)),street_5 & X(F building_2 & G building_2)
+F(pd & F(park_4 & G park_4)),(pd -> F park_4) & G(park_4)
+F(street_5 & F(building_2 & G building_2)),street_5 & X(building_2 & G(building_2))
+F(pd & F(park_4 & G park_4)),pd & F park_4 & G park_4
+F(pd & F(park_4 & G park_4)),(pd & X park_4 & G park_4)
+F(street_5 & F(building_2 & G building_2)),street_5 & X(F(building_2 & G(building_2)))
+F(pd & F(park_4 & G park_4)),F(pd & X(park_4 & G(park_4)))
+F(garage_4 & F(building_3 & G building_3)),!building_3 U (garage_4 & G garage_4)
+F(street_5 & F(building_2 & G building_2)),street_5 & X(building_2 & G(building_2))
+F(p_crate_4 & F(park_1 & pd & G park_1)),F(p_crate_4 & X(pd & X(park_1 & G(park_1))))
+F(p_crate_4 & F(park_1 & pd & G park_1)),F(p_crate_4 & X(pd & X(G park_1)))
+F(p_crate_4 & F(park_1 & pd & G park_1)),p_crate_4 & F(park_1 & G(park_1))
+F(p_crate_4 & F(park_1 & pd & G park_1)),F(p_crate_4 & X(pd & X(G park_1)))
+F(p_crate_4 & F(park_1 & pd & G park_1)),F(p_crate_4 & F(pd & park_1))
+F(park_5 & F(monument_3 & photo)),park_5 & F photo
+F(park_5 & F(photo & statue_2)),park_5 -> (!photo U statue_2)
+F(park_7 & F(monument_4 & photo)),park_7 & F photo & F monument_4
+F(p_luggage_2 & F(pd & room_402)),p_luggage_2 & pd & F room_402
+F(park_7 & F(monument_4 & photo)),park_7 & photo & monument_4
+F(park_5 & F(monument_3 & photo)),park_5 & X photo & X monument_3
+F(park_7 & F(monument_4 & photo)),park_7 & photo & monument_4
+F(park_7 & F(monument_4 & photo)),park_7 & F monument_4
+F(park_5 & F(monument_3 & photo)),park_5 & X photo
+F(park_7 & F(monument_4 & photo)),park_7 & F photo
+F(park_5 & F(monument_3 & photo)),park_5 & X photo & X monument_3
+F(pd & F parking_lot_2),pd & parking_lot_2
+F(pd & F parking_lot_2),pd & parking_lot_2
+F(street_5 & F house_4),!house_4 U street_5
+F(street_5 & F house_4),street_5 & F house_4
+F(street_5 & F house_4),street_5 & X house_4
+F(pd & F parking_lot_2),pd -> F parking_lot_2
+F(pd & F parking_lot_2),pd & F parking_lot_2
+F(pd & F parking_lot_2),G(pd -> !parking_lot_2 U pd)
+F(street_5 & F house_4),street_5 & X house_4
+F(street_5 & F house_4),street_5 & F house_4
+F(building_4 & photo & F(parking_lot_2 & G parking_lot_2)),photo & X(parking_lot_2 & G(parking_lot_2))
+F(monument_3 & photo & F(pathway_8 & G pathway_8)),photo & monument_3 & X(pathway_8 & G(pathway_8))
+F(building_4 & photo & F(parking_lot_2 & G parking_lot_2)),photo & X(parking_lot_2 & G(parking_lot_2))
+F(photo & statue_6 & F(bench_4 & G bench_4)),photo & statue_6 & X(bench_4 & G(bench_4))
+F(building_4 & photo & F(parking_lot_2 & G parking_lot_2)),photo & X(parking_lot_2 & G(parking_lot_2))
+F(photo & statue_6 & F(bench_4 & G bench_4)),photo & statue_6 & X(bench_4 & G(bench_4))
+F(arch_2 & photo & F(park_8 & G park_8)),photo & X(park_8 & G(park_8))
+F(monument_3 & photo & F(pathway_8 & G pathway_8)),photo & F(pathway_8 & G(pathway_8))
+F(arch_2 & photo & F(park_8 & G park_8)),photo & X(park_8 & G park_8)
+F(photo & statue_6 & F(bench_4 & G bench_4)),photo & statue_6 & X(bench_4 & G(bench_4))
+F(photo & statue_6 & F(bench_4 & G bench_4)),photo & F(bench_4 & G(bench_4))
+F(arch_2 & photo & F(park_8 & G park_8)),photo -> X(park_8 & G park_8)
+F(intersection_7 & photo & G intersection_7),F(intersection_7 & photo)
+F(monument_12 & photo & G monument_12),photo & X G monument_12
+F(landmark_9 & photo & G landmark_9),F(landmark_9 & photo) & G(landmark_9)
+F(bench_4 & photo & G bench_4),F(bench_4 & photo)
+F(intersection_7 & photo & G intersection_7),F(photo & intersection_7)
+F(monument_12 & photo & G monument_12),F(photo & monument_12)
+F(landmark_9 & photo & G landmark_9),F(photo & landmark_9)
+F(intersection_7 & photo & G intersection_7),F(photo & intersection_7) & G(intersection_7)
+F(monument_12 & photo & G monument_12),F(photo & monument_12)
+F(p_dish_2 & parking_lot_2),parking_lot_2 & p_dish_2
+F(photo & statue_5),statue_5 & photo
+F(arch_1 & photo),arch_1 & photo
+F(building_2 & photo),photo & building_2
+F(photo & statue_5),statue_5 & photo
+F(house_2 & p_trash_can_2),house_2 & p_trash_can_2
+F(building_2 & photo),photo & building_2
+F(photo & statue_7),statue_7 -> F photo
+F(landmark_6 & photo),photo & landmark_6
+F(photo & statue_7),statue_7 & photo
+F(photo & statue_5),statue_5 -> F photo
+F(monument_1 & photo) & (!monument_1 U park_4),photo & (!monument_1 U park_4)
+F(photo & statue_2) & (!statue_2 U park_5),photo & (!statue_2 U park_5)
+F(photo & statue_2) & (!statue_2 U park_5),(!statue_2) U (park_5 & photo)
+F(photo & statue_2) & (!statue_2 U park_5),F photo & (!statue_2 U park_5)
+F(monument_1 & photo) & (!monument_1 U park_4),photo & (!monument_1 U park_4)
+F(photo & statue_2) & (!statue_2 U park_5),(!statue_2) U (park_5 & photo)
+F(monument_1 & photo) & (!monument_1 U park_4),photo & (!monument_1 U park_4)
+F(monument_1 & photo) & (!monument_1 U park_4),F photo & (!monument_1 U park_4)
+F(hospital_3 & p_bottle_4) & G!pharmacy_2,p_bottle_4 & hospital_3 & !pharmacy_2
+F(arch_4 & photo) & G!park_2,F(photo) & G(!park_2)
+F(arch_4 & photo) & G!park_2,photo & G(!park_2)
+F(arch_4 & photo) & G!park_2,F photo & G !park_2
+F(arch_4 & photo) & G!park_2,F photo & G !park_2
+F(hospital_3 & p_bottle_4) & G!pharmacy_2,(hospital_3 & p_bottle_4) & G(!pharmacy_2)
+F(hospital_3 & p_bottle_4) & G!pharmacy_2,hospital_3 & !pharmacy_2 & p_bottle_4
+F(arch_4 & photo) & G!park_2,photo & G(!park_2)
+F(hospital_3 & p_bottle_4) & G!pharmacy_2,hospital_3 & p_bottle_4 & G(!pharmacy_2)
+F(kitchen_2 & p_bottle_3) & G!living_room_1,p_bottle_3 & G(!living_room_1)
+F(kitchen_2 & p_bottle_3) & G!living_room_1,kitchen_2 & !living_room_1 & F p_bottle_3
+F(kitchen_2 & p_bottle_3) & G!living_room_1,kitchen_2 & F p_bottle_3 & G !living_room_1
+F(photo & statue_6) & G park_5,(statue_6 -> F photo) & G park_5
+F(photo & statue_6) & G park_5,statue_6 & photo & G park_5
+F(photo & statue_6) & G park_5,F(statue_6 & photo & park_5)
+F(photo & statue_6) & G park_5,statue_6 & photo & park_5
+F(photo & statue_6) & G park_5,G(park_5 -> (statue_6 & photo))
+FG house_5,F house_5 & G house_5
+FG intersection_5,F intersection_5 & G intersection_5
+FG intersection_5,F intersection_5 & G intersection_5
+FG park_8,G(park_8)
+FG house_5,F house_5 & G house_5
+FG park_8,F park_8 & G park_8
+FG hotel_3,F hotel_3 & G hotel_3
+FG parking_lot_5,parking_lot_5 & G(parking_lot_5)
+FG street_2,street_2 & G street_2
+FG intersection_4,G(intersection_4)
+FG house_5,G(house_5)
+FG hotel_3,F hotel_3 & G hotel_3
+FG building_3 & (!building_3 U garage_3),F garage_3 & G(garage_3 -> building_3)
+FG building_9 & (!building_9 U street_6),G(building_9) & (!building_9 U street_6)
+FG building_3 & (!building_3 U garage_3),(!building_3 U garage_3) & F building_3 & G(building_3 -> !garage_3)
+FG building_9 & (!building_9 U street_6),(!building_9) U street_6 & F building_9
+F park_5,park_5
+F section_3 & G!hall_5,section_3 & !hall_5
+F parking_lot_2 & G!pd,parking_lot_2 & G !pd
+F street_5 & G!parking_lot_2,G(street_5 & !parking_lot_2)
+F parking_lot_2 & G!pd,parking_lot_2 & !pd
+F street_5 & G!parking_lot_2,street_5 & !parking_lot_2
+F street_5 & G!parking_lot_2,street_5 & !parking_lot_2
+G!(hall_1 & p_file_6),G(!hall_1)
+G!(hall_1 & p_file_6),G(!hall_1)
+G!(house_4 & p_bottle_2),G(!p_bottle_2)
+G!(hall_1 & p_file_6),G(!hall_1)
+G!(house_4 & p_bottle_2),G(!p_bottle_2 -> !house_4)
+G!(p_cone_1 | p_cone_2),G !(p_cone_1 & p_cone_2)
+G!(street_3 | street_4),G(!(street_3 & street_4))
+G!street_4 & F(store_7 & F(p_package_8 & F(house_2 & pd))),G(!(pd & street_4))
+G!street_7 & F(store_9 & F(p_package_3 & F(house_1 & pd))),!(street_7) & (p_package_3 & store_9 & house_1)
+G!street_7 & F(store_9 & F(p_package_3 & F(house_1 & pd))),G(!(street_7) -> (p_package_3 & store_9 & !house_1))
+G!street_4 & F(store_7 & F(p_package_8 & F(house_2 & pd))),(p_package_8 & store_7 & !street_4) U house_2
+G!street_4 & F(store_7 & F(p_package_8 & F(house_2 & pd))),G(!street_4 -> (F(p_package_8 & F(pd & F(house_2)))))
+G!street_7 & F(store_9 & F(p_package_3 & F(house_1 & pd))),G((p_package_3 & store_9 & !house_1) -> !street_7)
+G!street_7 & F(store_9 & F(p_package_3 & F(house_1 & pd))),G(!street_7 -> !pd)
+G!street_4 & F(store_7 & F(p_package_8 & F(house_2 & pd))),G((p_package_8 & store_7 & house_2) -> !street_4)
+G!street_7 & F(store_9 & F(p_package_3 & F(house_1 & pd))),G((p_package_3 & store_9 & !house_1) -> (!street_7 U house_1))
+G!street_4 & F(store_7 & F(p_package_8 & F(house_2 & pd))),G(pd -> !street_4)
+G!park_3 & F(p_cone_2 & police_station_1 & F(intersection_2 & pd)),G((p_cone_2 & police_station_1 & X F intersection_2) -> !park_3)
+G!park_3 & F(p_cone_2 & police_station_1 & F(intersection_2 & pd)),!park_3 & F(police_station_1 & p_cone_2 & F(intersection_2))
+G!park_3 & F(p_cone_2 & police_station_1 & F(intersection_2 & pd)),G(!park_3 -> (p_cone_2 & police_station_1 & F intersection_2))
+G!park_3 & F(p_cone_2 & police_station_1 & F(intersection_2 & pd)),G(!(park_3 & p_cone_2 & police_station_1 & intersection_2))
+G!street_5 & F(house_2 & p_box_4),G(p_box_4 -> !street_5)
+G!street_5 & F(house_2 & p_box_4),G(p_box_4 -> !street_5)
+G!parking_lot_5 & F(car_3 & photo),G(photo -> !parking_lot_5)
+G!building_2 & F(office_6 & p_letter_5),!building_2 & F p_letter_5
+G!parking_lot_5 & F(car_3 & photo),G(photo -> !parking_lot_5)
+G!building_2 & F(office_6 & p_letter_5),G(!building_2 & p_letter_5)
+G!street_6 & F(car_1 & photo),G !street_6 & photo
+G!park_3 & F(monument_3 & photo),G(photo -> !park_3)
+G!street_6 & F(car_1 & photo),G(!street_6) & F(photo)
+G!park_3 & F(monument_3 & photo),photo & !park_3 & monument_3
+G!parking_lot_8 & F street_5,G(street_5 -> !parking_lot_8)
+G!street_3 & F building_4,building_4 -> !street_3
+G!parking_lot_8 & F street_5,G(!parking_lot_8)
+G!street_3 & F building_4,building_4 & G(!street_3)
+G!parking_lot_8 & F street_5,G(!parking_lot_8)
+G!parking_lot_8 & F street_5,G(!(parking_lot_8) -> !street_5)
+G!parking_lot_8 & F street_5,G(!parking_lot_8)
+G!street_3 & F building_4,G(building_4 -> !street_3)
+G!parking_lot_5 & GF(car_9 & photo),G(!(parking_lot_5) & photo)
+G!parking_lot_5 & GF(car_9 & photo),G(!parking_lot_5 & photo)
+G!parking_lot_5 & GF(car_9 & photo),G(photo -> !parking_lot_5)
+G!parking_lot_5 & GF(car_9 & photo),G(photo & !parking_lot_5)
+G!parking_lot_5 & GF(car_9 & photo),G(photo -> !parking_lot_5)
+GF(storage_4 & F(p_crate_1 & F(office_2 & pd))),G(p_crate_1 -> F office_2)
+GF(warehouse_4 & F(p_crate_3 & F(mall_3 & pd))),G(pd -> F(p_crate_3 & warehouse_4 & F(mall_3)))
+GF(store_4 & F(p_box_2 & F(hall_8 & pd))),G(pd & store_4 & p_box_2 & hall_8)
+GF(mall_5 & F(p_crate_8 & F(office_6 & pd))),G(F(p_crate_8 & mall_5 & F(office_6)))
+GF(store_4 & F(p_box_2 & F(hall_8 & pd))),G(p_box_2 -> F(hall_8))
+GF(store_2 & F(p_crate_6 & F(building_5 & pd))),G((pd & store_2 & p_crate_6) -> F(building_5))
+GF(store_2 & F(p_crate_6 & F(building_5 & pd))),G(F(pd & store_2 & p_crate_6) & F(pd & building_5 & p_crate_6))
+GF(store_2 & F(p_crate_6 & F(building_5 & pd))),G((p_crate_6 & store_2) -> F building_5)
+GF(warehouse_4 & F(p_crate_3 & F(mall_3 & pd))),G(p_crate_3 -> F(mall_3))
+GF(storage_4 & F(p_crate_1 & F(office_2 & pd))),G(F(pd & p_crate_1 & storage_4 & office_2))
+GF(storage_4 & F(p_crate_1 & F(office_2 & pd))),G(pd -> (storage_4 & F office_2))
+GF(store_2 & F(p_crate_6 & F(building_5 & pd))),G(p_crate_6 -> (store_2 & F building_5))
+GF(table_2 & F(p_brochure_8 & F(pd & street_9))) & GF charger_6,G(charger_6 -> F(pd & p_brochure_8 & !table_2 & street_9))
+GF(warehouse_4 & F(p_crate_8 & F(pd & store_8))) & GF charger_2,G((p_crate_8 & warehouse_4) -> F(store_8)) & G(F(charger_2))
+GF(warehouse_1 & F(p_package_5 & F(pd & store_5))) & GF charging_station_5,G((p_package_5 & warehouse_1) -> F(store_5)) & G(F(charging_station_5))
+GF(warehouse_4 & F(p_crate_8 & F(pd & store_8))) & GF charger_2,G(F(pd & p_crate_8 & warehouse_4 & X(store_8)) & F(charger_2))
+GF(warehouse_3 & F(p_crate_4 & F(pd & store_9))) & GF charger_3,G((warehouse_3 & p_crate_4 & pd & store_9) -> F charger_3)
+GF(warehouse_4 & F(p_crate_8 & F(pd & store_8))) & GF charger_2,G((p_crate_8 & warehouse_4 & store_8) & G F charger_2)
+GF(warehouse_4 & F(p_crate_8 & F(pd & store_8))) & GF charger_2,G((p_crate_8 & warehouse_4 & X store_8) -> F charger_2)
+GF(warehouse_4 & F(p_crate_8 & F(pd & store_8))) & GF charger_2,G((p_crate_8 & warehouse_4 & !store_8) -> F(store_8)) & G(F(charger_2))
+GF(warehouse_3 & F(p_crate_4 & F(pd & store_9))) & GF charger_3,G(F(warehouse_3 & p_crate_4 & pd & store_9) & F(charger_3))
+GF(table_2 & F(p_brochure_8 & F(pd & street_9))) & GF charger_6,G(F((table_2 & p_brochure_8) -> F(street_9)) & F(charger_6))
+GF(table_2 & F(p_brochure_8 & F(pd & street_9))) & GF charger_6,G((pd & table_2 & p_brochure_8) -> F(street_9)) & G(F(charger_6))
+GF(warehouse_3 & F(p_crate_4 & F(pd & store_9))) & GF charger_3,G(F(warehouse_3 & p_crate_4 & pd & store_9) & F(charger_3))
+GF(photo & street_3),G photo
+GF(house_2 & p_trash_can_4),G(house_2 & p_trash_can_4)
+GF(intersection_4 & photo),G F photo
+GF(area_2 & photo),G(area_2 -> photo)
+GF(photo & street_3),G(photo -> street_3)
+GF(intersection_4 & photo),G photo
+GF(monument_8 & photo) & (!monument_8 U park_4),G(photo) & (!monument_8 U park_4)
+GF(monument_8 & photo) & (!monument_8 U park_4),G(photo & (!monument_8 U park_4))
+GF(monument_8 & photo) & (!monument_8 U park_4),G(F photo) & (!park_4 U monument_8)
+GF(monument_8 & photo) & (!monument_8 U park_4),(!park_4 U photo) & G(photo -> !monument_8)
+GF(monument_8 & photo) & (!monument_8 U park_4),G(photo -> (!monument_8 U park_4))
+GF(locality_7 & photo) & G!park_3,G(photo & locality_7 & !park_3)
+GF(car_1 & photo) & G!parking_lot_9,G(photo & !parking_lot_9)
+GF(locality_7 & photo) & G!park_3,G(!park_3 -> F(photo & locality_7))
+GF(car_1 & photo) & G!parking_lot_9,G(photo & car_1 & !parking_lot_9)
+GF(locality_7 & photo) & G!park_3,G(photo & locality_7 & !park_3)
+GF(car_1 & photo) & G!parking_lot_9,G(photo & car_1 & !parking_lot_9)
+GF(locality_7 & photo) & G!park_3,G(photo & locality_7 & !park_3)
+GF(car_1 & photo) & G!parking_lot_9,G(photo & car_1 & !parking_lot_9)
+GF(car_1 & photo) & G!parking_lot_9,G(photo & !parking_lot_9)
+GF(locality_7 & photo) & G!park_3,G(photo & locality_7 & !park_3)
+GF(area_9 & photo) & GF(camp_4 & F(p_ordnance_3 & F(camp_9 & pd))),G(photo & area_9) & G(F(p_ordnance_3 & camp_4 & X F(camp_9)))
+GF(area_9 & photo) & GF(camp_4 & F(p_ordnance_3 & F(camp_9 & pd))),G(photo & area_9) & G(F(p_ordnance_3 & camp_4 & X camp_9))
+GF(area_9 & photo) & GF(camp_4 & F(p_ordnance_3 & F(camp_9 & pd))),G((photo & area_9) -> F(photo & area_9)) & G((p_ordnance_3 & camp_4 & !camp_9) -> F(camp_9))
+GF(area_9 & photo) & GF(camp_4 & F(p_ordnance_3 & F(camp_9 & pd))),G(photo & area_9) & G(F(p_ordnance_3 & camp_4 & X(!camp_4 U camp_9)))
+GF(area_9 & photo) & GF(camp_4 & F(p_ordnance_3 & F(camp_9 & pd))),G(photo & area_9) & G(F(p_ordnance_3 & camp_4 & camp_9))
+GF(area_4 & photo) & GF(area_3 & photo),G(area_4 & photo & area_3)
+GF(area_4 & photo) & GF(area_3 & photo),G(area_4 & photo) & G F area_3
+GF(area_4 & photo) & GF(area_3 & photo),G(photo & area_4) & G F area_3
+GF(area_4 & photo) & GF(area_3 & photo),G(photo & area_4) & G F area_3
+GF(area_4 & photo) & GF(area_3 & photo),G(photo & area_4) & G(F area_3)
+GF(area_51 & photo) & GF charger_4,G(photo & charger_4)
+GF(building_5 & photo) & GF charger_4,G(photo & building_5) & G F charger_4
+GF(area_51 & photo) & GF charger_4,G(photo & charger_4)
+GF(building_5 & photo) & GF charger_4,G(photo & building_5 & charger_4)
+GF(building_5 & photo) & GF charger_4,G(F(photo & building_5) & G(charger_4))
+GF(area_51 & photo) & GF charger_4,G F photo & G F charger_4
+GF(photo & statue_4) & GF charger_4,G(photo & charger_4)
+GF(photo & statue_4) & GF charger_4,G(charger_4 -> F photo) & G(photo -> F charger_4)
+GF(area_51 & photo) & GF charger_4,G(photo & charger_4)
+GF(photo & statue_4) & GF charger_4,G(photo & charger_4)
+GF(building_5 & photo) & GF charger_4,G(photo & building_5 & charger_4)
+GF(photo & statue_4) & GF charger_4,G(photo & charger_4)
+GF street_5,G street_5
+GF street_4,G street_4
+GF charger_2 & F(table_2 & F(p_plate_4 & F(pd & table_4))),G(charger_2 & F(p_plate_4 & table_4))
+GF charger_1 & F(house_4 & F(box_4 & F(house_9 & pd))),G(box_4 -> (!house_4 U (charger_1 & F house_9)))
+GF parking_lot_4 & F(car_5 & F(p_document_4 & F(car_6 & pd))),G F parking_lot_4 & F car_5 & F p_document_4 & F (car_6)
+GF charger_1 & F(house_4 & F(box_4 & F(house_9 & pd))),G((pd & house_4 & !house_9) -> (charger_1 U house_9))
+GF charger_2 & F(table_2 & F(p_plate_4 & F(pd & table_4))),G(p_plate_4 -> F charger_2)
+GF charger_1 & F(house_4 & F(box_4 & F(house_9 & pd))),G((box_4 & house_4) -> F(house_9 & box_4)) & G((house_4 | house_9) -> F charger_1)
+GF charger_2 & F(table_2 & F(p_plate_4 & F(pd & table_4))),G((p_plate_4 & table_2) -> F(charger_2))
+GF parking_lot_4 & F(car_5 & F(p_document_4 & F(car_6 & pd))),G(parking_lot_4 & car_5 & p_document_4 & car_6)
+GF parking_lot_4 & F(car_5 & F(p_document_4 & F(car_6 & pd))),G(p_document_4 -> F(car_5 & F(p_document_4 & F(car_6 & F(parking_lot_4)))))
+GF parking_lot_4 & F(car_5 & F(p_document_4 & F(car_6 & pd))),G(p_document_4 -> parking_lot_4)
+GF parking_lot_4 & F(car_5 & F(p_document_4 & F(car_6 & pd))),G((pd & car_5 & p_document_4) -> F(parking_lot_4 & car_6))
+GF intersection_4 & F locality_9,G(intersection_4 -> X(intersection_4 U locality_9))
+GF car_3 & F building_2,G(building_2 -> car_3)
+GF car_3 & F building_2,G(building_2 -> F car_3)
+GF intersection_4 & F locality_9,G(intersection_4) & F(locality_9)
+GF car_3 & F building_2,G(car_3 -> F(building_2))
+GF intersection_4 & F locality_9,G(intersection_4) & F(locality_9)
+GF intersection_4 & F locality_9,G(locality_9 -> F(intersection_4))
+GF car_3 & F building_2,G(F(car_3) & F(building_2))
+GF charging_station_9 & GF(warehouse_5 & F(p_crate_4 & F(mall_4 & pd))),G(p_crate_4 -> F(charging_station_9))
+GF charger_12 & GF(house_5 & F(p_box_1 & F(house_23 & pd))),G(charger_12) & G(F(pd & house_5 & p_box_1 & F(house_23)))
+GF charger_9 & GF(warehouse_8 & F(p_crate_2 & F(pd & store_2))),G(charger_9 & p_crate_2)
+GF charger_12 & GF(house_5 & F(p_box_1 & F(house_23 & pd))),G((p_box_1 & house_5 & X(!house_5 U house_23)) -> F charger_12)
+GF charging_station_9 & GF(warehouse_5 & F(p_crate_4 & F(mall_4 & pd))),G(F(charging_station_9) & G(F(p_crate_4 & warehouse_5 & F(mall_4))))
+GF charging_station_9 & GF(warehouse_5 & F(p_crate_4 & F(mall_4 & pd))),G(p_crate_4 -> (F(charging_station_9) & F(mall_4)))
+GF charging_station_5 & GF(warehouse_1 & F(p_package_5 & F(pd & store_5))),G(charging_station_5 & p_package_5)
+GF charger_9 & GF(warehouse_8 & F(p_crate_2 & F(pd & store_2))),G(p_crate_2 -> F(charger_9))
+GF charging_station_9 & GF(warehouse_5 & F(p_crate_4 & F(mall_4 & pd))),G(p_crate_4 -> F(charging_station_9))
+GF charger_9 & GF(warehouse_8 & F(p_crate_2 & F(pd & store_2))),G((p_crate_2 & warehouse_8) -> F(store_2 & F(charger_9)))
+GF charging_station_5 & GF(warehouse_1 & F(p_package_5 & F(pd & store_5))),G(p_package_5 -> (F(charging_station_5) & F(store_5) & F(warehouse_1)))
+GF charger_12 & GF(house_5 & F(p_box_1 & F(house_23 & pd))),G(charger_12 -> (p_box_1 U house_23))
+GF charger_6 & GF(p_brochure_4 & table_4),G(charger_6 -> F(table_4 & p_brochure_4))
+GF charger_5 & GF(photo & region_4),G(photo -> F charger_5)
+GF charger_6 & GF(p_brochure_4 & table_4),G(charger_6 & F p_brochure_4)
+GF charger_4 & GF(area_5 & photo),G(photo -> F charger_4)
+GF charger_4 & GF(area_5 & photo),G(charger_4 -> photo)
+GF charger_4 & GF(area_5 & photo),G(photo -> F charger_4) & G(photo -> area_5)
+GF charger_3 & GF(area_3 & photo),G(F(charger_3) & F(photo) & area_3)
+GF charger_3 & GF(area_3 & photo),G(photo -> F charger_3)
+GF charger_6 & GF(p_brochure_4 & table_4),G(charger_6 & F p_brochure_4)
+GF charger_6 & GF(p_brochure_4 & table_4),G(p_brochure_4 -> F charger_6)
+GF charger_3 & GF(area_3 & photo),G(photo -> F charger_3)
+GF charger_5 & GF(photo & region_4),G F charger_5 & G F photo
+G area_5,G !area_5
+G locality_7 & F(office_4 & F(p_letter_1 & F(house_1 & pd))),G(locality_7)
+G locality_5 & F(office_3 & F(p_package_5 & F(office_6 & pd))),G((pd & office_3 & p_package_5) -> (locality_5 U office_6))
+G locality_5 & F(office_3 & F(p_package_5 & F(office_6 & pd))),G((p_package_5 & office_3 & X(!office_3 U office_6)) -> locality_5)
+G locality_2 & F(office_4 & F(p_document_5 & F(office_9 & pd))),G(locality_2 & F(p_document_5 & office_4 & F(office_9)))
+G locality_7 & F(office_4 & F(p_letter_1 & F(house_1 & pd))),G(locality_7 & pd & office_4 & p_letter_1 -> F(house_1 & pd))
+G locality_7 & F(office_4 & F(p_letter_1 & F(house_1 & pd))),(p_letter_1 & office_4 & G(locality_7)) U house_1
+G locality_2 & F(office_4 & F(p_document_5 & F(office_9 & pd))),G((p_document_5 & office_4) -> (locality_2 U office_9))
+G locality_2 & F(office_4 & F(p_document_5 & F(office_9 & pd))),G((p_document_5 & office_4 & locality_2) -> (locality_2 U office_9))
+G locality_2 & F(office_4 & F(p_document_5 & F(office_9 & pd))),G(locality_2) & F(p_document_5 & office_4) & F(office_9 & pd)
+G locality_5 & F(office_3 & F(p_package_5 & F(office_6 & pd))),G(locality_5 & pd -> (F(p_package_5 & office_3) & F(office_6)))
+G locality_7 & F(office_4 & F(p_letter_1 & F(house_1 & pd))),G((p_letter_1 & office_4) -> (locality_7 U house_1))
+G locality_5 & F(office_3 & F(p_package_5 & F(office_6 & pd))),G((p_package_5 & office_3 & !office_6) -> (!locality_5 U office_6))
+G county_4 & GF(office_3 & F(p_package_4 & F(office_8 & pd))),G(county_4 & p_package_4 & office_3 -> X(county_4 & p_package_4 & office_8))
+G county_4 & GF(office_3 & F(p_package_4 & F(office_8 & pd))),G(county_4 & p_package_4)
+G county_4 & GF(office_3 & F(p_package_4 & F(office_8 & pd))),G(county_4 & (p_package_4 -> (office_3 U office_8)))
+G county_4 & GF(office_3 & F(p_package_4 & F(office_8 & pd))),G(county_4 & p_package_4 & pd)
+G county_4 & GF(office_3 & F(p_package_4 & F(office_8 & pd))),G(county_4 & pd -> F(office_3 & F(office_8 & F(pd))))
+G area_2 & GF(building_8 & photo),area_2 & F photo
+G street_5 & GF(parking_lot_4 & photo),G(street_5 & photo & parking_lot_4)
+G street_5 & GF(parking_lot_4 & photo),G(street_5 & photo)
+G street_5 & GF(parking_lot_4 & photo),G(street_5 & F photo)
+G street_5 & GF(parking_lot_4 & photo),G(street_5 & F photo & G F photo & G parking_lot_4)
+G area_2 & GF(building_8 & photo),G(area_2 & photo)
+G area_2 & GF(building_8 & photo),G(area_2 -> F(building_8 & photo))
+G street_5 & GF(parking_lot_4 & photo),G(street_5 -> photo)
+building_4 U (room_43 & F(p_folder_3 & F(pd & room_12))),building_4 U (pd & p_folder_3 & room_43 & room_12)
+locality_6 U (store_8 & F(p_package_3 & F(house_5 & pd))),locality_6 U (p_package_3 & store_8 & house_5)
+building_9 U (room_2 & F(p_bottle_3 & F(pd & room_6))),building_9 U (p_bottle_3 & room_2 & room_6)
+building_9 U (room_2 & F(p_bottle_3 & F(pd & room_6))),building_9 U (p_bottle_3 & room_2 & room_6)
+area_5 U (store_2 & F(p_package_8 & F(house_9 & pd))),area_5 U (p_package_8 & store_2 & house_9)
+building_9 U (room_2 & F(p_bottle_3 & F(pd & room_6))),building_9 U (p_bottle_3 & room_2 & room_6)
+building_9 U (room_2 & F(p_bottle_3 & F(pd & room_6))),building_9 U (pd & p_bottle_3 & room_2 & room_6)
+area_5 U (store_2 & F(p_package_8 & F(house_9 & pd))),(!p_package_8 U area_5) & (p_package_8 -> (store_2 & X(!area_5 U house_9)))
+area_5 U (store_2 & F(p_package_8 & F(house_9 & pd))),area_5 U (pd & p_package_8 & store_2 & house_9)
+area_5 U (store_2 & F(p_package_8 & F(house_9 & pd))),area_5 U (pd & store_2 & p_package_8 & house_9)
+area_5 U (store_2 & F(p_package_8 & F(house_9 & pd))),area_5 U (pd & store_2 & p_package_8 & house_9)
+building_4 U (room_43 & F(p_folder_3 & F(pd & room_12))),G((p_folder_3 & room_43) -> (building_4 U room_12))
+park_5 U (monument_2 & photo & F(intersection_5 & G intersection_5)),(park_5 U photo) & G(photo -> X(intersection_5 & G(intersection_5)))
+park_8 U (monument_2 & photo & F(bench_5 & G bench_5)),(park_8 U (photo & monument_2 & X(bench_5 & G bench_5)))
+park_8 U (monument_2 & photo & F(bench_5 & G bench_5)),park_8 U (photo & monument_2 & X(bench_5 & G bench_5))
+park_5 U (monument_2 & photo & F(intersection_5 & G intersection_5)),(park_5 U (photo & X(intersection_5 & G(intersection_5))))
+park_5 U (monument_2 & photo & F(intersection_5 & G intersection_5)),(park_5 U (photo & X(intersection_5 & G(intersection_5))))
+park_8 U (monument_2 & photo & F(bench_5 & G bench_5)),(park_8 U photo) & X(bench_5 & G bench_5)
+park_5 U (monument_2 & photo & F(intersection_5 & G intersection_5)),(park_5 U photo) & G(photo -> X(intersection_5 & G(intersection_5)))
+park_8 U (monument_2 & photo & F(bench_5 & G bench_5)),park_8 U (photo & monument_2 & X(bench_5 & G bench_5))
+park_8 U (monument_2 & photo & F(bench_5 & G bench_5)),park_8 U (photo & monument_2 & X(bench_5 & G bench_5))
+park_5 U (monument_2 & photo & F(intersection_5 & G intersection_5)),park_5 U (photo & X(intersection_5 & G(intersection_5)))
+parking_lot_5 U (car_5 & photo),parking_lot_5 U photo
+park_4 U (photo & statue_9),!park_4 U photo
+street_4 U (house_1 & photo),street_4 U photo
+park_2 U (monument_13 & photo),park_2 U photo
+park_2 U (monument_13 & photo),park_2 U photo
+park_2 U (monument_13 & photo),park_2 U photo
+parking_lot_4 U (car_5 & photo),parking_lot_4 U photo
+parking_lot_9 U (car_2 & photo),parking_lot_9 U photo
+park_2 U (monument_13 & photo),park_2 U photo
+street_4 U (house_1 & photo),street_4 U photo
+parking_lot_9 U (car_2 & photo),parking_lot_9 U photo
+parking_lot_9 U (car_2 & photo),parking_lot_9 U photo
+parking_lot_4 U car_5,!parking_lot_4 U car_5
+park_1 U table_3,park_1 & (park_1 U table_3)
+((prop_4 -> prop_2) -> prop_1) -> prop_3,((prop_4 -> prop_2) & (prop_2 -> prop_1)) -> prop_3
+G(!prop_2 & F prop_1),G(prop_1 & !prop_2)
+G(prop_1 | F prop_2),G(prop_1) | G(prop_2)
+G(F prop_1 & G prop_2),G(prop_1) & G(prop_2)
+prop_2 & (!prop_1 -> prop_3),!prop_1 -> (prop_3 & prop_2)
+prop_3 | (prop_2 & (prop_4 -> prop_1)),(prop_4 -> prop_1) & (prop_2 | prop_3)
+G(prop_1 -> (prop_2 | prop_3)),G(prop_1 -> (prop_2 | X prop_3))
+prop_1 <-> (prop_2 U prop_3),(F prop_2 U prop_3) <-> prop_1
+F prop_1 -> GF prop_2,G(prop_1 -> G(prop_2))
+(prop_2 -> prop_3) U (prop_1 <-> prop_4),(prop_2 <-> prop_3) -> (prop_1 -> prop_4)
+(prop_1 <-> prop_4) U (prop_3 -> prop_2),G((!prop_1 | prop_4) -> (prop_3 <-> prop_2))
+(prop_1 & prop_2) <-> G prop_3,G(prop_3 <-> (prop_1 & prop_2))
+prop_2 <-> ((prop_1 & prop_4) U prop_3),((prop_4 & prop_1 & (prop_1 U prop_3)) -> prop_2)
+F(prop_1 & prop_2),prop_2 & F prop_1
+(!prop_2 -> prop_1) -> F prop_3,!prop_2 -> (prop_1 & F prop_3)
+G prop_3 -> (prop_1 <-> prop_2),G(prop_3) -> G(prop_2 <-> prop_1)
+(prop_2 & prop_3) | G prop_1,G(prop_1 | (prop_3 & prop_2))
+prop_2 & (prop_1 -> prop_3),prop_2 & prop_1 & prop_3
+prop_4 | (prop_1 <-> (prop_2 | prop_3)),(prop_3 | (prop_2 <-> prop_1) | prop_4)
+F(prop_1 | G prop_2),G(prop_1 | prop_2)
+F(prop_1 & F prop_2),G(prop_1) & G(prop_2)
+(prop_1 | prop_3) & F prop_2,(prop_1 | prop_3) & prop_2
+((prop_2 <-> prop_4) U prop_3) -> prop_1,G(((prop_4 <-> prop_2) U prop_3) -> prop_1)
+!prop_1 | (prop_2 <-> prop_3),!prop_1 | (prop_2 & prop_3)
+prop_3 <-> ((prop_2 -> prop_4) U prop_1),((prop_2 & prop_4) U prop_1) <-> prop_3
+!(prop_1 & prop_3) -> prop_2,(!(prop_3) & prop_1) -> prop_2
+G(F prop_1 U G!prop_2),G(prop_1) & G(!prop_2)
+(prop_1 & prop_2) -> G prop_3,G(((prop_1 & prop_2) -> prop_3))
+prop_1 & G(prop_2 -> prop_3),G((prop_2 -> prop_3) & prop_1)
+F prop_2 -> (prop_1 & prop_3),F prop_2 -> F (prop_1 & prop_3)
+G((prop_1 & prop_2) -> !F prop_3),(prop_1 & prop_2) -> !F((prop_3) & (F prop_3))
+(prop_1 -> prop_4) U (prop_2 <-> prop_3),(prop_1 -> (prop_4 U (prop_2 <-> prop_3)))
+(prop_1 -> prop_3) & G prop_2,G(prop_2 -> (prop_1 -> prop_3))
+G((prop_1 & prop_2) -> prop_3),(prop_2 & prop_1) -> prop_3
+F(prop_1 | !prop_2),F prop_1 | ! prop_2
+G((prop_1 | prop_3) -> !G prop_2),((prop_3 | prop_1) -> G(!prop_2))
+prop_1 <-> G(prop_3 -> prop_2),G((prop_3 -> prop_2) <-> prop_1)
+prop_2 | G(prop_1 & prop_3),G((prop_1 & prop_3) | prop_2)
+prop_3 <-> F(prop_1 <-> prop_2),((prop_1 <-> prop_2) & prop_3) <-> prop_3
+!(prop_1 & prop_3) -> prop_2,(!(prop_1) & prop_3) -> prop_2
+!prop_3 U (prop_1 & prop_2),!prop_2 U (prop_3 & prop_1)
+prop_1 | GF prop_2,prop_1 | G prop_2
+G((prop_2 | prop_3) -> prop_1),((prop_2 | prop_3) -> X prop_1)
+prop_3 & (prop_1 | (prop_2 U prop_4)),((F(prop_2 & (!prop_2 U prop_4))) | prop_1) & prop_3
+G prop_3 -> (prop_1 <-> prop_2),G(prop_3) -> G(prop_1 <-> prop_2)
+(prop_2 <-> prop_3) <-> F prop_1,F((prop_1 <-> prop_3) <-> prop_2)
+(prop_1 -> prop_3) U !prop_2,(!prop_1) U (prop_3 -> prop_2)
+F prop_1 -> GF prop_2,G(prop_1 -> G(prop_2))
+(prop_1 & (prop_3 -> prop_4)) -> prop_2,(prop_3 -> (prop_4 & prop_1)) -> prop_2
+G((prop_2 | prop_3) -> FG prop_1),G((prop_2 | prop_3) -> F(prop_1))
+prop_2 & F(prop_3 -> prop_1),F(prop_3 & (prop_3 -> (prop_1 & prop_2)))
+F prop_1 -> prop_2,G(prop_1 -> prop_2)
+prop_4 <-> (prop_3 | (prop_2 -> prop_1)),prop_2 <-> ((prop_1 -> prop_3) | prop_4)
+(prop_1 <-> prop_3) -> !prop_2,F(prop_1 <-> prop_3) -> G(!prop_2)
+prop_4 & (prop_1 | (prop_2 U prop_3)),((prop_2 & (prop_2 U prop_3)) | prop_1) & prop_4
+F(prop_1 & !prop_2),prop_1 & !prop_2
+prop_1 | !(prop_2 -> prop_3),!(prop_2 -> (prop_3 | prop_1))
+!(prop_1 U F prop_2),!prop_1 U G prop_2
+prop_3 & (prop_1 <-> (prop_2 U prop_4)),(F(prop_2) & (prop_2 U prop_4)) -> ((prop_1 & prop_3))
+(prop_1 <-> prop_3) | G prop_2,G(prop_2) | (F(prop_1) <-> F(prop_3))
+G!prop_1 -> G!prop_2,G(!prop_1 -> G(!prop_2))
+(prop_2 U prop_3) -> (prop_1 & prop_4),((prop_2 & (!prop_3 U prop_3)) -> (prop_1 & prop_4))
+!(F prop_1 U F prop_2),!prop_1 U prop_2
+F(prop_1 U G!prop_2),(prop_1) U (!prop_2)
+G(prop_1 -> G prop_2),prop_1 -> prop_2
+F(prop_1 U G!prop_2),(prop_1) U G(!prop_2)
+F(prop_1 & G prop_2),F(prop_1) & G(prop_2)
+prop_3 <-> (prop_1 | prop_2 | prop_4),((prop_4 | prop_2 | prop_1) -> prop_3)
+prop_4 | ((prop_1 <-> prop_2) U prop_3),((F((prop_2 <-> prop_1) U prop_3)) | prop_4)
+(prop_1 & (prop_2 | prop_4)) -> prop_3,F((prop_2 | prop_4) & prop_1) -> prop_3
+prop_2 | G(prop_1 & prop_3),G((prop_3 & prop_1) | prop_2)
+G((prop_2 & prop_3) -> !F prop_1),(prop_3 & prop_2) -> X ! F prop_1
+(prop_2 & prop_3) U (prop_1 <-> prop_4),(prop_2 & prop_3) -> (prop_4 <-> prop_1)
+prop_1 | (!prop_3 U prop_2),(F(!prop_3 U prop_2) | prop_1)
+prop_1 | !(prop_2 <-> prop_3),(!(prop_3 <-> prop_2) -> prop_1)
+prop_3 | (prop_2 <-> (prop_1 | prop_4)),((prop_1 | prop_4) -> (prop_2 | prop_3))
+G((prop_2 | prop_3) -> !F prop_1),(prop_2 | prop_3) -> !prop_1
+(prop_2 -> prop_1) <-> G prop_3,G((prop_2 & X prop_1) <-> prop_3)
+!prop_1 U (prop_2 | prop_3),(!prop_2) U (prop_1 | prop_3)
+prop_4 <-> ((prop_1 -> prop_2) U prop_3),((prop_1 & prop_2) U prop_3) <-> prop_4
+(prop_3 -> prop_1) | (prop_4 U prop_2),(prop_3 -> prop_1) & (!prop_3 -> (prop_4 U prop_2))
+(prop_2 <-> prop_3) <-> G prop_1,G(prop_1 <-> (prop_2 <-> prop_3))
+(prop_1 & prop_3) -> G prop_2,G(((prop_1 & prop_3) -> prop_2))
+!(prop_1 | GF prop_2),!prop_1 | G prop_2
+prop_1 | G(prop_2 | prop_3),G((prop_2 | prop_3) | prop_1)
+!prop_1 & prop_2 & (prop_4 -> prop_3),G((prop_4 -> (prop_3 & !prop_1)) U prop_2)
+(prop_1 & prop_2) <-> G prop_3,G(prop_3 <-> (prop_1 & prop_2))
+prop_2 & F(prop_1 <-> prop_3),F(prop_3) & (prop_1 <-> prop_3) & G(prop_2)
+prop_1 <-> !(prop_3 U prop_2),(!(prop_3) U F(prop_2)) <-> prop_1
+G(prop_1 -> F prop_2),prop_1 -> F prop_2
+(prop_1 -> prop_2) & (prop_3 <-> prop_4),(prop_1 -> prop_2) & G(prop_3 <-> prop_4)
+prop_3 & ((prop_2 <-> prop_4) -> prop_1),((prop_4 <-> prop_2) -> (prop_1 & prop_3))
+(prop_2 & (prop_3 -> prop_4)) -> prop_1,(prop_3 -> prop_4) & (prop_2 -> prop_1)
+prop_1 -> GF prop_2,G(prop_1 <-> G(prop_2))
+F(prop_1 U !prop_2),prop_1 U !prop_2
+(prop_1 & prop_3) U (prop_2 -> prop_4),((prop_3 & prop_1) -> ((prop_3 & prop_1) U prop_2)) & G(prop_2 -> prop_4)
+prop_2 | (prop_4 & (prop_1 U prop_3)),((F(prop_1 & (!prop_3 U prop_1)) & prop_4) | prop_2)
+G(F prop_1 & F prop_2),G(prop_2 -> F(prop_1)) & G(F(prop_1))
+(prop_1 | prop_4) & (prop_3 U prop_2),(prop_1) | ((prop_3) U (prop_2))
+prop_3 & (prop_2 | G!prop_1),G((!prop_1 | prop_2) & prop_3)
+G((prop_1 & prop_2) -> prop_3),G(((prop_2 & !prop_1)) -> X(prop_3))
+F prop_1 -> G!prop_2,G(prop_1 -> G(!prop_2))
+prop_2 | G(prop_1 | prop_3),G(prop_3 | prop_1 | prop_2)
+prop_2 | (prop_1 <-> (prop_3 U prop_4)),(G(prop_3) U F(prop_4)) <-> (prop_1 | prop_2)
+(prop_2 <-> prop_3) | F prop_1,G(prop_3 <-> prop_2) | F(prop_1)
+prop_3 <-> ((prop_1 & prop_2) U prop_4),((F prop_2) & (prop_1 U prop_4)) -> prop_3
+!prop_1 <-> (prop_3 & F prop_2),F(prop_2 & prop_3) <-> !prop_1
+(prop_4 -> prop_3) | (prop_1 & prop_2),((prop_2 & prop_1) | prop_4) -> prop_3
+(prop_1 | prop_3) <-> F prop_2,F(prop_2) <-> F(prop_3 | prop_1)
+((prop_3 U prop_2) -> prop_4) -> prop_1,((prop_3 U prop_2) -> (prop_4 -> prop_1))
+prop_1 & prop_4 & (prop_2 | prop_3),((prop_3) | ((prop_2) & (prop_1))) & (prop_4)
+(prop_1 & prop_2) U (prop_3 <-> prop_4),(prop_2 & prop_1) -> (prop_4 <-> prop_3)
+G prop_2 -> (prop_1 <-> prop_3),G(prop_2 -> (prop_1 <-> prop_3))
+(prop_1 | prop_3) U (prop_2 <-> prop_4),((prop_3 | prop_1) -> (prop_2 <-> prop_4))
+prop_4 | ((prop_1 U prop_3) -> prop_2),(prop_1 U prop_3) -> F(prop_2 | prop_4)
+!(prop_1 & prop_2) -> prop_3,(!(prop_2) & prop_1) -> prop_3
+prop_2 | (prop_1 & (prop_4 -> prop_3)),(prop_4 -> prop_3) & (prop_1 | prop_2)
+prop_2 -> prop_1,prop_1 -> prop_2
+F(prop_1 | G!prop_2),G(prop_1) | G(!prop_2)
+F prop_1 -> (prop_2 <-> prop_3),F(prop_1 -> (prop_2 <-> prop_3))
+G prop_2 -> (prop_1 | prop_3),G(prop_2 -> (prop_1 | prop_3))
+!prop_3 | (prop_2 -> prop_1),((!prop_3) | prop_2) -> prop_1
+G((prop_1 | prop_2) -> FG prop_3),((prop_2 | prop_1) -> F prop_3)
+prop_4 & ((prop_1 & prop_3) U prop_2),(prop_3 & prop_1 & (prop_1 U prop_2) & prop_4)
+G(prop_1 -> GF prop_2),G(prop_1 -> F((X prop_2)))
+(prop_1 <-> prop_3) & F prop_2,prop_3 <-> (prop_1 & F prop_2)
+!prop_3 -> (prop_1 U prop_2),G(!prop_3 -> (prop_1 U prop_2))
+G prop_3 -> (prop_2 -> prop_1),G(prop_3) -> G(prop_2 -> prop_1)
+G((prop_1 | prop_2) -> GF prop_3),G((!prop_2 | prop_1) -> F prop_3)
+(prop_2 <-> prop_4) | (prop_3 -> prop_1),((prop_2 <-> prop_4) | prop_3) -> prop_1
+prop_1 & prop_3 & G prop_2,G(prop_2 & prop_3 & prop_1)
+F(prop_1 & F prop_2),G(prop_1 & prop_2)
+prop_3 & (prop_1 | prop_2),F((prop_1 | prop_2) & prop_3)
+!(prop_2 & F prop_1),!prop_1 & prop_2
+!prop_2 U (prop_1 | prop_3),!prop_2 -> (!prop_2 U (prop_3 | prop_1))
+prop_1 | !(prop_2 -> prop_3),!((prop_2 -> F prop_3)) | prop_1
+prop_1 & ((prop_2 -> prop_4) U prop_3),F prop_2 -> ((prop_4 & prop_1) U prop_3)
+G((prop_2 | prop_3) -> !F prop_1),((prop_3 | prop_2) -> X F prop_1)
+G((prop_1 & prop_3) -> !F prop_2),(prop_3 & prop_1) -> !(F(prop_2))
+G(prop_1 & F prop_2),G(prop_1) & G(prop_2)
+G(!prop_1 U G!prop_2),!prop_1 U !prop_2
+prop_2 | prop_3 | G prop_1,(prop_3 | prop_2) | prop_1
+G(prop_1 | F prop_2),G(prop_1) | G(prop_2)
+F(prop_1 & F prop_2),G(prop_1) & G(prop_2)
+prop_1 -> G prop_2,prop_1 <-> G prop_2
+G((prop_3 U prop_2) -> FG prop_1),(F(prop_3) & (prop_2 U prop_3)) -> F(F(prop_1))
+G prop_2 -> (prop_1 & !prop_3),G(prop_2) -> G(!prop_3 & prop_1)
+prop_1 | G(prop_2 -> prop_3),G((prop_2 -> prop_3) | prop_1)
+prop_2 | prop_3 | F prop_1,F(prop_1) | F(prop_2) | F(prop_3)
+G((prop_1 | prop_3) -> !G prop_2),G(((prop_1) | (prop_3)) -> !(G((!prop_2))))
+(prop_1 | prop_2 | prop_4) -> prop_3,(F(prop_4) | F(prop_1) | F(prop_2)) -> prop_3
+(prop_1 <-> prop_4) U (prop_2 -> prop_3),(prop_2 <-> prop_3) U (prop_1 & prop_4)
+prop_3 & ((prop_2 | prop_4) U prop_1),((prop_4 | prop_2) U prop_1) & G(prop_3)
+G((prop_2 | prop_3) -> GF prop_1),G(((prop_2 | prop_3) -> F((X prop_1))))
+G prop_2 -> (prop_1 -> prop_3),G(prop_2) -> G(prop_1 -> prop_3)
+(prop_3 -> prop_2) U (prop_1 <-> prop_4),(prop_3 -> (prop_2 U (prop_1 <-> prop_4)))
+F prop_1 -> GF prop_2,G(prop_1 -> G(prop_2))
+G((prop_1 | prop_2) -> !G prop_3),((prop_1 | prop_2) -> G(!prop_3))
+prop_2 -> ((prop_1 & prop_3) U prop_4),prop_2 -> (prop_1 & prop_3 U prop_4)
+(!prop_2 -> prop_3) U prop_1,!prop_2 -> (prop_3 U prop_1)
+F(prop_1 & prop_2),prop_1 & prop_2
+prop_2 | prop_3 | G prop_1,G(prop_1 | prop_2 | prop_3)
+prop_1 -> prop_2,prop_1 <-> prop_2
+!prop_2 U (prop_1 | prop_3),(!prop_3) U (prop_2 | prop_1)
+prop_1 & (prop_2 | (prop_4 U prop_3)),F((prop_4 U prop_3) | prop_2) & prop_1
+prop_3 | G(prop_1 <-> prop_2),(G(prop_2) <-> prop_1) | prop_3
+prop_2 <-> (prop_3 | (prop_1 & prop_4)),((prop_4 & prop_1) | prop_3) -> prop_2
+((prop_2 & prop_6) -> (prop_4 U prop_5)) & (prop_1 U !prop_3),((prop_2 & prop_6) -> ((prop_4 U prop_5) & (prop_1 U !prop_3)))
+!prop_1 & (prop_3 -> prop_2),prop_3 -> (prop_2 & !prop_1)
+(!prop_1 & prop_3) | G prop_2,F(!prop_1 & prop_3) | G(prop_2)
+(prop_1 | prop_2) U (prop_3 & prop_4),((prop_1 | prop_2) -> ((!prop_3 | !prop_4) U (prop_3 & prop_4)))
+(F prop_1 -> prop_2) -> prop_3,F prop_1 -> (prop_2 -> prop_3)
+F prop_1 -> (prop_2 | prop_3),F prop_1 -> F (prop_2 | prop_3)
+(prop_2 <-> prop_3) & (prop_1 -> prop_4),((prop_2 <-> prop_3) & prop_1) -> prop_4
+(prop_3 & prop_4) | (prop_2 U prop_1),((prop_3 & prop_4) | prop_2) -> prop_1
+(prop_2 U prop_1) -> !prop_3,((prop_2 & (!prop_1 U prop_2)) -> G !prop_3)
+(prop_1 <-> F prop_3) -> !prop_2,((prop_3 <-> prop_1) -> !prop_2)
+prop_3 & (!prop_1 <-> prop_2),(!prop_1 -> (prop_2 & prop_3)) & ((prop_2 & prop_3) -> !prop_1)
+F prop_1 -> G!prop_2,G(prop_1 -> G(!prop_2))
+G((prop_1 | prop_3) -> F prop_2),G((prop_1 | prop_3) -> F(!prop_2))
+F(prop_1 & G prop_2),G(prop_1 & prop_2)
+F(prop_1 | F prop_2),F(prop_1) | G(prop_2)
+G(!prop_1 & F prop_2),!prop_1 & G(prop_2)
+prop_1 & F(prop_2 <-> prop_3),F((prop_2 <-> prop_3) & prop_1)
+(prop_2 -> prop_3) -> G prop_1,G((prop_2 -> prop_3) -> prop_1)
+F(prop_1 | G prop_2),F(prop_1) | G(prop_2)
+F(prop_1 | !F prop_2),G(prop_1 | !prop_2)
+G((prop_1 | prop_3) -> (prop_2 & prop_4)),G((prop_1 | prop_3) -> (F prop_2 & prop_4))
+prop_1 <-> F(prop_2 -> prop_3),F((prop_2 -> prop_3) <-> prop_1)
+(prop_2 | prop_3) & G prop_1,G((prop_3 | prop_2) & prop_1)
+F(prop_1 | prop_2) -> prop_3,F((prop_1 | prop_2) & (prop_3 -> (prop_1 | prop_2)))
+G(prop_1 -> GF prop_2),prop_1 -> G F prop_2
+F(prop_1 & !prop_2),F(prop_1) & !prop_2
+!prop_1 -> F prop_2,G(!prop_1 -> prop_2)
+prop_3 | ((prop_2 -> prop_4) -> prop_1),(prop_2 -> (prop_4 -> (prop_1 | prop_3)))
+(prop_2 & (prop_3 U prop_1)) -> prop_4,((prop_3 U prop_1) & prop_2) -> X prop_4
+prop_2 & F(prop_1 | prop_3),F((prop_3 | prop_1) & prop_2)
+prop_2 | G(prop_1 | prop_3),G((prop_3) | (prop_1) | (prop_2))
+(prop_4 -> prop_3) -> (prop_1 <-> prop_2),(prop_4 & prop_3) -> (prop_1 <-> prop_2)
+G((prop_1 U prop_3) -> FG prop_2),G((F prop_1 & !prop_1 U prop_3) -> F(G prop_2))
+prop_2 & G(prop_1 -> prop_3),G(prop_1 -> (prop_3 & prop_2))
+!prop_1 | (prop_2 -> prop_3),(!prop_1 | prop_2) -> prop_3
+(prop_2 -> prop_4) <-> (prop_1 | prop_3),(X prop_2 & X prop_4) <-> (prop_1 | prop_3)
+prop_3 | ((prop_1 <-> prop_4) -> prop_2),prop_4 <-> (prop_1 -> prop_2 | prop_3)
+!prop_1 | (prop_2 <-> G prop_3),!prop_1 | G(prop_3 <-> prop_2)
+F prop_1 -> F prop_2,G(prop_1 -> G(prop_2))
+!prop_2 | (prop_1 U prop_3),(prop_1 U prop_3) | G(!prop_2)
+prop_3 & ((prop_4 U prop_2) -> prop_1),(prop_4 U prop_2) -> (prop_1 & prop_3)
+prop_3 <-> (prop_1 | (prop_4 U prop_2)),((prop_4 & (prop_4 U (prop_2 | prop_1))) -> prop_3)
+(prop_1 | (prop_3 -> prop_2)) U prop_4,G((F prop_3) -> ((prop_2 | prop_1) U prop_4))
+G((prop_1 & prop_2) -> (prop_4 U prop_3)),(prop_2 & prop_1) -> (prop_4 & (!prop_4 U prop_3))
+prop_1 & F(prop_2 | prop_3),F((prop_2 | prop_3) & prop_1)
+(prop_3 -> prop_1) <-> (prop_2 U prop_4),((prop_2 U prop_4) <-> (prop_3 & X prop_1))
+prop_1 & G(prop_3 -> prop_2),G((prop_3 -> prop_2) & prop_1)
+G(!prop_1 & F prop_2),!prop_1 & F prop_2
+F(prop_1 & G!prop_2),F(prop_1) & G(!prop_2)
+prop_1 & ((prop_3 <-> prop_4) U prop_2),F((prop_3 <-> prop_4) U prop_2) & prop_1
+G prop_3 -> (prop_1 <-> prop_2),G(prop_3) -> G(prop_1 <-> prop_2)
+prop_1 -> F prop_2,G(prop_1 -> F(prop_2))
+G((prop_1 | prop_3) -> G prop_2),G((prop_3 | prop_1) -> prop_2)
+F prop_3 -> (prop_1 | prop_2),F prop_3 -> (F prop_2 | F prop_1)
+G((prop_2 | prop_3) -> G prop_1),((prop_3 | prop_2) -> G(prop_1))
+!prop_3 U (prop_1 | prop_2),(!prop_1) U (prop_2 | prop_3)
+prop_2 <-> (!prop_1 -> prop_3),(!prop_1 -> prop_3) & (prop_3 -> prop_2)
+(prop_3 -> prop_2) -> G prop_1,G((prop_3 -> prop_2) -> prop_1)
+G(prop_1 | G!prop_2),G(prop_1) | G(!prop_2)
+F prop_1 -> G!prop_2,G(prop_1 -> !prop_2)
+prop_2 -> (prop_1 & prop_3),prop_2 -> X(prop_3 & prop_1)
+(prop_3 U prop_2) -> prop_1,F(prop_3) -> (prop_2 U prop_1)
+F prop_2 -> (prop_1 & prop_3),prop_2 -> (prop_1 & prop_3)
+prop_3 & F(prop_1 & prop_2),F(prop_2 & prop_1 & prop_3)
+prop_2 | prop_3 | G prop_1,G(prop_1 | prop_3 | prop_2)
+prop_2 & prop_3 & F prop_1,F(prop_1) & F(prop_2) & F(prop_3)
+G prop_1 -> F prop_2,G(prop_1 -> F(prop_2))
+G((prop_3 & prop_4) -> (prop_1 & prop_2)),((prop_4 & prop_3) -> (prop_1 & prop_2))
+prop_3 | !(prop_1 | prop_2),!(prop_1 | prop_2 | prop_3)
+prop_1 | G(!prop_3 -> prop_2),G((!prop_3 -> prop_2) | prop_1)
+G!prop_1 -> F prop_2,G(!prop_1 -> prop_2)
+(prop_3 -> prop_2) <-> (prop_1 U prop_4),G((prop_1 & (prop_1 U prop_4)) -> (prop_3 -> prop_2))
+(prop_1 | prop_2) U !prop_3,(!prop_1) U (prop_2 | prop_3)
+!(prop_1 & F prop_2),!prop_1 & G(prop_2)
+(prop_2 <-> (prop_3 & prop_4)) -> prop_1,((prop_4 & prop_3) | prop_2) -> prop_1
+!prop_3 & (prop_2 <-> F prop_1),F(prop_1 <-> prop_2) & !prop_3
+(prop_1 & prop_2) <-> (prop_3 | prop_4),((prop_1 & prop_2) -> prop_4) <-> ((!prop_4) -> prop_3)
+F prop_1 -> prop_2,G(prop_1 -> prop_2)
+!F prop_1 -> prop_2,!prop_1 -> prop_2
+!prop_3 U (prop_1 <-> prop_2),!prop_2 U prop_3<->prop_1
+prop_2 & prop_3 & G prop_1,G(prop_1 & (prop_2 & prop_3))
+G prop_2 -> (prop_1 & prop_3),G(prop_2) -> G(prop_1 & prop_3)
+prop_1 <-> ((prop_2 & prop_3) U prop_4),((prop_3 & prop_2 & (prop_2 U prop_4)) -> prop_1)
+(!prop_3 -> prop_1) & F prop_2,!prop_3 -> (prop_1 & F prop_2)
+G(prop_3 -> (prop_1 U prop_2)),G(prop_3 -> F(!prop_1 & !prop_2))
+F prop_1 -> G!prop_2,G(prop_1 -> G(!prop_2))
+G((prop_3 & prop_4) -> (prop_1 | prop_2)),G((prop_3 & prop_4) -> X(prop_1 | prop_2))
+!(prop_1 | prop_2) -> prop_3,(!(prop_2) | prop_1) -> prop_3
+G((prop_1 & prop_2) -> (prop_3 | prop_4)),G((prop_1 & prop_2) -> (prop_3 | X prop_4))
+prop_3 & ((prop_2 U prop_4) -> prop_1),((prop_2 U prop_4) -> (prop_1 & prop_3))
+!(prop_1 & prop_2) -> prop_3,(!(prop_1) & !(prop_2)) -> prop_3
+prop_1 & F(prop_2 | prop_3),F((prop_3 | prop_2) & prop_1)
+prop_1 | G(prop_2 & prop_3),G((prop_2 & prop_3) | prop_1)
+prop_1 <-> !(prop_2 | prop_3),((!prop_3 | prop_2) -> prop_1) <-> prop_1
+F(prop_1 <-> prop_2) -> prop_3,F((prop_1 <-> prop_2) & prop_3)
+((prop_1 -> prop_4) U prop_3) -> prop_2,(prop_1 -> (prop_4 U prop_3)) & (prop_3 -> prop_2)
+(prop_1 | prop_3) U (prop_2 <-> prop_4),(!((prop_3 <-> prop_1)) U (prop_4 | prop_2))
+(prop_2 -> prop_3) -> !prop_1,(prop_2 -> prop_3) & X !prop_1
+(prop_2 | prop_3) -> G prop_1,G((prop_3 | prop_2) -> G prop_1)
+G(F prop_1 U G prop_2),prop_1 U G prop_2
+prop_3 & !(prop_1 | prop_2),(!(prop_2) | !(prop_1)) & prop_3
+G!(elevator_falls & motorbike_has_started & table_has_been_moved),!(elevator_falls & motorbike_has_started & table_has_been_moved)
+G!(bridge_closes & engine_starts & semaphore_is_broken),!(bridge_closes & engine_starts & semaphore_is_broken)
+G!(car_starts & house_collapses & sensor_retrieves_data),!(sensor_retrieves_data & car_starts & house_collapses)
+G!(brake_is_pressed & semaphore_is_red & sensor_retrieves_data),G(!brake_is_pressed) & G(sensor_retrieves_data & semaphore_is_red)
+G!(car_starts & escalator_is_blocked & motorbike_catches_fire),G(!escalator_is_blocked) & F(car_starts & motorbike_catches_fire)
+G!(brake_is_released & train_has_arrived),!(train_has_arrived & brake_is_released)
+G!(manager_handles_requests & motorbike_is_driven),!(manager_handles_requests & motorbike_is_driven)
+G!(bar_is_up & table_has_been_moved),!(bar_is_up & table_has_been_moved)
+G!(constructor_instantiate_objects & motorbike_catches_fire),!(constructor_instantiate_objects & motorbike_catches_fire)
+G!(escalator_is_blocked & motorbike_falls_down),!(motorbike_falls_down & escalator_is_blocked)
+G!(bridge_opens & elevator_is_open),!(elevator_is_open & bridge_opens)
+G!(constructor_creates_instances & engine_starts) | F(constructor_creates_instances & engine_starts & F(elevator_falls & manager_collect_claims)),F((engine_starts & constructor_creates_instances) & F(elevator_falls & manager_collect_claims))
+G!(manager_handles_requests & train_has_arrived) | F(manager_handles_requests & train_has_arrived & F(brake_is_pressed & train_has_arrived)),F((train_has_arrived & manager_handles_requests) & F(train_has_arrived & brake_is_pressed))
+G!(bridge_closes & elevator_falls) | F(bridge_closes & elevator_falls & F(bar_is_down & train_has_arrived)),F((bridge_closes & elevator_falls) & F(train_has_arrived & bar_is_down))
+G!(car_stops & escalator_is_blocked) | F(car_stops & escalator_is_blocked & F(semaphore_is_yellow & train_has_been_launched)),F(car_stops & escalator_is_blocked & F(train_has_been_launched & semaphore_is_yellow))
+G!(constructor_creates_instances & sensor_captures_data) | F(constructor_creates_instances & sensor_captures_data & F(bar_has_to_be_repaired & car_stops)),F(constructor_creates_instances & sensor_captures_data) & F(bar_has_to_be_repaired & car_stops)
+G!(car_starts & sensor_captures_data) | F(car_starts & sensor_captures_data & F(escalator_is_blocked & sensor_captures_data)),F((car_starts & sensor_captures_data) & F(sensor_captures_data & escalator_is_blocked))
+G!(car_enters & engine_stops) | F(car_enters & engine_stops & F(sensor_captures_data & sensor_gathers_information)),F((car_enters & engine_stops) & F(sensor_captures_data & sensor_gathers_information))
+G!(house_is_built & table_is_brown) | F(house_is_built & table_is_brown & F(elevator_is_open & manager_collect_claims)),F((table_is_brown & house_is_built) & (elevator_is_open & F(manager_collect_claims)))
+G!(house_collapses & sensor_retrieves_data) | F(house_collapses & sensor_retrieves_data & F(bridge_closes & train_has_arrived)),F((sensor_retrieves_data & house_collapses) & F(train_has_arrived & bridge_closes))
+G!(bar_is_down & table_is_brown) | F(bar_is_down & table_is_brown & F(car_starts & semaphore_is_broken)),F(car_starts & F(semaphore_is_broken)) & F(table_is_brown & bar_is_down)
+G!(elevator_is_open & manager_collect_claims) | F(elevator_is_open & manager_collect_claims & F(house_is_built & sensor_captures_data)),F(elevator_is_open & manager_collect_claims) & F(house_is_built & X(sensor_captures_data))
+G!(car_stops & escalator_is_blocked) | F(car_stops & escalator_is_blocked & F(elevator_falls & semaphore_is_red)),F((car_stops & escalator_is_blocked) & F(semaphore_is_red & elevator_falls))
+G!(sensor_captures_data & sensor_gathers_information) | F(sensor_captures_data & sensor_gathers_information & F(sensor_retrieves_data | train_has_been_launched)),F((sensor_captures_data & sensor_gathers_information) & F(sensor_retrieves_data | train_has_been_launched))
+G!(bar_is_down & table_is_brown) | F(bar_is_down & table_is_brown & F(constructor_creates_instances | table_is_old)),F(table_is_brown & bar_is_down) & F(constructor_creates_instances | table_is_old)
+G!(engine_stops & motorbike_falls_down) | F(engine_stops & motorbike_falls_down & F(motorbike_has_stopped | train_is_crossing)),F(engine_stops & motorbike_falls_down) & F(train_is_crossing | motorbike_has_stopped)
+G!(bar_has_to_be_repaired & sensor_retrieves_data) | F(bar_has_to_be_repaired & sensor_retrieves_data & F(bridge_closes | sensor_retrieves_data)),F(bar_has_to_be_repaired & sensor_retrieves_data) & F(sensor_retrieves_data | X(bridge_closes))
+G!(escalator_is_blocked & train_has_been_launched) | F(escalator_is_blocked & train_has_been_launched & F(engine_stops | semaphore_is_red)),(train_has_been_launched & escalator_is_blocked) & F(semaphore_is_red | engine_stops)
+G!(bridge_closes & semaphore_is_yellow) | F(bridge_closes & semaphore_is_yellow & F(motorbike_has_started | table_is_brown)),F(semaphore_is_yellow & bridge_closes) & F(table_is_brown | motorbike_has_started)
+G!(manager_collect_claims & sensor_captures_data) | F(manager_collect_claims & sensor_captures_data & F(house_collapses | train_derails)),F((manager_collect_claims & sensor_captures_data) & F(train_derails | house_collapses))
+G!(bar_is_up & house_is_open) | F(bar_is_up & house_is_open & F(constructor_creates_instances | table_is_old)),F((house_is_open & bar_is_up) & F(constructor_creates_instances | table_is_old))
+G!(bar_has_to_be_repaired & table_is_old) | F(bar_has_to_be_repaired & table_is_old & F(escalator_moves | train_has_arrived)),X((table_is_old & bar_has_to_be_repaired) & X(F(train_has_arrived | escalator_moves)))
+G!(car_enters & motorbike_catches_fire) | F(car_enters & motorbike_catches_fire & F(bridge_closes | escalator_is_blocked)),F((motorbike_catches_fire & car_enters) & F(bridge_closes | escalator_is_blocked))
+G!(constructor_instantiate_objects & elevator_rises) | F(constructor_instantiate_objects & elevator_rises & F(bar_is_closing | brake_is_pressed)),F(constructor_instantiate_objects & elevator_rises & F(bar_is_closing | brake_is_pressed))
+G!(brake_is_pressed & train_stops) | F(brake_is_pressed & train_stops & F(manager_collect_claims | sensor_retrieves_data)),F(train_stops & brake_is_pressed & F(sensor_retrieves_data | manager_collect_claims))
+G!(brake_is_pressed & train_has_arrived) | F(brake_is_pressed & train_has_arrived & F sensor_gathers_information),F((train_has_arrived & brake_is_pressed) & F(sensor_gathers_information))
+G!(escalator_is_blocked & sensor_captures_data) | F(escalator_is_blocked & sensor_captures_data & F sensor_gathers_information),F((escalator_is_blocked & sensor_captures_data) & F(sensor_gathers_information))
+G!(car_enters & engine_stops) | F(car_enters & engine_stops & F sensor_gathers_information),F((car_enters & engine_stops) & F(sensor_gathers_information))
+G!(motorbike_catches_fire & sensor_gathers_information) | F(motorbike_catches_fire & sensor_gathers_information & F sensor_gathers_information),F((sensor_gathers_information & motorbike_catches_fire) & F(sensor_gathers_information))
+G!(car_enters & engine_stops) | F(car_enters & engine_stops & F train_has_arrived),F((car_enters & engine_stops) & F(train_has_arrived))
+G!(constructor_creates_instances & sensor_captures_data) | F(constructor_creates_instances & sensor_captures_data & F sensor_gathers_information),F(constructor_creates_instances & sensor_captures_data & F(sensor_gathers_information))
+G!(engine_stops & sensor_gathers_information) | F(engine_stops & sensor_gathers_information & F bridge_closes),F((engine_stops & sensor_gathers_information) & F(bridge_closes))
+G!(house_collapses & house_is_open) | F(house_collapses & house_is_open & F bridge_closes),F((house_collapses & house_is_open) & F(bridge_closes))
+G!(bridge_closes & semaphore_is_yellow) | F(bridge_closes & semaphore_is_yellow & F sensor_gathers_information),F((semaphore_is_yellow & bridge_closes) & F(sensor_gathers_information))
+G!(house_collapses & sensor_retrieves_data) | F(house_collapses & sensor_retrieves_data & F sensor_gathers_information),(sensor_retrieves_data & house_collapses) & F(sensor_gathers_information)
+G!(constructor_instantiate_objects & elevator_rises) | F(constructor_instantiate_objects & elevator_rises & F sensor_gathers_information),(constructor_instantiate_objects & elevator_rises) & F sensor_gathers_information
+G!(elevator_is_blocked & train_stops) | F(elevator_is_blocked & train_stops & F sensor_gathers_information),F((train_stops & elevator_is_blocked) & F(sensor_gathers_information))
+G!(elevator_is_blocked | house_is_open | semaphore_is_red),!(elevator_is_blocked | semaphore_is_red | house_is_open)
+G!(escalator_moves | motorbike_is_driven | train_derails),!(escalator_moves | motorbike_is_driven | train_derails)
+G!(elevator_is_open | motorbike_falls_down | semaphore_is_green),!(semaphore_is_green | motorbike_falls_down | elevator_is_open)
+G!(engine_starts | escalator_is_blocked),!(engine_starts | escalator_is_blocked)
+G!(house_is_open | table_has_been_moved),!(table_has_been_moved | house_is_open)
+G!(car_stops | train_is_crossing),!(car_stops | train_is_crossing)
+G!(elevator_rises | train_is_crossing) | F((elevator_rises | train_is_crossing) & F(car_enters & engine_stops)),F((train_is_crossing | elevator_rises) & F(car_enters & engine_stops))
+G!(car_enters | motorbike_is_driven) | F((car_enters | motorbike_is_driven) & F(brake_is_released & sensor_captures_data)),F((car_enters | motorbike_is_driven) & F(brake_is_released & sensor_captures_data))
+G!(engine_breaks | manager_handles_requests) | F((engine_breaks | manager_handles_requests) & F(constructor_creates_instances & motorbike_has_stopped)),F((engine_breaks | manager_handles_requests) & F(constructor_creates_instances & motorbike_has_stopped))
+G!(elevator_is_open | engine_stops) | F((elevator_is_open | engine_stops) & F(engine_starts & motorbike_catches_fire)),F((elevator_is_open | engine_stops) & F(motorbike_catches_fire & engine_starts))
+G!(brake_is_pressed | escalator_moves) | F((brake_is_pressed | escalator_moves) & F(constructor_creates_instances & train_has_been_launched)),F((escalator_moves | brake_is_pressed) & F(constructor_creates_instances & F(train_has_been_launched)))
+G!(elevator_is_blocked | house_is_open) | F((elevator_is_blocked | house_is_open) & F(brake_is_pressed & motorbike_has_stopped)),F((elevator_is_blocked | house_is_open) & F(brake_is_pressed & motorbike_has_stopped))
+G!(bridge_opens | motorbike_catches_fire) | F((bridge_opens | motorbike_catches_fire) & F(constructor_creates_instances & train_has_been_launched)),F((motorbike_catches_fire | bridge_opens) & F(constructor_creates_instances & train_has_been_launched))
+G!(house_is_open | motorbike_is_driven) | F((house_is_open | motorbike_is_driven) & F(manager_handles_requests & train_has_arrived)),F((house_is_open | motorbike_is_driven) & train_has_arrived & F(manager_handles_requests))
+G!(bar_is_down | motorbike_falls_down) | F((bar_is_down | motorbike_falls_down) & F(manager_handles_requests & train_derails)),F((bar_is_down | motorbike_falls_down) & F(train_derails & manager_handles_requests))
+G!(escalator_moves | train_has_arrived) | F((escalator_moves | train_has_arrived) & F(brake_is_pressed & train_stops)),F(train_has_arrived | (escalator_moves & F(train_stops & F(brake_is_pressed))))
+G!(manager_collect_claims | sensor_retrieves_data) | F((manager_collect_claims | sensor_retrieves_data) & F(escalator_moves & table_is_brown)),F((sensor_retrieves_data | manager_collect_claims) & F(table_is_brown & escalator_moves))
+G!(brake_is_pressed | escalator_moves) | F((brake_is_pressed | escalator_moves) & F(elevator_is_open & train_is_crossing)),F(escalator_moves | brake_is_pressed) & F(elevator_is_open & train_is_crossing)
+G!(motorbike_has_started | table_is_brown) | F((motorbike_has_started | table_is_brown) & F(engine_stops | train_is_crossing)),F((table_is_brown | motorbike_has_started) & F(engine_stops | train_is_crossing))
+G!(motorbike_has_stopped | train_stops) | F((motorbike_has_stopped | train_stops) & F(bar_is_up | elevator_is_open)),F((train_stops | motorbike_has_stopped) & F(bar_is_up | elevator_is_open))
+G!(elevator_is_blocked | escalator_speeds_up) | F((elevator_is_blocked | escalator_speeds_up) & F(brake_is_pressed | elevator_falls)),F(elevator_is_blocked | escalator_speeds_up) & F(elevator_falls | brake_is_pressed)
+G!(elevator_is_open | train_derails) | F((elevator_is_open | train_derails) & F(bridge_closes | semaphore_is_broken)),F(elevator_is_open | (train_derails & F(bridge_closes | semaphore_is_broken)))
+G!(motorbike_has_started | table_is_brown) | F((motorbike_has_started | table_is_brown) & F(elevator_rises | table_is_brown)),F((table_is_brown | motorbike_has_started) & F(table_is_brown | elevator_rises))
+G!(bar_is_down | motorbike_is_driven) | F((bar_is_down | motorbike_is_driven) & F(elevator_is_open | train_derails)),F((bar_is_down | motorbike_is_driven) & F(elevator_is_open | train_derails))
+G!(engine_starts | sensor_retrieves_data) | F((engine_starts | sensor_retrieves_data) & F(engine_breaks | semaphore_is_yellow)),F(sensor_retrieves_data | engine_starts & F(engine_breaks | semaphore_is_yellow))
+G!(car_starts | train_derails) | F((car_starts | train_derails) & F(sensor_retrieves_data | train_has_been_launched)),F(car_starts | train_derails) & F(sensor_retrieves_data | train_has_been_launched)
+G!(brake_is_released | car_stops) | F((brake_is_released | car_stops) & F(bar_is_up | elevator_falls)),F((car_stops | brake_is_released) & F(elevator_falls | bar_is_up))
+G!(motorbike_has_stopped | train_stops) | F((motorbike_has_stopped | train_stops) & F(brake_is_released | car_stops)),F((train_stops | motorbike_has_stopped) & F(car_stops | brake_is_released))
+G!(bar_has_to_be_repaired | table_is_old) | F((bar_has_to_be_repaired | table_is_old) & F(car_enters | motorbike_has_started)),F((bar_has_to_be_repaired | table_is_old) & F(car_enters | motorbike_has_started))
+G!(engine_stops | train_is_crossing) | F((engine_stops | train_is_crossing) & F(bar_is_closing | escalator_speeds_up)),F((engine_stops | train_is_crossing) & F(escalator_speeds_up | bar_is_closing))
+G!(car_enters | motorbike_has_started) | F((car_enters | motorbike_has_started) & F train_has_arrived),F((car_enters | motorbike_has_started) & F(train_has_arrived))
+G!(elevator_falls | engine_starts) | F((elevator_falls | engine_starts) & F bridge_closes),F((engine_starts | elevator_falls) & F(bridge_closes))
+G!(manager_collect_claims | manager_handles_requests) | F((manager_collect_claims | manager_handles_requests) & F bridge_closes),F((manager_handles_requests | manager_collect_claims) & F(bridge_closes))
+G!(bar_is_up | semaphore_is_green) | F((bar_is_up | semaphore_is_green) & F bridge_closes),F((semaphore_is_green | bar_is_up) & F(bridge_closes))
+G!(motorbike_has_stopped | train_stops) | F((motorbike_has_stopped | train_stops) & F bridge_closes),F(train_stops | motorbike_has_stopped) & F(bridge_closes)
+G!(engine_breaks | semaphore_is_yellow) | F((engine_breaks | semaphore_is_yellow) & F sensor_gathers_information),F(engine_breaks | (semaphore_is_yellow & F(sensor_gathers_information)))
+G!(escalator_is_blocked | sensor_captures_data) | F((escalator_is_blocked | sensor_captures_data) & F sensor_gathers_information),F(escalator_is_blocked | (sensor_captures_data & F(sensor_gathers_information)))
+G!(motorbike_has_stopped | train_stops) | F((motorbike_has_stopped | train_stops) & F train_has_arrived),F((train_stops | motorbike_has_stopped) & F(train_has_arrived))
+G!(brake_is_released | car_stops) | F((brake_is_released | car_stops) & F sensor_gathers_information),F((car_stops | brake_is_released) & F(sensor_gathers_information))
+G!(car_starts | train_derails) | F((car_starts | train_derails) & F bridge_closes),F(car_starts | train_derails) & F(bridge_closes)
+G!(elevator_is_blocked | escalator_speeds_up) | F((elevator_is_blocked | escalator_speeds_up) & F train_has_arrived),F((elevator_is_blocked | escalator_speeds_up) & F(train_has_arrived))
+G!(brake_is_pressed | motorbike_has_started) | F((brake_is_pressed | motorbike_has_started) & F bridge_closes),F((brake_is_pressed | motorbike_has_started) & F bridge_closes)
+G!bridge_closes | F(bridge_closes & F(car_starts & semaphore_is_broken)),F(bridge_closes & F(car_starts & semaphore_is_broken))
+G!bridge_closes | F(bridge_closes & F(bar_is_up & house_is_open)),F(bridge_closes & F(house_is_open & bar_is_up))
+G!bridge_closes | F(bridge_closes & F(manager_collect_claims & semaphore_is_broken)),F(bridge_closes & F(manager_collect_claims & semaphore_is_broken))
+G!sensor_gathers_information | F(sensor_gathers_information & F(motorbike_is_driven & table_has_been_moved)),F(sensor_gathers_information & F(table_has_been_moved & motorbike_is_driven))
+G!train_has_arrived | F(train_has_arrived & F(elevator_falls & train_has_arrived)),F(train_has_arrived & F(train_has_arrived & elevator_falls))
+G!bridge_closes | F(bridge_closes & F(bridge_closes & semaphore_is_yellow)),F(bridge_closes & F(semaphore_is_yellow & bridge_closes))
+G!train_has_arrived | F(train_has_arrived & F(bar_is_down & table_is_brown)),F(train_has_arrived & F(table_is_brown & bar_is_down))
+G!train_has_arrived | F(train_has_arrived & F(manager_collect_claims & semaphore_is_broken)),F train_has_arrived & F (manager_collect_claims & semaphore_is_broken)
+G!sensor_gathers_information | F(sensor_gathers_information & F(motorbike_catches_fire & sensor_gathers_information)),F(sensor_gathers_information & F(motorbike_catches_fire))
+G!train_has_arrived | F(train_has_arrived & F(manager_handles_requests & train_has_arrived)),F(train_has_arrived & F(train_has_arrived & manager_handles_requests))
+G!train_has_arrived | F(train_has_arrived & F(house_collapses & sensor_retrieves_data)),F(train_has_arrived & F(sensor_retrieves_data & house_collapses))
+G!sensor_gathers_information | F(sensor_gathers_information & F(car_stops & engine_stops)),F(sensor_gathers_information & F(engine_stops & car_stops))
+G!sensor_gathers_information | F(sensor_gathers_information & F(bar_has_to_be_repaired | table_is_old)),F(sensor_gathers_information & F(table_is_old | bar_has_to_be_repaired))
+G!bridge_closes | F(bridge_closes & F(car_starts | train_derails)),F(bridge_closes & F(car_starts | train_derails))
+G!bridge_closes | F(bridge_closes & F(bar_is_up | elevator_falls)),F(bridge_closes & (elevator_falls | X bar_is_up))
+G!train_has_arrived | F(train_has_arrived & F(constructor_instantiate_objects | engine_stops)),F(train_has_arrived & F(engine_stops | constructor_instantiate_objects))
+G!sensor_gathers_information | F(sensor_gathers_information & F(car_enters | engine_breaks)),F(sensor_gathers_information & F(engine_breaks | car_enters))
+G!bridge_closes | F(bridge_closes & F(constructor_creates_instances | manager_collect_claims)),F(bridge_closes & F(manager_collect_claims | constructor_creates_instances))
+G!sensor_gathers_information | F(sensor_gathers_information & F(elevator_rises | train_is_crossing)),F(sensor_gathers_information & F(train_is_crossing | elevator_rises))
+G!train_has_arrived | F(train_has_arrived & F(sensor_retrieves_data | train_has_been_launched)),F(train_has_been_arrived & F(sensor_retrieves_data | train_has_been_launched))
+G!bridge_closes | F(bridge_closes & F(manager_collect_claims | sensor_retrieves_data)),F(bridge_closes & (sensor_retrieves_data | F(manager_collect_claims)))
+G!sensor_gathers_information | F(sensor_gathers_information & F(engine_breaks | manager_handles_requests)),F(sensor_gathers_information & F(engine_breaks | manager_handles_requests))
+G!bridge_closes | F(bridge_closes & F(brake_is_pressed | elevator_falls)),F(bridge_closes & (F(elevator_falls) | F(brake_is_pressed)))
+G!sensor_gathers_information | F(sensor_gathers_information & F(house_is_open | motorbike_is_driven)),sensor_gathers_information & F(house_is_open | motorbike_is_driven)
+G!train_has_arrived | F(train_has_arrived & F bridge_closes),F train_has_arrived & F bridge_closes
+G!train_has_arrived | F(train_has_arrived & F sensor_gathers_information),F train_has_arrived & F sensor_gathers_information
+G!bridge_closes | F(bridge_closes & F train_has_arrived),F(bridge_closes & F(train_has_arrived))
+G!sensor_gathers_information | F(sensor_gathers_information & F bridge_closes),F(sensor_gathers_information & F(bridge_closes))
+G!bridge_closes | F(bridge_closes & F sensor_gathers_information),bridge_closes & F sensor_gathers_information
+G!sensor_gathers_information | F(sensor_gathers_information & F train_has_arrived),F(sensor_gathers_information & F(train_has_arrived))
+G((escalator_is_blocked & escalator_moves) -> F(elevator_rises & escalator_moves)),((escalator_is_blocked & escalator_moves) -> F(elevator_rises & escalator_moves))
+G((car_starts & table_is_brown) -> F(bridge_closes & table_is_brown)),(car_starts & table_is_brown) -> F(table_is_brown & bridge_closes)
+G((constructor_instantiate_objects & train_is_crossing) -> F(brake_is_pressed & bridge_opens)),((train_is_crossing & constructor_instantiate_objects) -> F(bridge_opens & brake_is_pressed))
+G((engine_starts & semaphore_is_green) -> F(car_starts & table_is_brown)),(semaphore_is_green & engine_starts) -> F(car_starts & table_is_brown)
+G((bar_is_up & car_stops) -> F(house_is_open | manager_handles_requests)),F((house_is_open) | ((bar_is_up & car_stops) -> manager_handles_requests))
+G((motorbike_catches_fire & semaphore_is_broken) -> F(bar_is_closing | motorbike_has_started)),((semaphore_is_broken & motorbike_catches_fire) -> F(bar_is_closing | motorbike_has_started))
+G((bar_is_down & semaphore_is_green) -> F(constructor_instantiate_objects | table_is_old)),F(table_is_old | (semaphore_is_green & bar_is_down & constructor_instantiate_objects))
+G((elevator_falls & sensor_retrieves_data) -> F(motorbike_has_stopped | semaphore_is_red)),(sensor_retrieves_data & elevator_falls) -> F(semaphore_is_red | motorbike_has_stopped)
+G((engine_stops & sensor_retrieves_data) -> F(elevator_rises | table_is_brown)),(sensor_retrieves_data & engine_stops) -> F(table_is_brown | elevator_rises)
+G((engine_stops & manager_collect_claims) -> F(sensor_gathers_information | table_has_been_moved)),((engine_stops & manager_collect_claims) -> F(sensor_gathers_information | table_has_been_moved))
+G((car_starts & engine_breaks) -> F train_derails),(car_starts & engine_breaks) -> F train_derails
+G((escalator_is_blocked & manager_collect_claims) -> F semaphore_is_yellow),((escalator_is_blocked & manager_collect_claims) -> F semaphore_is_yellow)
+G((car_enters & train_is_crossing) -> F semaphore_is_yellow),(car_enters & train_is_crossing) -> F semaphore_is_yellow
+G((elevator_falls & escalator_is_blocked) -> F semaphore_is_yellow),(elevator_falls & escalator_is_blocked) -> F semaphore_is_yellow
+G((car_stops & elevator_is_blocked) -> F train_derails),F((car_stops & elevator_is_blocked) & X(train_derails))
+G((motorbike_falls_down & semaphore_is_red) -> F train_derails),F((semaphore_is_red & motorbike_falls_down) & F(train_derails))
+G((sensor_captures_data & sensor_retrieves_data) -> G!(elevator_rises & train_has_arrived)),G((sensor_retrieves_data & sensor_captures_data) -> (!elevator_rises & !train_has_arrived))
+G((brake_is_released & sensor_captures_data) -> G!(house_is_open & motorbike_has_started)),G((sensor_captures_data & brake_is_released) -> !(house_is_open & motorbike_has_started))
+G((constructor_instantiate_objects & escalator_speeds_up) -> G!(house_is_open & semaphore_is_green)),G((constructor_instantiate_objects & escalator_speeds_up) -> !(house_is_open & semaphore_is_green))
+G((house_is_built & motorbike_is_driven) -> G!(house_is_open & semaphore_is_green)),G((motorbike_is_driven & house_is_built) -> !(house_is_open & semaphore_is_green))
+G((motorbike_has_stopped & sensor_gathers_information) -> G!(bar_is_up & elevator_falls)),G(((motorbike_has_stopped & sensor_gathers_information) -> !(elevator_falls & bar_is_up)))
+G((elevator_rises & train_has_arrived) -> G!(escalator_is_blocked & sensor_captures_data)),G((elevator_rises & train_has_arrived) -> !(sensor_captures_data & escalator_is_blocked))
+G((constructor_creates_instances & manager_handles_requests) -> G!(sensor_captures_data & sensor_retrieves_data)),G((manager_handles_requests & constructor_creates_instances) -> !(sensor_retrieves_data & sensor_captures_data))
+G((bridge_opens & sensor_retrieves_data) -> G!(sensor_captures_data & sensor_retrieves_data)),G !((sensor_retrieves_data & F (bridge_opens & sensor_retrieves_data)) & sensor_captures_data)
+G((escalator_is_blocked & sensor_captures_data) -> G!(house_is_built & motorbike_has_stopped)),G((sensor_captures_data & escalator_is_blocked) -> !(house_is_built & motorbike_has_stopped))
+G((brake_is_released & sensor_captures_data) -> G!(bar_is_up & car_starts)),G((sensor_captures_data & brake_is_released) -> !(bar_is_up & car_starts))
+G((engine_starts & motorbike_falls_down) -> G!(bar_is_closing & house_is_built)),G((motorbike_falls_down & engine_starts) -> !(house_is_built & bar_is_closing))
+G((bar_is_up & engine_stops) -> G!(constructor_instantiate_objects & escalator_speeds_up)),G((bar_is_up & engine_stops) -> !(constructor_instantiate_objects & escalator_speeds_up))
+G((constructor_instantiate_objects & house_is_open) -> G!(engine_stops | train_stops)),((constructor_instantiate_objects & house_is_open) -> !(engine_stops | train_stops))
+G((car_stops & engine_stops) -> G!(bar_is_down | house_is_open)),(car_stops & engine_stops) -> G(!(bar_is_down | house_is_open))
+G((bar_is_up & car_starts) -> G!(engine_starts | train_is_crossing)),G((bar_is_up & car_starts) -> !(engine_starts | train_is_crossing))
+G((engine_starts & semaphore_is_broken) -> G!(sensor_captures_data | train_is_crossing)),((engine_starts & semaphore_is_broken) -> !(sensor_captures_data | train_is_crossing))
+G((house_is_built & motorbike_has_stopped) -> G!(elevator_falls | manager_collect_claims)),G((house_is_built & motorbike_has_stopped) -> !(manager_collect_claims | elevator_falls))
+G((engine_starts & motorbike_falls_down) -> G!(escalator_is_blocked | motorbike_has_started)),G((motorbike_falls_down & engine_starts) -> !(escalator_is_blocked | motorbike_has_started))
+G((engine_starts & semaphore_is_broken) -> G!(bar_has_to_be_repaired | train_has_arrived)),G((engine_starts & semaphore_is_broken) -> !(bar_has_to_be_repaired | train_has_arrived))
+G((elevator_falls & table_has_been_moved) -> G!(car_stops | semaphore_is_yellow)),((table_has_been_moved & elevator_falls) -> !(semaphore_is_yellow | car_stops))
+G((house_is_built & motorbike_has_stopped) -> G!(bar_is_closing | elevator_is_open)),G(((house_is_built & motorbike_has_stopped) -> !(elevator_is_open | bar_is_closing)))
+G((car_stops & constructor_creates_instances) -> G(sensor_gathers_information & train_has_arrived)),((constructor_creates_instances & car_stops) -> G(train_has_arrived & sensor_gathers_information))
+G((bar_is_closing & train_has_been_launched) -> G(house_is_built & train_derails)),G((train_has_been_launched & bar_is_closing) -> (house_is_built & train_derails))
+G((engine_starts & table_is_old) -> G(car_starts & manager_collect_claims)),((engine_starts & table_is_old) -> G(car_starts & manager_collect_claims))
+G((engine_starts & table_is_old) -> G(house_collapses & manager_handles_requests)),(table_is_old & engine_starts) -> G(manager_handles_requests & house_collapses)
+G((train_has_arrived & train_stops) -> G(car_starts & manager_collect_claims)),G((train_stops & train_has_arrived) -> (car_starts & manager_collect_claims))
+G((motorbike_falls_down & sensor_captures_data) -> G(manager_collect_claims | sensor_gathers_information)),F((sensor_captures_data & motorbike_falls_down) & G(manager_collect_claims | sensor_gathers_information))
+G((motorbike_falls_down & table_has_been_moved) -> G(escalator_speeds_up | manager_collect_claims)),G(((motorbike_falls_down & table_has_been_moved) -> (manager_collect_claims | escalator_speeds_up)))
+G((sensor_gathers_information & train_stops) -> G(bar_is_down | sensor_retrieves_data)),((train_stops & sensor_gathers_information) -> G(bar_is_down | sensor_retrieves_data))
+G((train_has_arrived & train_stops) -> G(car_enters | engine_stops)),G((train_stops & train_has_arrived) -> (engine_stops | car_enters))
+G((car_starts & table_is_brown) -> G(brake_is_released | sensor_captures_data)),G((sensor_captures_data | brake_is_released) -> (table_is_brown & car_starts))
+G((semaphore_is_yellow & train_stops) -> G semaphore_is_yellow),(semaphore_is_yellow & train_stops) -> G(semaphore_is_yellow)
+G((car_starts & table_is_brown) -> G semaphore_is_yellow),((table_is_brown & car_starts) -> G(semaphore_is_yellow))
+G((bar_has_to_be_repaired & bridge_opens) -> G semaphore_is_yellow),((bar_has_to_be_repaired & bridge_opens) -> G(semaphore_is_yellow))
+G((bar_is_closing & escalator_moves) -> G semaphore_is_yellow),(escalator_moves & bar_is_closing) -> G(semaphore_is_yellow)
+G((motorbike_falls_down & table_has_been_moved) -> G semaphore_is_yellow),(motorbike_falls_down & table_has_been_moved) -> G(semaphore_is_yellow)
+G((sensor_gathers_information & train_stops) -> G semaphore_is_yellow),((train_stops & sensor_gathers_information) -> G(semaphore_is_yellow))
+G((house_is_built & train_derails) -> G semaphore_is_yellow),(house_is_built & train_derails) -> G(semaphore_is_yellow)
+G((elevator_is_open & train_has_been_launched) -> G semaphore_is_yellow),((elevator_is_open & train_has_been_launched) -> G(semaphore_is_yellow))
+G((table_is_brown | train_is_crossing) -> F(manager_handles_requests & sensor_retrieves_data)),((train_is_crossing | table_is_brown) -> F(sensor_retrieves_data & manager_handles_requests))
+G((constructor_creates_instances | motorbike_falls_down) -> F(escalator_is_blocked & escalator_moves)),((constructor_creates_instances | motorbike_falls_down) -> F(escalator_is_blocked & escalator_moves))
+G((house_is_open | train_derails) -> F(engine_breaks & semaphore_is_yellow)),F(((house_is_open | train_derails) -> (engine_breaks & semaphore_is_yellow)))
+G((house_is_built | sensor_captures_data) -> F(escalator_is_blocked & table_has_been_moved)),F((house_is_built | sensor_captures_data) & (table_has_been_moved & escalator_is_blocked))
+G((car_starts | train_derails) -> F(bar_is_up & escalator_speeds_up)),F((car_starts | train_derails) -> (escalator_speeds_up & bar_is_up))
+G((bar_is_up | constructor_instantiate_objects) -> F(train_has_arrived & train_is_crossing)),F((constructor_instantiate_objects | bar_is_up) -> (train_has_arrived & train_is_crossing))
+G((bar_is_up | engine_starts) -> F(car_starts & engine_starts)),F((car_starts & engine_starts))
+G((bar_is_down | semaphore_is_green) -> F(brake_is_released | train_is_crossing)),F(brake_is_released | (bar_is_down & train_is_crossing) | semaphore_is_green)
+G((car_stops | house_is_built) -> F(bar_is_closing | table_has_been_moved)),(house_is_built | car_stops) -> F (bar_is_closing | table_has_been_moved)
+G((house_is_open | train_derails) -> F(car_starts | car_stops)),F((house_is_open | train_derails) -> (car_starts | car_stops))
+G((bridge_closes | elevator_is_blocked) -> F(engine_starts | sensor_captures_data)),F((bridge_closes | elevator_is_blocked) -> (engine_starts | sensor_captures_data))
+G((motorbike_is_driven | semaphore_is_green) -> F(engine_stops | house_is_open)),((motorbike_is_driven | semaphore_is_green) -> F(engine_stops | house_is_open))
+G((bridge_closes | semaphore_is_green) -> F(engine_starts | sensor_retrieves_data)),F(sensor_retrieves_data | (engine_starts & (bridge_closes | semaphore_is_green)))
+G((bar_has_to_be_repaired | motorbike_has_stopped) -> F train_derails),(bar_has_to_be_repaired | motorbike_has_stopped) -> F train_derails
+G((bridge_closes | semaphore_is_green) -> F sensor_captures_data),(bridge_closes | semaphore_is_green) -> F sensor_captures_data
+G((engine_starts | sensor_retrieves_data) -> F train_derails),F((sensor_retrieves_data | engine_starts) & F train_derails)
+G((engine_starts | train_derails) -> F train_has_arrived),((train_derails | engine_starts) -> F train_has_arrived)
+G((constructor_instantiate_objects | table_is_old) -> F train_derails),F((table_is_old | constructor_instantiate_objects) & X(train_derails))
+G((elevator_rises | sensor_gathers_information) -> F train_has_arrived),F((elevator_rises | sensor_gathers_information) & train_has_arrived)
+G((engine_starts | motorbike_catches_fire) -> G!(car_starts & motorbike_has_stopped)),((engine_starts | motorbike_catches_fire) -> !(motorbike_has_stopped & car_starts))
+G((escalator_moves | sensor_captures_data) -> G!(house_is_open & semaphore_is_green)),(sensor_captures_data | escalator_moves) -> X !(house_is_open & semaphore_is_green)
+G((car_starts | escalator_is_blocked) -> G!(brake_is_released & sensor_captures_data)),(car_starts | escalator_is_blocked) -> G(!(sensor_captures_data & brake_is_released))
+G((car_starts | escalator_is_blocked) -> G!(house_is_open & semaphore_is_green)),G((escalator_is_blocked | car_starts) -> ! (house_is_open & semaphore_is_green))
+G((bar_has_to_be_repaired | motorbike_falls_down) -> G!(bar_is_down & train_has_been_launched)),G((bar_has_to_be_repaired | motorbike_falls_down) -> !(bar_is_down & train_has_been_launched))
+G((escalator_moves | table_is_old) -> G!(bar_is_up & elevator_falls)),G((escalator_moves | table_is_old) -> !(elevator_falls & bar_is_up))
+G((semaphore_is_red | train_stops) -> G!(bar_is_closing & semaphore_is_green)),G((train_stops | semaphore_is_red) -> !(bar_is_closing & semaphore_is_green))
+G((escalator_speeds_up | motorbike_is_driven) -> G!(car_enters & constructor_creates_instances)),G((motorbike_is_driven | escalator_speeds_up) -> !(constructor_creates_instances & car_enters))
+G((bar_has_to_be_repaired | train_has_arrived) -> G!(engine_starts & motorbike_falls_down)),G((bar_has_to_be_repaired | train_has_arrived) -> !(motorbike_falls_down & engine_starts))
+G((escalator_moves | table_is_old) -> G!(elevator_rises & train_has_arrived)),G((escalator_moves | table_is_old) -> !(elevator_rises & train_has_arrived))
+G((engine_stops | train_is_crossing) -> G!(bar_is_closing & engine_breaks)),!(engine_breaks & (engine_stops | train_is_crossing) -> F bar_is_closing)
+G((bar_is_up | semaphore_is_green) -> G!(car_starts | escalator_is_blocked)),G((semaphore_is_green | bar_is_up) -> !(escalator_is_blocked | car_starts))
+G((bar_has_to_be_repaired | motorbike_falls_down) -> G!(elevator_is_open | manager_handles_requests)),G(!((elevator_is_open | manager_handles_requests)))
+G((elevator_falls | manager_collect_claims) -> G!(escalator_moves | table_is_old)),G((manager_collect_claims | elevator_falls) -> !(escalator_moves | table_is_old))
+G((motorbike_falls_down | train_derails) -> G!(engine_starts | train_is_crossing)),((train_derails | motorbike_falls_down) -> !(engine_starts | train_is_crossing))
+G((bar_is_closing | house_collapses) -> G!(car_stops | house_collapses)),((house_collapses | bar_is_closing) -> G(!(car_stops | house_collapses)))
+G((engine_starts | motorbike_catches_fire) -> G!(car_stops | table_is_brown)),G((engine_starts | motorbike_catches_fire) -> X(!(table_is_brown | car_stops)))
+G((sensor_captures_data | table_has_been_moved) -> G!(bar_has_to_be_repaired | motorbike_falls_down)),G((sensor_captures_data | table_has_been_moved) -> !(bar_has_to_be_repaired | motorbike_falls_down))
+G((bar_is_closing | house_collapses) -> G!(sensor_captures_data | table_has_been_moved)),G((house_collapses | bar_is_closing) -> !(sensor_captures_data | table_has_been_moved))
+G((escalator_moves | sensor_captures_data) -> G!(escalator_is_blocked | motorbike_has_started)),G(((sensor_captures_data | escalator_moves) -> !(escalator_is_blocked | motorbike_has_started)))
+G((manager_handles_requests | table_is_old) -> G(bar_is_down & brake_is_pressed)),G((manager_handles_requests | table_is_old) -> (brake_is_pressed & bar_is_down))
+G((bar_has_to_be_repaired | escalator_moves) -> G(motorbike_falls_down & table_has_been_moved)),((bar_has_to_be_repaired | escalator_moves) -> G(motorbike_falls_down & table_has_been_moved))
+G((bridge_closes | bridge_opens) -> G(semaphore_is_yellow & train_stops)),((bridge_closes | bridge_opens) -> (semaphore_is_yellow & train_stops))
+G((escalator_speeds_up | sensor_gathers_information) -> G(car_stops & constructor_creates_instances)),F((escalator_speeds_up | sensor_gathers_information) & G((constructor_creates_instances & car_stops)))
+G((manager_handles_requests | motorbike_has_started) -> G(escalator_is_blocked & motorbike_falls_down)),G((motorbike_falls_down & escalator_is_blocked) -> (manager_handles_requests | motorbike_has_started))
+G((car_starts | elevator_falls) -> G(bar_is_down & semaphore_is_red)),G(((car_starts | elevator_falls) -> (bar_is_down & semaphore_is_red)))
+G((house_collapses | table_is_brown) -> G(engine_starts & house_is_built)),(table_is_brown | house_collapses) -> G(engine_starts & house_is_built)
+G((motorbike_has_stopped | semaphore_is_yellow) -> G(engine_starts & table_is_old)),G((motorbike_has_stopped | semaphore_is_yellow) -> (engine_starts & table_is_old))
+G((escalator_is_blocked | escalator_moves) -> G(motorbike_is_driven & train_has_been_launched)),G((escalator_is_blocked | escalator_moves) -> (train_has_been_launched & motorbike_is_driven))
+G((escalator_speeds_up | manager_collect_claims) -> G(house_collapses | table_is_old)),((manager_collect_claims | escalator_speeds_up) -> G (house_collapses | table_is_old))
+G((bridge_opens | motorbike_has_started) -> G(bar_is_closing | car_starts)),G(car_starts | (bar_is_closing U (bridge_opens | motorbike_has_started)))
+G((manager_handles_requests | table_is_old) -> G(escalator_speeds_up | motorbike_has_started)),G((manager_handles_requests | table_is_old) -> (motorbike_has_started | escalator_speeds_up))
+G((bar_has_to_be_repaired | car_stops) -> G(elevator_is_open | house_is_built)),G(((car_stops | bar_has_to_be_repaired) -> (house_is_built | elevator_is_open)))
+G((engine_stops | table_is_brown) -> G(escalator_is_blocked | escalator_moves)),((engine_stops | table_is_brown) -> G(escalator_is_blocked | escalator_moves))
+G((car_enters | train_has_arrived) -> G(brake_is_released | escalator_is_blocked)),G((car_enters | train_has_arrived) -> (brake_is_released | escalator_is_blocked))
+G((house_collapses | motorbike_falls_down) -> G(car_enters | train_has_arrived)),((motorbike_falls_down | house_collapses) -> G(car_enters | train_has_arrived))
+G((elevator_is_blocked | motorbike_has_stopped) -> G(house_collapses | table_is_brown)),G(table_is_brown | ((motorbike_has_stopped | elevator_is_blocked) -> house_collapses))
+G((house_collapses | motorbike_falls_down) -> G(brake_is_released | sensor_captures_data)),G((motorbike_falls_down | house_collapses) -> (sensor_captures_data | brake_is_released))
+G((manager_handles_requests | motorbike_has_started) -> G semaphore_is_yellow),G((manager_handles_requests | motorbike_has_started) -> semaphore_is_yellow)
+G((bridge_closes | bridge_opens) -> G semaphore_is_yellow),G((bridge_closes | bridge_opens) -> semaphore_is_yellow)
+G((bar_has_to_be_repaired | escalator_moves) -> G semaphore_is_yellow),(bar_has_to_be_repaired | escalator_moves) -> G(semaphore_is_yellow)
+G((car_starts | elevator_falls) -> G semaphore_is_yellow),(car_starts | elevator_falls) -> G(semaphore_is_yellow)
+G((bar_is_closing | car_starts) -> G semaphore_is_yellow),G((car_starts | bar_is_closing) -> semaphore_is_yellow)
+G((engine_breaks | sensor_captures_data) -> G semaphore_is_yellow),G((sensor_captures_data | engine_breaks) -> semaphore_is_yellow)
+G((elevator_is_open | house_is_built) -> G semaphore_is_yellow),((elevator_is_open | house_is_built) -> G(semaphore_is_yellow))
+G((manager_collect_claims | sensor_gathers_information) -> G semaphore_is_yellow),(manager_collect_claims | sensor_gathers_information) -> G(semaphore_is_yellow)
+G((brake_is_released | sensor_captures_data) -> G semaphore_is_yellow),((sensor_captures_data | brake_is_released) -> G(semaphore_is_yellow))
+G((bridge_opens | motorbike_has_started) -> G semaphore_is_yellow),G((bridge_opens | motorbike_has_started) -> semaphore_is_yellow)
+G(bar_is_up & engine_starts & escalator_is_blocked),G(escalator_is_blocked -> (engine_starts & bar_is_up))
+G(bar_has_to_be_repaired & engine_breaks & escalator_moves),G(bar_has_to_be_repaired -> (escalator_moves & engine_breaks))
+G(train_has_arrived -> F(train_has_arrived & train_is_crossing)),F(train_has_arrived & train_is_crossing)
+G(semaphore_is_yellow -> F(bar_is_up & motorbike_has_started)),F((semaphore_is_yellow) -> (bar_is_up & motorbike_has_started))
+G(train_has_arrived -> F(bar_has_to_be_repaired | escalator_speeds_up)),train_has_arrived -> F(bar_has_to_be_repaired | escalator_speeds_up)
+G(train_has_arrived -> F(bar_is_closing | table_has_been_moved)),train_has_arrived -> F(bar_is_closing | table_has_been_moved)
+G(train_has_arrived -> F(car_starts | car_stops)),train_has_arrived -> F(car_starts | car_stops)
+G(semaphore_is_yellow -> F(constructor_creates_instances | motorbike_falls_down)),F (constructor_creates_instances | (semaphore_is_yellow U motorbike_falls_down))
+G(train_derails -> F(bar_has_to_be_repaired | table_is_brown)),F (table_is_brown | (train_derails U bar_has_to_be_repaired))
+G(train_has_arrived -> F train_derails),train_has_arrived -> F train_derails
+G(semaphore_is_yellow -> F sensor_captures_data),semaphore_is_yellow -> F sensor_captures_data
+G(sensor_captures_data -> F train_derails),sensor_captures_data -> F train_derails
+G(train_has_arrived -> F sensor_captures_data),train_has_arrived -> F sensor_captures_data
+G(train_derails -> F sensor_captures_data),train_derails -> F sensor_captures_data
+G(train_derails -> F semaphore_is_yellow),train_derails -> F semaphore_is_yellow
+G(semaphore_is_yellow -> G(escalator_is_blocked & motorbike_falls_down)),G((semaphore_is_yellow & X(motorbike_falls_down & escalator_is_blocked)))
+G(semaphore_is_yellow -> G(elevator_is_open & train_has_been_launched)),G(elevator_is_open & (semaphore_is_yellow -> F train_has_been_launched))
+G(semaphore_is_yellow -> G(bar_has_to_be_repaired & bridge_opens)),semaphore_is_yellow -> G(bar_has_to_be_repaired & bridge_opens)
+G(semaphore_is_yellow -> G(bar_has_to_be_repaired & brake_is_released)),semaphore_is_yellow -> G(brake_is_released & bar_has_to_be_repaired)
+G(car_starts -> G(table_is_old -> F house_is_open)),car_starts -> (table_is_old -> F house_is_open)
+G(table_has_been_moved -> G(car_enters -> F motorbike_catches_fire)),table_has_been_moved & G(car_enters -> F(motorbike_catches_fire))
+G(semaphore_is_red -> G(table_is_brown -> F car_starts)),semaphore_is_red -> (table_is_brown -> F car_starts)
+G(escalator_moves -> G(train_is_crossing -> F car_enters)),G(escalator_moves -> (train_is_crossing -> F(car_enters)))
+G(car_starts -> G(brake_is_pressed -> F semaphore_is_green)),car_starts & G(brake_is_pressed -> F(semaphore_is_green))
+G(table_has_been_moved -> G(bridge_closes -> F motorbike_has_stopped)),bridge_closes -> F motorbike_has_stopped
+G(motorbike_has_stopped -> G(motorbike_catches_fire -> F car_starts)),motorbike_has_stopped -> (motorbike_catches_fire U car_starts)
+G(engine_starts -> G(sensor_retrieves_data -> F car_starts)),engine_starts -> X(sensor_retrieves_data -> F car_starts)
+G(bar_has_to_be_repaired -> G(semaphore_is_red -> F elevator_falls)),bar_has_to_be_repaired -> G(semaphore_is_red -> F(elevator_falls))
+G(train_derails -> G(elevator_falls -> F motorbike_catches_fire)),train_derails -> F(elevator_falls & F(motorbike_catches_fire))
+G(bridge_closes -> G(car_enters -> F elevator_is_blocked)),G(bridge_closes -> F(car_enters & F(elevator_is_blocked)))
+G(semaphore_is_yellow -> G(house_collapses | semaphore_is_green)),G(semaphore_is_green | (semaphore_is_yellow -> F house_collapses))
+G(semaphore_is_yellow -> G(brake_is_released | car_stops)),G(semaphore_is_yellow -> (car_stops | brake_is_released))
+G(semaphore_is_yellow -> G(escalator_speeds_up | motorbike_has_started)),G(motorbike_has_started | (semaphore_is_yellow -> F escalator_speeds_up))
+G(semaphore_is_yellow -> G(house_collapses | table_is_old)),semaphore_is_yellow -> G(house_collapses | table_is_old)
+G(semaphore_is_yellow -> G(car_starts | elevator_falls)),semaphore_is_yellow -> G(car_starts | elevator_falls)
+G(semaphore_is_yellow -> G(constructor_creates_instances | house_is_built)),semaphore_is_yellow -> G(constructor_creates_instances | house_is_built)
+!G!(deliver_aid_safe_hostile & X deliver_aid_safe_hostile),G(deliver_aid_safe_hostile | X(deliver_aid_safe_hostile) | X(X(deliver_aid_safe_hostile)))
+!G!(avoid_inactive_fire_source & X avoid_inactive_fire_source),G(avoid_inactive_fire_source | X avoid_inactive_fire_source | X X avoid_inactive_fire_source)
+!G!(deliver_handbag_loading_dock & X deliver_handbag_loading_dock),G(deliver_handbag_loading_dock | X(deliver_handbag_loading_dock) | X(X(deliver_handbag_loading_dock)))
+!G!(search_toothbrush & X search_toothbrush),G(search_toothbrush | X(search_toothbrush) | X X(search_toothbrush))
+!G!(record_motorcycle_south_10th_street & X record_motorcycle_south_10th_street),G(record_motorcycle_south_10th_street | X(record_motorcycle_south_10th_street) | X(X(record_motorcycle_south_10th_street)))
+!G!(photo_debris & X photo_debris),G(photo_debris | X(photo_debris) | XX(photo_debris))
+!G!(record_collision_northwest_4th_street & X record_collision_northwest_4th_street),G(record_collision_northwest_4th_street)
+!G!(deliver_aid_injured_victim & X deliver_aid_injured_victim),G(deliver_aid_injured_victim)
+!G!(search_cake & X search_cake),G search_cake
+!G!(photo_person_northwest_6th_street & X photo_person_northwest_6th_street),G(photo_person_northwest_6th_street | X photo_person_northwest_6th_street | X X photo_person_northwest_6th_street)
+!G!(deliver_chair_loading_dock & X deliver_chair_loading_dock),G(deliver_chair_loading_dock | X(deliver_chair_loading_dock) | X(X(deliver_chair_loading_dock)))
+!change_light_west_yellow U change_light_south_green,change_light_west_yellow -> change_light_south_green
+!get_help U change_light_east_red,get_help -> change_light_east_red
+!record_flood U get_help,G(record_flood -> get_help)
+!get_help U idle,G(get_help -> idle)
+!communicate_safe_hostile U get_help,communicate_safe_hostile -> get_help
+!deliver_aid_injured_rescuer U get_help,get_help -> deliver_aid_injured_rescuer
+!record_debris U get_help,G(record_debris -> get_help)
+!photo_safe_rescuer U avoid_inactive_unstable_beam,G(photo_safe_rescuer -> !avoid_inactive_unstable_beam U photo_safe_rescuer)
+(photo_vehicle_south_9th_street U change_light_west_yellow) | G photo_vehicle_south_9th_street,(change_light_west_yellow U photo_vehicle_south_9th_street) | G photo_vehicle_south_9th_street
+(pickup_person U get_help) | G pickup_person,(get_help U pickup_person) | G pickup_person
+(go_home U photo_safe_victim) | G go_home,(photo_safe_victim U go_home) | G(go_home)
+F go_home & F avoid_impending_debris,F(go_home & avoid_impending_debris)
+F deliver_book_loading_dock -> (!deliver_book_loading_dock U (!deliver_book_loading_dock & pickup_toothbrush)),deliver_book_loading_dock -> F pickup_toothbrush
+F communicate_injured_rescuer -> (!communicate_injured_rescuer U (!communicate_injured_rescuer & deliver_aid_injured_victim)),communicate_injured_rescuer -> F deliver_aid_injured_victim
+F avoid_active_unstable_beam -> (!avoid_active_unstable_beam U (!avoid_active_unstable_beam & communicate_injured_rescuer)),F avoid_active_unstable_beam -> communicate_injured_rescuer
+F change_light_west_red -> (!change_light_west_red U (!change_light_west_red & photo_cyclist_northwest_10th_street)),F change_light_west_red -> photo_cyclist_northwest_10th_street
+F record_cyclist_southeast_10th_avenue -> (!record_cyclist_southeast_10th_avenue U (!record_cyclist_southeast_10th_avenue & record_motorcycle_southwest_4th_avenue)),record_cyclist_southeast_10th_avenue -> F record_motorcycle_southwest_4th_avenue
+F deliver_bird_shelf -> (!deliver_bird_shelf U (!deliver_bird_shelf & search_bench)),deliver_bird_shelf -> F search_bench
+F photo_vehicle_north_2nd_avenue -> (!photo_vehicle_north_2nd_avenue U (!photo_vehicle_north_2nd_avenue & record_vehicle_northwest_2nd_street)),F photo_vehicle_north_2nd_avenue -> F record_vehicle_northwest_2nd_street
+F get_help -> (!get_help U (!get_help & photo_jaywalker_southeast_4th_avenue)),F get_help -> F photo_jaywalker_southeast_4th_avenue
+F get_help -> (!get_help U (!get_help & photo_vehicle_south_3rd_street)),F get_help -> F photo_vehicle_south_3rd_street
+F pickup_cell_phone -> (!pickup_cell_phone U (!pickup_cell_phone & pickup_motorbike)),G(pickup_cell_phone -> F pickup_motorbike)
+F deliver_cake_loading_dock -> (!deliver_cake_loading_dock U (!deliver_cake_loading_dock & search_cake)),deliver_cake_loading_dock -> search_cake
+F record_safe_civilian -> (!record_safe_civilian U (photo_safe_civilian & !record_safe_civilian)),G(record_safe_civilian -> F photo_safe_civilian)
+F pickup_laptop -> (!pickup_laptop U (deliver_boat_loading_dock & !pickup_laptop)),pickup_laptop -> deliver_boat_loading_dock
+F record_car_west_1st_street -> (!record_car_west_1st_street U (get_help & !record_car_west_1st_street)),G(record_car_west_1st_street -> F get_help)
+F search_laptop -> (!search_laptop U (pickup_toaster & !search_laptop)),search_laptop -> F pickup_toaster
+F search_toothbrush -> (!search_toothbrush U (idle & !search_toothbrush)),search_toothbrush -> F idle
+F avoid_probable_gas_leak -> (!avoid_probable_gas_leak U (avoid_impending_flood & !avoid_probable_gas_leak)),F avoid_probable_gas_leak -> avoid_impending_flood
+F idle -> (!idle U (deliver_zebra_shelf & !idle)),F idle -> (!idle U deliver_zebra_shelf)
+F get_help -> (!get_help U (deliver_tie_loading_dock & !get_help)),G(get_help -> F(deliver_tie_loading_dock))
+F get_help -> (!get_help U (deliver_spoon_shelf & !get_help)),F get_help -> F deliver_spoon_shelf
+F record_pedestrian_west_9th_street -> (!record_pedestrian_west_9th_street U (get_help & !record_pedestrian_west_9th_street)),G(record_pedestrian_west_9th_street -> F get_help)
+F photo_person_southeast_10th_avenue -> (!photo_person_southeast_10th_avenue U (get_help & !photo_person_southeast_10th_avenue)),F photo_person_southeast_10th_avenue -> F get_help
+F pickup_aeroplane -> (!pickup_aeroplane U (get_help & !pickup_aeroplane)),pickup_aeroplane -> F get_help
+G!_get_help & idle& G_get_help | idle,G(!(idle & get_help)) & G(idle | get_help)
+G!(change_light_east_yellow & record_person_southeast_2nd_avenue) & G(change_light_east_yellow | record_person_southeast_2nd_avenue),(change_light_east_yellow & !record_person_southeast_2nd_avenue) | (!change_light_east_yellow & record_person_southeast_2nd_avenue) | (G(change_light_east_yellow) | G(record_person_southeast_2nd_avenue))
+G(!(get_help & pickup_truck) -> F search_banana),G((!pickup_truck & !get_help) -> F(search_banana))
+G(!(deliver_aid_injured_hostile & get_help) -> F communicate_safe_rescuer),G((!deliver_aid_injured_hostile & !get_help) -> F communicate_safe_rescuer)
+G(!(communicate_safe_victim & go_home) -> F get_help),G((!communicate_safe_victim & !go_home) -> F(get_help))
+G(!(go_home & record_unstable_beam) -> F communicate_safe_rescuer),G((!record_unstable_beam & !go_home) -> F(communicate_safe_rescuer))
+G(!(change_light_south_red & record_pedestrian_southeast_10th_street) -> F change_light_west_green),G((!change_light_south_red & !record_pedestrian_southeast_10th_street) -> F(change_light_west_green))
+G(!(get_help & photo_vehicle_northeast_6th_street) -> F change_light_east_yellow),G((!get_help & !photo_vehicle_northeast_6th_street) -> F(change_light_east_yellow))
+G(!(photo_pedestrian_southwest_4th_avenue & record_collision_north_8th_street) -> F get_help),G((!photo_pedestrian_southwest_4th_avenue & !record_collision_north_8th_street) -> F(get_help))
+G(!(communicate_injured_hostile & deliver_aid_injured_rescuer) -> F get_help),G((!deliver_aid_injured_rescuer & !communicate_injured_hostile) -> F get_help)
+G(!(deliver_aid_injured_rescuer & deliver_aid_safe_rescuer) -> F avoid_inactive_unstable_beam),G((!deliver_aid_injured_rescuer & !deliver_aid_safe_rescuer) -> F(avoid_inactive_unstable_beam))
+G(!(go_home & photo_flood) -> F deliver_aid_safe_hostile),G((!go_home & !photo_flood) -> F(deliver_aid_safe_hostile))
+G(!(idle & search_bowl) -> F deliver_skateboard_loading_dock),G((!idle & !search_bowl) -> F(deliver_skateboard_loading_dock))
+G(!(change_light_east_green & get_help) -> F record_motorcycle_southeast_2nd_avenue),G((!change_light_east_green & !get_help) -> F(record_motorcycle_southeast_2nd_avenue))
+G((deliver_aid_safe_rescuer & X communicate_safe_victim) -> XX communicate_injured_hostile),(deliver_aid_safe_rescuer & X communicate_safe_victim) -> X X communicate_injured_hostile
+G((get_help & X pickup_umbrella) -> XX pickup_bear),(get_help & X pickup_umbrella) -> XX pickup_bear
+G((photo_cyclist_north_7th_avenue & X photo_motorcycle_southwest_4th_avenue) -> XX get_help),(photo_cyclist_north_7th_avenue & X photo_motorcycle_southwest_4th_avenue) -> XX get_help
+G((get_help & X pickup_teddy_bear) -> XX pickup_spoon),(get_help & X pickup_teddy_bear) -> XX pickup_spoon
+G((photo_injured_rescuer & X record_flood) -> XX communicate_injured_rescuer),(photo_injured_rescuer & X record_flood) -> XX communicate_injured_rescuer
+G((communicate_injured_victim & X communicate_injured_hostile) -> XX communicate_safe_hostile),(communicate_injured_victim & X communicate_injured_hostile) -> XX communicate_safe_hostile
+G((deliver_orange_shelf & X deliver_bear_loading_dock) -> XX pickup_surfboard),(deliver_orange_shelf & X deliver_bear_loading_dock) -> XX pickup_surfboard
+G((photo_safe_rescuer & X go_home) -> XX avoid_inactive_fire_source),(photo_safe_rescuer & X go_home) -> XX avoid_inactive_fire_source
+G((record_vehicle_northwest_3rd_street & X change_light_east_red) -> XX record_pedestrian_northwest_6th_avenue),(record_vehicle_northwest_3rd_street & X change_light_east_red) -> XX record_pedestrian_northwest_6th_avenue
+G((avoid_impending_fire_source & X communicate_safe_victim) -> XX communicate_injured_victim),(avoid_impending_fire_source & X communicate_safe_victim) -> X X communicate_injured_victim
+G((get_help & X change_light_west_red) -> XX photo_cyclist_southeast_7th_avenue),(get_help & X(change_light_west_red)) -> XX(photo_cyclist_southeast_7th_avenue)
+G((idle & X deliver_carrot_shelf) -> XX search_sheep),(idle & X deliver_carrot_shelf) -> XX search_sheep
+G((change_light_west_red <-> record_jaywalker_east_10th_street) -> (record_jaywalker_east_10th_street <-> record_person_southeast_3rd_street)),G((change_light_west_red & record_jaywalker_east_10th_street) -> record_person_southeast_3rd_street)
+G((avoid_probable_flood <-> deliver_aid_injured_victim) -> (avoid_probable_flood <-> go_home)),G((deliver_aid_injured_victim) <-> (avoid_probable_flood & go_home))
+G((record_collision_northwest_9th_street <-> record_vehicle_north_8th_avenue) -> (get_help <-> record_vehicle_north_8th_avenue)),G((record_collision_northwest_9th_street & record_vehicle_north_8th_avenue) -> (record_vehicle_north_8th_avenue & get_help))
+G(avoid_probable_unstable_beam -> (communicate_safe_hostile | X communicate_safe_hostile)),avoid_probable_unstable_beam -> (communicate_safe_hostile | X communicate_safe_hostile)
+G(photo_car_southeast_8th_street -> (photo_vehicle_southeast_7th_avenue | X photo_vehicle_southeast_7th_avenue)),photo_car_southeast_8th_street -> (photo_vehicle_southeast_7th_avenue | X photo_vehicle_southeast_7th_avenue)
+G(get_help -> (change_light_north_red | X change_light_north_red)),get_help -> (change_light_north_red | X change_light_north_red)
+G(idle -> (deliver_sheep_shelf | X deliver_sheep_shelf)),idle -> (deliver_sheep_shelf | X deliver_sheep_shelf)
+G(get_help -> (deliver_book_shelf | X deliver_book_shelf)),get_help -> (deliver_book_shelf | X deliver_book_shelf)
+G(get_help -> (pickup_carrot | X pickup_carrot)),get_help -> (pickup_carrot | X pickup_carrot)
+G(deliver_aid_injured_victim -> (deliver_aid_safe_rescuer | X deliver_aid_safe_rescuer)),deliver_aid_injured_victim -> (deliver_aid_safe_rescuer | X deliver_aid_safe_rescuer)
+G(search_snowboard->_idle | X idle),search_snowboard -> (idle | X idle)
+G(get_help -> (record_safe_person | X record_safe_person)),get_help -> (record_safe_person | X record_safe_person)
+G(communicate_injured_hostile -> (deliver_aid_injured_victim | X deliver_aid_injured_victim)),communicate_injured_hostile -> (deliver_aid_injured_victim | X deliver_aid_injured_victim)
+G(deliver_aid_injured_victim -> (avoid_inactive_debris | X avoid_inactive_debris)),deliver_aid_injured_victim -> (avoid_inactive_debris | X avoid_inactive_debris)
+G_idle -> F get_help,G(idle -> F(get_help))
+G(get_help -> F change_light_west_green) -> GF change_light_west_yellow,(G(F(get_help -> F(change_light_west_green))) -> G(F(change_light_west_yellow)))
+G(go_home -> F avoid_nearest_fire_source) -> GF deliver_aid_injured_rescuer,G((go_home -> F avoid_nearest_fire_source) -> G F deliver_aid_injured_rescuer)
+G_go_home -> F get_help -> GF deliver_aid_safe_hostile,(G(go_home -> F get_help) -> G F deliver_aid_safe_hostile)
+G(change_light_north_green -> F change_light_south_red) -> GF change_light_west_red,G((change_light_north_green -> F change_light_south_red) -> G F change_light_west_red)
+G_get_help -> F go_home -> GF record_unstable_beam,(G(F get_help -> F go_home) -> G F record_unstable_beam)
+G(deliver_elephant_loading_dock -> XF search_elephant),deliver_elephant_loading_dock -> X F search_elephant
+G(deliver_bed_loading_dock -> XG!search_wine_glass),G(deliver_bed_loading_dock -> G(!search_wine_glass))
+G(photo_jaywalker_northeast_1st_street -> XG!photo_motorcycle_west_6th_street),G(photo_jaywalker_northeast_1st_street -> G(!photo_motorcycle_west_6th_street))
+G(get_help -> XG!pickup_tie),G(get_help -> G(!pickup_tie))
+G(change_light_north_yellow -> XG!photo_vehicle_south_2nd_street),G(change_light_north_yellow -> G(!photo_vehicle_south_2nd_street))
+G(get_help -> XG!pickup_parking_meter),G(get_help -> G(!pickup_parking_meter))
+G(photo_unsafe_civilian -> XG!go_home),G(photo_unsafe_civilian -> G(!go_home))
+G(get_help -> XG!change_light_east_red),G(get_help -> G(!change_light_east_red))
+G(get_help -> XG!deliver_refrigerator_shelf),G(get_help -> G(!deliver_refrigerator_shelf))
+G(avoid_inactive_flood -> XG!record_safe_civilian),G(avoid_inactive_flood -> G(!record_safe_civilian))
+G(get_help -> XG!change_light_south_green),G(get_help -> G(!change_light_south_green))
+G_idle -> XG!get_help,G(idle -> G(!get_help))
+G(get_help -> XG!deliver_aid_injured_victim),G(get_help -> G(!deliver_aid_injured_victim))
+G_get_help -> X idle,G(get_help -> X(idle))
+G(go_home -> avoid_nearest_flood),G(go_home -> !avoid_nearest_flood)
+G(pickup_person -> pickup_cow),pickup_person -> pickup_cow
+G(go_home -> avoid_inactive_flood),G(go_home -> !avoid_inactive_flood)
+G(avoid_probable_flood <-> X go_home),G(!(avoid_probable_flood <-> X(go_home)))
+G(avoid_active_flood <-> X communicate_safe_victim),G(!(avoid_active_flood <-> X(communicate_safe_victim)))
+G(communicate_safe_rescuer <-> X photo_unsafe_rescuer),G(communicate_safe_rescuer -> X(photo_unsafe_rescuer))
+GF communicate_safe_rescuer -> GF get_help,G(F(communicate_safe_rescuer) -> F(get_help))
+GF record_safe_civilian -> GF get_help,G(F(record_safe_civilian) -> F(get_help))
+GF photo_pedestrian_north_3rd_street -> GF get_help,G(F(photo_pedestrian_north_3rd_street) -> F(get_help))
+GF photo_person_southeast_5th_avenue -> GF record_person_east_2nd_avenue,G(F(photo_person_southeast_5th_avenue) -> F(record_person_east_2nd_avenue))
+GF change_light_north_yellow -> GF get_help,G(F(change_light_north_yellow) -> F(get_help))
+GF record_safe_victim -> GF go_home,G(F(record_safe_victim) -> F(go_home))
+GF deliver_sofa_loading_dock | GF idle,G F idle | deliver_sofa_loading_dock
+record_cyclist_southwest_6th_street -> X((change_light_south_yellow U get_help) | G change_light_south_yellow),record_cyclist_southwest_6th_street -> (X(change_light_south_yellow U get_help) | G(change_light_south_yellow))
+get_help -> X((search_tv_monitor U search_refrigerator) | G search_tv_monitor),get_help -> (X(search_tv_monitor U search_refrigerator) | G(search_tv_monitor))
+get_help -> X((search_sheep U idle) | G search_sheep),get_help -> (X(search_sheep U idle) | G(search_sheep))
+get_help -> X((deliver_aid_injured_rescuer U go_home) | G deliver_aid_injured_rescuer),get_help -> (X(deliver_aid_injured_rescuer U go_home) | G(deliver_aid_injured_rescuer))
+deliver_fork_loading_dock -> X((idle U search_umbrella) | G idle),deliver_fork_loading_dock -> (X(idle U search_umbrella) | G idle)
+record_motorcycle_south_2nd_street -> X((photo_motorcycle_south_3rd_avenue U record_collision_northwest_9th_street) | G photo_motorcycle_south_3rd_avenue),record_motorcycle_south_2nd_street -> (X (photo_motorcycle_south_3rd_avenue U record_collision_northwest_9th_street) | G photo_motorcycle_south_3rd_avenue)
+search_chair -> X((deliver_tv_monitor_loading_dock U deliver_cat_loading_dock) | G deliver_tv_monitor_loading_dock),(search_chair -> (X deliver_tv_monitor_loading_dock U deliver_cat_loading_dock)) | (!search_chair -> G deliver_tv_monitor_loading_dock)
+get_help -> X((record_motorcycle_north_2nd_street U change_light_west_green) | G record_motorcycle_north_2nd_street),get_help -> ((X record_motorcycle_north_2nd_street) U change_light_west_green | G record_motorcycle_north_2nd_street)
+communicate_injured_hostile -> X((record_unsafe_person U photo_unsafe_civilian) | G record_unsafe_person),communicate_injured_hostile -> (X(record_unsafe_person U photo_unsafe_civilian) | G(record_unsafe_person))
+record_flood -> X((avoid_probable_debris U communicate_safe_hostile) | G avoid_probable_debris),record_flood -> (X(avoid_probable_debris U communicate_safe_hostile) | G avoid_probable_debris)
+search_tv_monitor -> X((pickup_cup U get_help) | G pickup_cup),(search_tv_monitor -> (X(pickup_cup U get_help) | G(pickup_cup)))
+deliver_hair_drier_loading_dock -> X((get_help U search_tie) | G get_help),(deliver_hair_drier_loading_dock -> (X(get_help U search_tie) | G(get_help)))
+pickup_clock U GF search_remote,pickup_clock -> (pickup_clock U G F search_remote)
+record_unsafe_rescuer U GF avoid_probable_unstable_beam,record_unsafe_rescuer U F G avoid_probable_unstable_beam
+deliver_aid_injured_hostile U GF communicate_injured_hostile,deliver_aid_injured_hostile U F G communicate_injured_hostile
+pickup_laptop U GF deliver_dog_loading_dock,pickup_laptop -> (pickup_laptop U G F deliver_dog_loading_dock)
+change_light_south_green U get_help,change_light_south_green & get_help
+photo_car_west_2nd_street U record_pedestrian_west_4th_avenue,photo_car_west_2nd_street -> F record_pedestrian_west_4th_avenue
+record_person_north_7th_avenue U get_help,record_person_north_7th_avenue -> get_help
+change_light_west_green U get_help,change_light_west_green -> get_help
+photo_cyclist_southwest_10th_avenue U record_jaywalker_southwest_6th_street,photo_cyclist_southwest_10th_avenue & X record_jaywalker_southwest_6th_street
+pickup_microwave U search_boat,pickup_microwave & X search_boat
+get_help U deliver_bottle_shelf,get_help -> F deliver_bottle_shelf
+change_light_west_red U photo_pedestrian_southeast_4th_street,change_light_west_red & F photo_pedestrian_southeast_4th_street
+photo_car_southwest_1st_street U get_help,photo_car_southwest_1st_street & X get_help
+change_light_west_red U get_help,F(change_light_west_red & get_help)
+deliver_aid_safe_hostile U get_help,deliver_aid_safe_hostile -> get_help
+get_help U pickup_sports_ball,get_help -> pickup_sports_ball

@@ -5,34 +5,18 @@ import lightgbm as lgb
 from sklearn.model_selection import GroupShuffleSplit
 from sklearn.metrics import mean_squared_error
 
+from utils import get_formula_features, simulate_user
+from mutation_based import mutation_gradual
 
-# ==================================================
-# USER-PROVIDED FUNCTIONS
-# ==================================================
+import joblib
+import argparse
+import csv
+
 
 def generate_traces(formula):
-    """
-    Returns list of traces.
-
-    Each trace must have:
-        trace.mutation
-        trace.length
-    """
-    raise NotImplementedError
-
-
-def get_formula_features(formula):
-    """
-    Returns dict of formula-level features.
-    """
-    raise NotImplementedError
-
-
-def simulate_user(formula, trace):
-    """
-    Returns True if trace is useful.
-    """
-    raise NotImplementedError
+    traces = mutation_gradual(formula)
+    traces = [(trace, is_positive, str(mut)) for trace, is_positive, mut in traces]
+    return traces
 
 
 # ==================================================
@@ -73,14 +57,30 @@ def build_training_data(
 
     for formula_id, formula in enumerate(formulas):
 
-        formula_features = get_formula_features(formula)
+        # formula = (ground truth, candidate)
 
-        traces = generate_traces(formula)
+        # trace = (trace, accept/reject, mutation type)
+
+        try:
+            # --------------------------------------
+            # Formula-level processing
+            # --------------------------------------
+
+            formula_features = get_formula_features(formula[1])
+
+            traces = generate_traces(formula[1])
+
+        except Exception as e:
+            print(
+                f"[WARNING] Skipping formula #{formula_id} {formula} "
+                f"due to preprocessing error:\n{e}"
+            )
+            continue
 
         by_mutation = defaultdict(list)
 
         for trace in traces:
-            by_mutation[trace.mutation].append(trace)
+            by_mutation[trace[2]].append(trace)
 
         for mutation, mutation_traces in by_mutation.items():
 
@@ -88,12 +88,13 @@ def build_training_data(
             # shortest traces first INSIDE mutation
             # --------------------------------------
 
-            mutation_traces.sort(
-                key=lambda t: t.length
-            )
+            # mutation_traces.sort(
+            #     key=lambda t: t.length
+            # )
+
 
             labels = [
-                int(simulate_user(formula, trace))
+                int(simulate_user(formula[0], trace[0], trace[1]))
                 for trace in mutation_traces
             ]
 
@@ -115,7 +116,8 @@ def build_training_data(
                 "target": usefulness,
             }
 
-            row.update(formula_features)
+            for i, value in enumerate(formula_features):
+                row[f"f{i}"] = value
 
             rows.append(row)
 
@@ -203,10 +205,11 @@ def train_model(
 
     preds = model.predict(X_valid)
 
-    rmse = mean_squared_error(
-        y_valid,
-        preds,
-        squared=False,
+    rmse = np.sqrt(
+        mean_squared_error(
+            y_valid,
+            preds,
+        )
     )
 
     print(f"Validation RMSE: {rmse:.4f}")
@@ -236,7 +239,8 @@ def make_prediction_rows(
             "num_traces": len(traces),
         }
 
-        row.update(formula_features)
+        for i, value in enumerate(formula_features):
+            row[f"f{i}"] = value
 
         rows.append(row)
         mutations.append(mutation)
@@ -272,7 +276,7 @@ def diversified_trace_ranking(
     formula,
     model,
     feature_columns,
-    diversification_alpha=0.3,
+    diversification_alpha=0.7,
 ):
     """
     diversification_alpha controls
@@ -293,16 +297,16 @@ def diversified_trace_ranking(
     by_mutation = defaultdict(list)
 
     for trace in traces:
-        by_mutation[trace.mutation].append(trace)
+        by_mutation[trace[2]].append(trace)
 
     # ----------------------------------------------
     # shortest traces first INSIDE mutation
     # ----------------------------------------------
 
-    for mutation in by_mutation:
-        by_mutation[mutation].sort(
-            key=lambda t: t.length
-        )
+    # for mutation in by_mutation:
+    #     by_mutation[mutation].sort(
+    #         key=lambda t: t.length
+    #     )
 
     # ----------------------------------------------
     # predict base usefulness per mutation
@@ -380,3 +384,52 @@ def diversified_trace_ranking(
         shown_count[best_mutation] += 1
 
     return ranked_traces, base_scores
+
+
+
+
+def trace_ranking(formula):
+
+    model = joblib.load("mutation_ranker.pkl")
+    feature_columns = joblib.load("feature_columns.pkl")
+
+    ranked_traces, mutation_scores = diversified_trace_ranking(
+        formula=formula,
+        model=model,
+        feature_columns=feature_columns,
+        diversification_alpha=1,
+    )
+
+    return ranked_traces
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Train model and provide mutation ranking."
+    )
+
+    parser.add_argument(
+        "data_file",
+        help="Path to data CSV file"
+    )
+
+    args = parser.parse_args()
+
+
+    # Read all rows
+    with open(args.data_file, "r", encoding="utf-8", newline="") as f:
+        reader = csv.reader(f)
+        next(reader)
+        train_formulas = [tuple(row) for row in reader]
+
+
+    model, feature_columns, _ = train_model(
+        formulas=train_formulas,
+    )
+
+    joblib.dump(model, "mutation_ranker.pkl")
+    joblib.dump(feature_columns, "feature_columns.pkl")
+
+
+if __name__ == "__main__":
+    main() 

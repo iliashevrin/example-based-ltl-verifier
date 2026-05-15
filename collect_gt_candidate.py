@@ -237,13 +237,13 @@ def main() -> None:
             total += 1
             correct += int(equivalent)
 
-        if not equivalent:
-            rows.append(
-                {
-                    "Ground Truth": ground_truth,
-                    "Response": model_response,
-                }
-            )
+            if not equivalent:
+                rows.append(
+                    {
+                        "Ground Truth": ground_truth,
+                        "Response": model_response,
+                    }
+                )
 
     with open(f"data_{args.model}_{args.prompt}.csv", "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(

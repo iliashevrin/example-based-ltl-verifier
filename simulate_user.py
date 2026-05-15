@@ -6,11 +6,13 @@ spot.setup()
 import itertools
 from mutation_based import mutation_interleaved, mutation_random, mutation_gradual, mutation_expert, mutation_by_length, Mutation
 from traversal_based import traversal_random, traversal_gradual, traversal_expert, traversal_by_length
-from utils import check_acceptance, ltl_structure_vector, collect_aps
+from utils import check_acceptance, get_formula_features, collect_aps
+from train_ordering import trace_ranking
 
 import csv
 import random
 import statistics
+import joblib
 
 
 DATASIZE = {
@@ -24,43 +26,6 @@ DATASIZE = {
     "Synthetic":1000,
 }
 
-
-EXPERT_ORDER = [
-    Mutation.SWAP_G_WITH_X,
-    Mutation.REMOVE_F,
-    Mutation.SWAP_G_WITH_F,
-    [0, 0, 1, 0],
-    [0, 1, 2, 3, 0],
-    [0, 1, 2, 3, 4, 5, 5],
-    Mutation.REMOVE_NEGATION,
-    Mutation.ADD_F,
-    [0, 1, 2, 3, 1],
-    [0, 1, 2, 3, 4, 4],
-    [0, 0, 1, 1, 2, 2],
-    Mutation.ADD_G,
-    Mutation.ADD_X,
-    [0, 1, 1, 2, 2],
-    [0, 1, 2, 1],
-    [0, 1, 2, 3, 3],
-    Mutation.ADD_NEGATION,
-    [0, 1, 0],
-    [0, 0, 1, 1],
-    [0, 1, 2, 2],
-    [0, 0],
-    [0, 1, 1],
-]
-
-
-
-def unified_expert(formula):
-
-    traces = mutation_gradual(formula)
-    traces.extend(traversal_gradual(formula))
-
-    rank = {str(value): i for i, value in enumerate(EXPERT_ORDER)}
-    traces.sort(key=lambda trace: rank.get(str(trace[2]), -1), reverse=True)
-
-    return traces
 
 def unified_by_length(formula):
 
@@ -82,7 +47,7 @@ def unified_random(formula):
 
 
 
-def simulate_user(candidate, ground_truth, method):
+def simulate_user_iteration(candidate, ground_truth, method):
 
     traces = method(candidate)
 
@@ -188,6 +153,9 @@ if __name__ == "__main__":
         generation_method = unified_by_length
     elif sys.argv[1] == "UNIFIED_EXPERT":
         generation_method = unified_expert
+    elif sys.argv[1] == "DYNAMIC_RANKING":
+        generation_method = trace_ranking
+
     else:
         raise ValueError("Incorrect example generation function")
 
@@ -225,7 +193,7 @@ if __name__ == "__main__":
             # if len(collect_aps(spot.formula(candidate))) <= 2:
             #     continue
 
-            traces_seen, trace_length, props = simulate_user(candidate, ground_truth, generation_method)
+            traces_seen, trace_length, props = simulate_user_iteration(candidate, ground_truth, generation_method)
 
             trace_lengths.append(trace_length)
 

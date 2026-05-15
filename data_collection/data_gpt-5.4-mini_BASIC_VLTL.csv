@@ -22,7 +22,6 @@ Ground Truth,Response
 (pickup_person U get_help) | G pickup_person,(get_help U pickup_person) | G pickup_person
 (go_home U photo_safe_victim) | G go_home,(photo_safe_victim U go_home) | G(go_home)
 F go_home & F avoid_impending_debris,F(go_home & avoid_impending_debris)
-F deliver_sink_loading_dock -> (!deliver_sink_loading_dock U (!deliver_sink_loading_dock & pickup_scissors)),G(deliver_sink_loading_dock -> O(pickup_scissors))
 F deliver_book_loading_dock -> (!deliver_book_loading_dock U (!deliver_book_loading_dock & pickup_toothbrush)),deliver_book_loading_dock -> F pickup_toothbrush
 F communicate_injured_rescuer -> (!communicate_injured_rescuer U (!communicate_injured_rescuer & deliver_aid_injured_victim)),communicate_injured_rescuer -> F deliver_aid_injured_victim
 F avoid_active_unstable_beam -> (!avoid_active_unstable_beam U (!avoid_active_unstable_beam & communicate_injured_rescuer)),F avoid_active_unstable_beam -> communicate_injured_rescuer
