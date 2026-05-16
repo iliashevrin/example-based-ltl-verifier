@@ -76,6 +76,9 @@ def get_words_from_conditions(conditions, index):
 
     return words
 
+def trace_len(trace):
+    return str(trace).count(";") + 1
+
 
 def get_formula_features(formula_str: str):
     f = spot.formula(formula_str)

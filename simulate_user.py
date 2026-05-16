@@ -4,9 +4,9 @@ sys.path.insert(0,'/usr/local/lib/python3.10/site-packages/')
 import spot
 spot.setup()
 import itertools
-from mutation_based import mutation_interleaved, mutation_random, mutation_gradual, mutation_expert, mutation_by_length, Mutation
+from mutation_based import mutation_random, mutation_gradual, mutation_expert, mutation_by_length, Mutation
 from traversal_based import traversal_random, traversal_gradual, traversal_expert, traversal_by_length
-from utils import check_acceptance, get_formula_features, collect_aps
+from utils import check_acceptance, get_formula_features, collect_aps, trace_len
 from train_ordering import trace_ranking
 
 import csv
@@ -145,8 +145,8 @@ if __name__ == "__main__":
         generation_method = mutation_by_length
     elif sys.argv[1] == "MUTATION_EXPERT":
         generation_method = mutation_expert
-    elif sys.argv[1] == "MUTATION_INTERLEAVED":
-        generation_method = mutation_interleaved
+    # elif sys.argv[1] == "MUTATION_INTERLEAVED":
+    #     generation_method = mutation_interleaved
     elif sys.argv[1] == "UNIFIED_RANDOM":
         generation_method = unified_random
     elif sys.argv[1] == "UNIFIED_BY_LENGTH":

@@ -4,7 +4,7 @@ sys.path.insert(0,'/usr/local/lib/python3.10/site-packages/')
 import spot
 spot.setup()
 import itertools
-from utils import get_words_from_conditions, check_acceptance
+from utils import get_words_from_conditions, check_acceptance, trace_len
 import random
 
 
@@ -38,7 +38,7 @@ def traversal_expert(candidate, max_visits=3):
 def traversal_by_length(candidate, max_visits=3):
 
     traces = traversal_gradual(candidate, max_visits)
-    traces.sort(key=lambda trace: str(trace[0]).count(";"))
+    traces.sort(key=lambda trace: trace_len(trace[0]))
 
     return traces
 

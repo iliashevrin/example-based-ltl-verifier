@@ -5,7 +5,7 @@ import lightgbm as lgb
 from sklearn.model_selection import GroupShuffleSplit
 from sklearn.metrics import mean_squared_error
 
-from utils import get_formula_features, simulate_user
+from utils import get_formula_features, simulate_user, trace_len
 from mutation_based import mutation_gradual
 
 import joblib
@@ -189,10 +189,11 @@ def train_model(
 
     model = lgb.LGBMRegressor(
         objective="regression",
-        n_estimators=500,
+        n_estimators=1000,
         learning_rate=0.03,
-        num_leaves=31,
+        num_leaves=63,
         min_child_samples=20,
+        max_depth=-1,
         random_state=random_state,
     )
 
@@ -303,10 +304,10 @@ def diversified_trace_ranking(
     # shortest traces first INSIDE mutation
     # ----------------------------------------------
 
-    # for mutation in by_mutation:
-    #     by_mutation[mutation].sort(
-    #         key=lambda t: t.length
-    #     )
+    for mutation in by_mutation:
+        by_mutation[mutation].sort(
+            key=lambda t: trace_len(t[0])
+        )
 
     # ----------------------------------------------
     # predict base usefulness per mutation
@@ -397,7 +398,7 @@ def trace_ranking(formula):
         formula=formula,
         model=model,
         feature_columns=feature_columns,
-        diversification_alpha=1,
+        diversification_alpha=0.2,
     )
 
     return ranked_traces

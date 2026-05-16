@@ -4,7 +4,7 @@ import sys
 sys.path.insert(0,'/usr/local/lib/python3.10/site-packages/')
 import spot
 spot.setup()
-from utils import get_words_from_conditions, check_acceptance, collect_aps
+from utils import get_words_from_conditions, check_acceptance, collect_aps, trace_len
 
 from enum import Enum
 import random
@@ -285,34 +285,34 @@ def rejecting_traces(formula):
 
 
 
-def mutation_interleaved(candidate):
+# def mutation_interleaved(candidate):
 
-    traces = mutation_gradual(candidate)
+#     traces = mutation_gradual(candidate)
 
-    rank = {value: i for i, value in enumerate(EXPERT_ORDER)}
-    buckets = defaultdict(list)
+#     rank = {value: i for i, value in enumerate(EXPERT_ORDER)}
+#     buckets = defaultdict(list)
 
-    for trace in traces:
-        buckets[trace[2]].append(trace)
+#     for trace in traces:
+#         buckets[trace[2]].append(trace)
 
-    for mutation in buckets:
-        buckets[mutation].sort(key=lambda trace: str(trace[0]).count(";"))
+#     for mutation in buckets:
+#         buckets[mutation].sort(key=lambda trace: str(trace[0]).count(";"))
 
-    ordered_mutations = sorted(
-        buckets.keys(),
-        key=lambda m: rank.get(m, -1)
-    )
+#     ordered_mutations = sorted(
+#         buckets.keys(),
+#         key=lambda m: rank.get(m, -1)
+#     )
 
-    result = []
+#     result = []
 
-    max_bucket_size = max(len(buckets[m]) for m in ordered_mutations)
+#     max_bucket_size = max(len(buckets[m]) for m in ordered_mutations)
 
-    for i in range(max_bucket_size):
-        for mutation in ordered_mutations:
-            if i < len(buckets[mutation]):
-                result.append(buckets[mutation][i])
+#     for i in range(max_bucket_size):
+#         for mutation in ordered_mutations:
+#             if i < len(buckets[mutation]):
+#                 result.append(buckets[mutation][i])
 
-    return result
+#     return result
 
 
 
@@ -327,7 +327,7 @@ def mutation_expert(candidate):
 def mutation_by_length(candidate):
 
     traces = mutation_gradual(candidate)
-    traces.sort(key=lambda trace: str(trace[0]).count(";"))
+    traces.sort(key=lambda trace: trace_len(trace[0]))
     return traces
 
 
