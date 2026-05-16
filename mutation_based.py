@@ -115,47 +115,47 @@ def replace_child(f, target_idx, new_child):
     return f.map(mapper)
 
 
-def current_node_mutations(f):
+def current_node_mutations(f, depth):
 
     muts = []
 
     # Add negation to any subformula
     if not f._is(spot.op_Not):
-        muts.append((spot.formula.Not(f), Mutation.ADD_NEGATION))
+        muts.append((spot.formula.Not(f), (Mutation.ADD_NEGATION, depth)))
 
     # Remove negation from any negated subformula
     if f._is(spot.op_Not) and f.size() == 1:
-        muts.append((f[0], Mutation.REMOVE_NEGATION))
+        muts.append((f[0], (Mutation.REMOVE_NEGATION, depth)))
 
     # Add X to any subformula
-    muts.append((spot.formula.X(f), Mutation.ADD_X))
+    muts.append((spot.formula.X(f), (Mutation.ADD_X, depth)))
 
     # Add F to any subformula, except if it already starts with F
     if not f._is(spot.op_F):
-        muts.append((spot.formula.F(f), Mutation.ADD_F))
+        muts.append((spot.formula.F(f), (Mutation.ADD_F, depth)))
 
     # Add G to any subformula, except if it already starts with G
     if not f._is(spot.op_G):
-        muts.append((spot.formula.G(f), Mutation.ADD_G))
+        muts.append((spot.formula.G(f), (Mutation.ADD_G, depth)))
 
     # Remove X from any X-subformula
     if f._is(spot.op_X) and f.size() == 1:
-        muts.append((f[0], Mutation.REMOVE_X))
+        muts.append((f[0], (Mutation.REMOVE_X, depth)))
 
     # Swap F/G/X
     if f._is(spot.op_F):
-        muts.append((spot.formula.G(f[0]), Mutation.SWAP_F_WITH_G))
-        muts.append((spot.formula.X(f[0]), Mutation.SWAP_F_WITH_X))
-        muts.append((f[0], Mutation.REMOVE_F))
+        muts.append((spot.formula.G(f[0]), (Mutation.SWAP_F_WITH_G, depth)))
+        muts.append((spot.formula.X(f[0]), (Mutation.SWAP_F_WITH_X, depth)))
+        muts.append((f[0], (Mutation.REMOVE_F, depth)))
 
     elif f._is(spot.op_G):
-        muts.append((spot.formula.F(f[0]), Mutation.SWAP_G_WITH_F))
-        muts.append((spot.formula.X(f[0]), Mutation.SWAP_G_WITH_X))
-        muts.append((f[0], Mutation.REMOVE_G))
+        muts.append((spot.formula.F(f[0]), (Mutation.SWAP_G_WITH_F, depth)))
+        muts.append((spot.formula.X(f[0]), (Mutation.SWAP_G_WITH_X, depth)))
+        muts.append((f[0], (Mutation.REMOVE_G, depth)))
 
     elif f._is(spot.op_X):
-        muts.append((spot.formula.F(f[0]), Mutation.SWAP_X_WITH_F))
-        muts.append((spot.formula.G(f[0]), Mutation.SWAP_X_WITH_G))
+        muts.append((spot.formula.F(f[0]), (Mutation.SWAP_X_WITH_F, depth)))
+        muts.append((spot.formula.G(f[0]), (Mutation.SWAP_X_WITH_G, depth)))
 
     # # U/W mutations
     # if f._is(spot.op_U):
@@ -194,20 +194,20 @@ def current_node_mutations(f):
 
 
 
-def generate_mutants_at_all_nodes(f):
+def generate_mutants_at_all_nodes(f, depth=1):
     """
     Generate formulas where exactly one mutation is applied somewhere in the AST.
 
     Yields:
         tuple[spot.formula, Mutation]
     """
-    for mutated, mutation_type in current_node_mutations(f):
+    for mutated, mutation_type in current_node_mutations(f, depth):
         yield mutated, mutation_type
 
     for i in range(children_count(f)):
         child = f[i]
 
-        for mutated_child, mutation_type in generate_mutants_at_all_nodes(child):
+        for mutated_child, mutation_type in generate_mutants_at_all_nodes(child, depth+1):
             yield replace_child(f, i, mutated_child), mutation_type
 
 

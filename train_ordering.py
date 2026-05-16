@@ -15,7 +15,7 @@ import csv
 
 def generate_traces(formula):
     traces = mutation_gradual(formula)
-    traces = [(trace, is_positive, str(mut)) for trace, is_positive, mut in traces]
+    traces = [(trace, is_positive, f'{str(mut[0])}_{mut[1]}_{is_positive}') for trace, is_positive, mut in traces]
     return traces
 
 
@@ -42,6 +42,30 @@ def smoothed_ratio(
     ) / (
         total + alpha_prior + beta_prior
     )
+
+
+# ==================================================
+# Reciprocal mutation utility
+# ==================================================
+
+def reciprocal_utility(labels, alpha=1.0):
+    """
+    labels[i] is 1 if the i-th trace is useful, else 0.
+    Traces are assumed to already be sorted shortest-first.
+
+    Utility:
+        sum_i y_i / i^alpha
+
+    With alpha=1:
+        y1 / 1 + y2 / 2 + y3 / 3 + ...
+    """
+    utility = 0.0
+
+    for i, y in enumerate(labels, start=1):
+        utility += y / (i ** alpha)
+
+    return utility
+
 
 
 # ==================================================
@@ -88,9 +112,9 @@ def build_training_data(
             # shortest traces first INSIDE mutation
             # --------------------------------------
 
-            # mutation_traces.sort(
-            #     key=lambda t: t.length
-            # )
+            mutation_traces.sort(
+                key=lambda t: trace_len(t[0])
+            )
 
 
             labels = [
@@ -101,12 +125,14 @@ def build_training_data(
             helpful_count = sum(labels)
             total_count = len(labels)
 
-            usefulness = smoothed_ratio(
-                helpful_count,
-                total_count,
-                alpha_prior=alpha_prior,
-                beta_prior=beta_prior,
-            )
+            # usefulness = smoothed_ratio(
+            #     helpful_count,
+            #     total_count,
+            #     alpha_prior=alpha_prior,
+            #     beta_prior=beta_prior,
+            # )
+
+            usefulness = reciprocal_utility(labels, alpha=1.0)
 
             row = {
                 "formula_id": formula_id,
@@ -216,6 +242,36 @@ def train_model(
     print(f"Validation RMSE: {rmse:.4f}")
 
     feature_columns = X.columns.tolist()
+
+
+    # --------------------------------------------------
+    # SAVE HELD-OUT TEST FORMULAS
+    # --------------------------------------------------
+
+    valid_formula_ids = sorted(
+        set(df.iloc[valid_idx]["formula_id"])
+    )
+
+    test_formulas_df = pd.DataFrame({
+        "Ground Truth": [
+            formulas[i][0]
+            for i in valid_formula_ids
+        ],
+        "Response": [
+            formulas[i][1]
+            for i in valid_formula_ids
+        ]
+    })
+
+    test_formulas_df.to_csv(
+        "heldout_test_formulas.csv",
+        index=False,
+    )
+
+    print(
+        f"Saved {len(test_formulas_df)} held-out formulas "
+        f"to heldout_test_formulas.csv"
+    )
 
     return model, feature_columns, df
 
@@ -398,7 +454,7 @@ def trace_ranking(formula):
         formula=formula,
         model=model,
         feature_columns=feature_columns,
-        diversification_alpha=0.2,
+        diversification_alpha=0.9,
     )
 
     return ranked_traces

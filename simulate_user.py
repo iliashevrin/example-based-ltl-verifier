@@ -22,8 +22,12 @@ DATASIZE = {
     "spacewire":39,
     "Dwyer":99,
 
+    "ALL_RL":702,
+
     "ConformalLTL":678,
     "Synthetic":1000,
+
+    "heldout": 399 # Approximation based on the full dataset
 }
 
 
@@ -137,23 +141,23 @@ if __name__ == "__main__":
         generation_method = traversal_random
     elif sys.argv[1] == "TRAVERSAL_BY_LENGTH":
         generation_method = traversal_by_length
-    elif sys.argv[1] == "TRAVERSAL_EXPERT":
-        generation_method = traversal_expert
-    elif sys.argv[1] == "MUTATION_RANDOM":
+    # elif sys.argv[1] == "TRAVERSAL_EXPERT":
+    #     generation_method = traversal_expert
+    elif sys.argv[1] == "RANDOM":
         generation_method = mutation_random
-    elif sys.argv[1] == "MUTATION_BY_LENGTH":
+    elif sys.argv[1] == "BY_LENGTH":
         generation_method = mutation_by_length
-    elif sys.argv[1] == "MUTATION_EXPERT":
-        generation_method = mutation_expert
+    # elif sys.argv[1] == "EXPERT":
+    #     generation_method = mutation_expert
     # elif sys.argv[1] == "MUTATION_INTERLEAVED":
     #     generation_method = mutation_interleaved
-    elif sys.argv[1] == "UNIFIED_RANDOM":
-        generation_method = unified_random
-    elif sys.argv[1] == "UNIFIED_BY_LENGTH":
-        generation_method = unified_by_length
-    elif sys.argv[1] == "UNIFIED_EXPERT":
-        generation_method = unified_expert
-    elif sys.argv[1] == "DYNAMIC_RANKING":
+    # elif sys.argv[1] == "UNIFIED_RANDOM":
+    #     generation_method = unified_random
+    # elif sys.argv[1] == "UNIFIED_BY_LENGTH":
+    #     generation_method = unified_by_length
+    # elif sys.argv[1] == "UNIFIED_EXPERT":
+    #     generation_method = unified_expert
+    elif sys.argv[1] == "DYNAMIC":
         generation_method = trace_ranking
 
     else:
@@ -188,57 +192,61 @@ if __name__ == "__main__":
         for row in reader:
             ground_truth = row["Ground Truth"]
             candidate = row["Response"]
-            total += 1
 
-            # if len(collect_aps(spot.formula(candidate))) <= 2:
-            #     continue
+            repeats = 1
+            if sys.argv[1] == "RANDOM":
+                repeats = 10
 
-            traces_seen, trace_length, props = simulate_user_iteration(candidate, ground_truth, generation_method)
+            for _ in range(0,repeats):
 
-            trace_lengths.append(trace_length)
+                total += 1
+                traces_seen, trace_length, props = simulate_user_iteration(candidate, ground_truth, generation_method)
 
-            # Incorrect candidate was successfully rejected, look at the props of the discriminating trace
-            if props is not None:
-                success += 1
-                seen_in_success.append(traces_seen)
+                trace_lengths.append(trace_length)
 
-                if traces_seen in success_map:
-                    success_map[traces_seen] += 1
+                # Incorrect candidate was successfully rejected, look at the props of the discriminating trace
+                if props is not None:
+                    success += 1
+                    seen_in_success.append(traces_seen)
+
+                    if traces_seen in success_map:
+                        success_map[traces_seen] += 1
+                    else:
+                        success_map[traces_seen] = 1
+
+                    if props not in props_map:
+                        props_map[props] = 1
+                    else:
+                        props_map[props] += 1
+
+                    if traces_seen > 5:
+                        undetected_under_5 += 1
+                    if traces_seen > 10:
+                        undetected_under_10 += 1
+
                 else:
-                    success_map[traces_seen] = 1
+                    seen_in_failure.append(traces_seen)
+                    print(f'Ground Truth: {ground_truth}; Candidate: {candidate}')
+                    # print(f'Vector of candidate: {ltl_structure_vector(candidate)}')
 
-                if props not in props_map:
-                    props_map[props] = 1
-                else:
-                    props_map[props] += 1
+                    # Missed detections
+                    rows.append(
+                        {
+                            "Ground Truth": ground_truth,
+                            "Candidate": candidate,
+                        }
+                    )
 
-                if traces_seen > 5:
                     undetected_under_5 += 1
-                if traces_seen > 10:
                     undetected_under_10 += 1
 
-            else:
-                seen_in_failure.append(traces_seen)
-                print(f'Ground Truth: {ground_truth}; Candidate: {candidate}')
-                # print(f'Vector of candidate: {ltl_structure_vector(candidate)}')
 
-                # Missed detections
-                rows.append(
-                    {
-                        "Ground Truth": ground_truth,
-                        "Candidate": candidate,
-                    }
-                )
-
-                undetected_under_5 += 1
-                undetected_under_10 += 1        
-
-    print(f'Total Formulas: {total}')
-    print(f'Total Detected: {success}')
+    print(f'Total Formulas: {total / repeats}')
+    print(f'Total Detected: {success / repeats}')
     print(f'Detection Ratio: {(success / total):.3f}')
 
-    print(f'Confidence score for n=5: {confidence(undetected_under_5, total, dataset):.3f}')
-    print(f'Confidence score for n=10: {confidence(undetected_under_10, total, dataset):.3f}')
+    print(f'Confidence score for n=5: {confidence(undetected_under_5 / repeats, total / repeats, dataset):.3f}')
+    print(f'Confidence score for n=10: {confidence(undetected_under_10 / repeats, total / repeats, dataset):.3f}')
 
     print(f'Inspected Traces Until Detection: {stats(seen_in_success)}')
     print(f'Inspected Traces When No Detection: {stats(seen_in_failure)}')
