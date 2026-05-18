@@ -13,6 +13,7 @@ import csv
 import random
 import statistics
 import joblib
+import numpy as np
 
 
 DATASIZE = {
@@ -102,7 +103,19 @@ def stats(data):
     max_val = max(data)                  # Built-in max function
     min_val = min(data)                  # Built-in min function
 
-    return f"Avg: {avg_val:.3f}, Median: {med_val:.2f}, Std: {std_val:.2f}, Max: {max_val:.2f}, Min: {min_val:.2f}"
+    # Percentiles
+    p75 = np.percentile(data, 75)
+    p90 = np.percentile(data, 90)
+
+    return (
+        f"Avg: {avg_val:.3f}, "
+        f"Median: {med_val:.2f}, "
+        f"Std: {std_val:.2f}, "
+        f"P75: {p75:.2f}, "
+        f"P90: {p90:.2f}, "
+        f"Max: {max_val:.2f}, "
+        f"Min: {min_val:.2f}"
+    )
 
 
 
@@ -155,8 +168,11 @@ if __name__ == "__main__":
 
     success_map = {}
 
-    undetected_under_5 = 0
-    undetected_under_10 = 0
+    undetected_5_or_under = 0
+    undetected_10_or_under = 0
+
+    detected_over_5 = 0
+    detected_over_10 = 0
 
     dataset = None
     for key in DATASIZE.keys():
@@ -200,14 +216,15 @@ if __name__ == "__main__":
                         props_map[props] += 1
 
                     if traces_seen > 5:
-                        undetected_under_5 += 1
+                        undetected_5_or_under += 1
+                        detected_over_5 += 1
                     if traces_seen > 10:
-                        undetected_under_10 += 1
+                        undetected_10_or_under += 1
+                        detected_over_10 += 1
 
                 else:
                     seen_in_failure.append(traces_seen)
-                    print(f'Ground Truth: {ground_truth}; Candidate: {candidate}')
-                    # print(f'Vector of candidate: {ltl_structure_vector(candidate)}')
+                    # print(f'Ground Truth: {ground_truth}; Candidate: {candidate}')
 
                     # Missed detections
                     rows.append(
@@ -217,19 +234,22 @@ if __name__ == "__main__":
                         }
                     )
 
-                    undetected_under_5 += 1
-                    undetected_under_10 += 1
+                    undetected_5_or_under += 1
+                    undetected_10_or_under += 1
 
 
     print(f'Total Formulas: {total / repeats}')
     print(f'Total Detected: {success / repeats}')
-    print(f'Detection Ratio: {(success / total):.3f}')
+    print(f'Detected Ratio: {(success / total):.3f}')
 
-    print(f'Confidence score for n=5: {confidence(undetected_under_5 / repeats, total / repeats, dataset):.3f}')
-    print(f'Confidence score for n=10: {confidence(undetected_under_10 / repeats, total / repeats, dataset):.3f}')
+    print(f'Undetected <=5 Ratio: {(undetected_5_or_under / total):.3f} (Undetected Ratio: {1 - (success / total):.3f} + Detected >5 Ratio: {(detected_over_5 / total):.3f})')
+    print(f'Undetected <=10 Ratio: {(undetected_10_or_under / total):.3f} (Undetected Ratio: {1 - (success / total):.3f} + Detected >10 Ratio: {(detected_over_10 / total):.3f})')
 
-    print(f'Inspected Traces Until Detection: {stats(seen_in_success)}')
-    print(f'Inspected Traces When No Detection: {stats(seen_in_failure)}')
+    print(f'Confidence score for n=5: {confidence(undetected_5_or_under / repeats, total / repeats, dataset):.3f}')
+    print(f'Confidence score for n=10: {confidence(undetected_10_or_under / repeats, total / repeats, dataset):.3f}')
+
+    print(f'Trace Numbers: {stats(seen_in_success)}')
+    # print(f'Inspected Traces When No Detection: {stats(seen_in_failure)}')
 
     print(f'Trace Lengths: {stats(trace_lengths)}')
 
