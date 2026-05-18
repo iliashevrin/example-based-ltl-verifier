@@ -15,7 +15,7 @@ import csv
 
 def generate_traces(formula):
     traces = mutation_gradual(formula)
-    traces = [(trace, is_positive, f'{str(mut[0])}_{mut[1]}_{is_positive}') for trace, is_positive, mut in traces]
+    traces = [(trace, acceptance, f'{str(mut[0])}_{mut[1]}_{acceptance}') for trace, acceptance, mut in traces]
     return traces
 
 
@@ -125,14 +125,14 @@ def build_training_data(
             helpful_count = sum(labels)
             total_count = len(labels)
 
-            # usefulness = smoothed_ratio(
-            #     helpful_count,
-            #     total_count,
-            #     alpha_prior=alpha_prior,
-            #     beta_prior=beta_prior,
-            # )
+            usefulness = smoothed_ratio(
+                helpful_count,
+                total_count,
+                alpha_prior=alpha_prior,
+                beta_prior=beta_prior,
+            )
 
-            usefulness = reciprocal_utility(labels, alpha=1.0)
+            # usefulness = reciprocal_utility(labels, alpha=1.0)
 
             row = {
                 "formula_id": formula_id,

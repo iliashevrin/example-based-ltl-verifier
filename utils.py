@@ -51,15 +51,12 @@ def build_word(conditions, index):
 
 
 
-def simulate_user(ground_truth, trace, is_positive):
+def simulate_user(ground_truth, trace, candidate_acceptance):
 
-    acceptance = check_acceptance(spot.translate(ground_truth), trace)
+    gt_acceptance = check_acceptance(spot.translate(ground_truth), trace)
 
     # User rejects candidate based on trace
-    if acceptance is None or (acceptance == False and is_positive) or (acceptance == True and not is_positive):
-        return True
-
-    return False
+    return gt_acceptance != candidate_acceptance
 
 
 

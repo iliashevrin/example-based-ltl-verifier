@@ -65,36 +65,16 @@ def simulate_user_iteration(candidate, ground_truth, method):
 
     distinguish_props = None
 
-    for trace, is_positive, props in traces:
+    for trace, candidate_acceptance, props in traces:
 
         traces_seen += 1
         trace_length += (trace.count(";") + 1)
 
-        user_accepts = check_acceptance(spot.translate(ground_truth), trace)
+        gt_acceptance = check_acceptance(spot.translate(ground_truth), trace)
 
-        if user_accepts is None:
-            # print(f'{trace} inconclusive, the candidate is not the desired one')
+        if gt_acceptance != candidate_acceptance:
             distinguish_props = props
             break
-
-        elif user_accepts == False and is_positive:
-            # print(f'{trace} rejected, the candidate is not the desired one')
-            distinguish_props = props
-            break
-
-        elif user_accepts == True and not is_positive:
-            # print(f'{trace} accepted, the candidate is not the desired one')
-            distinguish_props = props
-            break
-
-        elif user_accepts == False and not is_positive:
-            # print(f'{trace} rejected, keep going')
-            continue
-
-        elif user_accepts == True and is_positive:
-            # print(f'{trace} accepted, keep going')
-            continue
-
 
 
     return traces_seen, trace_length/traces_seen, distinguish_props
@@ -258,12 +238,12 @@ if __name__ == "__main__":
         print(f'{str(prop)}:{props_map[prop]}')
 
 
-    cummulative = 0
-    for i in range(1,max(success_map.keys())):
-        if i not in success_map:
-            continue
-        cummulative += success_map[i]
-        print(f'{str(i)}:{(cummulative / success):.3f}')
+    # cummulative = 0
+    # for i in range(1,max(success_map.keys())):
+    #     if i not in success_map:
+    #         continue
+    #     cummulative += success_map[i]
+    #     print(f'{str(i)}:{(cummulative / success):.3f}')
 
 
 
