@@ -13,15 +13,15 @@ import itertools
 
 
 class Mutation(str, Enum):
-    SWAP_F_WITH_G = "SWAP_F_WITH_G"
-    SWAP_F_WITH_X = "SWAP_F_WITH_X"
-    SWAP_G_WITH_F = "SWAP_G_WITH_F"
-    SWAP_G_WITH_X = "SWAP_G_WITH_X"
-    SWAP_X_WITH_F = "SWAP_X_WITH_F"
-    SWAP_X_WITH_G = "SWAP_X_WITH_G"
+    # SWAP_F_WITH_G = "SWAP_F_WITH_G"
+    # SWAP_F_WITH_X = "SWAP_F_WITH_X"
+    # SWAP_G_WITH_F = "SWAP_G_WITH_F"
+    # SWAP_G_WITH_X = "SWAP_G_WITH_X"
+    # SWAP_X_WITH_F = "SWAP_X_WITH_F"
+    # SWAP_X_WITH_G = "SWAP_X_WITH_G"
 
-    REMOVE_F = "REMOVE_F"
-    REMOVE_G = "REMOVE_G"
+    # REMOVE_F = "REMOVE_F"
+    # REMOVE_G = "REMOVE_G"
 
     # SWAP_U_WITH_W = "SWAP_U_WITH_W"
     # SWAP_W_WITH_U = "SWAP_W_WITH_U"
@@ -29,10 +29,10 @@ class Mutation(str, Enum):
     # SWAP_W_OPERANDS = "SWAP_W_OPERANDS"
 
     ADD_NEGATION = "ADD_NEGATION"
-    REMOVE_NEGATION = "REMOVE_NEGATION"
+    # REMOVE_NEGATION = "REMOVE_NEGATION"
 
     ADD_X = "ADD_X"
-    REMOVE_X = "REMOVE_X"
+    # REMOVE_X = "REMOVE_X"
 
     ADD_F = "ADD_F"
     ADD_G = "ADD_G"
@@ -43,25 +43,25 @@ class Mutation(str, Enum):
     # SWAP_IMPLIES_WITH_EQUIV = "SWAP_IMPLIES_WITH_EQUIV"
     # SWAP_EQUIV_WITH_IMPLIES = "SWAP_EQUIV_WITH_IMPLIES"
 
-    # SWAP_APS = "SWAP_APS"
+    SWAP_APS = "SWAP_APS"
 
 
-EXPERT_ORDER = [
-    Mutation.REMOVE_X,
-    Mutation.REMOVE_G,
-    Mutation.REMOVE_F,
-    Mutation.SWAP_X_WITH_G,
-    Mutation.SWAP_X_WITH_F,
-    Mutation.SWAP_F_WITH_G,
-    Mutation.SWAP_F_WITH_X,
-    Mutation.SWAP_G_WITH_F,
-    Mutation.SWAP_G_WITH_X,
-    Mutation.REMOVE_NEGATION,
-    Mutation.ADD_G,
-    Mutation.ADD_F,
-    Mutation.ADD_X,
-    Mutation.ADD_NEGATION,
-]
+# EXPERT_ORDER = [
+#     Mutation.REMOVE_X,
+#     Mutation.REMOVE_G,
+#     Mutation.REMOVE_F,
+#     Mutation.SWAP_X_WITH_G,
+#     Mutation.SWAP_X_WITH_F,
+#     Mutation.SWAP_F_WITH_G,
+#     Mutation.SWAP_F_WITH_X,
+#     Mutation.SWAP_G_WITH_F,
+#     Mutation.SWAP_G_WITH_X,
+#     Mutation.REMOVE_NEGATION,
+#     Mutation.ADD_G,
+#     Mutation.ADD_F,
+#     Mutation.ADD_X,
+#     Mutation.ADD_NEGATION,
+# ]
 
 
 def ap_formula(name: str):
@@ -123,9 +123,9 @@ def current_node_mutations(f, depth):
     if not f._is(spot.op_Not):
         muts.append((spot.formula.Not(f), (Mutation.ADD_NEGATION, depth)))
 
-    # Remove negation from any negated subformula
-    if f._is(spot.op_Not) and f.size() == 1:
-        muts.append((f[0], (Mutation.REMOVE_NEGATION, depth)))
+    # # Remove negation from any negated subformula
+    # if f._is(spot.op_Not) and f.size() == 1:
+    #     muts.append((f[0], (Mutation.REMOVE_NEGATION, depth)))
 
     # Add X to any subformula
     muts.append((spot.formula.X(f), (Mutation.ADD_X, depth)))
@@ -138,40 +138,40 @@ def current_node_mutations(f, depth):
     if not f._is(spot.op_G):
         muts.append((spot.formula.G(f), (Mutation.ADD_G, depth)))
 
-    # Remove X from any X-subformula
-    if f._is(spot.op_X) and f.size() == 1:
-        muts.append((f[0], (Mutation.REMOVE_X, depth)))
+    # # Remove X from any X-subformula
+    # if f._is(spot.op_X) and f.size() == 1:
+    #     muts.append((f[0], (Mutation.REMOVE_X, depth)))
 
-    # Swap F/G/X
-    if f._is(spot.op_F):
-        muts.append((spot.formula.G(f[0]), (Mutation.SWAP_F_WITH_G, depth)))
-        muts.append((spot.formula.X(f[0]), (Mutation.SWAP_F_WITH_X, depth)))
-        muts.append((f[0], (Mutation.REMOVE_F, depth)))
+    # # Swap F/G/X
+    # if f._is(spot.op_F):
+    #     muts.append((spot.formula.G(f[0]), (Mutation.SWAP_F_WITH_G, depth)))
+    #     muts.append((spot.formula.X(f[0]), (Mutation.SWAP_F_WITH_X, depth)))
+    #     muts.append((f[0], (Mutation.REMOVE_F, depth)))
 
-    elif f._is(spot.op_G):
-        muts.append((spot.formula.F(f[0]), (Mutation.SWAP_G_WITH_F, depth)))
-        muts.append((spot.formula.X(f[0]), (Mutation.SWAP_G_WITH_X, depth)))
-        muts.append((f[0], (Mutation.REMOVE_G, depth)))
+    # if f._is(spot.op_G):
+    #     muts.append((spot.formula.F(f[0]), (Mutation.SWAP_G_WITH_F, depth)))
+    #     muts.append((spot.formula.X(f[0]), (Mutation.SWAP_G_WITH_X, depth)))
+    #     muts.append((f[0], (Mutation.REMOVE_G, depth)))
 
-    elif f._is(spot.op_X):
-        muts.append((spot.formula.F(f[0]), (Mutation.SWAP_X_WITH_F, depth)))
-        muts.append((spot.formula.G(f[0]), (Mutation.SWAP_X_WITH_G, depth)))
+    # elif f._is(spot.op_X):
+    #     muts.append((spot.formula.F(f[0]), (Mutation.SWAP_X_WITH_F, depth)))
+    #     muts.append((spot.formula.G(f[0]), (Mutation.SWAP_X_WITH_G, depth)))
 
     # # U/W mutations
     # if f._is(spot.op_U):
-    #     muts.append((spot.formula.W(f[0], f[1]), Mutation.SWAP_U_WITH_W))
-    #     muts.append((spot.formula.U(f[1], f[0]), Mutation.SWAP_U_OPERANDS))
+    #     muts.append((spot.formula.W(f[0], f[1]), (Mutation.SWAP_U_WITH_W, depth)))
+    #     muts.append((spot.formula.U(f[1], f[0]), (Mutation.SWAP_U_OPERANDS, depth)))
 
     # elif f._is(spot.op_W):
-    #     muts.append((spot.formula.U(f[0], f[1]), Mutation.SWAP_W_WITH_U))
-    #     muts.append((spot.formula.W(f[1], f[0]), Mutation.SWAP_W_OPERANDS))
+    #     muts.append((spot.formula.U(f[0], f[1]), (Mutation.SWAP_W_WITH_U, depth)))
+    #     muts.append((spot.formula.W(f[1], f[0]), (Mutation.SWAP_W_OPERANDS, depth)))
 
     # # Boolean mutations
     # if f._is(spot.op_And):
     #     muts.append(
     #         (
     #             spot.formula.Or([f[i] for i in range(children_count(f))]),
-    #             Mutation.SWAP_AND_WITH_OR,
+    #             (Mutation.SWAP_AND_WITH_OR, depth),
     #         )
     #     )
 
@@ -179,16 +179,16 @@ def current_node_mutations(f, depth):
     #     muts.append(
     #         (
     #             spot.formula.And([f[i] for i in range(children_count(f))]),
-    #             Mutation.SWAP_OR_WITH_AND,
+    #             (Mutation.SWAP_OR_WITH_AND, depth),
     #         )
     #     )
 
     # # Implication / equivalence mutations
     # if f._is(spot.op_Implies):
-    #     muts.append((spot.formula.Equiv(f[0], f[1]), Mutation.SWAP_IMPLIES_WITH_EQUIV))
+    #     muts.append((spot.formula.Equiv(f[0], f[1]), (Mutation.SWAP_IMPLIES_WITH_EQUIV, depth)))
 
     # elif f._is(spot.op_Equiv):
-    #     muts.append((spot.formula.Implies(f[0], f[1]), Mutation.SWAP_EQUIV_WITH_IMPLIES))
+    #     muts.append((spot.formula.Implies(f[0], f[1]), (Mutation.SWAP_EQUIV_WITH_IMPLIES, depth)))
 
     return muts
 
@@ -227,18 +227,18 @@ def mutate_ltl_formula(formula_str):
     seen = set()
 
 
-    # # AP swap/cycle mutation, applied once globally
-    # aps = collect_aps(original)
-    # swap_map = build_ap_swap_map(aps)
+    # AP swap/cycle mutation, applied once globally
+    aps = collect_aps(original)
+    swap_map = build_ap_swap_map(aps)
 
-    # if swap_map:
-    #     ap_swapped = apply_ap_swap(original, swap_map)
-    #     ap_swapped_str = str(ap_swapped)
+    if swap_map:
+        ap_swapped = apply_ap_swap(original, swap_map)
+        ap_swapped_str = str(ap_swapped)
 
-    #     if ap_swapped_str != original_str:
-    #         key = (ap_swapped_str, Mutation.SWAP_APS)
-    #         seen.add(key)
-    #         mutants.append((ap_swapped_str, Mutation.SWAP_APS))
+        if ap_swapped_str != original_str:
+            key = (ap_swapped_str, Mutation.SWAP_APS)
+            seen.add(key)
+            mutants.append((ap_swapped_str, (Mutation.SWAP_APS, 0)))
             
 
     for mutant, mutation_type in generate_mutants_at_all_nodes(original):
