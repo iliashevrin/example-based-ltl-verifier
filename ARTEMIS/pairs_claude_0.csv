@@ -1,0 +1,8 @@
+Ground Truth,Response
+!limits U (limits & G(!standby & supported & !apfail -> X(pullup))),G((limits & !standby & supported & !apfail) -> G(pullup))
+G(standby -> F(state_is_STANDBY)),G(standby -> X(state_is_STANDBY))
+G(!good -> X(state_is_MANEUVER)),G(!good -> F(state_is_MANEUVER))
+G(standby & good -> F(state_is_STANDBY)),G((standby & good) -> X(state_is_STANDBY))
+G(supported & good -> X(state_is_TRANSITION)),G((supported & good) -> F(state_is_TRANSITION))
+G(!standby -> X(state_is_TRANSITION)),G(standby -> X(!standby -> state_is_TRANSITION))
+!apfail U (apfail & X(state_is_MANEUVER)),G(apfail -> F(state_is_MANEUVER))

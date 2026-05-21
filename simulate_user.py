@@ -18,12 +18,12 @@ import numpy as np
 
 DATASIZE = {
     
-    "syntaxiseasy":428, # 446 but de-duplicated 18 items
-    "ARTEMIS":136,
-    "spacewire":39,
-    "Dwyer":99,
+    "textbook":422, # 446 but de-duplicated 15 items, and 9 syntax errors
+    "ARTEMIS":126, # 1/1 + 3/4 + 2/9 + 15/113 = 21/127 but de-duplicated 1 item
+    "spacewire":34,
+    "Dwyer":101,
 
-    "ALL_RL":702,
+    "ALL_RL":683, # 398/683
 
     "ConformalLTL":678,
     "Synthetic":1000,

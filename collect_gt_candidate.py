@@ -58,10 +58,10 @@ The Outputs consist of:
 1. output_LTL
     
 Provide a list of the top 1 most likely translations (ordered by most likely first to least likely last) in the above output format for the following:
-{
-    'input_natural_language':{requirement},
-    'atomic_propositions':{atomic_proposition}
-}
+
+input_natural_language:{requirement}
+atomic_propositions:{atomic_proposition}
+
 """
 
 ADARULE = """
@@ -121,10 +121,10 @@ def normalize_formula(text: str) -> str:
     return lines[0] if lines else ""
 
 
-def ask_chatgpt(client: OpenAI, model: str, prompt: str, requirement: str, atomic_proposition: str) -> str:
+def ask_chatgpt(client: OpenAI, prompt: str, requirement: str, atomic_proposition: str) -> str:
 
     response = client.chat.completions.create(
-        model=model,
+        model="gpt-5.4-mini",
         temperature=0,
         messages=[
             {
@@ -178,14 +178,15 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="Collect GT-candidate pairs"
     )
-    parser.add_argument("input", help="Input CSV file") 
-    parser.add_argument(
-        "--model",
-        default="gpt-5.4-mini"
-    )
+    parser.add_argument("input") 
+    parser.add_argument("--batch") 
     parser.add_argument(
         "--prompt",
         default="BASIC"
+    )
+    parser.add_argument(
+        "--llm",
+        default="gpt"
     )
 
     args = parser.parse_args()
@@ -201,25 +202,29 @@ def main() -> None:
 
     rows = []
 
+    seen = set()
+
     df = pd.read_csv(args.input, sep=';')
 
     for _, row in df.iterrows():
-        requirement = str(row.iloc[0])
-        ground_truth = str(row.iloc[1]).strip()
-        atomic_proposition = str(row.iloc[2]).strip()
 
-        dataset.append((requirement, ground_truth, atomic_proposition))
+        if row["batch_id"] == int(args.batch):
+            requirement = str(row["original NL"])
+            ground_truth = str(row["original LTL"]).strip()
+            atomic_proposition = str(row["APs"]).strip()
+
+            dataset.append((requirement, ground_truth, atomic_proposition))
 
     for requirement, ground_truth, atomic_proposition in dataset:
 
         # TODO
-        if args.model == "gpt-5.4-mini":
+        if args.llm == "gpt":
             client = OpenAI()
-            model_response = ask_chatgpt(client, args.model, args.prompt, requirement, atomic_proposition)
-        elif args.model == "qwen":
-            model_response = ask_chatgpt(client, args.model, args.prompt, requirement, atomic_proposition)
-        elif args.model == "codellama":
-            model_response = ask_chatgpt(client, args.model, args.prompt, requirement, atomic_proposition)
+            model_response = ask_chatgpt(client, args.prompt, requirement, atomic_proposition)
+        elif args.llm == "qwen":
+            model_response = ask_chatgpt(client, args.prompt, requirement, atomic_proposition)
+        elif args.llm == "gemma":
+            model_response = ask_chatgpt(client, args.prompt, requirement, atomic_proposition)
 
         equivalent = semantically_equivalent(ground_truth, model_response)
 
@@ -234,18 +239,27 @@ def main() -> None:
         if equivalent is None:
             syntax_errors += 1
         else:
-            total += 1
-            correct += int(equivalent)
+            pair = (ground_truth, model_response)
+            if pair not in seen:
 
-            if not equivalent:
-                rows.append(
-                    {
-                        "Ground Truth": ground_truth,
-                        "Response": model_response,
-                    }
-                )
+                total += 1
+                seen.add(pair)
 
-    with open(f"data_{args.model}_{args.prompt}.csv", "w", newline="", encoding="utf-8") as f:
+                if equivalent == False:
+                    rows.append(
+                        {
+                            "Ground Truth": ground_truth,
+                            "Response": model_response,
+                        }
+                    )
+
+                else:
+                    correct += 1
+
+
+
+
+    with open(f"data_{args.llm}_{args.prompt}.csv", "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(
             f,
             fieldnames=["Ground Truth", "Response"],

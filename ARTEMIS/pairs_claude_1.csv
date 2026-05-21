@@ -1,0 +1,2 @@
+Ground Truth,Response
+!limits U (limits & X(state_is_FAULT)),G(limits -> F(state_is_FAULT))

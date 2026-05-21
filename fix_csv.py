@@ -120,10 +120,10 @@ def process_csv(input_file: str, output_file: str):
             row[1] = add_spacing(row[1])
             row[1] = replace_hyphens(row[1])
 
-        # Process column 3 (index 2)
-        if len(row) > 2:
-            row[2] = transform_quotes(row[2])
-            row[2] = replace_hyphens(row[2])
+        # Process column 4 (index 3)
+        if len(row) > 3:
+            row[3] = transform_quotes(row[3])
+            row[3] = replace_hyphens(row[3])
 
 
         processed_rows.append(row)

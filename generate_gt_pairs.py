@@ -11,6 +11,8 @@ import random
 import pandas as pd
 
 from openai import OpenAI
+from google import genai
+import anthropic
 
 sys.path.insert(0,'/usr/local/lib/python3.10/site-packages/')
 import spot
@@ -20,6 +22,8 @@ import config
 import json
 
 os.environ['OPENAI_API_KEY'] = config.OPENAI_API_KEY
+os.environ["GEMINI_API_KEY"] = config.GEMINI_API_KEY
+os.environ["ANTHROPIC_API_KEY"] = config.ANTHROPIC_API_KEY
 
 from utils import collect_aps
 
@@ -66,9 +70,58 @@ def normalize_formula(text: str) -> str:
     return lines[0] if lines else ""
 
 
-def ask_chatgpt(client: OpenAI, model: str, requirement: str, atomic_proposition: str) -> str:
+
+def ask_claude(
+    client: str,
+    requirement: str,
+    atomic_proposition: str,
+) -> str:
+
+    prompt = PROMPT.format(
+        requirement=requirement,
+        atomic_proposition=atomic_proposition,
+    )
+
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=128,
+        temperature=0,
+        messages=[
+            {
+                "role": "user",
+                "content": prompt,
+            }
+        ],
+    )
+
+    text = response.content[0].text
+
+    return normalize_formula(text)
+
+
+
+def ask_gemini(
+    client: genai.Client,
+    requirement: str,
+    atomic_proposition: str,
+) -> str:
+
+    prompt = PROMPT.format(
+        requirement=requirement,
+        atomic_proposition=atomic_proposition,
+    )
+
+    response = client.models.generate_content(
+        model="gemini-2.5-flash",
+        contents=prompt,
+    )
+
+    return normalize_formula(response.text or "")
+
+
+def ask_chatgpt(client: OpenAI, requirement: str, atomic_proposition: str) -> str:
     response = client.chat.completions.create(
-        model=model,
+        model="gpt-5.4-mini",
         temperature=0,
         messages=[
             {
@@ -135,23 +188,25 @@ def main() -> None:
     )
     parser.add_argument("input", help="Input file")
     parser.add_argument("output_csv", help="Output CSV file")
-    parser.add_argument(
-        "--model",
-        default="gpt-5.4-mini",
-        help="OpenAI model to use, default: gpt-5.4-mini",
-    )
+    # parser.add_argument(
+    #     "--model",
+    #     default="gpt-5.4-mini",
+    #     help="OpenAI model to use, default: gpt-5.4-mini",
+    # )
 
     args = parser.parse_args()
 
-    if not os.getenv("OPENAI_API_KEY"):
-        raise RuntimeError("OPENAI_API_KEY environment variable is not set.")
+    # if not os.getenv("OPENAI_API_KEY"):
+    #     raise RuntimeError("OPENAI_API_KEY environment variable is not set.")
+    if not os.getenv("ANTHROPIC_API_KEY"):
+        raise RuntimeError("ANTHROPIC_API_KEY environment variable is not set.")
 
     dataset = []
     parse_errors = 0
 
 
-    if args.input.endswith("txt"):
 
+    if args.input.endswith("txt"):
 
 
 
@@ -596,7 +651,7 @@ def main() -> None:
             dataset.append((requirement, ground_truth, atomic_proposition))
 
 
-    elif args.input == "spacewire.json":
+    elif "spacewire.json" in args.input:
 
         with open(args.input, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -688,17 +743,30 @@ def main() -> None:
             dataset.append((requirement, ground_truth, atomic_proposition))
                        
 
-    client = OpenAI()
+    # client = OpenAI()
+
+    # client = genai.Client(
+    #     api_key=os.environ["GEMINI_API_KEY"]
+    # )
+
+    client = anthropic.Anthropic(
+        api_key=os.environ["ANTHROPIC_API_KEY"]
+    )
 
     rows = []
     correct = 0
     total = 0
     syntax_errors = 0
 
+    seen = set()
+
 
     for requirement, ground_truth, atomic_proposition in dataset:
 
-        model_response = ask_chatgpt(client, args.model, requirement, atomic_proposition)
+        # model_response = ask_chatgpt(client, requirement, atomic_proposition)
+        # model_response = ask_gemini(client, requirement, atomic_proposition)
+        model_response = ask_claude(client, requirement, atomic_proposition)
+        
 
         # Spot validation timeout
         if ground_truth == (
@@ -721,16 +789,22 @@ def main() -> None:
         if equivalent is None:
             syntax_errors += 1
         else:
-            total += 1
-            correct += int(equivalent)
+            pair = (ground_truth, model_response)
+            if pair not in seen:
 
-        if not equivalent:
-            rows.append(
-                {
-                    "Ground Truth": ground_truth,
-                    "Response": model_response,
-                }
-            )
+                total += 1
+                seen.add(pair)
+
+                if equivalent == False:
+                    rows.append(
+                        {
+                            "Ground Truth": ground_truth,
+                            "Response": model_response,
+                        }
+                    )
+
+                else:
+                    correct += 1
 
     with open(args.output_csv, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(
