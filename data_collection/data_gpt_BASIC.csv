@@ -1,103 +1,101 @@
 Ground Truth,Response
-"( F ""get_help"" ) -> ( ! ""get_help"" U ( avoid_impending_gas_leak & ! ""get_help"" ) )",F get_help -> F avoid_impending_gas_leak
+( F get_help ) -> ( ! get_help U ( avoid_impending_gas_leak & ! get_help ) ),F get_help -> F avoid_impending_gas_leak
 ( prop_1 | F prop_2 ),prop_1 | G prop_2
 F ( prop_1 & F prop_2 ),G(prop_1) & G(prop_2)
-[]<>(house_2&&p_trash_can_4),G(F(house_2 & F(p_trash_can_4)))
 G ( ( prop_1 | prop_3 ) -> G ( F prop_2 ) ),G((prop_1 | prop_3) -> (!prop_2 U prop_2))
 F ( gather_pear ) -> F ( make_your_way_flag ),G(gather_pear -> F(make_your_way_flag))
-G(( elevator_falls | motorbike_catches_fire ) -> F( brake_is_pressed & escalator_moves )),F((brake_is_pressed & escalator_moves) U (elevator_falls | motorbike_catches_fire))
+G(( elevator_falls | motorbike_catches_fire ) -> F( brake_is_pressed & escalator_moves )),F((brake_is_pressed & escalator_moves) & (elevator_falls | motorbike_catches_fire))
 F ( prop_1 | G ( F prop_2 ) ),F(prop_1) | G(prop_2)
-"F ( ""office_3"" & F ( ""p_document_1"" & F ( ""street_2"" & G ""street_2"" ) ) )",F(office_3 & X(p_document_1 & X G street_2))
-G(( car_enters & train_is_crossing ) -> F( train_has_arrived )),(car_enters & train_is_crossing) -> F train_has_arrived
-G(( constructor_instantiate_objects ) -> G(( elevator_is_open ) -> F( elevator_is_blocked ))),constructor_instantiate_objects -> (elevator_is_open -> F elevator_is_blocked)
-"F ( ( ""red_room"" | ""blue_room"" ) & F ""green_room"" )",green_room & (red_room | blue_room)
+F ( office_3 & F ( p_document_1 & F ( street_2 & G street_2 ) ) ),F(office_3 & X(street_2 & G street_2))
+G(( car_enters & train_is_crossing ) -> F( train_has_arrived )),F(train_has_arrived & (car_enters & train_is_crossing))
+G(( constructor_instantiate_objects ) -> G(( elevator_is_open ) -> F( elevator_is_blocked ))),G(constructor_instantiate_objects -> (elevator_is_open -> F(elevator_is_blocked)))
+F ( ( red_room | blue_room ) & F green_room ),green_room & (red_room | blue_room)
 ( ( ( prop_4 -> prop_1 ) <-> prop_2 ) & prop_3 ),(prop_4 -> prop_1) & prop_2 & prop_3
 ( prop_1 -> F prop_2 ),G(prop_1 -> G(prop_2))
 F ( stop_by_trash_can ) & F ( go_to_home ),F stop_by_trash_can & G go_to_home
 ( F ( prop_1 <-> prop_3 ) <-> prop_2 ),G((prop_1 <-> prop_3) & (prop_2 <-> prop_3))
 G ( prop_1 & F prop_2 ),G(prop_1) & G(prop_2)
-"F ( ""landmark_9"" & ""photo"" & G ""landmark_9"" )",F(landmark_9 & photo) & G(landmark_9)
-"F ( ""street_4"" & F ( ""p_traffic_cone_5"" & F ( ""intersection_6"" & ""pd"" ) ) )",p_traffic_cone_5 & F intersection_6
-"G ( ""get_help"" -> X G ! deliver_aid_injured_victim )",G(get_help -> G(!deliver_aid_injured_victim))
-"F ( ""table_4"" & F ( ""p_tin_can_4"" & F ( ""trash_can_5"" & ""pd"" ) ) ) & G ! ""hallway_2""",pd & table_4 & p_tin_can_4 & trash_can_5 & !hallway_2
+F ( landmark_9 & photo & G landmark_9 ),F(landmark_9 & photo) & G(landmark_9)
+F ( street_4 & F ( p_traffic_cone_5 & F ( intersection_6 & pd ) ) ),p_traffic_cone_5 & F intersection_6
+G ( get_help -> X G ! deliver_aid_injured_victim ),G(get_help -> G(!deliver_aid_injured_victim))
+F ( table_4 & F ( p_tin_can_4 & F ( trash_can_5 & pd ) ) ) & G ! hallway_2,pd & table_4 & p_tin_can_4 & trash_can_5 & !hallway_2
 G ( ! ( let_go_orange ) ) & hold_pear,G(!(let_go_orange) & hold_pear)
 F ( prop_1 U prop_2 ),prop_1 U prop_2
 F ( prop_1 | G ( F prop_2 ) ),G(prop_1 | G(prop_2))
 ( F prop_1 -> prop_2 ),G(prop_1 -> prop_2)
 G ( ! ( drop_apple ) ) & secure_apple,G(!(drop_apple) & secure_apple)
-( F deliver_aid_injured_victim ) -> ( ! deliver_aid_injured_victim U ( avoid_probable_fire_source & ! deliver_aid_injured_victim ) ),F deliver_aid_injured_victim -> F avoid_probable_fire_source
+( F deliver_aid_injured_victim ) -> ( ! deliver_aid_injured_victim U ( avoid_probable_fire_source & ! deliver_aid_injured_victim ) ),F deliver_aid_injured_victim -> !avoid_probable_fire_source
 G ( ( prop_1 | prop_2 ) -> F prop_3 ),(prop_1 | prop_2) -> F prop_3
 G(( semaphore_is_red ) -> G(( bar_has_to_be_repaired ) -> F( escalator_moves ))),G(semaphore_is_red -> (bar_has_to_be_repaired -> F(escalator_moves)))
 G(( bridge_closes | car_starts ) -> F( elevator_falls | train_stops )),F((elevator_falls | train_stops) & (bridge_closes | car_starts))
-"! ""office_4"" U ""p_pass_6"" & F ( ""house_5"" & F ( ""p_pass_6"" & F ( ""office_4"" & ""pd"" ) ) )",(!office_4 U pd) & F(house_5 & p_pass_6 & F office_4)
+! office_4 U p_pass_6 & F ( house_5 & F ( p_pass_6 & F ( office_4 & pd ) ) ),(!office_4 U pd) & F(house_5 & p_pass_6 & F office_4)
 G ( F ( go_to_waste_basket ) ) | F ( touch_tree ),G(F(go_to_waste_basket) | touch_tree)
 ( ( prop_1 U prop_3 ) -> ( prop_2 -> prop_4 ) ),G(((prop_1 & !prop_3) U prop_3) -> (prop_2 -> F prop_4))
 ( prop_1 & ! ( F prop_2 ) ),prop_1 & !prop_2
 F ( capture_pear ) U venture_to_trash_can,capture_pear U venture_to_trash_can
-"G ( communicate_injured_victim -> ( ""get_help"" | X ""get_help"" ) )",communicate_injured_victim -> (get_help | X get_help)
+G ( communicate_injured_victim -> ( get_help | X get_help ) ),communicate_injured_victim -> (get_help | X get_help)
 F ( grasp_pear ) | G ( ! ( drop_orange ) ),G((!drop_orange) | grasp_pear)
 F prop_1,G(prop_1)
-! G ( ! ( photo_fire_source & X photo_fire_source ) ),G (photo_fire_source | X photo_fire_source | X X photo_fire_source)
+! G ( ! ( photo_fire_source & X photo_fire_source ) ),G(photo_fire_source | X photo_fire_source | X X photo_fire_source)
 G ( change_light_west_green & X record_collision_south_9th_avenue -> X X record_vehicle_west_7th_street ),(change_light_west_green & X record_collision_south_9th_avenue) -> XX record_vehicle_west_7th_street
-G ( prop_1 U prop_2 ),prop_1 U prop_2
-!room_2 U (kitchen_1&&<>(p_bottle_4&&<>(table_4&&pd))),(!room_2) U (p_bottle_4 & table_4)
-! ( prop_1 | G ( ! prop_2 ) ),!prop_1 | G !prop_2
-G ( ( prop_2 | prop_1 ) -> ( prop_3 U prop_4 ) ),((prop_2 | prop_1) -> F(prop_3 U prop_4))
+G ( prop_1 U prop_2 ),(prop_1) U (prop_2)
+!room_2 U (kitchen_1&&<>(p_bottle_4&&<>(table_4&&pd))),(!room_2) U (p_bottle_4 & kitchen_1 & table_4)
+! ( prop_1 | G ( ! prop_2 ) ),!(prop_1) | G(!(prop_2))
+G ( ( prop_2 | prop_1 ) -> ( prop_3 U prop_4 ) ),(prop_2 | prop_1) -> F(prop_3 U prop_4)
 F ( prop_1 | F prop_2 ),G(prop_1 | prop_2)
 []!street_6&&<>(car_1&&photo),photo & G !street_6
-"G F ( ""area_51"" & ""photo"" ) & G F ""charger_4""",G(photo & charger_4)
+G F ( area_51 & photo ) & G F charger_4,G(photo & F charger_4)
 F ( make_way_waste_basket ) | G ( hold_on_pear ),G((make_way_waste_basket | G(hold_on_pear)))
-"G ( ""get_help"" -> X G ! deliver_scissors_shelf )",G(get_help -> G(!deliver_scissors_shelf))
+G ( get_help -> X G ! deliver_scissors_shelf ),G(get_help -> G(!deliver_scissors_shelf))
 G(!( car_enters | motorbike_has_started )) | F(( car_enters | motorbike_has_started ) & F( bar_is_closing & elevator_is_blocked )),(car_enters | motorbike_has_started) & F(bar_is_closing & elevator_is_blocked)
-( ( ! prop_1 -> prop_3 ) <-> prop_2 ),(!prop_1 -> prop_3) & (prop_3 -> prop_2)
 ( prop_1 | F prop_2 ),prop_1 | G(prop_2)
-G ( ! ( let_go_orange ) ) & F ( show_yourself_near_house ),G(!let_go_orange & show_yourself_near_house)
+G ( ! ( let_go_orange ) ) & F ( show_yourself_near_house ),G(!let_go_orange) & G(show_yourself_near_house)
 ( G ( prop_3 -> prop_2 ) | prop_1 ),G((prop_3 -> prop_2) | prop_1)
 ( prop_2 & ( prop_3 -> prop_1 ) ),(prop_2 & prop_3) U prop_1
 G ( ( prop_2 | prop_3 ) -> G ( F prop_1 ) ),(prop_2 | prop_3) -> G F prop_1
 F ( prop_1 | G prop_2 ),G(prop_1 | G(prop_2))
 ! ( F prop_1 | F prop_2 ),!prop_1 | prop_2
-"G F ( ""mall_5"" & F ( ""p_crate_8"" & F ( ""office_6"" & ""pd"" ) ) )",G(p_crate_8 -> F office_6)
-G(( sensor_captures_data | train_has_been_launched ) -> G( manager_collect_claims | escalator_speeds_up )),G((sensor_captures_data | train_has_been_launched) -> F(manager_collect_claims | escalator_speeds_up))
-( ( prop_3 & prop_1 ) -> G prop_2 ),G((prop_3 & prop_1) -> G(prop_2))
-"G ( search_book <-> X ""idle"" )",G(search_book -> X(idle))
-( F record_flood ) -> ( ! record_flood U ( communicate_safe_hostile & ! record_flood ) ),F record_flood -> F communicate_safe_hostile
+G F ( mall_5 & F ( p_crate_8 & F ( office_6 & pd ) ) ),G(p_crate_8 -> F office_6)
+G(( sensor_captures_data | train_has_been_launched ) -> G( manager_collect_claims | escalator_speeds_up )),G((manager_collect_claims | escalator_speeds_up) -> (sensor_captures_data | train_has_been_launched))
+( F record_flood ) -> ( ! record_flood U ( communicate_safe_hostile & ! record_flood ) ),G(record_flood -> F communicate_safe_hostile)
 G ( ! prop_1 & F prop_2 ),!prop_1 & F prop_2
 ( ( ( prop_2 & prop_3 ) <-> prop_4 ) U prop_1 ),F((prop_2 & prop_3) & (prop_4 & (prop_4 U prop_1)))
 G ( prop_3 -> ( prop_2 & prop_1 ) ),G(prop_3 -> (X(prop_2) & X(prop_1)))
 G ( ( prop_3 & prop_2 ) -> F prop_1 ),(prop_3 & prop_2) -> prop_1
-G(!( car_enters | motorbike_falls_down )) | F(( car_enters | motorbike_falls_down ) & F( table_is_brown & house_is_built )),F(car_enters | motorbike_falls_down) & F(table_is_brown & house_is_built)
-( ( ( prop_1 | prop_4 ) <-> prop_3 ) & prop_2 ),((prop_1 | prop_4) & prop_3 & prop_2)
+G(!( car_enters | motorbike_falls_down )) | F(( car_enters | motorbike_falls_down ) & F( table_is_brown & house_is_built )),F((car_enters | motorbike_falls_down) & F(table_is_brown & house_is_built))
+( ( ( prop_1 | prop_4 ) <-> prop_3 ) & prop_2 ),((prop_1) | (prop_4)) & ((prop_1) | (prop_4) <-> prop_3) & prop_2
 G ( ! ( drop_orange ) ) | take_apple,G(!(drop_orange | take_apple))
-G ( ( prop_1 & prop_3 ) -> G ( F prop_2 ) ),G((prop_1 & prop_3) -> F((prop_2)))
+G ( ( prop_1 & prop_3 ) -> G ( F prop_2 ) ),G((prop_1 & prop_3) -> F(prop_2))
 F ( prop_1 U F prop_2 ),(prop_1 U prop_2)
-"G ( ""moving"" ) U ! ( let_go_orange )",moving U !let_go_orange
+G ( moving ) U ! ( let_go_orange ),moving U !let_go_orange
 ( G prop_3 -> ( prop_1 & prop_2 ) ),G(prop_3) -> (F(prop_1) & F(prop_2))
+( ( prop_2 -> ! prop_1 ) & G prop_3 ),prop_1 -> !prop_2 & G prop_3
 ( G prop_1 -> ( prop_2 & prop_3 ) ),G(prop_1) -> G(prop_2 & prop_3)
 G(( elevator_falls & bar_is_up ) -> G(!( train_is_crossing & manager_collect_claims ))),G((elevator_falls & bar_is_up) -> !(train_is_crossing & manager_collect_claims))
-( prop_4 & ( prop_2 -> prop_3 ) & ! prop_1 ),G(prop_4 -> (prop_2 -> (prop_3 & !prop_1)))
-"G ( ""go_home"" -> ( communicate_injured_rescuer | X communicate_injured_rescuer ) )",go_home -> (communicate_injured_rescuer | X communicate_injured_rescuer)
-( ( ( prop_1 U prop_3 ) -> prop_2 ) | prop_4 ),(prop_1 U (F prop_3 & (prop_3 -> (prop_2 | prop_4))))
+( prop_4 & ( prop_2 -> prop_3 ) & ! prop_1 ),G((prop_2 -> prop_3) & !prop_1)
+G ( go_home->_communicate_injured_rescuer | X communicate_injured_rescuer ),go_home -> (communicate_injured_rescuer | X communicate_injured_rescuer)
+( ( ( prop_1 U prop_3 ) -> prop_2 ) | prop_4 ),(prop_1 U (prop_3 & (prop_2 | prop_4)))
 G ( F prop_1 & F prop_2 ),G(prop_1) & F(prop_2)
 F ( have_pear ) & F ( migrate_to_tree ),G have_pear & G migrate_to_tree
 G ( communicate_injured_victim -> ( record_safe_civilian | X record_safe_civilian ) ),communicate_injured_victim -> (record_safe_civilian | X record_safe_civilian)
 ( ( prop_1 U prop_2 ) | ( prop_4 | prop_3 ) ),(prop_1 -> (prop_2 U prop_3)) & (prop_4 -> prop_3)
-"G ( ( deliver_hot_dog_shelf <-> ""get_help"" ) -> ( ""get_help"" <-> pickup_potted_plant ) )",(deliver_hot_dog_shelf <-> get_help) -> (get_help <-> pickup_potted_plant)
+G ( ( deliver_hot_dog_shelf <-> get_help ) -> ( get_help <-> pickup_potted_plant ) ),(deliver_hot_dog_shelf <-> get_help) -> (get_help <-> pickup_potted_plant)
 ! ( prop_1 | G ( F prop_2 ) ),!prop_1 | G prop_2
-"F ( ""red_room"" & F ""green_room"" )",red_room & X green_room
+F ( red_room & F green_room ),red_room & X green_room
 F ( have_possession_of_apple ) | grasp_orange,F(have_possession_of_apple | grasp_orange)
 F ( go_near_flag ) & F ( pick_up_apple ),G(go_near_flag -> F(pick_up_apple))
-"G ( communicate_safe_hostile -> F avoid_impending_unstable_beam ) -> G F ""get_help""",G((communicate_safe_hostile -> F(!avoid_impending_unstable_beam)) -> G F get_help)
+G ( communicate_safe_hostile -> F avoid_impending_unstable_beam ) -> G F get_help,G((communicate_safe_hostile -> F(!avoid_impending_unstable_beam)) -> G F get_help)
 G(( motorbike_falls_down & escalator_is_blocked ) -> G( bar_is_up | elevator_rises )),((motorbike_falls_down & escalator_is_blocked) -> G(bar_is_up | elevator_rises))
 <>(house_4&&<>(p_package_2&&<>(warehouse_5&&pd))),house_4 & p_package_2 & warehouse_5
 ( ( prop_2 <-> prop_3 ) U ! prop_1 ),(!prop_2) U (prop_3 <-> prop_1)
-G(( engine_starts | train_is_crossing ) -> G( elevator_is_blocked & escalator_is_blocked )),((engine_starts | train_is_crossing) -> G(elevator_is_blocked & escalator_is_blocked))
+G(( engine_starts | train_is_crossing ) -> G( elevator_is_blocked & escalator_is_blocked )),(engine_starts | train_is_crossing) -> G(elevator_is_blocked & escalator_is_blocked)
 G ( ( prop_2 & prop_1 ) -> prop_3 ),((prop_2 & prop_1) -> prop_3)
-G(( brake_is_released | escalator_is_blocked ) -> G( semaphore_is_yellow )),G((brake_is_released | escalator_is_blocked) -> semaphore_is_yellow)
-"F ( ""house_4"" & F ( ""p_package_2"" & F ( ""warehouse_5"" & ""pd"" ) ) )",house_4 & pd & warehouse_5
+G(( brake_is_released | escalator_is_blocked ) -> G( semaphore_is_yellow )),((brake_is_released | escalator_is_blocked) -> G(semaphore_is_yellow))
+F ( house_4 & F ( p_package_2 & F ( warehouse_5 & pd ) ) ),house_4 & pd & warehouse_5
 F ( pass_by_waste_receptacle ) -> go_visit_flag,G(pass_by_waste_receptacle -> go_visit_flag)
 ( F prop_1 | ( prop_2 | prop_3 ) ),F(prop_1) | F(prop_2) | F(prop_3)
 G ( ! prop_1 | F prop_2 ),!prop_1 | G(prop_2)
+! ( let_go_orange ) & approach_trash_can,!(let_go_orange & approach_trash_can)
 G(!( train_stops | engine_starts | semaphore_is_broken )),!(train_stops | engine_starts | semaphore_is_broken)
 F ( prop_1 & prop_2 ),G((prop_1 & prop_2))
 ( prop_2 U prop_1 ),prop_2 -> prop_1
@@ -109,14 +107,14 @@ G ( ( prop_3 & prop_1 ) -> G prop_2 ),prop_3 -> (prop_1 -> F prop_2)
 ( ( ( prop_3 | prop_1 ) U prop_4 ) & prop_2 ),((F(prop_3) | F(prop_1)) & prop_2) U prop_4
 F ( move_past_trash_can ) & G ( touch_flag ),G(move_past_trash_can -> G(touch_flag))
 ( G prop_3 & ( prop_2 | prop_1 ) ),G(prop_3 & (prop_2 | prop_1))
-<>(street_5&&<>(building_2&&[]building_2)),street_5 & X(F(building_2 & G(building_2)))
+<>(street_5&&<>(building_2&&[]building_2)),street_5 & F(building_2 & G(building_2))
 G ( ( prop_2 | prop_1 ) -> ( prop_4 | prop_3 ) ),G((prop_2 | prop_1) -> X(prop_4 | prop_3))
 F ( get_hold_orange ) | F ( visit_flag ),G(get_hold_orange | visit_flag)
 F ( prop_1 U G prop_2 ),prop_1 U G prop_2
-G(( bar_is_closing & semaphore_is_green ) -> G(!( elevator_is_open | manager_handles_requests ))),G(!((bar_is_closing & semaphore_is_green) -> (elevator_is_open | manager_handles_requests)))
+G(( bar_is_closing & semaphore_is_green ) -> G(!( elevator_is_open | manager_handles_requests ))),G(!((elevator_is_open | manager_handles_requests) & F(bar_is_closing & semaphore_is_green)))
 ( record_injured_rescuer U photo_flood ),record_injured_rescuer & X photo_flood
 []!house_1,!house_1
-G ( ( prop_1 & prop_3 ) -> G ( F prop_2 ) ),((prop_1 & prop_3) -> G(F(prop_2)))
+G ( ( prop_1 & prop_3 ) -> G ( F prop_2 ) ),(prop_1 & prop_3) -> G(F(prop_2))
 G(!( bar_has_to_be_repaired & motorbike_has_stopped )),!(bar_has_to_be_repaired & motorbike_has_stopped)
 ( ( prop_3 -> prop_4 ) U ( prop_2 <-> prop_1 ) ),prop_3 -> (prop_4 U (prop_2 <-> prop_1))
 ( ( prop_2 -> prop_1 ) -> ! prop_3 ),(prop_2 -> prop_1) -> G(!prop_3)
@@ -128,26 +126,26 @@ communicate_safe_victim -> X ( ( deliver_aid_injured_rescuer U avoid_active_floo
 ( prop_1 U ! ( F prop_2 ) ),prop_1 U !prop_2
 ( G prop_1 & ( prop_3 <-> prop_2 ) ),G(prop_1 & (prop_3 <-> prop_2))
 G ( have_in_orange ) | F ( visit_trash_bin ),G(have_in_orange | F visit_trash_bin)
-G(!( car_enters | motorbike_falls_down )) | F(( car_enters | motorbike_falls_down ) & F( brake_is_released & bar_is_up )),F(car_enters | (motorbike_falls_down & F(brake_is_released & X bar_is_up)))
-( ! prop_2 | ( prop_1 | prop_3 ) ),!prop_2 | F(prop_1 | prop_3)
-"""house_4"" U ""room_2""",!room_2 U house_4
+G(!( car_enters | motorbike_falls_down )) | F(( car_enters | motorbike_falls_down ) & F( brake_is_released & bar_is_up )),F(car_enters | (motorbike_falls_down & F(brake_is_released & X(bar_is_up))))
+house_4 U room_2,!room_2 U house_4
 G ( ( prop_4 | prop_1 ) -> ( prop_3 U prop_2 ) ),G((prop_4 | prop_1) -> (prop_3 & F(prop_2)))
 G ( ( prop_3 & prop_1 ) -> ( prop_2 & prop_4 ) ),G(prop_3 -> X(prop_2 & prop_4))
 G(( engine_starts & house_is_built ) -> G( table_has_been_moved & motorbike_has_stopped )),((engine_starts & house_is_built) -> G(table_has_been_moved & motorbike_has_stopped))
 G ( ( prop_4 & prop_1 ) -> ( prop_3 & prop_2 ) ),G((prop_4 & prop_1) -> X(prop_3 & prop_2))
-G(( train_is_crossing | train_has_been_launched ) -> F( motorbike_catches_fire & semaphore_is_red )),F((motorbike_catches_fire) & (semaphore_is_red))
+G(( train_is_crossing | train_has_been_launched ) -> F( motorbike_catches_fire & semaphore_is_red )),F((motorbike_catches_fire & semaphore_is_red) & (train_is_crossing | train_has_been_launched))
 G(!( manager_collect_claims & sensor_captures_data )) | F(( manager_collect_claims & sensor_captures_data ) & F( motorbike_catches_fire | bridge_opens )),F((manager_collect_claims & sensor_captures_data) & F((motorbike_catches_fire | bridge_opens)))
-G ( F ( go_to_waste_basket ) ) & F ( journey_to_flag ),G(F(go_to_waste_basket)) & G(journey_to_flag -> go_to_waste_basket)
+G ( F ( go_to_waste_basket ) ) & F ( journey_to_flag ),G(F(go_to_waste_basket)) & G(journey_to_flag -> F(go_to_waste_basket))
 G ( F ( grab_tree ) ) & approach_trash_can,G(F(grab_tree & approach_trash_can))
 F ( stop_by_house ) & ! ( let_go_orange ),G((stop_by_house & !let_go_orange))
-"F ( ""parking_lot_2"" & ""p_dish_2"" )",p_dish_2 & parking_lot_2
+G(( motorbike_falls_down & escalator_is_blocked ) -> G( semaphore_is_yellow )),(motorbike_falls_down & escalator_is_blocked) -> G(semaphore_is_yellow)
+F ( parking_lot_2 & p_dish_2 ),p_dish_2 & parking_lot_2
 F ( prop_1 U prop_2 ),(prop_1) U (prop_2)
-[]<>(table_2&&<>(p_brochure_8&&<>(street_9&&pd)))&&[]<>charger_6,G((p_brochure_8 & table_2) -> F(street_9)) & G(F(charger_6))
+[]<>(table_2&&<>(p_brochure_8&&<>(street_9&&pd)))&&[]<>charger_6,F(p_brochure_8 & table_2) & F(street_9) & G F(charger_6)
 F ( pick_up_peach ) | F ( gather_pear ),G(pick_up_peach) | G(gather_pear)
 G(!( bridge_closes )) | F(( bridge_closes ) & F( elevator_is_blocked | house_is_open )),F bridge_closes & F (elevator_is_blocked | house_is_open)
 G(( manager_collect_claims & bar_is_up ) -> F( semaphore_is_yellow )),(manager_collect_claims & bar_is_up) -> F semaphore_is_yellow
 []<>charging_station_9&&[]<>(warehouse_5&&<>(p_crate_4&&<>(mall_4&&pd))),G((p_crate_4 & warehouse_5 & !mall_4) -> F(charging_station_9))
-( prop_1 U F prop_2 ),prop_1 U G prop_2
+( prop_1 U F prop_2 ),prop_1 U prop_2
 []<>(mall_5&&<>(p_crate_8&&<>(office_6&&pd))),G(F(pd & mall_5 & p_crate_8 & office_6))
 []<>charger_4&&[]<>(area_5&&photo),G(charger_4 -> photo)
 G ( prop_1 -> G prop_2 ),G(prop_1 -> (prop_2 U end))
@@ -155,30 +153,28 @@ F ( prop_1 | G ( ! prop_2 ) ),F(prop_1) | G(!prop_2)
 F ( prop_1 | prop_2 ),G(prop_1 | prop_2)
 G(!( elevator_is_open & engine_starts )),!(elevator_is_open & engine_starts)
 ( ( F prop_2 <-> prop_3 ) & ! prop_1 ),F(prop_2 <-> prop_3) & !prop_1
-G ( F prop_1 & prop_2 ),G F (prop_1 & prop_2)
-"F ( ( ""red_room"" | ""yellow_room"" ) & F ""blue_room"" )",(yellow_room & blue_room) & (red_room & blue_room)
+G ( F prop_1 & prop_2 ),G(F(prop_1 & prop_2))
+F ( ( red_room | yellow_room ) & F blue_room ),(yellow_room & blue_room) & (red_room & blue_room)
 G(!( table_is_old | bar_has_to_be_repaired )) | F(( table_is_old | bar_has_to_be_repaired ) & F( manager_handles_requests | manager_collect_claims )),F((table_is_old | bar_has_to_be_repaired) & F(manager_handles_requests | manager_collect_claims))
-( G prop_3 <-> ( prop_2 -> prop_1 ) ),G(prop_3 <-> (prop_2 & X prop_1))
-F ( prop_1 | G ( ! prop_2 ) ),G(prop_1) | G(!prop_2)
-"G ( ""stay"" ) & come_to_tree",G(stay & come_to_tree)
+( G prop_3 <-> ( prop_2 -> prop_1 ) ),G(prop_3 <-> (prop_2 & X(prop_1)))
+F ( prop_1 | G ( ! prop_2 ) ),G(prop_1 | !prop_2)
+( F prop_2 -> ( prop_3 -> prop_1 ) ),F(prop_2) -> G(prop_3 -> prop_1)
+G ( stay ) & come_to_tree,G(stay & come_to_tree)
 G ( ( prop_3 & prop_2 ) -> G prop_1 ),G((prop_3 & prop_2) -> prop_1)
 G ( ( prop_4 | prop_2 ) -> ( prop_1 U prop_3 ) ),G(prop_4 -> ((prop_2) -> F(!prop_1 U prop_3)))
 G ( ( prop_1 | prop_3 ) -> prop_2 ),(prop_1 | prop_3) -> prop_2
 <>(statue_6&&photo&&<>(bench_4&&[]bench_4)),photo & statue_6 & X(bench_4 & G(bench_4))
-G(!( train_is_crossing | elevator_rises )) | F(( train_is_crossing | elevator_rises ) & F( engine_starts & constructor_creates_instances )),F((train_is_crossing | elevator_rises) & F(engine_starts & constructor_creates_instances))
+G(!( train_is_crossing | elevator_rises )) | F(( train_is_crossing | elevator_rises ) & F( engine_starts & constructor_creates_instances )),F(train_is_crossing | elevator_rises) & F(engine_starts & constructor_creates_instances)
 G(( motorbike_falls_down & escalator_speeds_up ) -> F( motorbike_falls_down & constructor_creates_instances )),((motorbike_falls_down & escalator_speeds_up) -> F(motorbike_falls_down & constructor_creates_instances))
-( prop_1 U F prop_2 ),prop_1 U prop_2
 ( F prop_1 -> F prop_2 ),G(prop_1 -> F(prop_2))
 G ( ! prop_1 | prop_2 ),!prop_1 | prop_2
 G(!( constructor_creates_instances & motorbike_has_stopped )) | F(( constructor_creates_instances & motorbike_has_stopped ) & F( bridge_closes )),(constructor_creates_instances & motorbike_has_stopped) -> F bridge_closes
 G ( ! ( let_go_orange ) ) | F ( arrive_at_tree ),G(!let_go_orange | arrive_at_tree)
 ( G prop_1 -> ( prop_2 -> prop_3 ) ),G(prop_1) -> G(prop_2 -> prop_3)
-F ( prop_1 | prop_2 ),G((prop_1 | prop_2))
 ( G prop_1 -> ( prop_3 | prop_2 ) ),G(prop_1) -> F(prop_3 | prop_2)
 G(( motorbike_catches_fire & bar_has_to_be_repaired ) -> F( elevator_is_blocked | constructor_creates_instances )),((motorbike_catches_fire & bar_has_to_be_repaired) -> F(elevator_is_blocked | constructor_creates_instances))
-G ( ( prop_3 | prop_2 ) -> ( prop_1 & prop_4 ) ),G((prop_3 | prop_2) -> (prop_1 & X prop_4))
-G(!( elevator_rises & bar_is_closing )) | F(( elevator_rises & bar_is_closing ) & F( elevator_rises | car_stops )),F((elevator_rises & bar_is_closing) & F(elevator_rises | car_stops))
-"! ""get_help"" U ""idle""",G(get_help -> (!get_help U idle))
+G(!( elevator_rises & bar_is_closing )) | F(( elevator_rises & bar_is_closing ) & F( elevator_rises | car_stops )),F((elevator_rises & bar_is_closing) & F((elevator_rises | car_stops)))
+! get_help U idle,G(get_help -> (!get_help U idle))
 G ( ! prop_1 | F prop_2 ),!prop_1 | F prop_2
 ! G ( ! ( deliver_zebra_loading_dock & X deliver_zebra_loading_dock ) ),G(deliver_zebra_loading_dock | X(deliver_zebra_loading_dock) | X(X(deliver_zebra_loading_dock)))
 <>(monument_3&&photo&&<>(pathway_8&&[]pathway_8)),photo & F(pathway_8 & G(pathway_8))
@@ -189,15 +185,14 @@ F ( prop_1 & ! ( F prop_2 ) ),G(prop_1 & !prop_2)
 G(!( sensor_gathers_information )) | F(( sensor_gathers_information ) & F( engine_starts | elevator_falls )),F(sensor_gathers_information & F(engine_starts | elevator_falls))
 G ( ( prop_3 & prop_1 ) -> ( prop_4 | prop_2 ) ),(prop_3 & prop_1) -> (X prop_4 | prop_2)
 G ( ( prop_1 | prop_3 ) -> F ( G prop_2 ) ),((prop_1 | prop_3) -> F prop_2)
-G ( F prop_1 | ! prop_2 ),G F prop_1 | ! prop_2
+G ( F prop_1 | ! prop_2 ),G(prop_1 | !prop_2)
 G(( train_derails ) -> F( semaphore_is_red & motorbike_falls_down )),train_derails -> F(semaphore_is_red & motorbike_falls_down)
 ( F prop_1 -> G ( ! prop_2 ) ),G(prop_1 -> G(!prop_2))
-G(( house_is_built | elevator_is_open ) -> G( engine_starts | train_is_crossing )),G(((house_is_built | elevator_is_open) -> (engine_starts | train_is_crossing)))
 G ( F ( go_to_waste_basket ) ) U hold_orange,go_to_waste_basket U hold_orange
-G F record_gas_leak -> G F record_unsafe_rescuer,G(F(record_gas_leak) -> F(record_unsafe_rescuer))
 ( ( ( prop_4 & prop_1 ) U prop_3 ) <-> prop_2 ),((prop_4 & prop_1 & (prop_1 U prop_3)) -> prop_2)
 G ( prop_1 -> ( prop_3 U prop_2 ) ),G(prop_1 -> (prop_2 U prop_3))
 ( F prop_1 -> F prop_2 ),G(prop_1 -> prop_2)
+G ( photo_collision_west_10th_avenue <-> X get_help ),G(photo_collision_west_10th_avenue -> X get_help)
 G(( motorbike_catches_fire ) -> G(( engine_starts ) -> F( semaphore_is_green ))),motorbike_catches_fire -> G(engine_starts -> F(semaphore_is_green))
 ( ( prop_2 -> prop_3 ) | ( prop_1 U prop_4 ) ),(prop_2 -> prop_3) | (prop_1 & (prop_1 U prop_4))
 <>[]intersection_4,G(intersection_4)
@@ -207,35 +202,36 @@ G(( bar_has_to_be_repaired ) -> G(( semaphore_is_green ) -> F( table_is_brown ))
 G ( F prop_1 | F prop_2 ),G(F(prop_1) | prop_2)
 record_unsafe_rescuer -> X ( ( photo_unsafe_person U deliver_aid_injured_rescuer ) | G photo_unsafe_person ),record_unsafe_rescuer -> (X(photo_unsafe_person U deliver_aid_injured_rescuer) | G(photo_unsafe_person))
 F ( ! avoid_inactive_unstable_beam ),F avoid_inactive_unstable_beam
-"F G ""house_5""",F house_5 & G house_5
+F G house_5,F house_5 & G house_5
 F ( steal_apple ) -> F ( stop_by_trash_can ),G(steal_apple -> G(stop_by_trash_can))
-G(( elevator_is_open | bar_is_closing ) -> G(!( house_is_open & semaphore_is_green ))),((elevator_is_open | bar_is_closing) -> G(!(house_is_open & semaphore_is_green)))
+G(( elevator_is_open | bar_is_closing ) -> G(!( house_is_open & semaphore_is_green ))),G((elevator_is_open | bar_is_closing) -> !(house_is_open & semaphore_is_green))
 ( G prop_1 -> prop_2 ),G(prop_1 -> prop_2)
 G ( F ( go_to_apple_trashcan ) ) & snatch_up_pear,G(F(go_to_apple_trashcan & snatch_up_pear))
-"G F ( ""warehouse_3"" & F ( ""p_crate_4"" & F ( ""store_9"" & ""pd"" ) ) ) & G F ""charger_3""",G(F((p_crate_4 & warehouse_3) & F(store_9)) & F(charger_3))
+G F ( warehouse_3 & F ( p_crate_4 & F ( store_9 & pd ) ) ) & G F charger_3,G(F((p_crate_4 & warehouse_3) & F(store_9)) & F(charger_3))
 G(( semaphore_is_red ) -> G(( sensor_retrieves_data ) -> F( sensor_captures_data ))),semaphore_is_red -> F(sensor_retrieves_data & F(sensor_captures_data))
-( F prop_1 & ( prop_3 & prop_2 ) ),F(prop_1 & prop_2 & prop_3)
+( F prop_1 & ( prop_3 & prop_2 ) ),F(prop_1) & G(prop_2 & prop_3)
 G(!( sensor_retrieves_data | train_has_been_launched )) | F(( sensor_retrieves_data | train_has_been_launched ) & F( bridge_closes )),F((sensor_retrieves_data | train_has_been_launched) & F(bridge_closes))
 G ( ! prop_1 & G prop_2 ),!prop_1 & G prop_2
 <>(arch_4&&photo)&&[]!park_2,photo & G(!park_2)
-G(( escalator_moves & motorbike_has_stopped ) -> F( semaphore_is_yellow )),F(semaphore_is_yellow & escalator_moves & motorbike_has_stopped)
+( prop_2 -> prop_1 ),G(prop_2 -> prop_1)
+G(( escalator_moves & motorbike_has_stopped ) -> F( semaphore_is_yellow )),F((escalator_moves & motorbike_has_stopped) -> semaphore_is_yellow)
 ( G prop_1 & ( prop_2 -> prop_3 ) ),prop_1 & (prop_2 -> prop_3)
-"G ( ! ( deliver_bicycle_shelf & ""get_help"" ) -> F search_apple )",G((!deliver_bicycle_shelf & !get_help) -> F(search_apple))
+G ( ! ( deliver_bicycle_shelf & get_help ) -> F search_apple ),G((!deliver_bicycle_shelf & !get_help) -> F search_apple)
 photo_unsafe_civilian U ( G ( F photo_safe_rescuer ) ),photo_unsafe_civilian -> (photo_unsafe_civilian U G F photo_safe_rescuer)
 F ( bring_pear ) U secure_apple,bring_pear U secure_apple
 ( ( ! prop_1 ) U prop_2 ),!prop_2 U prop_1
-G(( sensor_gathers_information | train_derails ) -> F( train_has_arrived )),((sensor_gathers_information | train_derails) -> F(train_has_arrived))
-( pickup_mouse U deliver_traffic_light_shelf ) | G pickup_mouse,(deliver_traffic_light_shelf U pickup_mouse) | G(pickup_mouse)
-"G ( ! ( ""idle"" & search_dining_table ) -> F ""get_help"" )",G((!idle & !search_dining_table) -> F(get_help))
+G(( sensor_gathers_information | train_derails ) -> F( train_has_arrived )),(sensor_gathers_information | train_derails) -> F train_has_arrived
+( pickup_mouse U deliver_traffic_light_shelf ) | G pickup_mouse,(deliver_traffic_light_shelf U pickup_mouse) | G pickup_mouse
+G ( ! ( idle & search_dining_table ) -> F get_help ),G((!idle & !search_dining_table) -> F(get_help))
 G(( manager_handles_requests | motorbike_has_started ) -> G( semaphore_is_yellow )),G((manager_handles_requests | motorbike_has_started) -> semaphore_is_yellow)
 G(!( car_enters & table_is_brown )) | F(( car_enters & table_is_brown ) & F( bar_is_closing | motorbike_has_stopped )),F((car_enters & table_is_brown) & F(bar_is_closing | motorbike_has_stopped))
 go_by_waste_bin -> F ( reach_flag ),G(go_by_waste_bin -> F(reach_flag))
-"G F ""charging_station_9"" & G F ( ""warehouse_5"" & F ( ""p_crate_4"" & F ( ""mall_4"" & ""pd"" ) ) )",G(F(charging_station_9) & p_crate_4 & warehouse_5 & mall_4)
+G F charging_station_9 & G F ( warehouse_5 & F ( p_crate_4 & F ( mall_4 & pd ) ) ),G(p_crate_4 -> F(charging_station_9))
 prop_2 U prop_1,prop_2 -> prop_1
 ( G prop_1 <-> ( prop_3 -> prop_2 ) ),G(prop_1 <-> (prop_3 -> prop_2))
-G(!( bridge_closes & elevator_falls )) | F(( bridge_closes & elevator_falls ) & F( engine_stops & brake_is_pressed )),F(bridge_closes & elevator_falls & F(engine_stops & F(brake_is_pressed)))
+G(!( bridge_closes & elevator_falls )) | F(( bridge_closes & elevator_falls ) & F( engine_stops & brake_is_pressed )),F((bridge_closes & elevator_falls) & F(engine_stops & F(brake_is_pressed)))
 G ( ( prop_4 | prop_1 ) -> ( prop_2 | prop_3 ) ),(prop_4 | prop_1) -> (X prop_2 | X !prop_3)
-"photo_debris -> X ( ( deliver_aid_safe_hostile U ""get_help"" ) | G deliver_aid_safe_hostile )",photo_debris -> (X(deliver_aid_safe_hostile U get_help) | G(deliver_aid_safe_hostile))
+photo_debris -> X ( ( deliver_aid_safe_hostile U get_help ) | G deliver_aid_safe_hostile ),photo_debris -> (X(deliver_aid_safe_hostile U get_help) | G(deliver_aid_safe_hostile))
 G ( record_fire_source -> X G ! deliver_aid_safe_rescuer ),G(record_fire_source -> G(!deliver_aid_safe_rescuer))
 G ( F prop_1 | F prop_2 ),G prop_1 | F prop_2
 ( ( prop_1 -> prop_2 ) U ! prop_3 ),(prop_1 -> (prop_2 U !prop_3))
@@ -243,194 +239,191 @@ G ( F prop_1 | F prop_2 ),G prop_1 | F prop_2
 ( ! prop_2 U ( prop_1 & prop_3 ) ),(!prop_3) U (prop_2 & prop_1)
 F ( go_by_waste_basket ) U G ( ! ( drop_apple ) ),go_by_waste_basket U !drop_apple
 F ( prop_1 & F prop_2 ),G(prop_1) & F(prop_2)
-F ( ! ( prop_1 | prop_3 ) & prop_2 ),F(!(prop_1) | prop_3) & prop_2
+F ( ! ( prop_1 | prop_3 ) & prop_2 ),F(!(prop_1) | !(prop_3)) & prop_2
 F ( prop_1 & G ( F prop_2 ) ),G(prop_1) & G(F(prop_2))
 G(!( train_has_arrived )) | F(( train_has_arrived ) & F( sensor_retrieves_data | engine_starts )),F(train_has_arrived & F(sensor_retrieves_data | engine_starts))
 put_in_apple_bucket & F ( have_possession_of_apple ),put_in_apple_bucket & G have_possession_of_apple
 G ( prop_1 & ! prop_2 ),G(prop_1) & !prop_2
 G(( sensor_captures_data & brake_is_released ) -> G(!( constructor_instantiate_objects & escalator_speeds_up ))),!((sensor_captures_data & brake_is_released) -> F(constructor_instantiate_objects & escalator_speeds_up))
-photo_safe_victim -> X ( ( deliver_aid_injured_hostile U communicate_safe_rescuer ) | G deliver_aid_injured_hostile ),photo_safe_victim -> (X(deliver_aid_injured_hostile U communicate_safe_rescuer) | G(deliver_aid_injured_hostile))
+photo_safe_victim -> X ( ( deliver_aid_injured_hostile U communicate_safe_rescuer ) | G deliver_aid_injured_hostile ),photo_safe_victim -> (X(deliver_aid_injured_hostile U communicate_safe_rescuer) | G deliver_aid_injured_hostile)
 G(!( bridge_closes )) | F(( bridge_closes ) & F( semaphore_is_green | bar_is_up )),F(bridge_closes & F(semaphore_is_green | bar_is_up))
 ( F prop_2 -> ( prop_3 <-> prop_1 ) ),F(prop_2) -> G(prop_3 <-> prop_1)
 ( G ( ! prop_1 ) -> F prop_2 ),!prop_1 -> F prop_2
 F ( have_pear ) | G ( F ( go_to_apple_trashcan ) ),F(have_pear | go_to_apple_trashcan)
 ( ! ( F prop_1 ) -> F prop_2 ),!prop_1 -> F prop_2
 ( ( ( prop_2 | prop_4 ) U prop_3 ) | prop_1 ),((F(prop_2 | prop_4) & (prop_2 | prop_4) U prop_3) | prop_1)
-G ( ( prop_1 | prop_3 ) -> G prop_2 ),G(((prop_1) | (prop_3)) -> (prop_2))
+G ( ( prop_1 | prop_3 ) -> G prop_2 ),G((prop_1 | prop_3) -> prop_2)
 parking_lot_4 U (car_5&&photo),parking_lot_4 U photo
-( ( F prop_1 <-> prop_3 ) | ! prop_2 ),F((prop_1) <-> (prop_3)) | !prop_2
-"( F ( ""blue_room"" ) & G ( ! ""green_room"" ) )",blue_room & !green_room
+( ( F prop_1 <-> prop_3 ) | ! prop_2 ),F((prop_1 <-> prop_3) | !prop_2)
+( F ( blue_room ) & G ( ! green_room ) ),blue_room & !green_room
 park_5 U bench_4&&<>(store_2&&<>(p_bottle_5&&<>(bench_4&&pd))),(park_5 U (bench_4 & p_bottle_5))
 G(( motorbike_falls_down & engine_starts ) -> G(!( constructor_instantiate_objects & escalator_speeds_up ))),G((motorbike_falls_down & engine_starts) -> !(constructor_instantiate_objects & escalator_speeds_up))
-!building_3 U street_6&&<>(store_3&&<>(p_box_8&&<>(house_2&&pd))),(!building_3) U (street_6 & F (store_3 & F house_2))
+!building_3 U street_6&&<>(store_3&&<>(p_box_8&&<>(house_2&&pd))),(!building_3 U street_6) & (street_6 -> F(store_3 & F(p_box_8 & F(house_2))))
+G F avoid_active_unstable_beam -> G F avoid_impending_flood,G(F(avoid_active_unstable_beam) -> F(avoid_impending_flood))
 F ( ( prop_1 -> prop_2 ) & prop_3 ),F (prop_1 -> (prop_2 & prop_3))
-<>(statue_5&&photo),statue_5 -> F photo
 G(!( escalator_speeds_up | house_collapses )) | F(( escalator_speeds_up | house_collapses ) & F( train_has_arrived )),F((escalator_speeds_up | house_collapses) & F(train_has_arrived))
+G ( ( prop_2 & prop_1 ) -> F prop_3 ),(prop_2 & prop_1) -> F prop_3
 ( G ( F prop_1 ) -> G ( ! prop_2 ) ),G(prop_1 -> G(!prop_2))
 G ( ( prop_3 | prop_2 ) -> F ( G prop_1 ) ),(prop_3 | prop_2) -> F prop_1
-"G ( ""stay"" ) | get_to_tree",G(stay | get_to_tree)
+G ( stay ) | get_to_tree,G(stay | get_to_tree)
 G ( ( prop_4 & prop_1 ) -> ( prop_2 U prop_3 ) ),(prop_4 & prop_1) -> (prop_2 U prop_3)
 ( ( ! prop_1 <-> prop_2 ) & prop_3 ),(!prop_1 -> (prop_2 & prop_3)) & ((prop_2 & prop_3) -> !prop_1)
-!office_4 U p_pass_6&&<>(house_5&&<>(p_pass_6&&<>(office_4&&pd))),(!office_4 U p_pass_6) & F(house_5 & p_pass_6 & F office_4)
+!office_4 U p_pass_6&&<>(house_5&&<>(p_pass_6&&<>(office_4&&pd))),(!office_4 U p_pass_6) & F house_5 & F p_pass_6 & F office_4
 G ( ! prop_1 | G ( F prop_2 ) ),!prop_1 | G prop_2
 G(!( sensor_gathers_information )) | F(( sensor_gathers_information ) & F( elevator_is_open | train_derails )),F(sensor_gathers_information & F(elevator_is_open | train_derails))
-( F pickup_spoon ) -> ( ! pickup_spoon U ( pickup_apple & ! pickup_spoon ) ),G(pickup_spoon -> F pickup_apple)
 G ( F prop_1 & F prop_2 ),G(prop_1) & G(prop_2)
 ( G prop_2 & ( prop_3 -> prop_1 ) ),G(prop_2) & G(prop_3 -> prop_1)
 F ( go_to_trashcan ) & F ( get_near_flag ),G((go_to_trashcan) -> (get_near_flag))
 G ( F ( go_to_apple_trashcan ) ) | ! ( let_go_orange ),G(F(go_to_apple_trashcan) | !let_go_orange)
 G ( prop_3 -> ( prop_1 U prop_2 ) ),G(prop_3 -> (prop_2 U prop_1))
 F ( spend_time_at_tree ) U G ( ! ( drop_orange ) ),G(spend_time_at_tree U !drop_orange)
-( ( prop_2 | prop_1 ) <-> G prop_3 ),G((prop_2 | prop_1) <-> prop_3)
-"F ( ""green_room"" & F ""blue_room"" )",green_room & X blue_room
+( ( prop_2 | prop_1 ) <-> G prop_3 ),G((prop_2 | prop_1) <-> G(prop_3))
+F ( green_room & F blue_room ),green_room & X blue_room
 ( ( prop_3 -> prop_2 ) U ( prop_1 | prop_4 ) ),(!prop_1 & !prop_4) U (prop_3 -> prop_2)
 G(( bar_is_up | sensor_retrieves_data ) -> G(!( bridge_opens & elevator_is_blocked ))),((bar_is_up | sensor_retrieves_data) -> !(bridge_opens & elevator_is_blocked))
-[]<>(storage_4&&<>(p_crate_1&&<>(office_2&&pd))),G(pd & p_crate_1 -> (storage_4 & X F office_2))
-G(( motorbike_has_stopped & constructor_creates_instances ) -> F( train_has_arrived )),F((motorbike_has_stopped & constructor_creates_instances) U train_has_arrived)
+[]<>(storage_4&&<>(p_crate_1&&<>(office_2&&pd))),G(pd & p_crate_1 & storage_4 -> F office_2)
+G(( motorbike_has_stopped & constructor_creates_instances ) -> F( train_has_arrived )),F((motorbike_has_stopped & constructor_creates_instances) & train_has_arrived)
 F ( clutch_orange ) U grab_hold_pear,clutch_orange U grab_hold_pear
-G ( prop_1 -> G ( F prop_2 ) ),G(prop_1 -> G(prop_2))
+G ( prop_1 -> G ( F prop_2 ) ),G (prop_1 -> G prop_2)
 ( prop_1 U G ( F prop_2 ) ),prop_1 U G prop_2
-( F prop_3 -> ( prop_2 | prop_1 ) ),F prop_3 -> ((prop_1 | prop_2) U prop_3)
-G ( ( prop_2 & prop_1 ) -> prop_3 ),((prop_2 & prop_1) -> X prop_3)
+( F prop_3 -> ( prop_2 | prop_1 ) ),F(prop_3) -> ((prop_1 | prop_2) U prop_3)
+G ( ( prop_2 & prop_1 ) -> prop_3 ),(prop_2 & prop_1) -> X prop_3
 ( prop_1 | F prop_2 ),prop_1 | prop_2
-<>(kitchen_1&&<>(p_bottle_2&&<>(hall_2&&[]hall_2))),p_bottle_2 & X(hall_2 & G(hall_2))
+<>(kitchen_1&&<>(p_bottle_2&&<>(hall_2&&[]hall_2))),p_bottle_2 & X hall_2 & G hall_2
 G ( prop_2 -> ( prop_1 | prop_3 ) ),G(prop_2 -> (X prop_1 | prop_3))
-!office_4 U p_pass_6&&<>(house_5&&<>(p_pass_6&&<>(office_4&&pd))),(!office_4 U pd) & F(house_5 & p_pass_6 & F office_4)
-"! change_light_west_red U ""get_help""",change_light_west_red -> get_help
+!office_4 U p_pass_6&&<>(house_5&&<>(p_pass_6&&<>(office_4&&pd))),(!office_4 U p_pass_6) & F(house_5 & p_pass_6 & F(office_4))
+! change_light_west_red U get_help,change_light_west_red -> get_help
 ( prop_1 -> F prop_2 ),G(prop_1 -> F(prop_2))
-"F ( ""house_3"" & F ( ""p_box_8"" & F ( ""office_2"" & ""pd"" ) ) )",p_box_8 & house_3 & F office_2
+F ( house_3 & F ( p_box_8 & F ( office_2 & pd ) ) ),p_box_8 & house_3 & F office_2
 F ( arrive_at_tree ) | G ( ! ( let_go_orange ) ),G(arrive_at_tree | !let_go_orange)
-G ( F prop_1 | F prop_2 ),G(prop_1) | F(prop_2)
 ( ! ( prop_1 & prop_3 ) & prop_2 ),!((prop_1 & prop_3) & prop_2)
 G ( prop_1 & F prop_2 ),G(prop_1) & F(prop_2)
 ( F photo_fire_source ) -> ( ! photo_fire_source U ( photo_unstable_beam & ! photo_fire_source ) ),photo_fire_source -> F photo_unstable_beam
 G ( ( prop_3 | prop_2 ) -> G ( F prop_1 ) ),G((prop_3 | prop_2) -> (!prop_1 U false))
-"G ( ! ( ""get_help"" & record_safe_rescuer ) -> F photo_flood )",G((!get_help & !record_safe_rescuer) -> F(photo_flood))
+G ( ! ( get_help & record_safe_rescuer ) -> F photo_flood ),G((!get_help & !record_safe_rescuer) -> F(photo_flood))
 G ( ( prop_1 & prop_3 ) -> ! ( F prop_2 ) ),G((prop_1 & prop_3) -> !prop_2)
 G ( ! ( drop_orange ) ) & grip_apple,G(!(drop_orange & grip_apple))
-G ( ( prop_1 | prop_2 ) -> ( prop_4 U prop_3 ) ),G(((prop_1 | prop_2) -> (F(!prop_4) & !prop_3)))
+G ( ( prop_1 | prop_2 ) -> ( prop_4 U prop_3 ) ),G(((prop_1 | prop_2) -> (F(!prop_4) & (!prop_3 U !prop_4))))
 G ( ( prop_3 & prop_2 ) -> G prop_1 ),(prop_3 & prop_2) -> (prop_1 U true)
 ( G prop_2 -> ( prop_1 -> prop_3 ) ),G(prop_2) -> G(prop_1 -> prop_3)
 G(!( bar_has_to_be_repaired & sensor_retrieves_data )) | F(( bar_has_to_be_repaired & sensor_retrieves_data ) & F( elevator_falls | brake_is_pressed )),F((bar_has_to_be_repaired & sensor_retrieves_data) & (elevator_falls | X brake_is_pressed))
 G ( prop_1 | prop_2 ),G(prop_1) | prop_2
 ( G ( prop_3 & prop_2 ) & prop_1 ),G(prop_3 & prop_2 & prop_1)
-hold_pear -> F ( arrive_at_tree ),G(hold_pear -> F(arrive_at_tree))
 <>(arch_2&&photo&&<>(park_8&&[]park_8)),photo & F(park_8 & G park_8)
 G(!( house_is_open & constructor_creates_instances )),!(house_is_open & constructor_creates_instances)
-"G ( ! ( ""let_go"" ) ) U ! ( let_go_pear )",!let_go U !let_go_pear
+G ( ! ( let_go ) ) U ! ( let_go_pear ),(!let_go) U (!let_go_pear)
 G( bridge_closes & train_has_been_launched & escalator_moves ),G(bridge_closes -> (train_has_been_launched & escalator_moves))
 ( ! ( prop_3 U prop_2 ) | prop_1 ),!(prop_3 U F prop_2) | prop_1
 F ( prop_1 U ! ( F prop_2 ) ),(prop_1) U (!prop_2)
-[]<>(area_4&&photo)&&[]<>(area_3&&photo),G(photo & area_4) & G F photo & G F area_3
+! photo_car_northwest_5th_street U photo_car_southwest_9th_street,photo_car_northwest_5th_street -> F photo_car_southwest_9th_street
+[]<>(area_4&&photo)&&[]<>(area_3&&photo),G(photo & area_4) & G F area_3
 ( communicate_safe_hostile U avoid_active_flood ),communicate_safe_hostile -> avoid_active_flood
-G ( ( prop_2 | prop_1 ) -> ! ( G prop_3 ) ),(prop_2 | prop_1) -> !prop_3
-( G prop_1 <-> ( prop_3 -> prop_2 ) ),G prop_1 <-> (prop_3 & X prop_2)
-"G ( ""move_around"" ) | G ( ! ( drop_orange ) )",G(move_around | !drop_orange)
+G ( ( prop_2 | prop_1 ) -> ! ( G prop_3 ) ),((prop_2) | (prop_1)) -> !(prop_3)
+( G prop_1 <-> ( prop_3 -> prop_2 ) ),G prop_1 <-> (prop_3 & F prop_2)
+G ( move_around ) | G ( ! ( drop_orange ) ),G(move_around | !drop_orange)
 G(( elevator_rises ) -> G(( elevator_falls ) -> F( bar_has_to_be_repaired ))),elevator_rises -> G(elevator_falls -> F(bar_has_to_be_repaired))
 ( ( prop_2 U prop_1 ) <-> ( prop_3 -> prop_4 ) ),((prop_2 U prop_1) <-> (prop_3 & X prop_4))
 F ( go_to_tree ) -> reach_trash_can,G(go_to_tree -> reach_trash_can)
-[]county_4&&[]<>(office_3&&<>(p_package_4&&<>(office_8&&pd))),G(county_4 & (pd & office_3 -> X(!pd & !office_3 & X(pd & office_8))))
+[]county_4&&[]<>(office_3&&<>(p_package_4&&<>(office_8&&pd))),G(county_4 & F(p_package_4 & office_3 & F(office_8)))
 G(( train_has_been_launched & bar_is_closing ) -> G( semaphore_is_yellow )),G((train_has_been_launched & bar_is_closing) -> semaphore_is_yellow)
 F ( go_near_flag ) & F ( go_near_pear ),G(go_near_flag & go_near_pear)
 ( ( prop_2 | prop_1 ) <-> ( prop_4 -> prop_3 ) ),((prop_2 | prop_1) -> ((prop_4 -> prop_3) & (prop_3 -> prop_4)))
 ( ( prop_1 | prop_2 ) & prop_3 ),F((prop_1 | prop_2) & prop_3)
-"F G ""street_2""",G(street_2)
-"F ""blue_room""",blue_room
-( ! prop_3 U ( prop_2 & prop_1 ) ),(!prop_1) U (prop_3 & prop_2)
+F G street_2,G(street_2)
+F blue_room,blue_room
+( ! prop_3 U ( prop_2 & prop_1 ) ),(!prop_1) U (prop_2 & prop_3)
 F ( proceed_to_flag ) U F ( visit_flag ),G(proceed_to_flag U visit_flag)
-G ( ( prop_3 & prop_2 ) -> F ( G prop_1 ) ),G((prop_3 & prop_2) -> F prop_1)
-"( F ( ""green_room"" ) & G ( ! ""red_room"" ) )",G(!red_room -> F green_room)
+G ( ( prop_3 & prop_2 ) -> F ( G prop_1 ) ),G((prop_3 & prop_2) -> F(prop_1))
+( F ( green_room ) & G ( ! red_room ) ),G(!red_room -> F green_room)
 ( G prop_2 & ( prop_1 | prop_3 ) ),G(prop_2 & (prop_1 | prop_3))
 G ( prop_1 -> F ( G prop_2 ) ),G(prop_1 -> F(!prop_2))
 G ( ( prop_3 | prop_1 ) -> G prop_2 ),(prop_3 | prop_1) -> (prop_2 & G prop_2)
 G(!( bridge_closes )) | F(( bridge_closes ) & F( manager_handles_requests | manager_collect_claims )),F(bridge_closes & F(manager_handles_requests | manager_collect_claims))
 G ( ( prop_3 & prop_2 ) -> G ( F prop_1 ) ),(prop_3 & prop_2) -> G F prop_1
 ( ! prop_3 U ( prop_2 | prop_1 ) ),(!prop_1) U (prop_2 | prop_3)
-"F ( ( ""red_room"" | ""blue_room"" ) & F ""yellow_room"" )",yellow_room & (red_room | blue_room)
-<>(p_luggage_2&&<>(room_402&&pd)),p_luggage_2 & pd & F room_402
-"( ""get_help"" U change_light_south_yellow )",get_help -> X change_light_south_yellow
+F ( ( red_room | blue_room ) & F yellow_room ),yellow_room & (red_room | blue_room)
+<>(p_luggage_2&&<>(room_402&&pd)),p_luggage_2 & pd & room_402
+( get_help U change_light_south_yellow ),get_help -> X(change_light_south_yellow)
 G ( ( prop_2 & prop_3 ) -> F prop_1 ),(prop_2 & prop_3) -> F prop_1
 G ( prop_1 -> ( prop_2 U prop_3 ) ),G(prop_1 -> (prop_3 U prop_2))
 ( ( prop_2 -> prop_4 ) | ( prop_1 -> prop_3 ) ),(prop_2 -> prop_4) & (prop_1 -> prop_3)
 G(!( semaphore_is_red & table_has_been_moved )),!(semaphore_is_red & table_has_been_moved)
 G ( change_light_north_green & X change_light_east_green -> X X photo_cyclist_east_3rd_avenue ),(change_light_north_green & X change_light_east_green) -> X X photo_cyclist_east_3rd_avenue
 G(( house_is_built & motorbike_has_stopped ) -> G(!( escalator_moves | table_is_old ))),G((house_is_built & motorbike_has_stopped) -> (!escalator_moves | !table_is_old))
-( F prop_3 <-> ( prop_1 | prop_2 ) ),F prop_3 <-> F (prop_1 | prop_2)
 ( G prop_1 | ( prop_2 & prop_3 ) ),G(prop_1 | (prop_2 & prop_3))
 go_to_orange -> F ( procure_orange ),go_to_orange -> G(procure_orange)
 G(( motorbike_is_driven | escalator_speeds_up ) -> G(!( bar_is_closing & elevator_is_blocked ))),G((motorbike_is_driven | escalator_speeds_up) -> !(bar_is_closing & elevator_is_blocked))
-G(!( sensor_gathers_information )) | F(( sensor_gathers_information ) & F( train_has_arrived & elevator_falls )),F(sensor_gathers_information & F(train_has_arrived & elevator_falls))
+G(!( sensor_gathers_information )) | F(( sensor_gathers_information ) & F( train_has_arrived & elevator_falls )),F sensor_gathers_information & F (train_has_arrived & elevator_falls)
 <>[]intersection_5,G(intersection_5)
 F ( bring_pear ) -> venture_towards_house,G(bring_pear -> venture_towards_house)
-"( deliver_clock_loading_dock U ""idle"" )",deliver_clock_loading_dock -> X idle
+( deliver_clock_loading_dock U idle ),deliver_clock_loading_dock -> X idle
 G ( prop_3 -> ( prop_2 | prop_1 ) ),G(prop_3 -> (X(prop_2) | prop_1))
 F ( prop_1 U G ( ! prop_2 ) ),F(prop_1) U G(!prop_2)
+F ( prop_1 | prop_2 ),G((prop_1 | prop_2))
 F ( make_your_way_flag ) | take_apple,F(make_your_way_flag | take_apple)
 ( ! ( prop_3 <-> prop_2 ) -> prop_1 ),(prop_3 <-> prop_2) -> prop_1
 G ( ( record_jaywalker_southeast_10th_street <-> record_person_southeast_4th_avenue ) -> ( record_person_southeast_4th_avenue <-> record_cyclist_southwest_5th_avenue ) ),G((record_jaywalker_southeast_10th_street & record_person_southeast_4th_avenue) -> (record_person_southeast_4th_avenue & record_cyclist_southwest_5th_avenue))
-G ( ! ( drop_pear ) ) & F ( going_to_house ),G(going_to_house -> !drop_pear)
-"""parking_lot_9"" U ( ""car_2"" & ""photo"" )",parking_lot_9 U photo
+G ( ! ( drop_pear ) ) & F ( going_to_house ),G(!drop_pear) & G(going_to_house)
+( prop_1 U F prop_2 ),prop_1 U G prop_2
+parking_lot_9 U ( car_2 & photo ),parking_lot_9 U photo
 ( ( prop_3 -> prop_1 ) -> G prop_2 ),G((prop_3 -> prop_1) -> prop_2)
 ( record_person_west_8th_street U record_cyclist_east_10th_avenue ),record_person_west_8th_street -> X record_cyclist_east_10th_avenue
-G ( ( prop_3 & prop_4 ) -> ( prop_1 & prop_2 ) ),G((prop_3 & prop_4) -> (X prop_1 & prop_2))
 G ( prop_1 | F prop_2 ),G(prop_1) | G(prop_2)
-G(( escalator_is_blocked & manager_collect_claims ) -> F( sensor_captures_data )),F(sensor_captures_data & escalator_is_blocked & manager_collect_claims)
+G(( escalator_is_blocked & manager_collect_claims ) -> F( sensor_captures_data )),F((escalator_is_blocked & manager_collect_claims) -> sensor_captures_data)
 G(( house_is_open | train_is_crossing ) -> F( car_starts & table_is_brown )),F((house_is_open | train_is_crossing) -> (car_starts & table_is_brown))
 ( F ( prop_3 | prop_2 ) & prop_1 ),F((prop_3 | prop_2) & prop_1)
 F ( prop_1 | F prop_2 ),G(prop_1) | G(prop_2)
-( ( prop_4 -> prop_3 ) <-> ( prop_2 -> prop_1 ) ),((prop_4 -> prop_3) & (prop_2 -> prop_1)) <-> ((prop_2 -> prop_1) & (prop_4 -> prop_3))
-"G ( ""get_help"" -> ( communicate_injured_victim | X communicate_injured_victim ) )",get_help -> (communicate_injured_victim | X communicate_injured_victim)
-G(!( train_has_arrived )) | F(( train_has_arrived ) & F( manager_collect_claims & semaphore_is_broken )),F train_has_arrived & F (manager_collect_claims & semaphore_is_broken)
+G ( get_help->_communicate_injured_victim | X communicate_injured_victim ),get_help -> (communicate_injured_victim | X communicate_injured_victim)
+G(!( train_has_arrived )) | F(( train_has_arrived ) & F( manager_collect_claims & semaphore_is_broken )),F(train_has_arrived & F(manager_collect_claims & semaphore_is_broken))
 G ( ( prop_3 | prop_1 ) -> G ( F prop_2 ) ),G((prop_3 | prop_1) -> G(prop_2))
-! G ( ! ( communicate_safe_rescuer & X communicate_safe_rescuer ) ),G(communicate_safe_rescuer | X(communicate_safe_rescuer) | X X(communicate_safe_rescuer))
+! G ( ! ( communicate_safe_rescuer & X communicate_safe_rescuer ) ),G(communicate_safe_rescuer | X communicate_safe_rescuer | X X communicate_safe_rescuer)
+( ( prop_3 -> prop_2 ) | G prop_1 ),(prop_3 -> prop_2) & (!prop_3 -> G prop_1)
 G(( motorbike_has_started & train_is_crossing ) -> G(!( bar_is_closing & elevator_is_blocked ))),G((motorbike_has_started & train_is_crossing) -> !(bar_is_closing & elevator_is_blocked))
 G ( prop_1 -> prop_2 ),prop_1 -> prop_2
 G(!( table_is_old & bar_has_to_be_repaired )) | F(( table_is_old & bar_has_to_be_repaired ) & F( engine_breaks | car_enters )),F(table_is_old & bar_has_to_be_repaired & (engine_breaks | X car_enters))
 G ( ( prop_1 & prop_3 ) -> ( prop_4 U prop_2 ) ),G((prop_1 & prop_3) -> (prop_2 U F prop_4))
 G ( F ( make_way_to_house ) ) -> G ( F ( go_to_waste_basket ) ),G(make_way_to_house -> G(go_to_waste_basket))
 ( ( ( prop_4 -> prop_2 ) U prop_3 ) & prop_1 ),F prop_4 -> ((prop_2 & prop_1) U prop_3)
-F ( prop_1 & G ( ! prop_2 ) ),G(prop_1) & G(!prop_2)
-G(( sensor_captures_data ) -> F( motorbike_is_driven | elevator_falls )),F((sensor_captures_data) -> ((motorbike_is_driven) | (elevator_falls)))
+F ( prop_1 & G ( ! prop_2 ) ),G(prop_1 & !prop_2)
+G(( sensor_captures_data ) -> F( motorbike_is_driven | elevator_falls )),F((motorbike_is_driven) | (sensor_captures_data & F(elevator_falls)))
 ( ( ( prop_4 <-> prop_2 ) -> prop_3 ) & prop_1 ),((prop_4 <-> prop_2) -> (prop_3 & prop_1))
 F ( grab_flag ) | G ( F ( grab_tree ) ),G(grab_flag | G grab_tree)
-( ! ( prop_3 U prop_2 ) <-> prop_1 ),!(F(prop_3) U prop_2 <-> prop_1)
 ( F photo_car_northeast_3rd_avenue ) -> ( ! photo_car_northeast_3rd_avenue U ( record_motorcycle_east_9th_street & ! photo_car_northeast_3rd_avenue ) ),F photo_car_northeast_3rd_avenue -> F record_motorcycle_east_9th_street
-<>(house_4&&<>(p_package_2&&<>(warehouse_5&&pd))),F(p_package_2 & house_4 & F(pd & warehouse_5))
+<>(house_4&&<>(p_package_2&&<>(warehouse_5&&pd))),F(p_package_2 & house_4) & F(pd & warehouse_5)
 G(( motorbike_has_stopped & elevator_rises ) -> F( bar_is_down & elevator_is_open )),(motorbike_has_stopped & elevator_rises) -> F(bar_is_down & elevator_is_open)
 G(( escalator_is_blocked | motorbike_has_started ) -> G(!( motorbike_falls_down & engine_starts ))),G((escalator_is_blocked | motorbike_has_started) -> !(motorbike_falls_down & engine_starts))
 G(!( bar_has_to_be_repaired | table_is_old )) | F(( bar_has_to_be_repaired | table_is_old ) & F( house_is_open & bar_is_up )),F(bar_has_to_be_repaired | (table_is_old & F(house_is_open & X bar_is_up)))
-"F ( ""bedroom_2"" & F ( ""p_bottle_3"" & F ( ""kitchen_4"" & ""pd"" ) ) )",F(pd & bedroom_2 & p_bottle_3) & F(kitchen_4 & !p_bottle_3)
-( ( prop_1 U prop_4 ) -> ( prop_3 -> prop_2 ) ),G(((prop_1 & !prop_4) U prop_4) -> (prop_3 -> prop_2))
+F ( bedroom_2 & F ( p_bottle_3 & F ( kitchen_4 & pd ) ) ),F(pd & bedroom_2 & p_bottle_3 & F(kitchen_4))
+( ( prop_1 U prop_4 ) -> ( prop_3 -> prop_2 ) ),G(((prop_1 & !prop_4) -> (prop_1 U prop_4)) & ((prop_1 U prop_4) & prop_3 -> prop_2))
 ( ( G prop_2 | prop_1 ) | prop_3 ),G(prop_2 | prop_1 | prop_3)
+( G prop_1 -> ( prop_3 & prop_2 ) ),G(prop_1) -> G(prop_3 & prop_2)
 G ( ! prop_1 | ! ( F prop_2 ) ),!prop_1 | !prop_2
 ( ( prop_1 -> prop_2 ) | G prop_3 ),(prop_1 -> prop_2) & (!prop_1 -> G prop_3)
-( ( ( prop_2 | prop_1 ) U prop_4 ) -> prop_3 ),((F (prop_2 | prop_1)) & ((prop_2 | prop_1) U prop_4)) -> prop_3
-[]locality_2&&<>(office_4&&<>(p_document_5&&<>(office_9&&pd))),G(locality_2) & F(p_document_5 & office_4) & F(office_9)
-( prop_1 -> prop_2 ),prop_1 & prop_2
+( ( ( prop_2 | prop_1 ) U prop_4 ) -> prop_3 ),((F(prop_2) | F(prop_1)) & ((prop_2 | prop_1) U prop_4)) -> prop_3
+[]locality_2&&<>(office_4&&<>(p_document_5&&<>(office_9&&pd))),G(locality_2) & F(p_document_5 & office_4) & F(p_document_5 & office_9)
 G(!( car_stops | motorbike_has_started )) | F(( car_stops | motorbike_has_started ) & F( engine_stops | train_is_crossing )),F((car_stops | motorbike_has_started) & F(engine_stops | train_is_crossing))
-G ( ( prop_1 & prop_3 ) -> F ( G prop_2 ) ),G(((prop_1 & prop_3) -> ((!prop_2) U G(prop_1 & prop_3))))
+G ( ( prop_1 & prop_3 ) -> F ( G prop_2 ) ),G((prop_1 & prop_3) -> ((!prop_2) U G((!prop_2) U prop_2)))
 <>[]house_5,F house_5 & G house_5
 G ( prop_1 | F prop_2 ),G(prop_1) | F(prop_2)
-G ( ( prop_1 | prop_3 ) -> ( prop_4 | prop_2 ) ),((prop_1 | prop_3) -> X(prop_4 | prop_2))
+G ( ( prop_1 | prop_3 ) -> ( prop_4 | prop_2 ) ),(prop_1 | prop_3) -> X(prop_4 | prop_2)
 G(!( table_has_been_moved & train_derails )) | F(( table_has_been_moved & train_derails ) & F( bridge_closes )),F((table_has_been_moved & train_derails) & F(bridge_closes))
 gather_orange U F ( withold_apple ),gather_orange U withold_apple
 G ( ( prop_1 | prop_3 ) -> G prop_2 ),((!prop_1 | !prop_3) -> F prop_2)
-G ( ( prop_1 | prop_2 ) -> G ( F prop_3 ) ),G(((prop_1 | prop_2) -> F(prop_3)))
-[]<>(monument_8&&photo)&&!monument_8 U park_4,G(photo -> (!monument_8 U park_4))
+G ( ( prop_1 | prop_2 ) -> G ( F prop_3 ) ),G((prop_1 | prop_2) -> F(prop_3))
+[]<>(monument_8&&photo)&&!monument_8 U park_4,G(photo & (!monument_8 U park_4))
 F ( present_at_flag ) -> venture_towards_house,G(present_at_flag -> venture_towards_house)
-"G ( ""get_help"" -> X G ! deliver_refrigerator_shelf )",G(get_help -> G(!deliver_refrigerator_shelf))
+G ( get_help -> X G ! deliver_refrigerator_shelf ),G(get_help -> G(!deliver_refrigerator_shelf))
 ( F ( prop_1 <-> prop_2 ) & prop_3 ),F((prop_1 <-> prop_2) & prop_3)
 []<>(warehouse_3&&<>(p_crate_4&&<>(store_9&&pd)))&&[]<>charger_3,G(F(warehouse_3 & p_crate_4 & pd & store_9) & F(charger_3))
-( F prop_3 -> ( prop_1 & prop_2 ) ),F(prop_3) -> (F(prop_1) & F(prop_2))
-"F ( ( ""red_room"" | ""green_room"" ) & F ""blue_room"" )",F(blue_room & (green_room | red_room))
+F ( ( red_room | green_room ) & F blue_room ),F(blue_room & (green_room | red_room))
 ( ( ( prop_1 | prop_3 ) -> prop_2 ) <-> prop_4 ),((prop_1 | prop_3) -> (prop_2 <-> prop_4))
-! ( F ( pick_up_anything ) ) | F ( go_to_peach ),!pick_up_anything | go_to_peach
+! ( F ( pick_up_anything ) ) | F ( go_to_peach ),!pick_up_anything | G(go_to_peach)
 G ( hold_on_pear ) -> F ( get_to_flag ),G(hold_on_pear -> F(get_to_flag))
 G(( engine_breaks & semaphore_is_yellow ) -> F( brake_is_released & semaphore_is_yellow )),((engine_breaks & semaphore_is_yellow) -> F(brake_is_released & semaphore_is_yellow))
+<>(statue_5&&photo),statue_5 -> F photo
 G ( ( prop_3 | prop_2 ) -> F prop_1 ),G((prop_3 | prop_2) -> prop_1)
 ( F prop_1 & ( prop_2 & prop_3 ) ),F(prop_1 & prop_2 & prop_3)
-( ( ( prop_3 U prop_4 ) & prop_1 ) | prop_2 ),F(prop_3 & (prop_3 U prop_4)) -> prop_1 | prop_2
-G(( motorbike_has_stopped & car_starts ) -> G(!( bridge_opens & sensor_retrieves_data ))),(car_starts & motorbike_has_stopped) -> G(!(bridge_opens & sensor_retrieves_data))
+( ( ( prop_3 U prop_4 ) & prop_1 ) | prop_2 ),F(prop_3 & (prop_3 U prop_4)) | prop_1 | prop_2
 ( F prop_1 -> F prop_2 ),G(prop_1 -> G(prop_2))
 G(( escalator_speeds_up & motorbike_falls_down ) -> F( sensor_retrieves_data | car_enters )),(escalator_speeds_up & motorbike_falls_down) -> F(sensor_retrieves_data | car_enters)
 F ( lay_hold_of_apple ) & F ( get_to_flag ),G(lay_hold_of_apple -> F(get_to_flag))
@@ -439,21 +432,21 @@ G(!( engine_stops | elevator_is_open )) | F(( engine_stops | elevator_is_open ) 
 F ( prop_1 | G prop_2 ),G(prop_1 | prop_2)
 G(( table_is_old & house_is_built ) -> G(!( sensor_captures_data | table_has_been_moved ))),G(!(table_is_old & house_is_built -> (sensor_captures_data | table_has_been_moved)))
 G ( prop_1 -> G ( F prop_2 ) ),prop_1 -> G F prop_2
-G ( ! prop_1 U G ( ! prop_2 ) ),!prop_1 U !prop_2
-G ( F prop_3 -> ( prop_1 U prop_2 ) ),F (prop_3 & F (prop_1 & (!prop_2 U prop_1)))
+G ( ! prop_1 U G ( ! prop_2 ) ),(!prop_1) U (!prop_2)
+G ( F prop_3 -> ( prop_1 U prop_2 ) ),F (prop_3) -> F (prop_1 & (!prop_2 U prop_2))
 G ( ( prop_2 & prop_4 ) -> ( prop_1 | prop_3 ) ),G((prop_2 & prop_4) -> (X prop_1 | prop_3))
 G ( F ( grab_tree ) ) & snatch_up_pear,G(F(grab_tree & snatch_up_pear))
 ! ( prop_1 | prop_2 ),!prop_1 | prop_2
+! ( let_go_pear ) & G ( F ( grab_tree ) ),G(!let_go_pear & G F grab_tree)
 ! ( prop_1 | F prop_2 ),!prop_1 | F prop_2
 ( F prop_3 | ( prop_1 -> prop_2 ) ),F prop_3 | (prop_1 -> F prop_2)
 !garage_1 U photo&&<>(landmark_5&&photo),(!garage_1) U (photo & landmark_5)
-[]<>charging_station_5&&[]<>(warehouse_1&&<>(p_package_5&&<>(store_5&&pd))),G((p_package_5 & warehouse_1) -> (F charging_station_5 & F store_5))
+[]<>charging_station_5&&[]<>(warehouse_1&&<>(p_package_5&&<>(store_5&&pd))),G((p_package_5 & warehouse_1) -> F(charging_station_5))
 G ( prop_3 -> ( prop_2 & prop_1 ) ),prop_3 -> (prop_2 & prop_1)
 ( F prop_3 & ( prop_1 | prop_2 ) ),F(prop_3) & (F(prop_1) | F(prop_2))
-( ! prop_2 <-> ( prop_3 U prop_1 ) ),!prop_2 <-> (prop_3 & (prop_3 U prop_1))
-G(( train_derails ) -> F( elevator_falls & escalator_is_blocked )),train_derails -> F (elevator_falls & escalator_is_blocked)
+G(( train_derails ) -> F( elevator_falls & escalator_is_blocked )),train_derails -> F(elevator_falls & escalator_is_blocked)
 G ( ! prop_1 & prop_2 ),!prop_1 & prop_2
-F ( prop_1 & ! prop_2 ),G(prop_1 & !prop_2)
+F ( prop_1 & ! prop_2 ),G((prop_1 & !prop_2))
 take_pear -> F ( steal_apple ),take_pear -> G steal_apple
 G ( ( prop_1 | prop_2 ) -> F prop_3 ),G((prop_1 | !prop_2) -> prop_3)
 G(( bar_is_down & semaphore_is_red ) -> G( house_is_built & train_derails )),(semaphore_is_red & bar_is_down) -> G(house_is_built & train_derails)
@@ -472,20 +465,20 @@ G(( house_is_open & motorbike_has_started ) -> G(!( semaphore_is_green | bar_is_
 go_by_waste_bin U F ( bring_pear ),go_by_waste_bin U bring_pear
 G ( ! ( drop_orange ) ) & F ( venture_house ),G(!drop_orange) & G(venture_house)
 F ( prop_1 & G prop_2 ),G(prop_1) & G(prop_2)
-change_light_east_red -> X ( ( photo_jaywalker_southeast_6th_avenue U change_light_east_green ) | G photo_jaywalker_southeast_6th_avenue ),change_light_east_red -> (X(photo_jaywalker_southeast_6th_avenue U change_light_east_green) | G(photo_jaywalker_southeast_6th_avenue))
+change_light_east_red -> X ( ( photo_jaywalker_southeast_6th_avenue U change_light_east_green ) | G photo_jaywalker_southeast_6th_avenue ),(change_light_east_red -> (X(photo_jaywalker_southeast_6th_avenue U change_light_east_green) | G photo_jaywalker_southeast_6th_avenue))
 prop_1 U prop_2,prop_1 & X prop_2
-"G ( ! ( ""get_help"" & photo_collision_northwest_10th_avenue ) -> F photo_person_east_7th_avenue )",G((!get_help & !photo_collision_northwest_10th_avenue) -> F(photo_person_east_7th_avenue))
+G ( ! ( get_help & photo_collision_northwest_10th_avenue ) -> F photo_person_east_7th_avenue ),G((!get_help & !photo_collision_northwest_10th_avenue) -> F(photo_person_east_7th_avenue))
 ( ! ( prop_1 | prop_2 ) & prop_3 ),((!prop_1 | !prop_2) & prop_3)
 travel_to_apple U F ( spend_time_at_tree ),travel_to_apple U G spend_time_at_tree
 <>(house_5&&<>(p_box_4&&<>(office_2&&pd))),F(house_5 & p_box_4 & F(office_2))
-G ( ! ( drop_apple ) ) | venture_towards_house,G(!(drop_apple | venture_towards_house))
+G ( ! ( drop_apple ) ) | venture_towards_house,G(!drop_apple & !venture_towards_house)
 G(( elevator_is_open ) -> G(( semaphore_is_yellow ) -> F( train_stops ))),elevator_is_open -> G(semaphore_is_yellow -> F(train_stops))
 G(!( bridge_closes )) | F(( bridge_closes ) & F( brake_is_pressed & motorbike_has_stopped )),F(bridge_closes & F(brake_is_pressed & motorbike_has_stopped))
 ( F prop_2 <-> ( prop_1 & prop_3 ) ),F(prop_2 <-> (prop_1 & prop_3))
-"""park_5"" U ( ""monument_2"" & ""photo"" & F ( ""intersection_5"" & G ""intersection_5"" ) )",(park_5 U (photo & monument_2)) & G((photo & monument_2) -> X G intersection_5)
+park_5 U ( monument_2 & photo & F ( intersection_5 & G intersection_5 ) ),(park_5 U (photo & monument_2)) & G((photo & monument_2) -> X G(intersection_5))
 G(( motorbike_is_driven & bar_is_up ) -> G(!( sensor_captures_data | table_has_been_moved ))),((motorbike_is_driven & bar_is_up) -> G(!(sensor_captures_data | table_has_been_moved)))
-( ( prop_3 -> prop_1 ) U ! prop_2 ),(prop_3 -> (prop_1 U !prop_2))
-G(!( manager_handles_requests | manager_collect_claims )) | F(( manager_handles_requests | manager_collect_claims ) & F( bridge_closes )),F((manager_handles_requests | manager_collect_claims) & F bridge_closes)
+( ( prop_3 -> prop_1 ) U ! prop_2 ),prop_3 -> (prop_1 & (prop_1 U !prop_2))
+G(!( manager_handles_requests | manager_collect_claims )) | F(( manager_handles_requests | manager_collect_claims ) & F( bridge_closes )),F((manager_handles_requests | manager_collect_claims) & F(bridge_closes))
 G ( F prop_1 U prop_2 ),prop_1 U prop_2
 G ( prop_1 | G prop_2 ),G(prop_1) | G(prop_2)
 F ( prop_1 & prop_2 ),G(prop_1 & prop_2)
@@ -493,70 +486,69 @@ F ( prop_1 & prop_2 ),G(prop_1 & prop_2)
 G ( ( prop_1 | prop_4 ) -> ( prop_2 U prop_3 ) ),G((prop_1 | prop_4) -> (prop_3 U prop_2))
 G ( ( prop_1 & prop_3 ) -> F ( G prop_2 ) ),(prop_1 & prop_3) -> F G prop_2
 F ( prop_1 U F prop_2 ),(prop_1) U (prop_2)
-<>(office_4&&<>(p_box_2&&<>(house_1&&pd))),F(pd & p_box_2 & office_4 & house_1)
+<>(office_4&&<>(p_box_2&&<>(house_1&&pd))),F(pd & office_4 & p_box_2 & house_1)
 G ( ( prop_2 | prop_3 ) -> ( prop_4 & prop_1 ) ),G(((prop_2 | prop_3) -> X(prop_4 & prop_1)))
 G(( sensor_captures_data | escalator_moves ) -> G(!( motorbike_catches_fire | bar_has_to_be_repaired ))),((sensor_captures_data | escalator_moves) -> G(!(motorbike_catches_fire | bar_has_to_be_repaired)))
+G ( ! ( drop_apple ) ) | venture_towards_house,G(!(drop_apple | venture_towards_house))
 ( ( ( prop_2 U prop_3 ) | prop_1 ) & prop_4 ),((prop_2 & (prop_2 U prop_3)) | prop_1) & prop_4
 ( ( prop_2 U prop_4 ) <-> ( prop_1 -> prop_3 ) ),(G((prop_2 -> (prop_2 U prop_4))) <-> G((prop_1 -> prop_3)))
-G(!( bridge_closes )) | F(( bridge_closes ) & F( engine_starts & constructor_creates_instances )),F(bridge_closes & F(engine_starts & constructor_creates_instances))
+G(!( bridge_closes )) | F(( bridge_closes ) & F( engine_starts & constructor_creates_instances )),F bridge_closes & F (engine_starts & constructor_creates_instances)
 G ( ! prop_1 & G ( ! prop_2 ) ),!prop_1 & !prop_2
-"F G ""parking_lot_5""",F(parking_lot_5)
-( ! ( prop_2 & prop_1 ) <-> prop_3 ),(!(prop_2) & prop_1) <-> prop_3
+F G parking_lot_5,F(parking_lot_5)
 ! ( let_go_orange ) | snatch_up_pear,!(let_go_orange | snatch_up_pear)
 ! ( let_go_pear ) U F ( get_to_flag ),!let_go_pear U get_to_flag
-"( F ( ""red_room"" ) & G ( ! ""blue_room"" ) )",G(!blue_room -> X(!blue_room U red_room))
+( F ( red_room ) & G ( ! blue_room ) ),G(!blue_room -> X(!blue_room U red_room))
 F ( prop_1 U G ( ! prop_2 ) ),(prop_1) U (!prop_2)
 G ( record_car_northwest_3rd_street & X change_light_south_red -> X X record_cyclist_southwest_6th_street ),(record_car_northwest_3rd_street & X change_light_south_red) -> XX record_cyclist_southwest_6th_street
 G(!( train_derails & house_is_built )) | F(( train_derails & house_is_built ) & F( brake_is_released & bar_is_up )),F(train_derails & house_is_built & F(brake_is_released & bar_is_up))
-( ( ( prop_1 -> prop_2 ) -> prop_4 ) U prop_3 ),(prop_1 -> prop_2) U prop_3
-park_8 U (monument_2&&photo&&<>(bench_5&&[]bench_5)),(park_8 U photo) & (photo -> X(bench_5 & G bench_5))
+park_8 U (monument_2&&photo&&<>(bench_5&&[]bench_5)),(park_8 U photo) & X(bench_5 & G bench_5)
 G ( F prop_1 | F prop_2 ),G(prop_1) | G(prop_2)
-travel_to_tree | G ( ! ( let_go_orange ) ),travel_to_tree | !let_go_orange
 G(!( train_has_arrived )) | F(( train_has_arrived ) & F( train_has_been_launched & escalator_is_blocked )),F(train_has_arrived & F(train_has_been_launched & G(escalator_is_blocked)))
+G F record_cyclist_south_6th_avenue | G F get_help,G F get_help | record_cyclist_south_6th_avenue
 ( ! prop_2 | ( prop_3 U prop_1 ) ),!prop_2 -> (prop_3 U prop_1)
 G ( hold_on_pear ) | get_to_tree,G(hold_on_pear | get_to_tree)
 ( G prop_3 | ( prop_1 <-> prop_2 ) ),G(prop_3 | (prop_1 <-> prop_2))
 ( G prop_3 | ( prop_1 -> prop_2 ) ),G(prop_3 | (prop_1 -> prop_2))
 F ( tax_apple ) -> F ( proceed_to_house ),F(tax_apple -> F(proceed_to_house))
 G ( ( prop_2 | prop_3 ) -> prop_1 ),((prop_2 | prop_3) -> X prop_1)
-"G ( ! ( ""let_go"" ) ) -> F ( travel_to_flag )",G(!let_go -> F(travel_to_flag))
+G ( ! ( let_go ) ) -> F ( travel_to_flag ),G(!let_go -> F(travel_to_flag))
 ( F ( prop_3 -> prop_1 ) -> prop_2 ),F(G(prop_3 -> prop_1)) -> prop_2
 ( ( ( prop_1 -> prop_3 ) & prop_2 ) & prop_4 ),prop_1 -> (prop_3 & prop_2 & prop_4)
-G ( prop_1 & prop_2 ),G(prop_1) & prop_2
+G ( record_pedestrian_southwest_7th_street <-> X record_vehicle_northwest_1st_street ),G(record_pedestrian_southwest_7th_street -> X record_vehicle_northwest_1st_street)
 F ( withdraw_pear ) U get_to_tree,withdraw_pear U get_to_tree
-G(( elevator_rises | semaphore_is_yellow ) -> F( train_has_arrived )),(elevator_rises | semaphore_is_yellow) -> F(train_has_arrived)
-G ( ! ( let_go_orange ) ) | G ( ! ( drop_orange ) ),G(!drop_orange & !let_go_orange)
-"F ( ""post_office_1"" & F ( ""p_letter_3"" & F ( ""house_2"" & ""pd"" ) ) )",post_office_1 & F(p_letter_3 & F house_2)
+G(( elevator_rises | semaphore_is_yellow ) -> F( train_has_arrived )),(elevator_rises | semaphore_is_yellow) -> F train_has_arrived
+G ( ! ( let_go_orange ) ) | G ( ! ( drop_orange ) ),G(!drop_orange | !let_go_orange)
+F ( post_office_1 & F ( p_letter_3 & F ( house_2 & pd ) ) ),F(pd & p_letter_3 & post_office_1) & F(house_2)
 G(( train_has_arrived ) -> F( motorbike_is_driven | semaphore_is_green )),F((motorbike_is_driven | semaphore_is_green) & train_has_arrived)
-G(( escalator_is_blocked | constructor_creates_instances ) -> F( train_derails )),((escalator_is_blocked | constructor_creates_instances) -> F train_derails)
-"F ( ""table_4"" & F ( ""p_tin_can_4"" & F ( ""trash_can_5"" & ""pd"" ) ) ) & G ! ""hallway_2""",F(pd & table_4 & p_tin_can_4) & F(pd & trash_can_5) & G(!hallway_2)
+F ( table_4 & F ( p_tin_can_4 & F ( trash_can_5 & pd ) ) ) & G ! hallway_2,p_tin_can_4 & F trash_can_5 & G !hallway_2
 ! ( F ( pick_up_anything ) ) & go_visit_flag,!pick_up_anything & go_visit_flag
-"G ( search_frisbee -> F ""idle"" ) -> G F pickup_hot_dog",G((search_frisbee -> F idle) -> G F pickup_hot_dog)
-! G ( ! ( pickup_baseball_glove & X pickup_baseball_glove ) ),G(pickup_baseball_glove | X(pickup_baseball_glove) | X X(pickup_baseball_glove))
-"G ( ""move_around"" ) & reach_trash_can",G(move_around & reach_trash_can)
+! G ( ! ( pickup_baseball_glove & X pickup_baseball_glove ) ),G(pickup_baseball_glove | X pickup_baseball_glove | X X pickup_baseball_glove)
+G ( move_around ) & reach_trash_can,G(move_around & reach_trash_can)
 F ( collect_orange ) -> F ( touch_tree ),G(collect_orange -> F touch_tree)
-G ( ( prop_3 | prop_2 ) -> prop_1 ),((prop_3 | prop_2) -> G !prop_1)
-G ( photo_injured_rescuer -> F deliver_aid_injured_hostile ) -> G F avoid_active_fire_source,G((photo_injured_rescuer -> F deliver_aid_injured_hostile) -> G F avoid_active_fire_source)
-"F ""red_room""",X red_room
-"G F ( ""warehouse_4"" & F ( ""p_crate_3"" & F ( ""mall_3"" & ""pd"" ) ) )",G(F(p_crate_3 & warehouse_4 & F(mall_3)))
+G ( ( prop_3 | prop_2 ) -> prop_1 ),((prop_3) | (prop_2)) -> !prop_1
+G ( ( prop_3 | prop_2 ) -> G ( F prop_1 ) ),G((prop_3 | prop_2) -> F(prop_1))
+F red_room,X red_room
+G F ( warehouse_4 & F ( p_crate_3 & F ( mall_3 & pd ) ) ),G(F(pd & warehouse_4 & X(F(mall_3))))
 ! ( prop_1 U F prop_2 ),!prop_1 U prop_2
 ( ( prop_3 <-> prop_2 ) | F prop_1 ),G(prop_3 <-> prop_2) | F(prop_1)
 G ( go_by_trash_can ) & F ( go_near_pear ),G(go_by_trash_can & (go_near_pear -> F go_near_pear))
 G(!( sensor_gathers_information )) | F(( sensor_gathers_information ) & F( constructor_instantiate_objects & elevator_rises )),F(sensor_gathers_information & F(constructor_instantiate_objects & F(elevator_rises)))
-"! ""street_4"" U ""intersection_2"" & F ( ""house_13"" & ""p_trash_13"" )",!street_4 U (intersection_2 & p_trash_13)
-"communicate_safe_rescuer -> X ( ( ""get_help"" U communicate_safe_hostile ) | G ""get_help"" )",communicate_safe_rescuer -> (X(get_help U communicate_safe_hostile) | G get_help)
+! street_4 U intersection_2 & F ( house_13 & p_trash_13 ),!street_4 U (intersection_2 & p_trash_13)
+communicate_safe_rescuer -> X ( ( get_help U communicate_safe_hostile ) | G get_help ),communicate_safe_rescuer -> (X(get_help U communicate_safe_hostile) | G(get_help))
 G(( train_has_been_launched & semaphore_is_green ) -> G(!( constructor_instantiate_objects & escalator_speeds_up ))),!(constructor_instantiate_objects & (train_has_been_launched & semaphore_is_green) -> F escalator_speeds_up)
-"( F ( ""yellow_room"" ) & G ( ! ""blue_room"" ) )",!blue_room U yellow_room
+( F ( yellow_room ) & G ( ! blue_room ) ),!blue_room U yellow_room
+[]!(hall_1&&p_file_6),G(!hall_1)
 ( ( ( prop_2 | prop_4 ) -> prop_3 ) & prop_1 ),(F(prop_2 | prop_4) -> prop_3) & prop_1
 F ( bring_pear ) -> venture_towards_house,F(venture_towards_house -> bring_pear)
 ( ( ( prop_1 -> prop_3 ) & prop_4 ) <-> prop_2 ),((prop_1 -> (prop_3 & prop_4)) <-> prop_2)
 ( ( ! prop_3 -> prop_2 ) & prop_1 ),(!prop_3 -> (prop_2 & prop_1))
 F ( move_to_flag ) -> F ( scoop_up_apple ),F(move_to_flag -> G(scoop_up_apple))
-"F ( ""park_5"" & F ( ""statue_2"" & ""photo"" ) )",park_5 U photo
+F ( park_5 & F ( statue_2 & photo ) ),park_5 -> (!photo U statue_2)
+get_help U ( G ( F record_jaywalker_southwest_2nd_street ) ),get_help U F G record_jaywalker_southwest_2nd_street
 F ( present_at_flag ) & F ( present_at_flag ),G(present_at_flag -> F(present_at_flag))
 G(( semaphore_is_yellow | car_stops ) -> G(!( house_is_open | manager_collect_claims ))),G(((semaphore_is_yellow | car_stops) -> !(house_is_open | manager_collect_claims)))
 ( ( ( prop_4 -> prop_1 ) U prop_2 ) | prop_3 ),G(prop_4 -> F(prop_1)) U (prop_2 | prop_3)
-"F ( ""intersection_5"" & F ( ""p_cone_5"" & F ( ""street_2"" & ""pd"" ) ) )",F(p_cone_5 & intersection_5 & F(street_2))
+F ( intersection_5 & F ( p_cone_5 & F ( street_2 & pd ) ) ),F(p_cone_5 & intersection_5 & F(street_2))
 !landmark_5 U park_5&&<>(landmark_5&&photo),(!landmark_5 U park_5) & F photo
 ( F ( prop_3 -> prop_2 ) | prop_1 ),F(prop_3 -> (prop_2 | prop_1))
 ( G ( prop_3 <-> prop_2 ) & prop_1 ),G((prop_3 <-> prop_2) & prop_1)
@@ -564,34 +556,33 @@ F ( spend_time_at_tree ) U ! ( let_go_orange ),spend_time_at_tree U !let_go_oran
 ( ! prop_1 | ( G prop_3 <-> prop_2 ) ),!prop_1 | G(prop_3 <-> prop_2)
 ! ( prop_1 & F prop_2 ),!prop_1 & G(prop_2)
 G(( table_is_brown | constructor_instantiate_objects ) -> F( elevator_falls | elevator_is_open )),((table_is_brown | constructor_instantiate_objects) -> F(elevator_falls | elevator_is_open))
-<>(house_4&&<>(p_package_2&&<>(warehouse_5&&pd))),F(house_4 & p_package_2 & warehouse_5)
-( ( prop_3 U prop_2 ) & ! prop_1 ),(prop_3 -> (!prop_1 U prop_2))
-G(!( elevator_is_blocked | house_is_open )) | F(( elevator_is_blocked | house_is_open ) & F( car_stops | brake_is_released )),F(elevator_is_blocked | house_is_open) & F(car_stops | brake_is_released)
-"F ( ""green_room"" & F ""red_room"" )",green_room & X red_room
-"F ""yellow_room""",yellow_room
+( ( prop_3 U prop_2 ) & ! prop_1 ),prop_3 -> (!prop_1 U prop_2)
+G(!( elevator_is_blocked | house_is_open )) | F(( elevator_is_blocked | house_is_open ) & F( car_stops | brake_is_released )),F((elevator_is_blocked | house_is_open) & F(car_stops | brake_is_released))
+F ( green_room & F red_room ),green_room & X red_room
+F yellow_room,yellow_room
 G ( prop_2 -> ( prop_1 | prop_3 ) ),prop_2 -> (prop_1 | prop_3)
 G ( have_in_orange ) & F ( make_way_waste_basket ),G(have_in_orange & make_way_waste_basket)
 G ( ( prop_3 & prop_1 ) -> F ( G prop_2 ) ),(prop_3 & prop_1) -> F(prop_2 & G(prop_2))
-<>(table_4&&<>(p_tin_can_4&&<>(trash_can_5&&pd)))&&[]!hallway_2,F(pd & table_4 & p_tin_can_4) & F(trash_can_5) & G(!hallway_2)
+<>(table_4&&<>(p_tin_can_4&&<>(trash_can_5&&pd)))&&[]!hallway_2,pd & table_4 & p_tin_can_4 & F trash_can_5 & G !hallway_2
 ( G ( F prop_1 ) -> F prop_2 ),G(prop_1 -> G(prop_2))
+stop_by_flag | G ( ! ( drop_orange ) ),!drop_orange | stop_by_flag
 ( prop_1 | G ( F prop_2 ) ),prop_1 | G prop_2
 ( ! ( prop_1 & prop_2 ) -> prop_3 ),(!(prop_1) & !(prop_2)) -> prop_3
-<>[]hotel_3,F hotel_3 & G hotel_3
+<>[]hotel_3,G(hotel_3)
 G(!( table_is_brown & bar_is_down )) | F(( table_is_brown & bar_is_down ) & F( engine_starts & constructor_creates_instances )),(table_is_brown & bar_is_down) & F(engine_starts & constructor_creates_instances)
 ( ( prop_4 -> prop_1 ) & ( prop_2 U prop_3 ) ),prop_4 -> (prop_1 & (prop_2 U prop_3))
-"G F ""charger_1"" & F ( ""house_4"" & F ( ""box_4"" & F ( ""house_9"" & ""pd"" ) ) )",G(deliver_box_4_from_house_4_to_house_9 -> F charger_1)
-"F ( ""red_room"" & F ""green_room"" )",red_room -> X green_room
-"G ( avoid_impending_flood & X photo_safe_victim -> X X ""get_help"" )",(avoid_impending_flood & X photo_safe_victim) -> X X get_help
+G F charger_1 & F ( house_4 & F ( box_4 & F ( house_9 & pd ) ) ),G(deliver_box_4_from_house_4_to_house_9 -> F charger_1)
+F ( red_room & F green_room ),red_room -> F green_room
+G ( avoid_impending_flood & X photo_safe_victim -> X X get_help ),(avoid_impending_flood & X photo_safe_victim) -> X X get_help
 ( F prop_3 <-> ( prop_2 & prop_1 ) ),F prop_3 <-> F (prop_2 & prop_1)
 <>[]mall_5,G mall_5
-G ( go_by_trash_can ) & F ( snatch_pear ),G(go_by_trash_can & F snatch_pear)
+G ( go_by_trash_can ) & F ( snatch_pear ),G(go_by_trash_can & (snatch_pear -> F snatch_pear))
 ( ! prop_1 U prop_2 ),!prop_2 U prop_1
 ! G ( ! ( photo_unstable_beam & X photo_unstable_beam ) ),G(photo_unstable_beam | X photo_unstable_beam | X X photo_unstable_beam)
 F ( travel_by_tree ) | ! ( F ( pick_up_anything ) ),G(travel_by_tree | !pick_up_anything)
 G(!( sensor_captures_data | sensor_gathers_information )) | F(( sensor_captures_data | sensor_gathers_information ) & F( house_is_built | bridge_opens )),(sensor_captures_data | sensor_gathers_information) & F(house_is_built | bridge_opens)
-G ( ( prop_3 | prop_2 ) -> ( prop_1 & prop_4 ) ),((prop_3 | prop_2) -> (prop_1 & X prop_4))
+G ( ( prop_3 | prop_2 ) -> ( prop_1 & prop_4 ) ),G(((prop_3 | prop_2) -> (prop_1 & X(prop_4))))
 G ( ( prop_3 | prop_4 ) -> ( prop_2 U prop_1 ) ),((prop_3 | prop_4) -> (prop_1 U prop_2))
-G ( F prop_1 | F prop_2 ),G F prop_1 | G prop_2
 G ( ( prop_3 | prop_2 ) -> ( prop_4 | prop_1 ) ),((prop_3 | prop_2) -> (!prop_4 | prop_1))
 ( G ( ! prop_1 ) -> G ( ! prop_2 ) ),G(!prop_1 -> G(!prop_2))
 ( ( ! prop_4 -> prop_2 ) | ( prop_5 -> ( prop_3 | prop_1 ) ) ),(!prop_4 -> prop_2) & (prop_4 -> (prop_5 -> (prop_3 | prop_1)))
@@ -599,34 +590,34 @@ G ( ( prop_3 | prop_2 ) -> ( prop_4 | prop_1 ) ),((prop_3 | prop_2) -> (!prop_4 
 ( G prop_2 -> ( prop_3 & prop_1 ) ),G(prop_2) -> G(prop_3 & prop_1)
 G ( ! ( drop_apple ) ) | F ( get_pear ),G(!drop_apple) | G(get_pear)
 ( ( prop_3 -> prop_1 ) & prop_2 ),prop_3 -> (prop_1 & prop_2)
-"""street_4"" U ( ""house_1"" & ""photo"" )",street_4 U photo
+street_4 U ( house_1 & photo ),street_4 U photo
 []<>(area_9&&photo)&&[]<>(camp_4&&<>(p_ordnance_3&&<>(camp_9&&pd))),G(photo & area_9) & G(F(p_ordnance_3 & camp_4 & X camp_9))
-F ( prop_1 & G ( ! prop_2 ) ),G(prop_1 & !prop_2)
-( ( F ( ! prop_1 ) -> prop_3 ) -> prop_2 ),F(!prop_1) -> (prop_3 -> prop_2)
+( ( F ( ! prop_1 ) -> prop_3 ) -> prop_2 ),F !prop_1 -> (prop_3 -> prop_2)
 F ( make_contact_flag ) U F ( come_home ),make_contact_flag U come_home
 G(( sensor_captures_data | train_has_been_launched ) -> G( car_starts | bar_is_closing )),G((sensor_captures_data | train_has_been_launched) -> (car_starts | bar_is_closing))
 acquire_apple U G ( ! ( let_go_orange ) ),acquire_apple U !let_go_orange
 G(( semaphore_is_yellow ) -> G( bar_has_to_be_repaired & bridge_opens )),semaphore_is_yellow -> G(bar_has_to_be_repaired & bridge_opens)
 ( ( ( prop_2 & prop_5 ) -> ( prop_3 U prop_6 ) ) & ( prop_1 U ! prop_4 ) ),((prop_2 & prop_5) -> ((prop_3 U prop_6) & (prop_1 U !prop_4)))
-( F prop_1 <-> ( prop_3 & prop_2 ) ),F prop_1 & ((prop_3 & prop_2))
+( F prop_1 <-> ( prop_3 & prop_2 ) ),F prop_1 & (G(prop_3 & prop_2))
 ( prop_5 -> ( ( prop_6 & prop_3 ) & ( prop_2 U ( prop_4 & prop_1 ) ) ) ),prop_5 -> ((prop_6 & prop_3 & prop_2) U (prop_4 & prop_1))
 <>[]mall_5,F mall_5 & G mall_5
 []!street_3&&<>building_4,building_4 & G(!street_3)
-"G F ( ""intersection_4"" & ""photo"" )",G F photo
-G ( F ( grab_tree ) ) | F ( start_going_to_house ),G(F(grab_tree) | F(start_going_to_house))
+G F ( intersection_4 & photo ),G F photo
+G ( F ( grab_tree ) ) | F ( start_going_to_house ),G(F(grab_tree | start_going_to_house))
 G ( prop_1 | G ( F prop_2 ) ),G(prop_1) | G(prop_2)
-G ( ( prop_1 | prop_4 ) -> ( prop_3 | prop_2 ) ),((prop_1 | prop_4) -> (F prop_3 | prop_2))
-( ( prop_3 | prop_2 ) U ( prop_4 <-> prop_1 ) ),(prop_4 | prop_1) U (prop_3 <-> prop_2)
-F ( go_to_transh_can ) -> G ( F ( grab_tree ) ),G(go_to_transh_can -> F grab_tree)
-"F ( ""house_1"" & F ( ""p_trash_can_4"" & F ( ""garbage_dump_3"" & ""pd"" ) ) )",pd & house_1 & p_trash_can_4 & garbage_dump_3
+G ( ( prop_1 | prop_4 ) -> ( prop_3 | prop_2 ) ),((prop_1 | prop_4) -> F(prop_3 | prop_2))
+( ( prop_3 | prop_2 ) U ( prop_4 <-> prop_1 ) ),(!((prop_3 <-> prop_2)) U (prop_4 | prop_1))
+F ( go_to_transh_can ) -> G ( F ( grab_tree ) ),G(go_to_transh_can -> F(grab_tree))
+F ( house_1 & F ( p_trash_can_4 & F ( garbage_dump_3 & pd ) ) ),pd & house_1 & p_trash_can_4 & garbage_dump_3
 G(!( manager_collect_claims & engine_starts & sensor_gathers_information )),G(!manager_collect_claims & engine_starts & sensor_gathers_information)
+F ( prop_1 | G ( ! prop_2 ) ),G(prop_1) | G(!prop_2)
 G(!( car_enters | motorbike_has_started )) | F(( car_enters | motorbike_has_started ) & F( sensor_gathers_information )),F(car_enters | (motorbike_has_started & F(sensor_gathers_information)))
 ! ( let_go_pear ) | F ( migrate_to_tree ),!let_go_pear | migrate_to_tree
 G(( bar_has_to_be_repaired & bridge_opens ) -> G( train_stops & sensor_gathers_information )),((bar_has_to_be_repaired & bridge_opens) -> G(train_stops & sensor_gathers_information))
 F ( obtain_pear ) U F ( be_at_house ),G(obtain_pear U G(be_at_house))
-"F ( ""intersection_7"" & ""photo"" & G ""intersection_7"" )",F(photo & intersection_7)
+F ( intersection_7 & photo & G intersection_7 ),F(photo & intersection_7)
 G ( ( prop_2 & prop_3 ) -> G ( F prop_1 ) ),G((prop_2 & prop_3) -> F(prop_1))
-"G ( ! ( ""let_go"" ) ) -> take_apple",G(!let_go -> take_apple)
+G ( ! ( let_go ) ) -> take_apple,G(!let_go -> take_apple)
 G(!( train_is_crossing | elevator_rises )) | F(( train_is_crossing | elevator_rises ) & F( sensor_retrieves_data & house_collapses )),F(train_is_crossing | (elevator_rises & F(sensor_retrieves_data & F(house_collapses))))
 ( F ( prop_1 & prop_2 ) & prop_3 ),F(prop_1 & prop_2 & prop_3)
 []<>charger_2&&<>(table_2&&<>(p_plate_4&&<>(table_4&&pd))),G(charger_2) & F(table_2 & p_plate_4 & table_4)
@@ -639,145 +630,149 @@ G ( ( prop_1 & prop_3 ) -> ! ( prop_4 U prop_2 ) ),G((!prop_1 & prop_3) -> !(pro
 ( ( prop_3 | prop_1 ) <-> ( prop_4 U prop_2 ) ),(prop_3 | prop_1) <-> (prop_4 & (prop_4 U prop_2))
 go_by_waste_bin | F ( go_by_waste_basket ),go_by_waste_bin | go_by_waste_basket
 G(( semaphore_is_yellow ) -> F( brake_is_pressed | semaphore_is_broken )),F((brake_is_pressed | semaphore_is_broken) & semaphore_is_yellow)
-( F communicate_safe_rescuer ) -> ( ! communicate_safe_rescuer U ( avoid_impending_gas_leak & ! communicate_safe_rescuer ) ),G(communicate_safe_rescuer -> F avoid_impending_gas_leak)
-"G ( ""get_help"" -> ( photo_motorcycle_northeast_4th_street | X photo_motorcycle_northeast_4th_street ) )",get_help -> (photo_motorcycle_northeast_4th_street | X photo_motorcycle_northeast_4th_street)
+( F communicate_safe_rescuer ) -> ( ! communicate_safe_rescuer U ( avoid_impending_gas_leak & ! communicate_safe_rescuer ) ),communicate_safe_rescuer -> F avoid_impending_gas_leak
+G ( get_help->_photo_motorcycle_northeast_4th_street | X photo_motorcycle_northeast_4th_street ),get_help -> (photo_motorcycle_northeast_4th_street | X photo_motorcycle_northeast_4th_street)
 G ( ( prop_3 & prop_1 ) -> G prop_2 ),G((prop_3 & prop_1) -> (true U prop_2))
 ( ( prop_2 <-> prop_3 ) & F prop_1 ),G(prop_2 <-> prop_3) & F(prop_1)
 []<>charger_5&&[]<>(region_4&&photo),G F charger_5 & G F photo
-"F ( ""arch_4"" & ""photo"" ) & G ! ""park_2""",F(photo & !park_2 & arch_4)
-F ( migrate_to_tree ) & ! ( let_go_pear ),G((migrate_to_tree & !let_go_pear))
+F ( arch_4 & photo ) & G ! park_2,F(photo & !park_2 & arch_4)
+F ( migrate_to_tree ) & ! ( let_go_pear ),G(migrate_to_tree & !let_go_pear)
 G(!( escalator_is_blocked | table_is_old )) | F(( escalator_is_blocked | table_is_old ) & F( bridge_closes )),F((escalator_is_blocked | table_is_old) & F(bridge_closes))
-"! ""street_4"" U ""intersection_2"" & F ( ""house_13"" & ""p_trash_13"" )",(!street_4) U (intersection_2 & house_13 & p_trash_13)
+! street_4 U intersection_2 & F ( house_13 & p_trash_13 ),(!street_4) U intersection_2 & F house_13 & F p_trash_13
 F ( prop_1 & G prop_2 ),G(prop_1 & G(prop_2))
 ( G prop_1 <-> ( prop_2 <-> prop_3 ) ),G(prop_1 -> (prop_2 <-> prop_3))
 ( ( prop_1 -> prop_2 ) & F prop_3 ),prop_1 -> (prop_2 & F prop_3)
-"( pickup_knife U ""idle"" )",pickup_knife & X idle
-! ( let_go_orange ) | F ( snag_orange ),G(!let_go_orange | !snag_orange)
+( pickup_knife U idle ),pickup_knife & X idle
+! ( let_go_orange ) | F ( snag_orange ),G(!let_go_orange | F snag_orange)
 G(( sensor_captures_data ) -> F( bar_is_down | semaphore_is_green )),sensor_captures_data -> F(bar_is_down | semaphore_is_green)
-"G ( ""get_help"" -> ( photo_flood | X photo_flood ) )",get_help -> (photo_flood | X photo_flood)
+G ( get_help->_photo_flood | X photo_flood ),get_help -> (photo_flood | X photo_flood)
 ( ( prop_3 <-> prop_1 ) | ( prop_4 -> prop_2 ) ),((prop_3 <-> prop_1) | prop_4) -> prop_2
-! ( ( prop_2 -> prop_3 ) U prop_1 ),!(F(prop_2) -> (prop_3 U prop_1))
+! ( ( prop_2 -> prop_3 ) U prop_1 ),!(F(prop_2) -> (prop_3 U F(prop_1)))
 ( ( prop_2 -> prop_4 ) <-> ( prop_1 | prop_3 ) ),(F prop_2 & X prop_4) <-> (prop_1 | prop_3)
-( ( prop_1 & prop_3 ) & G prop_2 ),(prop_1 & prop_3) -> G(prop_2)
-"F ( ""red_room"" & F ""green_room"" )",G(red_room -> green_room)
+( ( prop_1 & prop_3 ) & G prop_2 ),((prop_1 & prop_3) -> G prop_2)
+F ( red_room & F green_room ),red_room -> green_room
 ( prop_1 U G ( ! prop_2 ) ),prop_1 U !prop_2
-"G ( ! ( ""let_go"" ) ) | F ( contact_house )",!let_go | contact_house
-"G ""locality_5"" & F ( ""office_3"" & F ( ""p_package_5"" & F ( ""office_6"" & ""pd"" ) ) )",G(p_package_5 -> (locality_5 U (office_6 & F office_6)))
+G ( ! ( let_go ) ) | F ( contact_house ),G(!let_go | contact_house)
+G locality_5 & F ( office_3 & F ( p_package_5 & F ( office_6 & pd ) ) ),G(p_package_5 -> (locality_5 U (office_6 & !p_package_5)))
 G(!( escalator_speeds_up | bar_is_closing )) | F(( escalator_speeds_up | bar_is_closing ) & F( bridge_closes )),F((escalator_speeds_up | bar_is_closing) & F(bridge_closes))
 ( F record_flood ) -> ( ! record_flood U ( communicate_safe_rescuer & ! record_flood ) ),record_flood -> F communicate_safe_rescuer
 G ( ! prop_1 & F prop_2 ),!prop_1 & G(prop_2)
+walk| G_go_by_trash_can,walk | G go_by_trash_can
 G ( search_person -> X G ! search_donut ),G(search_person -> G(!search_donut))
 G ( ( prop_3 | prop_1 ) -> G ( F prop_2 ) ),G(((prop_3 | prop_1) -> F prop_2))
 ! ( prop_1 | F prop_2 ),!prop_1 | prop_2
-[]!street_4&&<>(store_7&&<>(p_package_8&&<>(house_2&&pd))),G(!(pd & street_4))
+[]!street_4&&<>(store_7&&<>(p_package_8&&<>(house_2&&pd))),G((pd & p_package_8 & store_7 & !house_2) -> !street_4)
 F ( venture_flag ) -> travel_to_apple,F(venture_flag -> travel_to_apple)
 G ( avoid_active_debris & X photo_unstable_beam -> X X deliver_aid_safe_rescuer ),(avoid_active_debris & X photo_unstable_beam) -> X X deliver_aid_safe_rescuer
 G ( ( prop_1 & prop_2 ) -> G ( F prop_3 ) ),(prop_1 & prop_2) -> F(prop_3)
 ( ( prop_4 | prop_2 ) U ( prop_3 -> prop_1 ) ),((prop_4 | prop_2) -> ((prop_4 | prop_2) U (prop_3 -> prop_1)))
+G(!( manager_handles_requests | sensor_captures_data )),!(manager_handles_requests | sensor_captures_data)
 F ( prop_1 | G prop_2 ),G(prop_1) | G(prop_2)
 ( F prop_3 <-> ( prop_2 & prop_1 ) ),F(prop_3 <-> (prop_2 & prop_1))
 G(!( train_has_arrived )) | F(( train_has_arrived ) & F( engine_stops & car_stops )),F(train_has_arrived & F(engine_stops & car_stops))
 <>(intersection_7&&photo&&[]intersection_7),F(intersection_7 & photo)
-"G ( ! ( ""get_help"" & record_jaywalker_south_10th_street ) -> F change_light_east_red )",G((!get_help & !record_jaywalker_south_10th_street) -> F(change_light_east_red))
+G ( ! ( get_help & record_jaywalker_south_10th_street ) -> F change_light_east_red ),G((!get_help & !record_jaywalker_south_10th_street) -> F(change_light_east_red))
 []!building_2&&<>(office_6&&p_letter_5),G(p_letter_5 -> !building_2)
 G ( ( prop_3 & prop_1 ) -> G ( F prop_2 ) ),G((prop_3 & prop_1) -> F(prop_2))
-"G ( ! ( ""get_help"" & change_light_south_red ) -> F change_light_east_red )",G((!get_help & !change_light_south_red) -> F(change_light_east_red))
+G ( ! ( get_help & change_light_south_red ) -> F change_light_east_red ),G((!get_help & !change_light_south_red) -> F(change_light_east_red))
 F ( prop_1 | F prop_2 ),F(prop_1) | G(prop_2)
-G ( ( prop_3 | prop_2 ) -> G ( F prop_1 ) ),G((prop_3 | prop_2) -> F(prop_1))
 ( F prop_1 -> ! prop_2 ),G(prop_1 -> !prop_2)
+( F prop_2 -> ( prop_3 | prop_1 ) ),F prop_2 -> F (prop_3 | prop_1)
 G(( train_derails ) -> F( engine_breaks & semaphore_is_yellow )),train_derails -> F(engine_breaks & semaphore_is_yellow)
 G(( train_derails ) -> F( house_is_open | manager_handles_requests )),train_derails -> F(house_is_open | manager_handles_requests)
-( ! prop_1 -> F prop_2 ),!prop_1 -> G prop_2
+( ! prop_1 -> F prop_2 ),G(!prop_1 -> prop_2)
 F ( proceed_to_house ) U F ( tax_apple ),proceed_to_house U tax_apple
 F ( withhold_apple ) -> venture_towards_house,G(withhold_apple -> venture_towards_house)
-G(!( table_is_old & bar_has_to_be_repaired )) | F(( table_is_old & bar_has_to_be_repaired ) & F( table_is_brown & bar_is_down )),F((table_is_old & bar_has_to_be_repaired) & F(table_is_brown & bar_is_down))
-G ( ( prop_3 | prop_1 ) -> ! ( G prop_2 ) ),((prop_3 | prop_1) -> !prop_2)
+G(!( table_is_old & bar_has_to_be_repaired )) | F(( table_is_old & bar_has_to_be_repaired ) & F( table_is_brown & bar_is_down )),(table_is_old & bar_has_to_be_repaired) & F(table_is_brown & bar_is_down)
+G ( ( prop_3 | prop_1 ) -> ! ( G prop_2 ) ),G((prop_3 | prop_1) -> !prop_2)
 G(!( constructor_creates_instances & sensor_captures_data )) | F(( constructor_creates_instances & sensor_captures_data ) & F( train_has_arrived )),F((constructor_creates_instances & sensor_captures_data) & F(train_has_arrived))
 []<>(area_51&&photo)&&[]<>charger_4,G(photo & charger_4 & area_51)
-F ( proceed_to_tree ) U acquire_orange,proceed_to_tree U acquire_orange
+F ( proceed_to_tree ) U acquire_orange,G(proceed_to_tree U acquire_orange)
 G(( motorbike_is_driven | escalator_speeds_up ) -> G(!( elevator_is_open | bar_is_closing ))),G(!(elevator_is_open | bar_is_closing) | (motorbike_is_driven | escalator_speeds_up))
-( ( prop_2 U prop_1 ) -> ! prop_3 ),((prop_2 & (!prop_1 U prop_2)) -> !prop_3)
-F ( proceed_to_flag ) & G ( touch_flag ),G(proceed_to_flag -> touch_flag)
+( ( prop_2 U prop_1 ) -> ! prop_3 ),((prop_2 & (!prop_1 U prop_1)) -> !prop_3)
+F ( proceed_to_flag ) & G ( touch_flag ),G(proceed_to_flag -> F touch_flag)
 ( G ( prop_2 <-> prop_3 ) | prop_1 ),G((prop_2 <-> prop_3) | prop_1)
 G ( ( prop_3 | prop_2 ) -> G prop_1 ),G((!prop_3 | !prop_2) -> (prop_1 & G(prop_1)))
-"F ( ( ""blue_room"" | ""yellow_room"" ) & F ""green_room"" )",(!green_room) U (yellow_room | blue_room)
+F ( ( blue_room | yellow_room ) & F green_room ),F(green_room & (yellow_room | blue_room))
 F ( prop_1 & prop_2 ),G((prop_1) -> (prop_2))
 G ( ( prop_2 & prop_4 ) -> ( prop_1 | prop_3 ) ),(prop_2 & prop_4) -> (X !prop_1 | prop_3)
 ( ( prop_1 | prop_2 ) U ! prop_3 ),((prop_1 | prop_2) -> ((prop_1 | prop_2) U !prop_3))
 ( ( ( prop_2 <-> prop_1 ) U prop_3 ) | prop_4 ),(F((prop_2 <-> prop_1) U prop_3) | prop_4)
 F ( prop_1 & G ( F prop_2 ) ),G(prop_1) & G(prop_2)
 G ( ( prop_2 | prop_3 ) -> F ( G prop_1 ) ),G((prop_2 | prop_3) -> F prop_1)
-area_5 U (store_2&&<>(p_package_8&&<>(house_9&&pd))),(!p_package_8 U area_5) & (p_package_8 -> (store_2 & X F house_9))
+area_5 U (store_2&&<>(p_package_8&&<>(house_9&&pd))),(!p_package_8 U area_5) & (p_package_8 -> (store_2 & X(!store_2 U house_9)))
 ( ( ( prop_1 | prop_3 ) & prop_2 ) -> prop_4 ),F((prop_1 | prop_3) & prop_2) -> prop_4
 G ( ( prop_2 & prop_1 ) -> G ( F prop_3 ) ),(prop_2 & prop_1) -> G F prop_3
 ( G prop_1 -> F prop_2 ),G(prop_1 -> F(prop_2))
 G ( ( prop_1 | prop_3 ) -> G prop_2 ),((prop_1 | prop_3) -> F G prop_2)
 F ( proceed_to_house ) U F ( yield_pear ),G(proceed_to_house U yield_pear)
 G ( F ( go_to_waste_basket ) ) | take_orange,G(F(go_to_waste_basket | take_orange))
-"( F ( ""blue_room"" ) & G ( ! ""red_room"" ) )",blue_room & !red_room
+( F ( blue_room ) & G ( ! red_room ) ),blue_room & !red_room
 ( ( prop_3 <-> prop_2 ) -> ( prop_1 & prop_4 ) ),((prop_3 <-> prop_2) -> F(prop_1 & prop_4))
+G F street_5,G street_5
 G ( ( prop_2 | prop_4 ) -> ( prop_1 U prop_3 ) ),G(((prop_2 | prop_4) -> F((!prop_1) & (!prop_3))))
-( ( prop_1 U prop_2 ) -> ( prop_4 | prop_3 ) ),G(((prop_1 U prop_2)) -> (prop_4 | prop_3))
-G ( prop_2 -> ( prop_3 U prop_1 ) ),prop_2 -> (prop_3 & prop_1)
+( ( prop_1 U prop_2 ) -> ( prop_4 | prop_3 ) ),G((prop_1 & (!prop_2 U prop_1)) -> (prop_4 | prop_3))
+G ( prop_2 -> ( prop_3 U prop_1 ) ),prop_2 -> (prop_3 & !prop_1)
 <>(pd&&<>parking_lot_2),pd & parking_lot_2
 G ( F ( grab_tree ) ) | F ( journey_by_flag ),G(F(grab_tree | journey_by_flag))
 G ( ( prop_2 & prop_1 ) -> G ( F prop_3 ) ),"G((prop_2 & prop_1) -> F[0,14] prop_3)"
-( prop_1 U F prop_2 ),prop_1 U G(prop_2)
-G(!( elevator_falls | bar_is_up )) | F(( elevator_falls | bar_is_up ) & F( sensor_gathers_information )),F((elevator_falls | bar_is_up) & X(sensor_gathers_information))
+G(!( elevator_falls | bar_is_up )) | F(( elevator_falls | bar_is_up ) & F( sensor_gathers_information )),F((elevator_falls | bar_is_up) & F(sensor_gathers_information))
 travel_to_waste_bin & F ( go_to_peach ),travel_to_waste_bin & G(go_to_peach)
 ( ( ( prop_3 U prop_4 ) -> prop_1 ) & prop_2 ),((prop_3 U prop_4) -> (prop_1 & prop_2))
 G(( escalator_moves | table_is_old ) -> G(!( engine_starts | train_is_crossing ))),G(((escalator_moves | table_is_old) -> !(engine_starts | train_is_crossing)))
 G ( F prop_1 U F prop_2 ),prop_1 U prop_2
 ! ( prop_1 & F prop_2 ),!prop_1 & F prop_2
-"G ( ! ( ""let_go"" ) ) | take_to_tree",G(!(let_go | take_to_tree))
+G ( ! ( let_go ) ) | take_to_tree,G(!(let_go | take_to_tree))
 G(( constructor_instantiate_objects | train_has_been_launched ) -> F( brake_is_pressed & sensor_captures_data )),F((brake_is_pressed & sensor_captures_data) & (constructor_instantiate_objects | train_has_been_launched))
 deliver_backpack_loading_dock -> X ( ( search_truck U search_spoon ) | G search_truck ),deliver_backpack_loading_dock -> (X(search_truck U search_spoon) | G(search_truck))
-prop_2 -> ( prop_1 & prop_3 ),prop_2 -> X(prop_1 & prop_3)
-"G ( ( ""get_help"" <-> record_injured_civilian ) -> ( record_injured_civilian <-> avoid_inactive_debris ) )",(get_help <-> record_injured_civilian) -> (record_injured_civilian <-> !avoid_inactive_debris)
+prop_2 -> ( prop_1 & prop_3 ),G(prop_2 -> X(prop_1 & prop_3))
+G ( ( get_help <-> record_injured_civilian ) -> ( record_injured_civilian <-> avoid_inactive_debris ) ),(get_help <-> record_injured_civilian) -> (record_injured_civilian <-> !avoid_inactive_debris)
 G(( semaphore_is_yellow ) -> G( bar_has_to_be_repaired | bar_is_up )),G(bar_has_to_be_repaired | (semaphore_is_yellow -> bar_is_up))
-G(!( train_has_been_launched & semaphore_is_broken & car_stops )),!(train_has_been_launched & semaphore_is_broken & car_stops)
 G ( F prop_1 & F prop_2 ),G(prop_2 -> F(prop_1)) & G(F(prop_1))
 ( ( prop_1 -> prop_3 ) & F prop_2 ),(prop_1 -> (prop_3 & F prop_2))
 grab_hold_pear | F ( stop_by_house ),grab_hold_pear | stop_by_house
-<>(intersection_5&&<>(p_cone_5&&<>(street_2&&pd))),F(intersection_5 & p_cone_5 & F(street_2 & pd))
+<>(intersection_5&&<>(p_cone_5&&<>(street_2&&pd))),F(p_cone_5 & intersection_5 & F(street_2 & pd))
 ( F prop_1 -> F prop_2 ),G(prop_1) -> G(prop_2)
-"G ( ! ( record_flood & avoid_probable_flood ) -> F ""get_help"" )",G((!record_flood & !avoid_probable_flood) -> F(get_help))
+G ( ! ( record_flood & avoid_probable_flood ) -> F get_help ),G((!record_flood & !avoid_probable_flood) -> F get_help)
 G(!( sensor_gathers_information )) | F(( sensor_gathers_information ) & F( manager_handles_requests | motorbike_has_started )),F(sensor_gathers_information & F(manager_handles_requests | motorbike_has_started))
 G ( F ( go_to_apple_trashcan ) ) | F ( go_to_transh_can ),G(F(go_to_apple_trashcan | go_to_transh_can))
-G ( ( prop_1 | prop_3 ) -> F ( G prop_2 ) ),G(((prop_1 | prop_3) -> F(prop_2)))
+G ( ( prop_1 | prop_3 ) -> F ( G prop_2 ) ),G(((prop_1) | (prop_3)) -> F(prop_2))
 ( ( ( prop_4 -> prop_3 ) & prop_2 ) & prop_1 ),prop_4 -> (prop_3 & prop_2 & prop_1)
 F ( grasp_apple ) & take_to_tree,F(grasp_apple & take_to_tree)
 G ( F ( go_to_waste_basket ) ) | put_in_bucket,G(F(go_to_waste_basket | put_in_bucket))
 F ( prop_1 & F prop_2 ),F(prop_1) & G(prop_2)
 ( G prop_1 & ( prop_3 & prop_2 ) ),G(prop_1) & F(prop_3) & F(prop_2)
 ( G prop_2 & ( prop_3 & prop_1 ) ),G(prop_2 & (prop_3 & prop_1))
-G ( F ( go_to_pear ) ) | F ( travel_to_trash_can ),F(go_to_pear | travel_to_trash_can)
+G ( F ( go_to_pear ) ) | F ( travel_to_trash_can ),G(go_to_pear | F(travel_to_trash_can))
+F( train_has_arrived | table_has_been_moved ),F(train_has_been_arrived | table_has_been_moved)
 ( G ( ! prop_3 -> prop_2 ) | prop_1 ),G((!prop_3 -> prop_2) | prop_1)
+G ( F prop_1 | F prop_2 ),G F prop_1 | G prop_2
 G ( ! ( drop_apple ) ) & F ( bring_pear ),G(!drop_apple) & G(bring_pear)
-"F ( ""green_room"" & F ""yellow_room"" )",green_room -> X yellow_room
+F ( green_room & F yellow_room ),green_room -> X yellow_room
 G ( hold_onto_orange ) | F ( journey_to_house ),G(hold_onto_orange | journey_to_house)
 G(!( bar_is_up | table_has_been_moved | train_has_arrived )),G(!(bar_is_up | table_has_been_moved | train_has_been_arrived))
 ( ( prop_3 U prop_1 ) | ! prop_2 ),(prop_3 U prop_1) | G(!prop_2)
 G ( ( prop_2 & prop_1 ) -> prop_3 ),G((prop_2 & prop_1) -> F prop_3)
 ( ( prop_3 -> prop_1 ) <-> prop_2 ),(F prop_3 & F prop_1) <-> F prop_2
-"G F ""charger_3"" & G F ( ""area_3"" & ""photo"" )",G(photo -> F charger_3)
-[]<>charger_9&&[]<>(warehouse_8&&<>(p_crate_2&&<>(store_2&&pd))),G((p_crate_2 & warehouse_8) -> F(store_2 & F(charger_9)))
+G F charger_3 & G F ( area_3 & photo ),G(photo -> F charger_3)
+[]<>charger_9&&[]<>(warehouse_8&&<>(p_crate_2&&<>(store_2&&pd))),G(charger_9 -> F(p_crate_2 & warehouse_8 & F(store_2)))
 ( ! prop_3 U ( prop_2 <-> prop_1 ) ),!(prop_3 <-> prop_2) U !prop_1
 street_4 U (house_1&&photo),street_4 U photo
 G(!( car_enters | motorbike_falls_down )) | F(( car_enters | motorbike_falls_down ) & F( engine_starts & train_has_been_launched )),(car_enters | motorbike_falls_down) & F(engine_starts & F(train_has_been_launched))
-G(!( motorbike_catches_fire & semaphore_is_red )) | F(( motorbike_catches_fire & semaphore_is_red ) & F( sensor_gathers_information )),(motorbike_catches_fire & semaphore_is_red) & F sensor_gathers_information
+G(!( motorbike_catches_fire & semaphore_is_red )) | F(( motorbike_catches_fire & semaphore_is_red ) & F( sensor_gathers_information )),F((motorbike_catches_fire & semaphore_is_red) & F(sensor_gathers_information))
 G ( have_apple ) | travel_to_waste_bin,G(have_apple | travel_to_waste_bin)
 <>(park_7&&<>(monument_4&&photo)),park_7 & photo & monument_4
 ( G ( prop_3 -> prop_2 ) <-> prop_1 ),(prop_3 -> (prop_2 <-> prop_1))
-( prop_2 & ( prop_3 U prop_1 ) ),prop_2 -> G(prop_3 -> prop_1)
+( prop_2 & ( prop_3 U prop_1 ) ),prop_2 -> (prop_3 -> prop_1)
 ( F prop_2 & ( prop_3 <-> prop_1 ) ),prop_2 & (prop_3 <-> prop_1)
 G(( car_stops | bar_has_to_be_repaired ) -> G( motorbike_falls_down | escalator_is_blocked )),(car_stops | bar_has_to_be_repaired) -> G(motorbike_falls_down | escalator_is_blocked)
 ( G ( prop_3 <-> prop_2 ) | prop_1 ),G((prop_3 <-> prop_2) | prop_1)
-G(( sensor_captures_data | train_is_crossing ) -> G(!( house_is_built & motorbike_has_stopped ))),G(!(house_is_built & motorbike_has_stopped) U (sensor_captures_data | train_is_crossing))
+G(( sensor_captures_data | train_is_crossing ) -> G(!( house_is_built & motorbike_has_stopped ))),G(!(house_is_built & motorbike_has_stopped & (sensor_captures_data | train_is_crossing)))
 ( G prop_2 | ( ! prop_1 | prop_3 ) ),prop_2 | (!prop_1 | prop_3)
 G ( prop_1 U F prop_2 ),prop_1 U prop_2
 keep_apple U F ( start_going_to_house ),keep_apple U start_going_to_house
-( ( prop_3 -> prop_1 ) & F prop_2 ),(prop_3 -> (prop_1 & F prop_2))
+( ( prop_3 -> prop_1 ) & F prop_2 ),prop_3 -> (prop_1 & F prop_2)
+F ( prop_1 & F prop_2 ),G(prop_1 & prop_2)
 G ( ( prop_2 & prop_1 ) -> G prop_3 ),G(((prop_2 & prop_1) -> (prop_3 & X((prop_3 U true)))))
 ( ! ( prop_2 <-> prop_3 ) U prop_1 ),!(prop_2 <-> prop_3) & (prop_2 U prop_1)
 F ( make_way_for_tree ) U F ( going_to_house ),make_way_for_tree U going_to_house
@@ -789,26 +784,27 @@ G ( ! ( drop_orange ) ) & F ( move_past_trash_can ),!drop_orange & F move_past_t
 G ( prop_2 -> ( prop_1 U prop_3 ) ),G(prop_2 -> F(prop_1 & !prop_3))
 []!parking_lot_8&&<>street_5,G(!parking_lot_8)
 G(!( escalator_speeds_up | train_derails )),!(escalator_speeds_up | train_derails)
-"G ! ""street_5"" & F ( ""house_2"" & ""p_box_4"" )",G(!(street_5 & p_box_4))
+G ! street_5 & F ( house_2 & p_box_4 ),G(!(street_5 & p_box_4))
 procure_apple | F ( procure_orange ),procure_apple | G(procure_orange)
-G ( ( prop_2 & prop_3 ) -> ( prop_4 & prop_1 ) ),G((prop_2 & prop_3) -> (X prop_4 & prop_1))
+G ( ( prop_2 & prop_3 ) -> ( prop_4 & prop_1 ) ),G((prop_2 & prop_3) -> (F prop_4 & prop_1))
+( ( ( prop_3 <-> prop_1 ) U prop_2 ) -> prop_4 ),F((prop_3 <-> prop_1) U prop_2) -> prop_4
 reach_trash_can | F ( move_past_trash_can ),reach_trash_can | G move_past_trash_can
 F ( venture_to_house ) U secure_apple,G(venture_to_house U secure_apple)
-F ( prop_1 | G prop_2 ),F(prop_1) | G(prop_2)
+F ( prop_1 | G prop_2 ),(prop_1) | G(prop_2)
 F ( acquire_pear ) & G ( F ( go_to_waste_basket ) ),F(acquire_pear & G(go_to_waste_basket))
 F ( bring_pear ) U go_by_waste_bin,bring_pear U go_by_waste_bin
 ( ( prop_3 U prop_2 ) | ( prop_4 | prop_1 ) ),(prop_3 -> ((prop_3 U prop_2) | (prop_4 | prop_1)))
 F ( prop_1 | ! prop_2 ),G(prop_1 | !prop_2)
-"F ( ( ""red_room"" | ""yellow_room"" ) & F ""blue_room"" )",(red_room | yellow_room) & blue_room
+F ( ( red_room | yellow_room ) & F blue_room ),(red_room | yellow_room) & blue_room
 ( ( ! prop_1 U prop_2 ) | prop_3 ),(F(!prop_1 U prop_2) | prop_3)
-G(( semaphore_is_yellow ) -> G( elevator_is_open & train_has_been_launched )),G(elevator_is_open & (semaphore_is_yellow -> F train_has_been_launched))
-( ( ( prop_4 -> prop_2 ) & prop_3 ) | prop_1 ),(prop_4 -> prop_2) & (prop_3 | prop_1)
-! G ( ! ( deliver_aid_safe_rescuer & X deliver_aid_safe_rescuer ) ),G(deliver_aid_safe_rescuer | X(deliver_aid_safe_rescuer) | X(X(deliver_aid_safe_rescuer)))
+G(( semaphore_is_yellow ) -> G( elevator_is_open & train_has_been_launched )),G(elevator_is_open & (semaphore_is_yellow -> F(train_has_been_launched)))
+! G ( ! ( deliver_aid_safe_rescuer & X deliver_aid_safe_rescuer ) ),G(deliver_aid_safe_rescuer | X deliver_aid_safe_rescuer | X X deliver_aid_safe_rescuer)
 G(!( elevator_is_open | train_derails )) | F(( elevator_is_open | train_derails ) & F( train_has_arrived )),F((elevator_is_open | train_derails) & F(train_has_arrived))
 F ( secure_pear ) & F ( get_apple ),G(get_apple -> secure_pear)
 take_pear -> F ( go_by_tree ),take_pear -> G go_by_tree
 F ( venture_to_house ) U F ( go_by_waste_basket ),G(venture_to_house -> (venture_to_house U go_by_waste_basket))
-"G F ( ""car_1"" & ""photo"" ) & G ! ""parking_lot_9""",G(photo & !parking_lot_9)
+! communicate_injured_victim U communicate_safe_hostile,G(communicate_injured_victim -> F(communicate_safe_hostile))
+G F ( car_1 & photo ) & G ! parking_lot_9,G(photo & !parking_lot_9)
 F ( withdraw_pear ) | F ( go_near_house ),G(withdraw_pear | go_near_house)
 G(!( train_derails & manager_handles_requests )) | F(( train_derails & manager_handles_requests ) & F( train_has_arrived )),F((train_derails & manager_handles_requests) & F(train_has_arrived))
 G ( ! ( photo_flood & deliver_aid_safe_rescuer ) -> F photo_gas_leak ),G((!photo_flood & !deliver_aid_safe_rescuer) -> F(photo_gas_leak))
@@ -816,47 +812,45 @@ F ( pass_by_waste_receptacle ) U take_orange,G(pass_by_waste_receptacle U take_o
 F ( capture_pear ) & take_orange,G(capture_pear & take_orange)
 ( ( ( prop_2 -> prop_3 ) -> prop_4 ) | prop_1 ),prop_2 -> (prop_3 | prop_4 | prop_1)
 F ( withhold_apple ) -> F ( reach_flag ),G(withhold_apple -> G(reach_flag))
-( F communicate_safe_victim ) -> ( ! communicate_safe_victim U ( record_safe_person & ! communicate_safe_victim ) ),F communicate_safe_victim -> F record_safe_person
 G ( prop_2 -> ( prop_1 & prop_3 ) ),G(!prop_2 -> (prop_1 & X prop_3))
-"F ( ""shop_1"" & F ( ""p_bottle_3"" & F ( ""hospital_2"" & ""pd"" ) ) )",F(p_bottle_3 & hospital_2)
-"record_fire_source U ( G ( F ""go_home"" ) )",record_fire_source U F G go_home
+F ( shop_1 & F ( p_bottle_3 & F ( hospital_2 & pd ) ) ),F(p_bottle_3 & hospital_2)
+record_fire_source U ( G ( F go_home ) ),record_fire_source U F G go_home
 ( ( prop_2 -> prop_3 ) <-> F prop_1 ),prop_2 -> (prop_3 <-> F prop_1)
-"G ( ( ""go_home"" <-> deliver_aid_injured_hostile ) -> ( deliver_aid_injured_hostile <-> communicate_injured_hostile ) )",(go_home <-> deliver_aid_injured_hostile) -> (deliver_aid_injured_hostile <-> communicate_injured_hostile)
+G ( ( go_home <-> deliver_aid_injured_hostile ) -> ( deliver_aid_injured_hostile <-> communicate_injured_hostile ) ),(go_home <-> deliver_aid_injured_hostile) -> (deliver_aid_injured_hostile <-> communicate_injured_hostile)
 G ( ( prop_3 & prop_4 ) -> ( prop_2 U prop_1 ) ),G((!prop_3 & prop_4) -> (prop_1 U prop_2))
 []<>(storage_4&&<>(p_crate_1&&<>(office_2&&pd))),G(F(pd & p_crate_1 & storage_4 & office_2))
 ( ( prop_1 | prop_3 ) -> G prop_2 ),(F(prop_1 | prop_3)) -> G(prop_2)
 []!park_3&&<>(monument_3&&photo),photo -> !park_3
 F ( prop_1 & F prop_2 ),F(prop_1) & F(prop_2)
 G(( motorbike_falls_down & escalator_is_blocked ) -> G( bridge_opens | motorbike_has_started )),G((motorbike_falls_down & escalator_is_blocked) -> (bridge_opens | motorbike_has_started))
-G(( table_is_brown & car_starts ) -> G( house_is_built & train_derails )),(car_is_starts & table_is_brown) -> (house_is_built & train_derails)
+G(( table_is_brown & car_starts ) -> G( house_is_built & train_derails )),(car_starts & table_is_brown) -> (house_is_built & train_derails)
 ( ! prop_2 U ( prop_3 <-> prop_1 ) ),(prop_2 U prop_3) <-> prop_1
-G(!( constructor_creates_instances | motorbike_is_driven )) | F(( constructor_creates_instances | motorbike_is_driven ) & F( bar_is_down | motorbike_is_driven )),F((constructor_creates_instances | motorbike_is_driven) & F(bar_is_down | motorbike_is_driven))
+G(!( constructor_creates_instances | motorbike_is_driven )) | F(( constructor_creates_instances | motorbike_is_driven ) & F( bar_is_down | motorbike_is_driven )),F(constructor_creates_instances | motorbike_is_driven) & F(bar_is_down | motorbike_is_driven)
 G ( prop_3 -> ( prop_1 & prop_2 ) ),prop_3 -> (prop_1 & prop_2)
 take_orange -> F ( acquire_pear ),G(acquire_pear -> take_orange)
 ( F prop_1 <-> ( prop_3 <-> prop_2 ) ),F((prop_1 <-> prop_3) <-> prop_2)
-( F avoid_impending_gas_leak ) -> ( ! avoid_impending_gas_leak U ( photo_unsafe_person & ! avoid_impending_gas_leak ) ),F avoid_impending_gas_leak -> F photo_unsafe_person
-"F ( ""red_room"" & F ""blue_room"" )",red_room & X blue_room
+( F avoid_impending_gas_leak ) -> ( ! avoid_impending_gas_leak U ( photo_unsafe_person & ! avoid_impending_gas_leak ) ),G(avoid_impending_gas_leak -> F photo_unsafe_person)
+F ( red_room & F blue_room ),red_room & X blue_room
 ( prop_1 & F prop_2 ),prop_1 & G prop_2
-G ( ! prop_1 U F prop_2 ),(!prop_1) U (G prop_2)
-G(( motorbike_has_started & elevator_rises ) -> F( house_is_built | motorbike_falls_down )),F((motorbike_has_started & elevator_rises) -> (house_is_built | motorbike_falls_down))
+G ( ! prop_1 U F prop_2 ),!prop_1 U prop_2
+G(( motorbike_has_started & elevator_rises ) -> F( house_is_built | motorbike_falls_down )),F((motorbike_has_started & elevator_rises) & (house_is_built | motorbike_falls_down))
 G ( ! ( drop_orange ) ) | F ( touch_house ),G(!drop_orange) | G(touch_house)
-"F ( ( ""red_room"" | ""yellow_room"" ) & F ""blue_room"" )",(red_room | yellow_room) -> blue_room
+F ( ( red_room | yellow_room ) & F blue_room ),F(blue_room & (red_room | yellow_room))
 ( ( ( prop_4 -> prop_3 ) & prop_1 ) <-> prop_2 ),(prop_4 -> (prop_3 & prop_1)) <-> prop_2
 G ( prop_1 -> G ( F prop_2 ) ),G(prop_1 -> F prop_2)
 <>(kitchen_1&&<>(p_bottle_2&&<>(hall_2&&[]hall_2))),p_bottle_2 & kitchen_1 & F hall_2 & G hall_2
 G ( ! ( drop_apple ) ) & F ( snatch_pear ),G(!drop_apple) & G(snatch_pear)
-( ( ( prop_2 U prop_3 ) | prop_1 ) -> prop_4 ),((F(prop_2 & (!prop_3 U prop_3))) | prop_1) -> prop_4
-"! ""locality_5"" U ( ""house_2"" & F ( ""p_pass_5"" & F ( ""office_3"" & ""pd"" ) ) )",(!locality_5) U (pd & office_3 & house_2 & p_pass_5)
+( ( ( prop_2 U prop_3 ) | prop_1 ) -> prop_4 ),((F prop_2 & (prop_2 U prop_3)) | prop_1) -> prop_4
+! locality_5 U ( house_2 & F ( p_pass_5 & F ( office_3 & pd ) ) ),(!locality_5) U (p_pass_5 & office_3)
 G(( sensor_retrieves_data ) -> G(( elevator_rises ) -> F( car_enters ))),sensor_retrieves_data -> G(elevator_rises -> F car_enters)
 take_to_trash_can U F ( go_past_house ),take_to_trash_can U go_past_house
 G(!( car_starts & bar_is_down )) | F(( car_starts & bar_is_down ) & F( train_is_crossing | manager_collect_claims )),F((car_starts & bar_is_down) & (train_is_crossing | F(manager_collect_claims)))
-"( F ""get_help"" ) -> ( ! ""get_help"" U ( record_vehicle_east_8th_street & ! ""get_help"" ) )",G(get_help -> F(record_vehicle_east_8th_street))
+( F get_help ) -> ( ! get_help U ( record_vehicle_east_8th_street & ! get_help ) ),F get_help -> F record_vehicle_east_8th_street
 []<>street_4,G street_4
 ( ( prop_2 | prop_4 ) U ( prop_1 <-> prop_3 ) ),(F(prop_2) | F(prop_4)) -> (prop_1 <-> prop_3)
 building_4 U (room_43&&<>(p_folder_3&&<>(room_12&&pd))),building_4 U (pd & p_folder_3 & room_43 & room_12)
 G(!( table_is_brown & escalator_moves )) | F(( table_is_brown & escalator_moves ) & F( train_is_crossing & house_collapses )),F((table_is_brown & escalator_moves) & F(train_is_crossing & house_collapses))
 F ( collect_apple ) | G ( ! ( let_go_apple ) ),G(collect_apple | !let_go_apple)
-F ( reach_flag ) | F ( reach_flag ),G(reach_flag)
 G ( touch_flag ) & F ( go_to_apple ),G(touch_flag & go_to_apple)
 ( F prop_3 & ( prop_2 & prop_1 ) ),F(prop_3 & prop_2 & prop_1)
 G(( train_is_crossing & manager_collect_claims ) -> G(!( escalator_is_blocked & house_is_open ))),G((train_is_crossing & manager_collect_claims) -> !(escalator_is_blocked & house_is_open))
@@ -866,25 +860,25 @@ G ( ( prop_2 | prop_3 ) -> F ( G prop_1 ) ),G((prop_2 | prop_3) -> F(prop_1))
 ( ( prop_1 -> prop_4 ) U ( prop_3 -> prop_2 ) ),G((!prop_1 & !prop_4) -> (prop_3 -> prop_2))
 G(!( train_derails & manager_handles_requests )) | F(( train_derails & manager_handles_requests ) & F( bridge_closes )),F(train_derails & manager_handles_requests) & F(bridge_closes)
 G ( ! prop_1 U F prop_2 ),(!prop_1) U prop_2
-"G ( record_vehicle_north_9th_street & X photo_motorcycle_east_10th_street -> X X ""get_help"" )",(record_vehicle_north_9th_street & X photo_motorcycle_east_10th_street) -> XX get_help
+G ( record_vehicle_north_9th_street & X photo_motorcycle_east_10th_street -> X X get_help ),(record_vehicle_north_9th_street & X photo_motorcycle_east_10th_street) -> XX get_help
 ( ( prop_4 & prop_2 ) -> ( prop_3 -> prop_1 ) ),G(((prop_4 & prop_2) & prop_3) -> prop_1)
 G ( ( prop_1 | prop_3 ) -> G prop_2 ),(prop_1 | prop_3) -> prop_2
-"G ""county_4"" & G F ( ""office_3"" & F ( ""p_package_4"" & F ( ""office_8"" & ""pd"" ) ) )",G(county_4 & p_package_4)
-( G ( prop_3 | prop_1 ) | prop_2 ),G((prop_3 | prop_1) | prop_2)
+G county_4 & G F ( office_3 & F ( p_package_4 & F ( office_8 & pd ) ) ),county_4 & G(p_package_4 -> (office_3 U office_8))
+( G ( prop_3 | prop_1 ) | prop_2 ),G(prop_3 | prop_1 | prop_2)
 take_orange U F ( go_to_home ),take_orange U go_to_home
-! G ( ! ( photo_vehicle_west_1st_avenue & X photo_vehicle_west_1st_avenue ) ),G(photo_vehicle_west_1st_avenue | X(photo_vehicle_west_1st_avenue) | X(X(photo_vehicle_west_1st_avenue)))
+! G ( ! ( photo_vehicle_west_1st_avenue & X photo_vehicle_west_1st_avenue ) ),G(photo_vehicle_west_1st_avenue | X photo_vehicle_west_1st_avenue | X X photo_vehicle_west_1st_avenue)
 ( ( ! prop_3 <-> prop_2 ) U prop_1 ),((!prop_3 & prop_2) <-> prop_1) U prop_1
 F ( contact_house ) | G ( ! ( drop_orange ) ),G(contact_house | !drop_orange)
 ( prop_1 | prop_2 ) & prop_3,prop_1 | (prop_2 & prop_3)
 G ( ! ( drop_orange ) ) | F ( track_towards_tree ),G(!drop_orange) | G(track_towards_tree)
 hold_orange U F ( touch_tree ),hold_orange U touch_tree
 ( ( prop_4 & prop_3 ) U ( prop_1 <-> prop_2 ) ),(prop_4 <-> prop_3) U (prop_1 & prop_2)
-G ( ( prop_1 | prop_2 ) -> ! ( G prop_3 ) ),((prop_1 | prop_2) -> G(!prop_3))
+G ( ( prop_1 | prop_2 ) -> ! ( G prop_3 ) ),((prop_1 | prop_2) -> G !prop_3)
 F ( steal_apple ) U G ( hold_onto_orange ),steal_apple U G hold_onto_orange
 G(!( bridge_closes )) | F(( bridge_closes ) & F( sensor_gathers_information )),bridge_closes & F sensor_gathers_information
 G ( go_by_trash_can ) | F ( go_home ),G(go_by_trash_can | go_home)
 G ( prop_1 | G ( ! prop_2 ) ),G(prop_1) | G(!prop_2)
-F ( make_contact_flag ) -> G ( ! ( drop_orange ) ),G(make_contact_flag -> G(!drop_orange))
+F ( make_contact_flag ) -> G ( ! ( drop_orange ) ),make_contact_flag -> G !drop_orange
 ( F record_safe_person ) -> ( ! record_safe_person U ( avoid_active_unstable_beam & ! record_safe_person ) ),record_safe_person -> !avoid_active_unstable_beam U record_safe_person
 ( F prop_1 | ( prop_2 & prop_3 ) ),F prop_1 | F (prop_2 & prop_3)
 F ( ! avoid_probable_flood ),F avoid_probable_flood
@@ -896,49 +890,49 @@ G(( escalator_speeds_up | semaphore_is_broken ) -> F( sensor_captures_data )),((
 G(!( sensor_gathers_information & motorbike_catches_fire )) | F(( sensor_gathers_information & motorbike_catches_fire ) & F( bridge_closes )),F((sensor_gathers_information & motorbike_catches_fire) & F(bridge_closes))
 G ( ( prop_3 & prop_4 ) -> ( prop_2 & prop_1 ) ),G((prop_3 & prop_4) -> (prop_2 & !prop_1))
 ( ( ( prop_2 U prop_3 ) -> prop_4 ) <-> prop_1 ),G(((prop_2 U prop_3) -> prop_4) <-> prop_1)
-"""go_home"" U ( G ( F deliver_aid_injured_victim ) )",go_home U F G deliver_aid_injured_victim
+go_home U ( G ( F deliver_aid_injured_victim ) ),go_home U F G deliver_aid_injured_victim
 G(( engine_breaks & semaphore_is_yellow ) -> F( sensor_retrieves_data | car_enters )),((engine_breaks & semaphore_is_yellow) -> F(sensor_retrieves_data | car_enters))
 G(( bridge_opens & constructor_creates_instances ) -> G( sensor_captures_data | engine_breaks )),((bridge_opens & constructor_creates_instances) -> G(sensor_captures_data | engine_breaks))
-"G ""locality_2"" & F ( ""office_4"" & F ( ""p_document_5"" & F ( ""office_9"" & ""pd"" ) ) )",G(locality_2 -> (locality_2 U (p_document_5 & office_4 & F office_9)))
+G locality_2 & F ( office_4 & F ( p_document_5 & F ( office_9 & pd ) ) ),G(locality_2 & (p_document_5 -> (office_4 U office_9)))
 ( F prop_2 -> ( prop_3 | prop_1 ) ),F prop_2 & F (prop_3 | prop_1)
 ( ! ( prop_1 -> prop_3 ) <-> prop_2 ),!(prop_1 -> prop_3) -> prop_2
 G ( photo_motorcycle_southwest_10th_avenue <-> X change_light_east_yellow ),G(photo_motorcycle_southwest_10th_avenue -> X(change_light_east_yellow))
 F ( be_at_house ) & move_to_tree,F(be_at_house & move_to_tree)
 ( ( ( prop_2 <-> prop_4 ) -> prop_1 ) U prop_3 ),((prop_2 <-> prop_4) -> ((prop_1) U prop_3))
-"F ( ""statue_7"" & ""photo"" )",statue_7 -> F photo
-"F ( ""blue_room"" & F ""red_room"" )",blue_room U red_room
-"G F search_train -> G F ""idle""",G(F(search_train) -> F(idle))
-G ( ( prop_3 & prop_2 ) -> F ( G prop_1 ) ),G((prop_3 & prop_2) -> ((!prop_1) U (G(F(prop_1)))))
+F ( statue_7 & photo ),statue_7 -> F photo
+G F search_train -> G F idle,G(F(search_train) -> F(idle))
+G ( ( prop_3 & prop_2 ) -> F ( G prop_1 ) ),G((prop_3 & prop_2) -> ((!prop_1) U (G(prop_3 & prop_2))))
 G ( ( prop_1 | prop_3 ) -> F ( G prop_2 ) ),G((prop_1 | prop_3) -> F prop_2)
 ( ! ( prop_3 | prop_1 ) -> prop_2 ),(!prop_3 | prop_1) -> prop_2
-"communicate_safe_rescuer -> X ( ( avoid_impending_debris U ""get_help"" ) | G avoid_impending_debris )",communicate_safe_rescuer -> (X(avoid_impending_debris U get_help) | G(avoid_impending_debris))
-[]area_2&&[]<>(building_8&&photo),G(area_2 & F building_8 & F photo)
+communicate_safe_rescuer -> X ( ( avoid_impending_debris U get_help ) | G avoid_impending_debris ),communicate_safe_rescuer -> (X(avoid_impending_debris U get_help) | G(avoid_impending_debris))
+[]area_2&&[]<>(building_8&&photo),G(area_2 -> F(building_8 & photo))
 F ( touch_tree ) & put_in_bucket,F(touch_tree & put_in_bucket)
 ! ( F ( pick_up_anything ) ) & G ( F ( go_to_pear ) ),!pick_up_anything & G F go_to_pear
 []<>(car_1&&photo)&&[]!parking_lot_9,G(photo & car_1 & !parking_lot_9)
 ( ( ( prop_2 -> prop_4 ) & prop_3 ) -> prop_1 ),(prop_2 -> (prop_4 & prop_3 & prop_1))
 ( ( ( prop_2 <-> prop_1 ) U prop_4 ) & prop_3 ),F((prop_2 <-> prop_1) U prop_4) & prop_3
-F ( have_possession_of_apple ) | G ( ! ( drop_pear ) ),G((have_possession_of_apple | !drop_pear))
+F ( have_possession_of_apple ) | G ( ! ( drop_pear ) ),G(have_possession_of_apple | !drop_pear)
 G ( deliver_chair_shelf -> X G ! search_dog ),G(deliver_chair_shelf -> G(!search_dog))
 G(( train_has_been_launched & bar_is_closing ) -> G( semaphore_is_green & elevator_falls )),G(semaphore_is_green & ((train_has_been_launched & bar_is_closing) -> F elevator_falls))
-"F ( ""statue_6"" & ""photo"" & F ( ""bench_4"" & G ""bench_4"" ) )",photo & statue_6 & X(bench_4 & G(bench_4))
+F ( statue_6 & photo & F ( bench_4 & G bench_4 ) ),photo & statue_6 & X(bench_4 & G(bench_4))
 ( G prop_2 <-> ( prop_3 <-> prop_1 ) ),G(prop_2 -> (prop_3 <-> prop_1))
 !locality_5 U (house_2&&<>(p_pass_5&&<>(office_3&&pd))),(!locality_5) U (p_pass_5 & house_2 & office_3)
 ( F prop_1 -> F prop_2 ),F(prop_1 -> G(prop_2))
-"G F ""car_3"" & F ""building_2""",G(F car_3 & F building_2)
+G F car_3 & F building_2,G(F car_3 & F building_2)
 G(( house_is_built | elevator_is_open ) -> G( manager_handles_requests & house_collapses )),((house_is_built | elevator_is_open) -> G((manager_handles_requests & house_collapses)))
 G ( ! ( drop_apple ) ) & go_by_waste_bin,G(!(drop_apple & go_by_waste_bin))
 G(( train_is_crossing & bar_has_to_be_repaired ) -> G(!( semaphore_is_red & bar_is_up ))),G((train_is_crossing & bar_has_to_be_repaired) -> !(semaphore_is_red & bar_is_up))
-( ( F ( ! prop_3 ) | prop_2 ) <-> prop_1 ),(F(!(prop_2) | prop_1) <-> prop_3)
-F ( journey_by_flag ) | G ( hold_on_pear ),G(journey_by_flag | hold_on_pear)
+( ( F ( ! prop_3 ) | prop_2 ) <-> prop_1 ),(F(!(prop_2) | prop_1) -> prop_3)
+F ( journey_by_flag ) | G ( hold_on_pear ),G((journey_by_flag | hold_on_pear))
 G ( ! ( let_go_orange ) ) U F ( gather_pear ),!let_go_orange U gather_pear
-! G ( ! ( search_dining_table & X search_dining_table ) ),G(search_dining_table | X(search_dining_table) | XX(search_dining_table))
+! G ( ! ( search_dining_table & X search_dining_table ) ),G(search_dining_table | X search_dining_table | X X search_dining_table)
 ( ( ! prop_3 <-> prop_1 ) | prop_2 ),(!prop_3) <-> (prop_1 | prop_2)
-"F ( ""house_3"" & F ( ""p_pass_2"" & F ( ""office_2"" & ""pd"" ) ) ) & ! ""street_5"" U ""p_pass_2""",(!street_5 U p_pass_2) & F(pd & house_3 & office_2)
+F ( house_3 & F ( p_pass_2 & F ( office_2 & pd ) ) ) & ! street_5 U p_pass_2,(!street_5) U p_pass_2
 F ( gather_pear ) -> F ( take_possession_of_bear ),G(gather_pear -> F(take_possession_of_bear))
+F ( prop_1 & G ( ! prop_2 ) ),G(prop_1) & G(!prop_2)
 F ( prop_1 | F prop_2 ),G(prop_1) | F(prop_2)
 G(!( train_is_crossing | manager_collect_claims )) | F(( train_is_crossing | manager_collect_claims ) & F( sensor_retrieves_data | train_has_been_launched )),F((train_is_crossing | manager_collect_claims) & F(sensor_retrieves_data | train_has_been_launched))
-"( ""idle"" U search_parking_meter ) | G ""idle""",(search_parking_meter U wait) | G idle
+( idle U search_parking_meter ) | G idle,(search_parking_meter U wait) | G idle
 G(( semaphore_is_green | house_collapses ) -> G( manager_collect_claims & escalator_is_blocked )),((semaphore_is_green | house_collapses) -> G(manager_collect_claims & escalator_is_blocked))
 ( ( ( prop_4 | prop_3 ) -> prop_1 ) -> prop_2 ),((prop_4 | prop_3) -> (prop_1 -> prop_2))
 G(( table_is_brown & car_starts ) -> G( semaphore_is_yellow )),((table_is_brown & car_starts) -> G(semaphore_is_yellow))
@@ -947,17 +941,18 @@ F ( prop_1 | ! prop_2 ),F(prop_1) | !prop_2
 F ( bring_pear ) | G ( ! ( drop_apple ) ),G(bring_pear | G(!drop_apple))
 ( G ( F prop_1 ) -> prop_2 ),G(prop_1 -> F(prop_2))
 G(!( bridge_closes )) | F(( bridge_closes ) & F( brake_is_pressed | motorbike_has_started )),F(bridge_closes & F(brake_is_pressed | motorbike_has_started))
-G ( ( prop_2 & prop_1 ) -> ( prop_4 U prop_3 ) ),(prop_2 & prop_1) -> (prop_4 & F prop_3)
+G ( ( prop_2 & prop_1 ) -> ( prop_4 U prop_3 ) ),(prop_2 & prop_1) -> (prop_4 & G(prop_4 U prop_3))
 G ( ( prop_4 & prop_1 ) -> ( prop_3 U prop_2 ) ),(prop_4 & prop_1) -> (prop_3 U prop_2)
-"G ( ""moving"" ) | F ( stop_by_house )",G(moving | stop_by_house)
+G ( moving ) | F ( stop_by_house ),G(moving | stop_by_house)
 G(( manager_handles_requests & constructor_creates_instances ) -> G(!( semaphore_is_green | motorbike_falls_down ))),G((manager_handles_requests & constructor_creates_instances) -> !(semaphore_is_green | motorbike_falls_down))
+G ( prop_1 -> ( prop_3 & prop_2 ) ),(prop_1 -> (prop_3 & prop_2))
 ( ( prop_2 | prop_4 ) U ( prop_3 & prop_1 ) ),((prop_2 | prop_4) -> (!((prop_3 & prop_1)) U (prop_3 & prop_1)))
-"( ""get_help"" U ""idle"" )",get_help & X idle
-"G ! ""street_4"" & F ( ""store_7"" & F ( ""p_package_8"" & F ( ""house_2"" & ""pd"" ) ) )",p_package_8 & !street_4 & F house_2
+( get_help U idle ),get_help & X idle
+G ! street_4 & F ( store_7 & F ( p_package_8 & F ( house_2 & pd ) ) ),p_package_8 & store_7 & house_2 & !street_4
 G ( avoid_active_unstable_beam -> X G ! record_debris ),G(avoid_active_unstable_beam -> G(!record_debris))
 G(!( bar_has_to_be_repaired & sensor_retrieves_data )) | F(( bar_has_to_be_repaired & sensor_retrieves_data ) & F( table_has_been_moved & motorbike_is_driven )),F((bar_has_to_be_repaired & sensor_retrieves_data) & F(table_has_been_moved & motorbike_is_driven))
 G ( ( prop_1 U prop_4 ) -> ( prop_2 U prop_3 ) ),F(prop_1) -> (prop_2 & (prop_2 U F(prop_3)))
-G ( F prop_1 & G ( F prop_2 ) ),G(prop_1) & G(prop_2)
+G ( F prop_1 & G ( F prop_2 ) ),G prop_1 & G prop_2
 G(( train_has_arrived | constructor_instantiate_objects ) -> F( engine_starts & semaphore_is_broken )),((train_has_arrived | constructor_instantiate_objects) -> F(engine_starts & semaphore_is_broken))
 G(!( brake_is_pressed & bridge_opens & motorbike_catches_fire )),!(brake_is_pressed & bridge_opens & motorbike_catches_fire)
 G ( ! prop_1 | G ( ! prop_2 ) ),!prop_1 | !prop_2
@@ -966,49 +961,49 @@ pick_up_flag -> G ( have_apple ),G(pick_up_flag -> G(have_apple))
 ( ( prop_1 -> prop_3 ) & prop_2 ),prop_1 -> (prop_3 & prop_2)
 capture_orange & F ( contact_house ),capture_orange & G(contact_house)
 G(!( house_collapses & house_is_open )) | F(( house_collapses & house_is_open ) & F( house_is_open | motorbike_is_driven )),F(house_collapses & house_is_open & F(house_is_open | motorbike_is_driven))
-G(( train_has_arrived ) -> F( train_derails )),train_has_arrived -> F train_derails
+G(( train_has_arrived ) -> F( train_derails )),F(train_derails & train_has_arrived)
 ( G ( ! prop_1 -> prop_2 ) & prop_3 ),G((!prop_1) -> (prop_2 & prop_3))
-G ( prop_2 -> ( prop_3 & prop_1 ) ),G(prop_2 -> (prop_3 & X(prop_1)))
-"G ( ""go_home"" -> X G ! avoid_inactive_unstable_beam )",G(go_home -> G(!avoid_inactive_unstable_beam))
+G ( prop_2 -> ( prop_3 & prop_1 ) ),G(prop_2 -> (prop_3 & X prop_1))
+G ( go_home -> X G ! avoid_inactive_unstable_beam ),G(go_home -> G(!avoid_inactive_unstable_beam))
 F ( scoop_up_apple ) -> take_pear,G(scoop_up_apple -> take_pear)
-G(( manager_collect_claims | escalator_speeds_up ) -> G( car_starts | bar_is_closing )),G((car_starts | bar_is_closing) -> (manager_collect_claims | escalator_speeds_up))
+G(( manager_collect_claims | escalator_speeds_up ) -> G( car_starts | bar_is_closing )),G((car_starts | bar_is_closing) -> F(manager_collect_claims | escalator_speeds_up))
 ( ( prop_3 U prop_2 ) U prop_1 ),prop_3 & X(prop_2 & X(prop_1))
 ( F prop_2 -> ( ! prop_3 & prop_1 ) ),G(prop_2 -> F(!prop_3 & prop_1))
-"G ( ""get_help"" -> F search_potted_plant ) -> G F pickup_person",G((get_help -> F search_potted_plant) -> G F pickup_person)
-G ( ( prop_2 | prop_4 ) -> ( prop_1 U prop_3 ) ),((prop_2 | prop_4) -> (prop_3 U prop_1))
-G(( engine_stops | train_stops ) -> G(!( sensor_captures_data | table_has_been_moved ))),G((engine_stops | train_stops) -> !(sensor_captures_data | table_has_been_moved))
-"G ( ""move"" ) | F ( go_to_apple )",G(move | go_to_apple)
+G ( get_help -> F search_potted_plant ) -> G F pickup_person,G((get_help -> F search_potted_plant) -> G F pickup_person)
+G ( ( prop_2 | prop_4 ) -> ( prop_1 U prop_3 ) ),((prop_2 | prop_4) -> (prop_3 U F prop_1))
+G(( engine_stops | train_stops ) -> G(!( sensor_captures_data | table_has_been_moved ))),G(((engine_stops | train_stops) -> X(!(sensor_captures_data | table_has_been_moved))))
+G ( move ) | F ( go_to_apple ),G(move | go_to_apple)
 <>(house_1&&<>(p_trash_can_4&&<>(garbage_dump_3&&pd))),F(p_trash_can_4 & house_1) & F(pd & garbage_dump_3)
 F ( have_pear ) | ! ( let_go_pear ),F(have_pear | !let_go_pear)
 ( F ( prop_1 -> prop_2 ) | prop_3 ),F(prop_1 & X(prop_2)) | prop_3
-"! ""office_4"" U ""p_pass_6"" & F ( ""house_5"" & F ( ""p_pass_6"" & F ( ""office_4"" & ""pd"" ) ) )",(!office_4) U (p_pass_6 & house_5)
-"( F ""idle"" ) -> ( ! ""idle"" U ( search_broccoli & ! ""idle"" ) )",F idle -> (!search_broccoli U idle)
+! office_4 U p_pass_6 & F ( house_5 & F ( p_pass_6 & F ( office_4 & pd ) ) ),(!office_4) U (p_pass_6 & X(!house_5 & X(office_4)))
+G(( sensor_captures_data & escalator_is_blocked ) -> G(!( semaphore_is_green | motorbike_falls_down ))),G((sensor_captures_data & escalator_is_blocked) -> !(semaphore_is_green | motorbike_falls_down))
+( F idle ) -> ( ! idle U ( search_broccoli & ! idle ) ),G(idle -> (!search_broccoli U search_broccoli))
 travel_to_apple | G ( F ( go_to_apple_trashcan ) ),travel_to_apple | go_to_apple_trashcan
-G F communicate_safe_hostile -> G F photo_safe_rescuer,G(F(communicate_safe_hostile) -> F(photo_safe_rescuer))
 ( ( prop_2 -> prop_1 ) & prop_3 ),prop_2 -> (prop_1 & prop_3)
 G(( semaphore_is_yellow | engine_breaks ) -> G( engine_stops | car_enters )),G((semaphore_is_yellow | engine_breaks) -> (engine_stops | car_enters))
-( ( ( prop_2 -> prop_3 ) <-> prop_1 ) -> prop_4 ),(prop_2 -> ((prop_3 <-> prop_1) -> prop_4))
+( ( ( prop_2 -> prop_3 ) <-> prop_1 ) -> prop_4 ),(prop_2 -> (prop_3 <-> prop_1)) -> prop_4
 ( ! ( prop_2 U prop_1 ) & prop_3 ),!(prop_2 U (prop_1 & prop_3))
-<>(kitchen_2&&p_bottle_3)&&[]!living_room_1,kitchen_2 & !living_room_1 & F p_bottle_3
+<>(kitchen_2&&p_bottle_3)&&[]!living_room_1,kitchen_2 & p_bottle_3 & !living_room_1
 F ( prop_1 U F prop_2 ),prop_1 U prop_2
-"G ( ""stay"" ) | F ( spend_time_at_tree )",G(stay | spend_time_at_tree)
+G ( stay ) | F ( spend_time_at_tree ),G(stay | spend_time_at_tree)
 ( ( ( prop_4 -> prop_2 ) | prop_3 ) U prop_1 ),(prop_4 -> prop_2) | (prop_3 U prop_1)
 G ( ( prop_3 & prop_2 ) -> G prop_1 ),G((prop_3 & prop_2) -> F prop_1)
-F ( pick_up_apple ) & G ( F ( go_to_waste_basket ) ),G(pick_up_apple -> F go_to_waste_basket)
-( ( ! prop_1 | prop_2 ) <-> prop_3 ),!((prop_1) | (prop_2)) <-> (prop_3)
+F ( pick_up_apple ) & G ( F ( go_to_waste_basket ) ),G(possible -> (pick_up_apple & G F go_to_waste_basket))
+( ( ! prop_1 | prop_2 ) <-> prop_3 ),!((prop_1) | (prop_2) <-> (prop_3))
 <>(statue_2&&photo)&&!statue_2 U park_5,F photo & (!statue_2 U park_5)
 G ( F ( go_to_apple_trashcan ) ) -> F ( journey_by_flag ),G(go_to_apple_trashcan -> F(journey_by_flag))
-"G ( ""get_help"" & X record_pedestrian_north_2nd_avenue -> X X record_person_east_9th_avenue )",(get_help & X record_pedestrian_north_2nd_avenue) -> XX record_person_east_9th_avenue
+G ( get_help & X record_pedestrian_north_2nd_avenue -> X X record_person_east_9th_avenue ),(get_help & X record_pedestrian_north_2nd_avenue) -> XX record_person_east_9th_avenue
 ( ! prop_2 -> ( prop_3 -> prop_1 ) ),G(!prop_2 -> (prop_3 -> prop_1))
-G ( ( prop_3 | prop_1 ) -> ! ( F prop_2 ) ),((prop_3 | prop_1) -> X F prop_2)
+G ( ( prop_3 | prop_1 ) -> ! ( F prop_2 ) ),((prop_3 | prop_1) -> X(!F(prop_2)))
 G(( bar_is_up | elevator_rises ) -> G( sensor_captures_data & motorbike_falls_down )),G(sensor_captures_data & ((bar_is_up | elevator_rises) -> F motorbike_falls_down))
-G(!( elevator_rises & bar_is_closing )) | F(( elevator_rises & bar_is_closing ) & F( sensor_gathers_information & table_is_old )),F(elevator_rises & bar_is_closing) & F(sensor_gathers_information & table_is_old)
+G(!( elevator_rises & bar_is_closing )) | F(( elevator_rises & bar_is_closing ) & F( sensor_gathers_information & table_is_old )),F((elevator_rises & bar_is_closing) & F(sensor_gathers_information & X table_is_old))
 G(!( table_is_brown & bar_is_down )) | F(( table_is_brown & bar_is_down ) & F( sensor_retrieves_data & train_is_crossing )),F((table_is_brown & bar_is_down) & F(sensor_retrieves_data & X(train_is_crossing)))
 G(( constructor_creates_instances | house_is_built ) -> G( sensor_captures_data & motorbike_falls_down )),G((constructor_creates_instances | house_is_built) -> (sensor_captures_data & motorbike_falls_down))
 G(( bar_has_to_be_repaired | train_has_arrived ) -> G(!( bar_is_up & engine_stops ))),G(((bar_has_to_be_repaired | train_has_arrived) -> !(bar_is_up & engine_stops)))
-( photo_vehicle_north_1st_avenue U change_light_west_red ),photo_vehicle_north_1st_avenue -> X change_light_west_red
+( photo_vehicle_north_1st_avenue U change_light_west_red ),photo_vehicle_north_1st_avenue -> F change_light_west_red
 G(( bar_is_up | sensor_retrieves_data ) -> G(!( sensor_captures_data | table_has_been_moved ))),G(((bar_is_up | sensor_retrieves_data) -> !(sensor_captures_data | table_has_been_moved)))
-"G ( ""get_help"" -> ( deliver_aid_injured_hostile | X deliver_aid_injured_hostile ) )",get_help -> (deliver_aid_injured_hostile | X deliver_aid_injured_hostile)
+G ( get_help->_deliver_aid_injured_hostile | X deliver_aid_injured_hostile ),get_help -> (deliver_aid_injured_hostile | X deliver_aid_injured_hostile)
 ( ( G ( prop_1 U prop_4 ) | prop_3 ) | prop_2 ),G((prop_1 U prop_4) | prop_3 | prop_2)
 ( F prop_1 | ( prop_2 & prop_3 ) ),F(prop_1 | (prop_2 & prop_3))
 ! ( let_go_orange ) & take_to_trashcan,!(let_go_orange & take_to_trashcan)
@@ -1016,24 +1011,26 @@ G ( prop_1 & ! ( F prop_2 ) ),G(prop_1) & !prop_2
 ( ! prop_3 & ( prop_1 -> prop_2 ) ),(!prop_3 & prop_1) -> prop_2
 G(( semaphore_is_green | house_collapses ) -> G( semaphore_is_yellow )),((semaphore_is_green | house_collapses) -> G(semaphore_is_yellow))
 ( F photo_collision_northwest_7th_avenue ) -> ( ! photo_collision_northwest_7th_avenue U ( photo_pedestrian_northwest_6th_street & ! photo_collision_northwest_7th_avenue ) ),F photo_collision_northwest_7th_avenue -> F photo_pedestrian_northwest_6th_street
-"( F ""get_help"" ) -> ( ! ""get_help"" U ( photo_unstable_beam & ! ""get_help"" ) )",G(get_help -> (!photo_unstable_beam U get_help))
-"G ( photo_cyclist_east_9th_street & X ""get_help"" -> X X change_light_south_red )",(photo_cyclist_east_9th_street & X get_help) -> XX change_light_south_red
+( F get_help ) -> ( ! get_help U ( photo_unstable_beam & ! get_help ) ),get_help -> F photo_unstable_beam
+G ( photo_cyclist_east_9th_street & X get_help -> X X change_light_south_red ),(photo_cyclist_east_9th_street & X get_help) -> XX change_light_south_red
 G ( ( prop_2 | prop_3 ) -> G prop_1 ),(prop_2 | prop_3) -> (prop_1 & G prop_1)
-"F ( ""building_4"" & ""photo"" & F ( ""parking_lot_2"" & G ""parking_lot_2"" ) )",photo & X(parking_lot_2 & G(parking_lot_2))
+F ( building_4 & photo & F ( parking_lot_2 & G parking_lot_2 ) ),photo & X(parking_lot_2 & G(parking_lot_2))
 G ( ( prop_2 & prop_4 ) -> ( prop_1 U prop_3 ) ),G(((prop_2 & prop_4) -> (prop_1 & X(prop_1 U prop_3))))
-"""park_5"" U ""bench_4"" & F ( ""store_2"" & F ( ""p_bottle_5"" & F ( ""bench_4"" & ""pd"" ) ) )",(park_5 U bench_4) & F(p_bottle_5 & bench_4)
+park_5 U bench_4 & F ( store_2 & F ( p_bottle_5 & F ( bench_4 & pd ) ) ),(park_5 U bench_4) & F(p_bottle_5 & F bench_4)
+G ( prop_3 -> ( prop_2 & prop_1 ) ),G(prop_3 -> (X prop_2 & prop_1))
 ( prop_1 -> F prop_2 ),prop_1 -> G prop_2
 G(!( sensor_gathers_information & motorbike_catches_fire )) | F(( sensor_gathers_information & motorbike_catches_fire ) & F( train_has_arrived )),F((sensor_gathers_information & motorbike_catches_fire) & F(train_has_arrived))
 G(( engine_starts | train_is_crossing ) -> G(!( house_is_open & motorbike_has_started ))),((engine_starts | train_is_crossing) -> G(!(house_is_open & motorbike_has_started)))
-( F search_chair ) -> ( ! search_chair U ( deliver_horse_shelf & ! search_chair ) ),F search_chair -> F deliver_horse_shelf
-"G F ""charger_6"" & G F ( ""table_4"" & ""p_brochure_4"" )",G(charger_6) & G(F(p_brochure_4))
+( F search_chair ) -> ( ! search_chair U ( deliver_horse_shelf & ! search_chair ) ),F search_chair -> deliver_horse_shelf
+G F charger_6 & G F ( table_4 & p_brochure_4 ),G(charger_6) & G(F(p_brochure_4))
 G(( train_has_arrived & sensor_captures_data ) -> F( motorbike_is_driven & elevator_is_blocked )),(train_has_arrived & sensor_captures_data) -> F(motorbike_is_driven & elevator_is_blocked)
 ! ( prop_1 | F prop_2 ),!prop_1 | G(prop_2)
 ( ( prop_2 & prop_4 ) <-> ( prop_1 | prop_3 ) ),((prop_2 & prop_4) -> (prop_1 | prop_3))
 F ( set_out_to_house ) U F ( yield_pear ),set_out_to_house U yield_pear
 G ( ( prop_1 | prop_4 ) -> ( prop_2 & prop_3 ) ),G(((prop_1 | prop_4) -> (prop_2 & X prop_3)))
 F ( prop_1 & G prop_2 ),F(prop_1) & G(prop_2)
-"""area_5"" U ( ""store_2"" & F ( ""p_package_8"" & F ( ""house_9"" & ""pd"" ) ) )",area_5 U (p_package_8 & store_2 & house_9)
+area_5 U ( store_2 & F ( p_package_8 & F ( house_9 & pd ) ) ),area_5 U (p_package_8 & store_2 & house_9)
+F ( prop_1 | G ( F prop_2 ) ),G(prop_1) | G(prop_2)
 ( ( ( prop_2 -> prop_3 ) -> prop_1 ) & prop_4 ),(prop_2 -> (prop_3 -> (prop_1 & prop_4)))
 ( G prop_2 | ( prop_3 <-> prop_1 ) ),G(prop_2 | (prop_3 <-> prop_1))
 G ( F prop_1 | prop_2 ),G(F(prop_1 | prop_2))
@@ -1041,7 +1038,8 @@ G ( F prop_1 | prop_2 ),G(F(prop_1 | prop_2))
 G(!( motorbike_catches_fire & car_enters )) | F(( motorbike_catches_fire & car_enters ) & F( car_starts | train_derails )),F((motorbike_catches_fire & car_enters) & F(car_starts | train_derails))
 G ( ( prop_2 & prop_3 ) -> ! ( F prop_1 ) ),G((prop_2 & prop_3) -> !prop_1)
 grab_hold_pear | F ( get_near_flag ),grab_hold_pear | get_near_flag
-( ( prop_2 -> prop_4 ) U ( prop_3 -> prop_1 ) ),(prop_2 -> (prop_4 U (prop_3 & X prop_1)))
-!park_5 U intersection_5&&<>(monument_3&&photo),(!park_5) U (intersection_5 & photo & monument_3)
+( ( prop_2 -> prop_4 ) U ( prop_3 -> prop_1 ) ),G((prop_2) -> ((prop_4) U (prop_3 & X prop_1)))
+F ( prop_1 & ! prop_2 ),G(prop_1 & !prop_2)
+!park_5 U intersection_5&&<>(monument_3&&photo),(!park_5) U (intersection_5 & photo)
 G(( engine_stops & bridge_opens ) -> G( motorbike_falls_down & table_has_been_moved )),((engine_stops & bridge_opens) -> G(motorbike_falls_down & table_has_been_moved))
-"F ( ""arch_4"" & ""photo"" ) & G ! ""park_2""",photo & arch_4 & G(!park_2)
+F ( arch_4 & photo ) & G ! park_2,photo & arch_4 & G(!park_2)

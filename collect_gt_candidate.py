@@ -104,7 +104,7 @@ Atomic Propositions: {atomic_proposition}
 
 Please response in plain text format. DO NOT use markdown, latex or any other formats.
 Please response in the following format, and replace the '[LTL formula]' with the LTL formula translated from the natural language sentences:
-So the final LTL translation is: [LTL formula].FINISH
+[LTL formula]
 """
 
 def normalize_formula(text: str) -> str:

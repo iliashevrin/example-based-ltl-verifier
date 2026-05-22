@@ -1,2 +1,4 @@
 Ground Truth,Response
 !limits U (limits & X(state_is_FAULT)),G(limits -> F(state_is_FAULT))
+G(!request -> X(state_is_TRANSITION)),G((!request) -> F(state_is_TRANSITION))
+G(!request & !limits -> F(state_is_TRANSITION)),G(((!request) & (!limits)) -> X(state_is_TRANSITION))
