@@ -12,7 +12,7 @@ def compute_accumulated_source_ratios(data_csv_path, batch_results_pairs):
     data_df = pd.read_csv(data_csv_path, sep=";")
 
     # Validate required columns
-    required_data_cols = {"original LTL", "source", "batch_id"}
+    required_data_cols = {"original LTL", "Spot LTL", "source"}
 
     missing_data = required_data_cols - set(data_df.columns)
 
@@ -52,18 +52,23 @@ def compute_accumulated_source_ratios(data_csv_path, batch_results_pairs):
         # Build lookup: original LTL -> source
         ltl_to_source = {}
 
-        for _, row in batch_data.iterrows():
-            ltl = str(row["original LTL"]).strip()
+        for _, row in data_df.iterrows():
             source = row["source"]
 
-            if ltl not in ltl_to_source:
-                ltl_to_source[ltl] = source
+            original_ltl = str(row["original LTL"]).strip()
+            spot_ltl = str(row["Spot LTL"]).strip()
+
+            if original_ltl and original_ltl not in ltl_to_source:
+                ltl_to_source[original_ltl] = source
+
+            if spot_ltl and spot_ltl not in ltl_to_source:
+                ltl_to_source[spot_ltl] = source
 
         # Count matches from results CSV
         for _, row in results_df.iterrows():
             ground_truth = str(row["Ground Truth"]).strip()
 
-            if ground_truth in ltl_to_source:
+            if ground_truth in ltl_to_source and ("Equivalent" not in row or row["Equivalent"] == False):
                 source = ltl_to_source[ground_truth]
                 found_per_source[source] += 1
 

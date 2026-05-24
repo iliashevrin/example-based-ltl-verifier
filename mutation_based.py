@@ -13,37 +13,33 @@ import itertools
 
 
 class Mutation(str, Enum):
-    # SWAP_F_WITH_G = "SWAP_F_WITH_G"
-    # SWAP_F_WITH_X = "SWAP_F_WITH_X"
-    # SWAP_G_WITH_F = "SWAP_G_WITH_F"
-    # SWAP_G_WITH_X = "SWAP_G_WITH_X"
-    # SWAP_X_WITH_F = "SWAP_X_WITH_F"
-    # SWAP_X_WITH_G = "SWAP_X_WITH_G"
 
-    # REMOVE_F = "REMOVE_F"
-    # REMOVE_G = "REMOVE_G"
+    SWAP_F_WITH_G = "SWAP_F_WITH_G"
+    SWAP_F_WITH_X = "SWAP_F_WITH_X"
+    SWAP_G_WITH_F = "SWAP_G_WITH_F"
+    SWAP_G_WITH_X = "SWAP_G_WITH_X"
+    SWAP_X_WITH_F = "SWAP_X_WITH_F"
+    SWAP_X_WITH_G = "SWAP_X_WITH_G"
+    REMOVE_F = "REMOVE_F"
+    REMOVE_G = "REMOVE_G"
+    SWAP_U_WITH_W = "SWAP_U_WITH_W"
+    SWAP_W_WITH_U = "SWAP_W_WITH_U"
+    SWAP_U_OPERANDS = "SWAP_U_OPERANDS"
+    SWAP_W_OPERANDS = "SWAP_W_OPERANDS"
+    REMOVE_NEGATION = "REMOVE_NEGATION"
+    REMOVE_X = "REMOVE_X"
+    SWAP_AND_WITH_OR = "SWAP_AND_WITH_OR"
+    SWAP_OR_WITH_AND = "SWAP_OR_WITH_AND"
+    SWAP_IMPLIES_WITH_EQUIV = "SWAP_IMPLIES_WITH_EQUIV"
+    SWAP_EQUIV_WITH_IMPLIES = "SWAP_EQUIV_WITH_IMPLIES"
 
-    # SWAP_U_WITH_W = "SWAP_U_WITH_W"
-    # SWAP_W_WITH_U = "SWAP_W_WITH_U"
-    # SWAP_U_OPERANDS = "SWAP_U_OPERANDS"
-    # SWAP_W_OPERANDS = "SWAP_W_OPERANDS"
-
-    ADD_NEGATION = "ADD_NEGATION"
-    # REMOVE_NEGATION = "REMOVE_NEGATION"
-
-    ADD_X = "ADD_X"
-    # REMOVE_X = "REMOVE_X"
-
-    ADD_F = "ADD_F"
-    ADD_G = "ADD_G"
-
-    # SWAP_AND_WITH_OR = "SWAP_AND_WITH_OR"
-    # SWAP_OR_WITH_AND = "SWAP_OR_WITH_AND"
-
-    # SWAP_IMPLIES_WITH_EQUIV = "SWAP_IMPLIES_WITH_EQUIV"
-    # SWAP_EQUIV_WITH_IMPLIES = "SWAP_EQUIV_WITH_IMPLIES"
 
     SWAP_APS = "SWAP_APS"
+    ADD_F = "ADD_F"
+    ADD_G = "ADD_G"
+    ADD_X = "ADD_X"
+    ADD_NEGATION = "ADD_NEGATION"
+
 
 
 # EXPERT_ORDER = [
@@ -123,10 +119,6 @@ def current_node_mutations(f, depth):
     if not f._is(spot.op_Not):
         muts.append((spot.formula.Not(f), (Mutation.ADD_NEGATION, depth)))
 
-    # # Remove negation from any negated subformula
-    # if f._is(spot.op_Not) and f.size() == 1:
-    #     muts.append((f[0], (Mutation.REMOVE_NEGATION, depth)))
-
     # Add X to any subformula
     muts.append((spot.formula.X(f), (Mutation.ADD_X, depth)))
 
@@ -138,57 +130,65 @@ def current_node_mutations(f, depth):
     if not f._is(spot.op_G):
         muts.append((spot.formula.G(f), (Mutation.ADD_G, depth)))
 
-    # # Remove X from any X-subformula
-    # if f._is(spot.op_X) and f.size() == 1:
-    #     muts.append((f[0], (Mutation.REMOVE_X, depth)))
 
-    # # Swap F/G/X
-    # if f._is(spot.op_F):
-    #     muts.append((spot.formula.G(f[0]), (Mutation.SWAP_F_WITH_G, depth)))
-    #     muts.append((spot.formula.X(f[0]), (Mutation.SWAP_F_WITH_X, depth)))
-    #     muts.append((f[0], (Mutation.REMOVE_F, depth)))
 
-    # if f._is(spot.op_G):
-    #     muts.append((spot.formula.F(f[0]), (Mutation.SWAP_G_WITH_F, depth)))
-    #     muts.append((spot.formula.X(f[0]), (Mutation.SWAP_G_WITH_X, depth)))
-    #     # muts.append((f[0], (Mutation.REMOVE_G, depth)))
 
-    # elif f._is(spot.op_X):
-    #     muts.append((spot.formula.F(f[0]), (Mutation.SWAP_X_WITH_F, depth)))
-    #     muts.append((spot.formula.G(f[0]), (Mutation.SWAP_X_WITH_G, depth)))
+    # Remove negation from any negated subformula
+    if f._is(spot.op_Not) and f.size() == 1:
+        muts.append((f[0], (Mutation.REMOVE_NEGATION, depth)))
 
-    # # U/W mutations
-    # if f._is(spot.op_U):
-    #     muts.append((spot.formula.W(f[0], f[1]), (Mutation.SWAP_U_WITH_W, depth)))
-    #     muts.append((spot.formula.U(f[1], f[0]), (Mutation.SWAP_U_OPERANDS, depth)))
+    # Remove X from any X-subformula
+    if f._is(spot.op_X) and f.size() == 1:
+        muts.append((f[0], (Mutation.REMOVE_X, depth)))
 
-    # elif f._is(spot.op_W):
-    #     muts.append((spot.formula.U(f[0], f[1]), (Mutation.SWAP_W_WITH_U, depth)))
-    #     muts.append((spot.formula.W(f[1], f[0]), (Mutation.SWAP_W_OPERANDS, depth)))
+    # Swap F/G/X
+    if f._is(spot.op_F):
+        muts.append((spot.formula.G(f[0]), (Mutation.SWAP_F_WITH_G, depth)))
+        muts.append((spot.formula.X(f[0]), (Mutation.SWAP_F_WITH_X, depth)))
+        muts.append((f[0], (Mutation.REMOVE_F, depth)))
 
-    # # Boolean mutations
-    # if f._is(spot.op_And):
-    #     muts.append(
-    #         (
-    #             spot.formula.Or([f[i] for i in range(children_count(f))]),
-    #             (Mutation.SWAP_AND_WITH_OR, depth),
-    #         )
-    #     )
+    if f._is(spot.op_G):
+        muts.append((spot.formula.F(f[0]), (Mutation.SWAP_G_WITH_F, depth)))
+        muts.append((spot.formula.X(f[0]), (Mutation.SWAP_G_WITH_X, depth)))
+        # muts.append((f[0], (Mutation.REMOVE_G, depth)))
 
-    # elif f._is(spot.op_Or):
-    #     muts.append(
-    #         (
-    #             spot.formula.And([f[i] for i in range(children_count(f))]),
-    #             (Mutation.SWAP_OR_WITH_AND, depth),
-    #         )
-    #     )
+    elif f._is(spot.op_X):
+        muts.append((spot.formula.F(f[0]), (Mutation.SWAP_X_WITH_F, depth)))
+        muts.append((spot.formula.G(f[0]), (Mutation.SWAP_X_WITH_G, depth)))
 
-    # # Implication / equivalence mutations
-    # if f._is(spot.op_Implies):
-    #     muts.append((spot.formula.Equiv(f[0], f[1]), (Mutation.SWAP_IMPLIES_WITH_EQUIV, depth)))
+    # U/W mutations
+    if f._is(spot.op_U):
+        muts.append((spot.formula.W(f[0], f[1]), (Mutation.SWAP_U_WITH_W, depth)))
+        muts.append((spot.formula.U(f[1], f[0]), (Mutation.SWAP_U_OPERANDS, depth)))
 
-    # elif f._is(spot.op_Equiv):
-    #     muts.append((spot.formula.Implies(f[0], f[1]), (Mutation.SWAP_EQUIV_WITH_IMPLIES, depth)))
+    elif f._is(spot.op_W):
+        muts.append((spot.formula.U(f[0], f[1]), (Mutation.SWAP_W_WITH_U, depth)))
+        muts.append((spot.formula.W(f[1], f[0]), (Mutation.SWAP_W_OPERANDS, depth)))
+
+    # Boolean mutations
+    if f._is(spot.op_And):
+        muts.append(
+            (
+                spot.formula.Or([f[i] for i in range(children_count(f))]),
+                (Mutation.SWAP_AND_WITH_OR, depth),
+            )
+        )
+
+    elif f._is(spot.op_Or):
+        muts.append(
+            (
+                spot.formula.And([f[i] for i in range(children_count(f))]),
+                (Mutation.SWAP_OR_WITH_AND, depth),
+            )
+        )
+
+    # Implication / equivalence mutations
+    if f._is(spot.op_Implies):
+        muts.append((spot.formula.Equiv(f[0], f[1]), (Mutation.SWAP_IMPLIES_WITH_EQUIV, depth)))
+
+    elif f._is(spot.op_Equiv):
+        muts.append((spot.formula.Implies(f[0], f[1]), (Mutation.SWAP_EQUIV_WITH_IMPLIES, depth)))
+
 
     return muts
 
