@@ -4,6 +4,10 @@ from collections import defaultdict
 
 
 def compute_accumulated_source_ratios(data_csv_path, batch_results_pairs):
+
+    overall_found = 0
+    overall_total = 0
+
     # Read main data CSV (semicolon-delimited)
     data_df = pd.read_csv(data_csv_path, sep=";")
 
@@ -40,6 +44,8 @@ def compute_accumulated_source_ratios(data_csv_path, batch_results_pairs):
             .to_dict()
         )
 
+        overall_total += len(batch_data)
+
         for source, count in batch_totals.items():
             total_per_source[source] += count
 
@@ -61,6 +67,8 @@ def compute_accumulated_source_ratios(data_csv_path, batch_results_pairs):
                 source = ltl_to_source[ground_truth]
                 found_per_source[source] += 1
 
+                overall_found += 1
+
     # Final output
     print("\nFinal accumulated ratios")
     print("=" * 50)
@@ -77,6 +85,19 @@ def compute_accumulated_source_ratios(data_csv_path, batch_results_pairs):
             f"  Total: {total_count}\n"
             f"  Complement Ratio: {ratio:.4f}\n"
         )
+
+    overall_ratio = 1 - (
+        overall_found / overall_total
+        if overall_total > 0 else 0.0
+    )
+
+    print("=" * 50)
+    print("Overall")
+    print(
+        f"  Found: {overall_found}\n"
+        f"  Total: {overall_total}\n"
+        f"  Found Ratio: {overall_ratio:.4f}\n"
+    )
 
 
 if __name__ == "__main__":
