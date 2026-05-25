@@ -5,40 +5,13 @@ sys.path.insert(0,'/usr/local/lib/python3.10/site-packages/')
 import spot
 spot.setup()
 from utils import get_words_from_conditions, check_acceptance, collect_aps, trace_len
+from utils import Mutation
 
-from enum import Enum
 import random
 from collections import defaultdict
 import itertools
 
-
-class Mutation(str, Enum):
-
-    SWAP_F_WITH_G = "SWAP_F_WITH_G"
-    SWAP_F_WITH_X = "SWAP_F_WITH_X"
-    SWAP_G_WITH_F = "SWAP_G_WITH_F"
-    SWAP_G_WITH_X = "SWAP_G_WITH_X"
-    SWAP_X_WITH_F = "SWAP_X_WITH_F"
-    SWAP_X_WITH_G = "SWAP_X_WITH_G"
-    REMOVE_F = "REMOVE_F"
-    REMOVE_G = "REMOVE_G"
-    SWAP_U_WITH_W = "SWAP_U_WITH_W"
-    SWAP_W_WITH_U = "SWAP_W_WITH_U"
-    SWAP_U_OPERANDS = "SWAP_U_OPERANDS"
-    SWAP_W_OPERANDS = "SWAP_W_OPERANDS"
-    REMOVE_NEGATION = "REMOVE_NEGATION"
-    REMOVE_X = "REMOVE_X"
-    SWAP_AND_WITH_OR = "SWAP_AND_WITH_OR"
-    SWAP_OR_WITH_AND = "SWAP_OR_WITH_AND"
-    SWAP_IMPLIES_WITH_EQUIV = "SWAP_IMPLIES_WITH_EQUIV"
-    SWAP_EQUIV_WITH_IMPLIES = "SWAP_EQUIV_WITH_IMPLIES"
-
-
-    SWAP_APS = "SWAP_APS"
-    ADD_F = "ADD_F"
-    ADD_G = "ADD_G"
-    ADD_X = "ADD_X"
-    ADD_NEGATION = "ADD_NEGATION"
+from utils import top1_mut, top5_mut, only_acc, acc_and_rej, only_shallow, only_deep, no_filter
 
 
 
@@ -361,5 +334,9 @@ def mutation_gradual(formula):
             candidate_acceptance = check_acceptance(original_aut, trace)
             traces.append((trace, candidate_acceptance, mutation_type))
 
+
+    fltr = no_filter
+
+    traces = [(t, ac, mut) for (t, ac, mut) in traces if fltr(t, ac, mut)]
 
     return traces

@@ -63,6 +63,9 @@ def simulate_user_iteration(candidate, ground_truth, method):
     #     print(is_positive, props)
     # print('-----')
 
+    if not traces:
+        return 0, 0, None
+
 
     distinguish_props = None
 

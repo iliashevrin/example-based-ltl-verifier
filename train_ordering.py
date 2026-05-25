@@ -5,8 +5,10 @@ import lightgbm as lgb
 from sklearn.model_selection import GroupShuffleSplit
 from sklearn.metrics import mean_squared_error
 
-from utils import get_formula_features, simulate_user, trace_len
+from utils import get_formula_features, simulate_user, trace_len, Mutation
 from mutation_based import mutation_gradual
+
+from utils import top1_mut, top5_mut, only_acc, acc_and_rej, only_shallow, only_deep, no_filter
 
 import joblib
 import argparse
@@ -14,8 +16,12 @@ import csv
 
 
 def generate_traces(formula):
+
+    fltr = no_filter
+
     traces = mutation_gradual(formula)
-    traces = [(trace, acceptance, f'{str(mut[0])}_{mut[1]}_{acceptance}') for trace, acceptance, mut in traces]
+    traces = [(trace, acceptance, f'{str(mut[0])}_{mut[1]}_{acceptance}') 
+        for trace, acceptance, mut in traces if fltr(trace, acceptance, mut)]
     return traces
 
 
@@ -350,6 +356,9 @@ def diversified_trace_ranking(
     """
 
     traces = generate_traces(formula)
+
+    if not traces:
+        return traces, None
 
     by_mutation = defaultdict(list)
 

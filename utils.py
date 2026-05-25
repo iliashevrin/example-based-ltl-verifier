@@ -5,6 +5,39 @@ import spot
 spot.setup()
 import itertools
 
+from enum import Enum
+
+
+class Mutation(str, Enum):
+
+    SWAP_F_WITH_G = "SWAP_F_WITH_G"
+    SWAP_F_WITH_X = "SWAP_F_WITH_X"
+    SWAP_G_WITH_F = "SWAP_G_WITH_F"
+    SWAP_G_WITH_X = "SWAP_G_WITH_X"
+    SWAP_X_WITH_F = "SWAP_X_WITH_F"
+    SWAP_X_WITH_G = "SWAP_X_WITH_G"
+    REMOVE_F = "REMOVE_F"
+    REMOVE_G = "REMOVE_G"
+    SWAP_U_WITH_W = "SWAP_U_WITH_W"
+    SWAP_W_WITH_U = "SWAP_W_WITH_U"
+    SWAP_U_OPERANDS = "SWAP_U_OPERANDS"
+    SWAP_W_OPERANDS = "SWAP_W_OPERANDS"
+    REMOVE_NEGATION = "REMOVE_NEGATION"
+    REMOVE_X = "REMOVE_X"
+    SWAP_AND_WITH_OR = "SWAP_AND_WITH_OR"
+    SWAP_OR_WITH_AND = "SWAP_OR_WITH_AND"
+    SWAP_IMPLIES_WITH_EQUIV = "SWAP_IMPLIES_WITH_EQUIV"
+    SWAP_EQUIV_WITH_IMPLIES = "SWAP_EQUIV_WITH_IMPLIES"
+
+
+    SWAP_APS = "SWAP_APS"
+    ADD_F = "ADD_F"
+    ADD_G = "ADD_G"
+    ADD_X = "ADD_X"
+    ADD_NEGATION = "ADD_NEGATION"
+
+
+
 def check_acceptance(aut, trace):
 
     word = spot.parse_word(trace)
@@ -135,3 +168,34 @@ def get_formula_features(formula_str: str):
         max_depths["Implies"],
         max_depths["Equiv"],
     ]
+
+
+def no_filter(trace, acceptance, mut):
+    return True
+
+
+def top5_mut(trace, acceptance, mut):
+    return mut[0] in [
+        Mutation.ADD_G,
+        Mutation.ADD_F,
+        Mutation.ADD_X,
+        Mutation.ADD_NEGATION,
+        Mutation.SWAP_APS
+    ]
+
+def top1_mut(trace, acceptance, mut):
+    return mut[0] in [
+        Mutation.ADD_X,
+    ]
+
+def only_acc(trace, acceptance, mut):
+    return acceptance == True
+
+def acc_and_rej(trace, acceptance, mut):
+    return acceptance is not None
+
+def only_shallow(trace, acceptance, mut):
+    return mut[1] <= 1
+
+def only_deep(trace, acceptance, mut):
+    return mut[1] > 1
