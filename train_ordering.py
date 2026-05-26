@@ -463,7 +463,7 @@ def trace_ranking(formula):
         formula=formula,
         model=model,
         feature_columns=feature_columns,
-        diversification_alpha=0,
+        diversification_alpha=1,
     )
 
     return ranked_traces

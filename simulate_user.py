@@ -28,7 +28,7 @@ DATASIZE = {
     "ConformalLTL":678,
     "Synthetic":1000,
 
-    "heldout": 1334 # Approximation based on the full dataset
+    "heldout": 2548 # Approximation based on the full dataset
 }
 
 
