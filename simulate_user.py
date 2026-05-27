@@ -52,9 +52,9 @@ def unified_random(formula):
 
 
 
-def simulate_user_iteration(candidate, ground_truth, method):
+def simulate_user_iteration(candidate, ground_truth, method, fltr):
 
-    traces = method(candidate)
+    traces = method(candidate, fltr)
 
     traces_seen = 0
     trace_length = 0
@@ -159,6 +159,11 @@ if __name__ == "__main__":
     else:
         raise ValueError("Incorrect example generation function")
 
+    if len(sys.argv) >= 4:
+        fltr = sys.argv[3]
+    else:
+        fltr = "no_filter"
+
     seen_in_success = []
     seen_in_failure = []
     trace_lengths = []
@@ -199,7 +204,7 @@ if __name__ == "__main__":
             for _ in range(0,repeats):
 
                 total += 1
-                traces_seen, trace_length, props = simulate_user_iteration(candidate, ground_truth, generation_method)
+                traces_seen, trace_length, props = simulate_user_iteration(candidate, ground_truth, generation_method, fltr)
 
                 trace_lengths.append(trace_length)
 
@@ -260,7 +265,6 @@ if __name__ == "__main__":
     for prop in props_map:
         print(f'{str(prop)}:{props_map[prop]}')
 
-
     # cummulative = 0
     # for i in range(1,max(success_map.keys())):
     #     if i not in success_map:
@@ -270,12 +274,12 @@ if __name__ == "__main__":
 
 
 
-    if len(sys.argv) >= 4:
-        with open(sys.argv[3], "w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(
-                f,
-                fieldnames=["Ground Truth", "Candidate"],
-            )
-            writer.writeheader()
-            writer.writerows(rows)
+    # if len(sys.argv) >= 4:
+    #     with open(sys.argv[3], "w", newline="", encoding="utf-8") as f:
+    #         writer = csv.DictWriter(
+    #             f,
+    #             fieldnames=["Ground Truth", "Candidate"],
+    #         )
+    #         writer.writeheader()
+    #         writer.writerows(rows)
 

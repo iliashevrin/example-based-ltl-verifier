@@ -289,27 +289,27 @@ def rejecting_traces(formula):
 
 
 
-def mutation_expert(candidate):
+def mutation_expert(candidate, fltr):
 
-    traces = mutation_gradual(candidate)
+    traces = mutation_gradual(candidate, fltr)
     rank = {value: i for i, value in enumerate(EXPERT_ORDER)}
     traces.sort(key=lambda trace: rank.get(trace[2], -1), reverse=True)
 
     return traces
 
-def mutation_by_length(candidate):
+def mutation_by_length(candidate, fltr):
 
-    traces = mutation_gradual(candidate)
+    traces = mutation_gradual(candidate, fltr)
     traces.sort(key=lambda trace: trace_len(trace[0]))
     return traces
 
 
-def mutation_random(formula):
-    traces = mutation_gradual(formula)
+def mutation_random(formula, fltr):
+    traces = mutation_gradual(formula, fltr)
     random.shuffle(traces)
     return traces
 
-def mutation_gradual(formula):
+def mutation_gradual(formula, fltr):
     mutants = mutate_ltl_formula(formula)
 
     traces = []
@@ -334,9 +334,6 @@ def mutation_gradual(formula):
             candidate_acceptance = check_acceptance(original_aut, trace)
             traces.append((trace, candidate_acceptance, mutation_type))
 
-
-    fltr = no_filter
-
-    traces = [(t, ac, mut) for (t, ac, mut) in traces if fltr(t, ac, mut)]
+    traces = [(t, ac, mut) for (t, ac, mut) in traces if globals()[fltr](t, ac, mut)]
 
     return traces
