@@ -133,13 +133,13 @@ def confidence(undetected_under_n, total, dataset):
 if __name__ == "__main__":
 
 
-    if sys.argv[1] == "TRAVERSAL_RANDOM":
-        generation_method = traversal_random
-    elif sys.argv[1] == "TRAVERSAL_BY_LENGTH":
-        generation_method = traversal_by_length
+    # if sys.argv[1] == "TRAVERSAL_RANDOM":
+    #     generation_method = traversal_random
+    # elif sys.argv[1] == "TRAVERSAL_BY_LENGTH":
+    #     generation_method = traversal_by_length
     # elif sys.argv[1] == "TRAVERSAL_EXPERT":
     #     generation_method = traversal_expert
-    elif sys.argv[1] == "RANDOM":
+    if sys.argv[1] == "RANDOM":
         generation_method = mutation_random
     elif sys.argv[1] == "BY_LENGTH":
         generation_method = mutation_by_length
@@ -199,7 +199,7 @@ if __name__ == "__main__":
 
             repeats = 1
             if sys.argv[1] == "RANDOM":
-                repeats = 10
+                repeats = 30
 
             for _ in range(0,repeats):
 
