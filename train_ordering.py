@@ -340,7 +340,7 @@ def diversified_trace_ranking(
     fltr,
     model,
     feature_columns,
-    diversification_alpha=0.7,
+    diversification_alpha=1,
 ):
     """
     diversification_alpha controls
