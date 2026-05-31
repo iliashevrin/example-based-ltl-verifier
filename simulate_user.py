@@ -133,26 +133,10 @@ def confidence(undetected_under_n, total, dataset):
 if __name__ == "__main__":
 
 
-    # if sys.argv[1] == "TRAVERSAL_RANDOM":
-    #     generation_method = traversal_random
-    # elif sys.argv[1] == "TRAVERSAL_BY_LENGTH":
-    #     generation_method = traversal_by_length
-    # elif sys.argv[1] == "TRAVERSAL_EXPERT":
-    #     generation_method = traversal_expert
     if sys.argv[1] == "RANDOM":
         generation_method = mutation_random
     elif sys.argv[1] == "BY_LENGTH":
         generation_method = mutation_by_length
-    # elif sys.argv[1] == "EXPERT":
-    #     generation_method = mutation_expert
-    # elif sys.argv[1] == "MUTATION_INTERLEAVED":
-    #     generation_method = mutation_interleaved
-    # elif sys.argv[1] == "UNIFIED_RANDOM":
-    #     generation_method = unified_random
-    # elif sys.argv[1] == "UNIFIED_BY_LENGTH":
-    #     generation_method = unified_by_length
-    # elif sys.argv[1] == "UNIFIED_EXPERT":
-    #     generation_method = unified_expert
     elif sys.argv[1] == "DYNAMIC":
         generation_method = trace_ranking
 
@@ -167,20 +151,12 @@ if __name__ == "__main__":
     seen_in_success = []
     seen_in_failure = []
     trace_lengths = []
-    success = 0
     total = 0
 
     props_map = {}
-
     rows = []
-
     success_map = {}
 
-    undetected_5_or_under = 0
-    undetected_10_or_under = 0
-
-    detected_over_5 = 0
-    detected_over_10 = 0
 
     dataset = None
     for key in DATASIZE.keys():
@@ -210,7 +186,7 @@ if __name__ == "__main__":
 
                 # Incorrect candidate was successfully rejected, look at the props of the discriminating trace
                 if props is not None:
-                    success += 1
+                    # success += 1
                     seen_in_success.append(traces_seen)
 
                     if traces_seen in success_map:
@@ -223,16 +199,8 @@ if __name__ == "__main__":
                     else:
                         props_map[props] += 1
 
-                    if traces_seen > 5:
-                        undetected_5_or_under += 1
-                        detected_over_5 += 1
-                    if traces_seen > 10:
-                        undetected_10_or_under += 1
-                        detected_over_10 += 1
-
                 else:
                     seen_in_failure.append(traces_seen)
-                    # print(f'Ground Truth: {ground_truth}; Candidate: {candidate}')
 
                     # Missed detections
                     rows.append(
@@ -242,19 +210,26 @@ if __name__ == "__main__":
                         }
                     )
 
-                    undetected_5_or_under += 1
-                    undetected_10_or_under += 1
 
 
+    det_more_than_i = []
+    undet_under_i = []
+    confidence = []    
+    undet_inf = len(seen_in_failure) / total
+    accuracy = 1 - ((total / repeats) / DATASIZE[dataset])
+
+    print(f'Accuracy: {accuracy:.3f}')
     print(f'Total Formulas: {total / repeats}')
-    print(f'Total Detected: {success / repeats}')
-    print(f'Detected Ratio: {(success / total):.3f}')
+    print(f'Detected Ratio: {(1-undet_inf):.3f}')
 
-    print(f'Undetected <=5 Ratio: {(undetected_5_or_under / total):.3f} (Undetected Ratio: {1 - (success / total):.3f} + Detected >5 Ratio: {(detected_over_5 / total):.3f})')
-    print(f'Undetected <=10 Ratio: {(undetected_10_or_under / total):.3f} (Undetected Ratio: {1 - (success / total):.3f} + Detected >10 Ratio: {(detected_over_10 / total):.3f})')
+    for i in range(0,16):
 
-    print(f'Confidence score for n=5: {confidence(undetected_5_or_under / repeats, total / repeats, dataset):.3f}')
-    print(f'Confidence score for n=10: {confidence(undetected_10_or_under / repeats, total / repeats, dataset):.3f}')
+        det_more_than_i.append(len([n for n in seen_in_success if n > i]) / total)
+        undet_under_i.append(undet_inf + det_more_than_i[i])
+        confidence.append(accuracy / (accuracy + ((1 - accuracy) * undet_under_i[i])))
+
+        print(f'Undetected <={i} Ratio: {undet_under_i[i]:.3f} (Undetected Ratio: {undet_inf:.3f} + Detected >{i} Ratio: {det_more_than_i[i]:.3f})')
+        print(f'Confidence score for n={i}: {confidence[i]:.3f}')
 
     print(f'Trace Numbers: {stats(seen_in_success)}')
     # print(f'Inspected Traces When No Detection: {stats(seen_in_failure)}')
@@ -271,15 +246,4 @@ if __name__ == "__main__":
     #         continue
     #     cummulative += success_map[i]
     #     print(f'{str(i)}:{(cummulative / success):.3f}')
-
-
-
-    # if len(sys.argv) >= 4:
-    #     with open(sys.argv[3], "w", newline="", encoding="utf-8") as f:
-    #         writer = csv.DictWriter(
-    #             f,
-    #             fieldnames=["Ground Truth", "Candidate"],
-    #         )
-    #         writer.writeheader()
-    #         writer.writerows(rows)
 
