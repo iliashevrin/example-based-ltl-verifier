@@ -188,6 +188,9 @@ def top1_mut(trace, acceptance, mut):
         Mutation.ADD_X,
     ]
 
+def top1_context(trace, acceptance, mut):
+    return mut[0] == Mutation.ADD_X and mut[1] == 1 and acceptance == False
+
 def only_acc(trace, acceptance, mut):
     return acceptance == True
 

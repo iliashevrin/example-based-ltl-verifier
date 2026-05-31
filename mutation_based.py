@@ -11,26 +11,8 @@ import random
 from collections import defaultdict
 import itertools
 
-from utils import top1_mut, top5_mut, only_acc, acc_and_rej, only_shallow, only_deep, no_filter
+from utils import top1_context, top1_mut, top5_mut, only_acc, acc_and_rej, only_shallow, only_deep, no_filter
 
-
-
-# EXPERT_ORDER = [
-#     Mutation.REMOVE_X,
-#     Mutation.REMOVE_G,
-#     Mutation.REMOVE_F,
-#     Mutation.SWAP_X_WITH_G,
-#     Mutation.SWAP_X_WITH_F,
-#     Mutation.SWAP_F_WITH_G,
-#     Mutation.SWAP_F_WITH_X,
-#     Mutation.SWAP_G_WITH_F,
-#     Mutation.SWAP_G_WITH_X,
-#     Mutation.REMOVE_NEGATION,
-#     Mutation.ADD_G,
-#     Mutation.ADD_F,
-#     Mutation.ADD_X,
-#     Mutation.ADD_NEGATION,
-# ]
 
 
 def ap_formula(name: str):
