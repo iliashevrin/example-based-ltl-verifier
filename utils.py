@@ -194,6 +194,9 @@ def top1_context(trace, acceptance, mut):
 def only_acc(trace, acceptance, mut):
     return acceptance == True
 
+def only_rej(trace, acceptance, mut):
+    return acceptance == False
+
 def acc_and_rej(trace, acceptance, mut):
     return acceptance is not None
 

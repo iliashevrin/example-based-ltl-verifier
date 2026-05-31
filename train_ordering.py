@@ -8,7 +8,7 @@ from sklearn.metrics import mean_squared_error
 from utils import get_formula_features, simulate_user, trace_len, Mutation
 from mutation_based import mutation_gradual
 
-from utils import top1_context, top1_mut, top5_mut, only_acc, acc_and_rej, only_shallow, only_deep, no_filter
+from utils import top1_context, top1_mut, top5_mut, only_acc, only_rej, acc_and_rej, only_shallow, only_deep, no_filter
 
 import joblib
 import argparse

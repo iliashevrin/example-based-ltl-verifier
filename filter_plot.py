@@ -12,6 +12,7 @@ restrictions = [
     "Top 1 Mut.",
     "Top 1 Ctx.",
     "Only Acc.",
+    "Only Rej.",
     "Acc. + Rej.",
     "Depth ≤ 1",
     "Depth > 1",
@@ -21,8 +22,9 @@ restrictions = [
 ndt_inf = np.array([
     0.033,
     0.088,
-    0.452,  # NEW
+    0.452,
     0.309,
+    0.334,
     0.035,
     0.063,
     0.055,
@@ -32,8 +34,9 @@ ndt_inf = np.array([
 dt_random = np.array([
     0.160,
     0.092,
-    0.001,  # NEW
+    0.001,
     0.072,
+    0.033,
     0.159,
     0.144,
     0.212,
@@ -43,8 +46,9 @@ dt_random = np.array([
 dt_regr = np.array([
     0.103,
     0.025,
-    0.000,  # NEW
+    0.000,
     0.101,
+    0.018,
     0.111,
     0.075,
     0.143,
@@ -54,8 +58,9 @@ dt_regr = np.array([
 avg_random = np.array([
     3.47,
     7.17,
-    1.05,  # NEW
+    1.05,
     2.42,
+    2.22,
     3.50,
     3.37,
     4.09,
@@ -65,8 +70,9 @@ avg_random = np.array([
 avg_regr = np.array([
     2.69,
     1.79,
-    1.07,  # NEW
+    1.07,
     2.69,
+    1.83,
     2.88,
     2.59,
     3.42,
@@ -80,7 +86,7 @@ avg_regr = np.array([
 x = np.arange(len(restrictions))
 width = 0.38
 
-fig, ax = plt.subplots(figsize=(16, 5))  # keep compact height
+fig, ax = plt.subplots(figsize=(20, 5))  # keep compact height
 
 base_color = "0.80"
 top_color = "0.55"
@@ -122,7 +128,7 @@ for i in range(len(restrictions)):
         f"{total_random:.3f}\n({avg_random[i]:.2f})",
         ha="center",
         va="bottom",
-        fontsize=15,
+        fontsize=16,
     )
 
     ax.text(
@@ -131,7 +137,7 @@ for i in range(len(restrictions)):
         f"{total_regr:.3f}\n({avg_regr[i]:.2f})",
         ha="center",
         va="bottom",
-        fontsize=15,
+        fontsize=16,
     )
 
 # =========================
@@ -139,7 +145,7 @@ for i in range(len(restrictions)):
 # =========================
 
 ax.set_xticks(x)
-ax.set_xticklabels(restrictions, rotation=20, ha="right", fontsize=18)
+ax.set_xticklabels(restrictions, rotation=20, ha="right", fontsize=20)
 
 ax.set_xlabel("")
 ax.set_ylabel("")
@@ -169,7 +175,7 @@ avg_handle = Line2D(
     label="Top label = NDT + DT; parentheses = avg. traces"
 )
 
-ax.legend(handles=[base_patch, random_patch, regr_patch], fontsize=16)
+ax.legend(handles=[base_patch, random_patch, regr_patch], fontsize=18)
 
 # =========================
 # Limits

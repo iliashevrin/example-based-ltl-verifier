@@ -11,7 +11,7 @@ import random
 from collections import defaultdict
 import itertools
 
-from utils import top1_context, top1_mut, top5_mut, only_acc, acc_and_rej, only_shallow, only_deep, no_filter
+from utils import top1_context, top1_mut, top5_mut, only_acc, only_rej, acc_and_rej, only_shallow, only_deep, no_filter
 
 
 
