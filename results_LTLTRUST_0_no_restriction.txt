@@ -1,7 +1,7 @@
-Average Time: 0.201
-Accepting traces for GT: 333.000
-Rejecting traces for GT: 396.000
-Inconclusive traces for GT: 608.000
+Average Time: 0.211
+Accepting traces for GT: 362.000
+Rejecting traces for GT: 354.000
+Inconclusive traces for GT: 599.000
 
 Accuracy: 0.368
 Total Formulas: 398
@@ -13,104 +13,104 @@ Confidence score for n=0: 0.368
 Undetected <=1 Ratio: 0.367 (Undetected Ratio: 0.020 + Detected >1 Ratio: 0.347)
 Confidence score for n=1: 0.614
 
-Undetected <=2 Ratio: 0.246 (Undetected Ratio: 0.020 + Detected >2 Ratio: 0.226)
-Confidence score for n=2: 0.703
+Undetected <=2 Ratio: 0.279 (Undetected Ratio: 0.020 + Detected >2 Ratio: 0.259)
+Confidence score for n=2: 0.676
 
-Undetected <=3 Ratio: 0.193 (Undetected Ratio: 0.020 + Detected >3 Ratio: 0.173)
-Confidence score for n=3: 0.751
+Undetected <=3 Ratio: 0.211 (Undetected Ratio: 0.020 + Detected >3 Ratio: 0.191)
+Confidence score for n=3: 0.734
 
-Undetected <=4 Ratio: 0.163 (Undetected Ratio: 0.020 + Detected >4 Ratio: 0.143)
-Confidence score for n=4: 0.781
+Undetected <=4 Ratio: 0.193 (Undetected Ratio: 0.020 + Detected >4 Ratio: 0.173)
+Confidence score for n=4: 0.751
 
-Undetected <=5 Ratio: 0.138 (Undetected Ratio: 0.020 + Detected >5 Ratio: 0.118)
-Confidence score for n=5: 0.808
+Undetected <=5 Ratio: 0.158 (Undetected Ratio: 0.020 + Detected >5 Ratio: 0.138)
+Confidence score for n=5: 0.786
 
-Undetected <=6 Ratio: 0.126 (Undetected Ratio: 0.020 + Detected >6 Ratio: 0.106)
-Confidence score for n=6: 0.823
+Undetected <=6 Ratio: 0.148 (Undetected Ratio: 0.020 + Detected >6 Ratio: 0.128)
+Confidence score for n=6: 0.797
 
-Undetected <=7 Ratio: 0.116 (Undetected Ratio: 0.020 + Detected >7 Ratio: 0.095)
-Confidence score for n=7: 0.835
+Undetected <=7 Ratio: 0.136 (Undetected Ratio: 0.020 + Detected >7 Ratio: 0.116)
+Confidence score for n=7: 0.811
 
-Undetected <=8 Ratio: 0.113 (Undetected Ratio: 0.020 + Detected >8 Ratio: 0.093)
-Confidence score for n=8: 0.838
+Undetected <=8 Ratio: 0.123 (Undetected Ratio: 0.020 + Detected >8 Ratio: 0.103)
+Confidence score for n=8: 0.826
 
-Undetected <=9 Ratio: 0.106 (Undetected Ratio: 0.020 + Detected >9 Ratio: 0.085)
-Confidence score for n=9: 0.847
+Undetected <=9 Ratio: 0.116 (Undetected Ratio: 0.020 + Detected >9 Ratio: 0.095)
+Confidence score for n=9: 0.835
 
 Undetected <=10 Ratio: 0.093 (Undetected Ratio: 0.020 + Detected >10 Ratio: 0.073)
 Confidence score for n=10: 0.862
 
-Undetected <=11 Ratio: 0.090 (Undetected Ratio: 0.020 + Detected >11 Ratio: 0.070)
-Confidence score for n=11: 0.866
+Undetected <=11 Ratio: 0.058 (Undetected Ratio: 0.020 + Detected >11 Ratio: 0.038)
+Confidence score for n=11: 0.910
 
-Undetected <=12 Ratio: 0.065 (Undetected Ratio: 0.020 + Detected >12 Ratio: 0.045)
-Confidence score for n=12: 0.899
+Undetected <=12 Ratio: 0.055 (Undetected Ratio: 0.020 + Detected >12 Ratio: 0.035)
+Confidence score for n=12: 0.913
 
-Undetected <=13 Ratio: 0.055 (Undetected Ratio: 0.020 + Detected >13 Ratio: 0.035)
-Confidence score for n=13: 0.913
+Undetected <=13 Ratio: 0.048 (Undetected Ratio: 0.020 + Detected >13 Ratio: 0.028)
+Confidence score for n=13: 0.924
 
-Undetected <=14 Ratio: 0.055 (Undetected Ratio: 0.020 + Detected >14 Ratio: 0.035)
-Confidence score for n=14: 0.913
+Undetected <=14 Ratio: 0.048 (Undetected Ratio: 0.020 + Detected >14 Ratio: 0.028)
+Confidence score for n=14: 0.924
 
-Undetected <=15 Ratio: 0.053 (Undetected Ratio: 0.020 + Detected >15 Ratio: 0.033)
-Confidence score for n=15: 0.917
+Undetected <=15 Ratio: 0.045 (Undetected Ratio: 0.020 + Detected >15 Ratio: 0.025)
+Confidence score for n=15: 0.928
 
-Traces to Detection: Avg: 3.095, Median: 1.00, Std: 5.49, P75: 2.00, P90: 7.00, Max: 46.00, Min: 1.00
+Traces to Detection: Avg: 3.038, Median: 1.00, Std: 4.79, P75: 3.00, P90: 9.00, Max: 49.00, Min: 1.00
 
-Trace Lengths: Avg: 2.739, Median: 3.00, Std: 0.85, P75: 3.00, P90: 3.50, Max: 11.00, Min: 1.00
+Trace Lengths: Avg: 2.756, Median: 3.00, Std: 0.85, P75: 3.00, P90: 3.55, Max: 11.00, Min: 1.00
 
 Mutation Contexts by Usefulness
 Mutation.SWAP_X_WITH_G_4_True:1
 Mutation.ADD_X_1_None:1
 Mutation.SWAP_G_WITH_F_2_None:1
 Mutation.ADD_X_5_True:1
+Mutation.ADD_G_1_False:1
 Mutation.ADD_F_4_False:1
+Mutation.ADD_X_4_None:1
 Mutation.SWAP_F_WITH_X_4_False:1
 Mutation.SWAP_F_WITH_G_5_False:1
 Mutation.SWAP_F_WITH_X_2_True:1
 Mutation.ADD_X_2_None:1
+Mutation.ADD_G_2_True:1
 Mutation.SWAP_APS_0_False:1
-Mutation.SWAP_IMPLIES_WITH_EQUIV_2_True:1
-Mutation.SWAP_G_WITH_X_2_True:1
 Mutation.ADD_F_1_False:1
 Mutation.SWAP_U_WITH_W_3_True:1
-Mutation.ADD_NEGATION_4_None:1
 Mutation.ADD_F_3_None:1
 Mutation.ADD_NEGATION_2_True:1
-Mutation.ADD_X_4_True:1
 Mutation.SWAP_U_OPERANDS_3_True:1
 Mutation.ADD_F_5_True:1
 Mutation.SWAP_AND_WITH_OR_4_True:1
-Mutation.ADD_NEGATION_3_True:1
+Mutation.ADD_X_6_True:1
+Mutation.SWAP_G_WITH_X_2_False:2
+Mutation.ADD_NEGATION_4_None:2
+Mutation.ADD_NEGATION_4_True:2
+Mutation.ADD_G_4_True:2
 Mutation.ADD_X_5_False:2
 Mutation.SWAP_F_WITH_X_4_True:2
 Mutation.SWAP_AND_WITH_OR_3_None:2
-Mutation.ADD_X_6_True:2
+Mutation.ADD_F_2_True:2
 Mutation.ADD_X_4_False:2
 Mutation.SWAP_U_WITH_W_3_False:2
-Mutation.SWAP_APS_0_None:2
-Mutation.SWAP_G_WITH_X_2_False:3
+Mutation.ADD_X_4_True:2
 Mutation.ADD_G_3_True:3
-Mutation.ADD_NEGATION_4_True:3
-Mutation.ADD_G_4_True:3
+Mutation.SWAP_G_WITH_X_2_True:3
 Mutation.ADD_X_2_False:3
-Mutation.ADD_F_2_True:3
 Mutation.SWAP_AND_WITH_OR_3_True:3
 Mutation.SWAP_F_WITH_X_3_None:3
 Mutation.ADD_X_2_True:4
 Mutation.SWAP_IMPLIES_WITH_EQUIV_2_None:4
-Mutation.ADD_G_4_False:4
+Mutation.ADD_NEGATION_1_True:5
 Mutation.SWAP_APS_0_True:5
-Mutation.ADD_NEGATION_1_False:6
-Mutation.ADD_NEGATION_1_True:6
-Mutation.ADD_NEGATION_3_None:7
+Mutation.ADD_X_3_None:5
+Mutation.ADD_G_4_False:5
+Mutation.ADD_NEGATION_3_None:6
+Mutation.ADD_F_3_True:7
+Mutation.ADD_NEGATION_1_False:8
 Mutation.ADD_X_3_False:8
-Mutation.ADD_F_3_True:9
-Mutation.ADD_X_3_True:11
+Mutation.ADD_X_3_True:10
 Mutation.SWAP_G_WITH_X_1_False:18
-Mutation.ADD_F_1_True:18
-Mutation.ADD_X_3_None:21
-Mutation.ADD_X_1_True:44
-Mutation.ADD_X_1_False:165
+Mutation.ADD_F_1_True:37
+Mutation.ADD_X_1_True:43
+Mutation.ADD_X_1_False:167
 
-Traces to Detection List: ['1.00', '1.00', '7.00', '1.00', '4.00', '1.00', '1.00', '1.00', '1.00', '10.00', '4.00', '1.00', '1.00', '4.00', '4.00', '13.00', '1.00', '1.00', '1.00', '1.00', '1.00', '9.00', '1.00', '1.00', '1.00', '5.00', '2.00', '6.00', '1.00', '5.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '4.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '6.00', '4.00', '25.00', '1.00', '1.00', '12.00', '1.00', '1.00', '1.00', '3.00', '6.00', '1.00', '1.00', '2.00', '8.00', '9.00', '1.00', '1.00', '1.00', '4.00', '5.00', '6.00', '1.00', '6.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '11.00', '1.00', '7.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '2.00', '25.00', '1.00', '23.00', '1.00', '2.00', '1.00', '5.00', '1.00', '3.00', '1.00', '1.00', '1.00', '3.00', '10.00', '2.00', '1.00', '1.00', '2.00', '3.00', '1.00', '1.00', '1.00', '1.00', '2.00', '1.00', '1.00', '1.00', '3.00', '1.00', '2.00', '1.00', '1.00', '12.00', '5.00', '3.00', '1.00', '4.00', '1.00', '1.00', '1.00', '4.00', '25.00', '1.00', '1.00', '1.00', '9.00', '1.00', '2.00', '1.00', '1.00', '1.00', '12.00', '13.00', '12.00', '1.00', '1.00', '1.00', '1.00', '1.00', '12.00', '3.00', '1.00', '1.00', '2.00', '1.00', '2.00', '2.00', '4.00', '2.00', '1.00', '1.00', '2.00', '13.00', '3.00', '2.00', '1.00', '15.00', '2.00', '13.00', '2.00', '1.00', '1.00', '2.00', '1.00', '18.00', '23.00', '3.00', '2.00', '1.00', '1.00', '2.00', '1.00', '1.00', '1.00', '7.00', '1.00', '2.00', '12.00', '2.00', '1.00', '46.00', '2.00', '4.00', '1.00', '1.00', '1.00', '1.00', '3.00', '1.00', '2.00', '1.00', '2.00', '1.00', '1.00', '1.00', '1.00', '2.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '2.00', '2.00', '34.00', '2.00', '1.00', '5.00', '1.00', '3.00', '1.00', '1.00', '1.00', '1.00', '1.00', '24.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '3.00', '1.00', '1.00', '2.00', '1.00', '5.00', '1.00', '1.00', '1.00', '3.00', '1.00', '5.00', '2.00', '1.00', '1.00', '3.00', '10.00', '2.00', '1.00', '1.00', '38.00', '1.00', '1.00', '1.00', '1.00', '1.00', '2.00', '2.00', '1.00', '1.00', '1.00', '5.00', '1.00', '1.00', '1.00', '2.00', '1.00', '3.00', '38.00', '1.00', '2.00', '3.00', '1.00', '3.00', '2.00', '1.00', '1.00', '1.00', '1.00', '7.00', '2.00', '1.00', '1.00', '3.00', '3.00', '10.00', '1.00', '5.00', '2.00', '1.00', '1.00', '2.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '2.00', '4.00', '1.00', '1.00', '2.00', '1.00', '1.00', '1.00', '1.00', '2.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '12.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '2.00', '1.00', '1.00', '1.00', '1.00', '3.00', '2.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '17.00', '1.00', '1.00', '12.00', '21.00', '1.00', '10.00', '12.00', '3.00', '1.00', '1.00', '1.00', '12.00', '2.00', '1.00', '2.00', '2.00']
+Traces to Detection List: ['1.00', '1.00', '12.00', '1.00', '5.00', '1.00', '1.00', '1.00', '1.00', '10.00', '8.00', '1.00', '1.00', '5.00', '4.00', '19.00', '1.00', '1.00', '1.00', '1.00', '1.00', '9.00', '1.00', '1.00', '1.00', '2.00', '2.00', '8.00', '1.00', '6.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '4.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '11.00', '5.00', '20.00', '1.00', '1.00', '11.00', '1.00', '1.00', '1.00', '3.00', '6.00', '1.00', '1.00', '2.00', '4.00', '10.00', '1.00', '1.00', '1.00', '4.00', '13.00', '6.00', '1.00', '6.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '16.00', '1.00', '11.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '3.00', '15.00', '1.00', '11.00', '1.00', '3.00', '1.00', '2.00', '1.00', '11.00', '1.00', '1.00', '1.00', '3.00', '10.00', '2.00', '1.00', '1.00', '2.00', '3.00', '1.00', '1.00', '1.00', '1.00', '3.00', '1.00', '1.00', '1.00', '3.00', '1.00', '2.00', '1.00', '1.00', '11.00', '7.00', '3.00', '1.00', '4.00', '1.00', '1.00', '1.00', '4.00', '20.00', '1.00', '1.00', '1.00', '2.00', '1.00', '2.00', '1.00', '1.00', '1.00', '11.00', '8.00', '11.00', '1.00', '1.00', '1.00', '1.00', '1.00', '11.00', '3.00', '1.00', '1.00', '3.00', '1.00', '3.00', '3.00', '7.00', '8.00', '1.00', '1.00', '2.00', '13.00', '3.00', '2.00', '1.00', '18.00', '5.00', '13.00', '2.00', '1.00', '1.00', '2.00', '1.00', '31.00', '2.00', '4.00', '2.00', '1.00', '1.00', '2.00', '1.00', '1.00', '1.00', '9.00', '1.00', '5.00', '11.00', '2.00', '1.00', '29.00', '3.00', '5.00', '1.00', '1.00', '1.00', '1.00', '3.00', '1.00', '3.00', '1.00', '3.00', '1.00', '1.00', '1.00', '1.00', '5.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '2.00', '2.00', '26.00', '2.00', '1.00', '7.00', '1.00', '3.00', '1.00', '1.00', '1.00', '1.00', '1.00', '11.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '3.00', '1.00', '1.00', '2.00', '1.00', '7.00', '1.00', '1.00', '1.00', '3.00', '1.00', '7.00', '2.00', '1.00', '1.00', '8.00', '11.00', '5.00', '1.00', '1.00', '10.00', '1.00', '1.00', '1.00', '1.00', '1.00', '2.00', '2.00', '1.00', '1.00', '1.00', '10.00', '1.00', '1.00', '1.00', '2.00', '1.00', '3.00', '10.00', '1.00', '3.00', '49.00', '1.00', '5.00', '3.00', '1.00', '1.00', '1.00', '1.00', '5.00', '2.00', '1.00', '1.00', '3.00', '3.00', '9.00', '1.00', '2.00', '5.00', '1.00', '1.00', '2.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '5.00', '5.00', '1.00', '1.00', '10.00', '1.00', '1.00', '1.00', '1.00', '5.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '11.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '2.00', '1.00', '1.00', '1.00', '1.00', '3.00', '2.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '20.00', '1.00', '1.00', '10.00', '2.00', '1.00', '2.00', '11.00', '3.00', '1.00', '1.00', '1.00', '10.00', '2.00', '1.00', '2.00', '2.00']

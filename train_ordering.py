@@ -457,7 +457,7 @@ def trace_ranking(formula, restriction, alpha):
         restriction=restriction,
         model=model,
         feature_columns=feature_columns,
-        diversification_alpha=1,
+        diversification_alpha=alpha,
     )
 
     return ranked_traces

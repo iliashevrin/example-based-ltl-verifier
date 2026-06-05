@@ -122,8 +122,6 @@ def main():
 
     restriction = sys.argv[3]
 
-    output_file = f"results_{sys.argv[1]}_{restriction}.txt"
-
     seen_dt = []
     seen_ndt = []
     lengths = []
@@ -198,6 +196,8 @@ def main():
     confidence = []    
     undet_inf = len(seen_ndt) / total
     accuracy = 1 - (total / DATASIZE[dataset])
+
+    output_file = f"results_{dataset}_{sys.argv[1]}_{restriction}.txt"
 
     with open(output_file, "w", encoding="utf-8") as out:
         print(f'Average Time: {statistics.mean(times):.3f}', file=out)
