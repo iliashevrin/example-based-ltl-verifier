@@ -37,6 +37,32 @@ class Mutation(str, Enum):
     ADD_NEGATION = "ADD_NEGATION"
 
 
+TOP_CONTEXTS = [
+
+(Mutation.SWAP_G_WITH_F,1,False),
+(Mutation.SWAP_G_WITH_X,1,False),
+(Mutation.ADD_F,3,False),
+(Mutation.ADD_NEGATION,3,True),
+(Mutation.SWAP_IMPLIES_WITH_EQUIV,2,True),
+(Mutation.SWAP_G_WITH_F,1,None),
+(Mutation.SWAP_APS,0,True),
+(Mutation.SWAP_APS,0,None),
+(Mutation.ADD_F,2,False),
+(Mutation.ADD_G,3,False),
+(Mutation.ADD_X,1,None),
+(Mutation.ADD_X,3,False),
+(Mutation.ADD_X,1,True),
+(Mutation.ADD_F,1,False),
+(Mutation.ADD_NEGATION,3,None),
+(Mutation.ADD_NEGATION,1,True),
+(Mutation.ADD_NEGATION,1,False),
+(Mutation.ADD_X,3,None),
+(Mutation.ADD_X,1,False),
+(Mutation.ADD_F,1,True),
+
+]
+
+
 
 def check_acceptance(aut, trace):
 
@@ -170,11 +196,11 @@ def get_formula_features(formula_str: str):
     ]
 
 
-def no_filter(trace, acceptance, mut):
+def no_restriction(acceptance, mut):
     return True
 
 
-def top5_mut(trace, acceptance, mut):
+def top5_mut(acceptance, mut):
     return mut[0] in [
         Mutation.ADD_G,
         Mutation.ADD_F,
@@ -183,25 +209,34 @@ def top5_mut(trace, acceptance, mut):
         Mutation.SWAP_APS
     ]
 
-def top1_mut(trace, acceptance, mut):
+def top1_mut(acceptance, mut):
     return mut[0] in [
         Mutation.ADD_X,
     ]
 
-def top1_context(trace, acceptance, mut):
-    return mut[0] == Mutation.ADD_X and mut[1] == 1 and acceptance == False
+def top1_context(acceptance, mut):
+    return (mut[0], mut[1], acceptance) in TOP_CONTEXTS[-1:]
 
-def only_acc(trace, acceptance, mut):
+def top5_context(acceptance, mut):
+    return (mut[0], mut[1], acceptance) in TOP_CONTEXTS[-5:]
+
+def top10_context(acceptance, mut):
+    return (mut[0], mut[1], acceptance) in TOP_CONTEXTS[-10:]
+
+def top20_context(acceptance, mut):
+    return (mut[0], mut[1], acceptance) in TOP_CONTEXTS[-20:]
+
+def only_acc(acceptance, mut):
     return acceptance == True
 
-def only_rej(trace, acceptance, mut):
+def only_rej(acceptance, mut):
     return acceptance == False
 
-def acc_and_rej(trace, acceptance, mut):
+def acc_and_rej(acceptance, mut):
     return acceptance is not None
 
-def only_shallow(trace, acceptance, mut):
+def only_shallow(acceptance, mut):
     return mut[1] <= 1
 
-def only_deep(trace, acceptance, mut):
+def only_deep(acceptance, mut):
     return mut[1] > 1

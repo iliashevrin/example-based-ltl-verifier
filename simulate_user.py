@@ -4,16 +4,17 @@ sys.path.insert(0,'/usr/local/lib/python3.10/site-packages/')
 import spot
 spot.setup()
 import itertools
-from mutation_based import mutation_random, mutation_gradual, mutation_expert, mutation_by_length, Mutation
-from traversal_based import traversal_random, traversal_gradual, traversal_expert, traversal_by_length
+from mutation_based import mutation_random, mutation_by_length
 from utils import check_acceptance, get_formula_features, collect_aps, trace_len
-from train_ordering import trace_ranking
+from train_ordering import trace_ranking_0, trace_ranking_1
 
 import csv
 import random
 import statistics
 import joblib
 import numpy as np
+
+import time
 
 
 DATASIZE = {
@@ -32,67 +33,41 @@ DATASIZE = {
 }
 
 
-def unified_by_length(formula):
-
-    traces = mutation_gradual(formula)
-    traces.extend(traversal_gradual(formula))
-
-    traces.sort(key=lambda trace: str(trace).count(";"))
-
-    return traces
 
 
-def unified_random(formula):
+def simulate_user(cand, gt, method, restriction):
 
-    traces = mutation_gradual(formula)
-    traces.extend(traversal_gradual(formula))
-    random.shuffle(traces)
-    return traces
+    start_time = time.perf_counter()
+    traces = method(cand, restriction)
+    end_time = time.perf_counter()
+    execution_time = end_time - start_time
 
-
-
-
-def simulate_user_iteration(candidate, ground_truth, method, fltr):
-
-    traces = method(candidate, fltr)
-
-    traces_seen = 0
-    trace_length = 0
-
-    # for trace, is_positive, props in traces:
-    #     print(is_positive, props)
-    # print('-----')
+    seen = 0
+    length = 0
+    acc_values = {"True": 0, "False": 0, "None": 0}
 
     if not traces:
-        return 0, 0, None
+        return 0, 0, None, execution_time, acc_values
 
 
-    distinguish_props = None
+    good_mc = None
 
-    for trace, candidate_acceptance, props in traces:
+    for trace, cand_acc, mc in traces:
 
-        traces_seen += 1
-        trace_length += (trace.count(";") + 1)
+        seen += 1
+        length += (trace.count(";") + 1)
 
-        gt_acceptance = check_acceptance(spot.translate(ground_truth), trace)
+        acc = check_acceptance(spot.translate(gt), trace)
 
-        if gt_acceptance != candidate_acceptance:
-            distinguish_props = props
+        acc_values[str(acc)] += 1
+
+        if acc != cand_acc:
+            good_mc = mc
             break
 
+    return seen, length/seen, good_mc, execution_time, acc_values
 
-    return traces_seen, trace_length/traces_seen, distinguish_props
 
-
-test_list = [
-
-    # ('(!a) U (b | G!a)', '!a U b'),
-    # ('G(a -> F b)', 'G(a -> X b)'),
-    # ('G(a -> Xa)', 'a -> Xa'),
-    # ('F(a & XFa)', 'Fa'),
-    ('G (x1 -> (F (x2 & F x3)))', 'G(x1->F(x3 & F(x2)))'),
-
-]
 
 
 def stats(data):
@@ -130,32 +105,35 @@ def confidence(undetected_under_n, total, dataset):
     return match / (match + (mismatch * (undetected_under_n / total)))
 
 
-if __name__ == "__main__":
 
+def main():
 
     if sys.argv[1] == "RANDOM":
-        generation_method = mutation_random
+        method = mutation_random
     elif sys.argv[1] == "BY_LENGTH":
-        generation_method = mutation_by_length
-    elif sys.argv[1] == "DYNAMIC":
-        generation_method = trace_ranking
+        method = mutation_by_length
+    elif sys.argv[1] == "LTLTRUST_0":
+        method = trace_ranking_0
+    elif sys.argv[1] == "LTLTRUST_1":
+        method = trace_ranking_1
 
     else:
         raise ValueError("Incorrect example generation function")
 
-    if len(sys.argv) >= 4:
-        fltr = sys.argv[3]
-    else:
-        fltr = "no_filter"
+    restriction = sys.argv[3]
 
-    seen_in_success = []
-    seen_in_failure = []
-    trace_lengths = []
+    output_file = f"results_{sys.argv[1]}_{restriction}.txt"
+
+    seen_dt = []
+    seen_ndt = []
+    lengths = []
     total = 0
 
-    props_map = {}
-    rows = []
-    success_map = {}
+    mc_map = {}
+
+    times = []
+
+    acc_values = {"True": 0, "False": 0, "None": 0}
 
 
     dataset = None
@@ -170,80 +148,99 @@ if __name__ == "__main__":
         reader = csv.DictReader(f)
 
         for row in reader:
-            ground_truth = row["Ground Truth"]
-            candidate = row["Response"]
+            gt = row["Ground Truth"]
+            cand = row["Response"]
 
             repeats = 1
             if sys.argv[1] == "RANDOM":
                 repeats = 30
 
-            for _ in range(0,repeats):
+            curr_seen_dt = []
+            curr_seen_ndt = []
+            curr_length = []
+            total += 1
 
-                total += 1
-                traces_seen, trace_length, props = simulate_user_iteration(candidate, ground_truth, generation_method, fltr)
+            for _ in range(0, repeats):
 
-                trace_lengths.append(trace_length)
+                seen, length, mc, exec_time, values = simulate_user(cand, gt, method, restriction)
 
-                # Incorrect candidate was successfully rejected, look at the props of the discriminating trace
-                if props is not None:
-                    # success += 1
-                    seen_in_success.append(traces_seen)
+                for val in values:
+                    acc_values[val] += values[val]
 
-                    if traces_seen in success_map:
-                        success_map[traces_seen] += 1
+                curr_length.append(length)
+                times.append(exec_time)
+
+                # Mismatch was successfully detected, look at the mc of the discriminating trace
+                if mc is not None:
+                    curr_seen_dt.append(seen)
+
+                    if mc not in mc_map:
+                        mc_map[mc] = 1
                     else:
-                        success_map[traces_seen] = 1
-
-                    if props not in props_map:
-                        props_map[props] = 1
-                    else:
-                        props_map[props] += 1
+                        mc_map[mc] += 1
 
                 else:
-                    seen_in_failure.append(traces_seen)
+                    curr_seen_ndt.append(seen)
 
-                    # Missed detections
-                    rows.append(
-                        {
-                            "Ground Truth": ground_truth,
-                            "Candidate": candidate,
-                        }
-                    )
+
+            if len(curr_seen_dt) > 0:
+                seen_dt.append(statistics.mean(curr_seen_dt))
+
+            lengths.append(statistics.mean(curr_length))
+
+            if len(curr_seen_ndt) > 0:
+                seen_ndt.append(curr_seen_ndt[0])
 
 
 
     det_more_than_i = []
     undet_under_i = []
     confidence = []    
-    undet_inf = len(seen_in_failure) / total
-    accuracy = 1 - ((total / repeats) / DATASIZE[dataset])
+    undet_inf = len(seen_ndt) / total
+    accuracy = 1 - (total / DATASIZE[dataset])
 
-    print(f'Accuracy: {accuracy:.3f}')
-    print(f'Total Formulas: {total / repeats}')
-    print(f'Detected Ratio: {(1-undet_inf):.3f}')
+    with open(output_file, "w", encoding="utf-8") as out:
+        print(f'Average Time: {statistics.mean(times):.3f}', file=out)
+        print(f'Accepting traces for GT: {(acc_values["True"] / repeats):.3f}', file=out)
+        print(f'Rejecting traces for GT: {(acc_values["False"] / repeats):.3f}', file=out)
+        print(f'Inconclusive traces for GT: {(acc_values["None"] / repeats):.3f}', file=out)
 
-    for i in range(0,16):
+        print(f'\nAccuracy: {accuracy:.3f}', file=out)
+        print(f'Total Formulas: {total}', file=out)
+        print(f'Detected Ratio: {(1-undet_inf):.3f}', file=out)
 
-        det_more_than_i.append(len([n for n in seen_in_success if n > i]) / total)
-        undet_under_i.append(undet_inf + det_more_than_i[i])
-        confidence.append(accuracy / (accuracy + ((1 - accuracy) * undet_under_i[i])))
+        for i in range(0, 16):
+            det_more_than_i.append(len([n for n in seen_dt if n > i]) / total)
+            undet_under_i.append(undet_inf + det_more_than_i[i])
+            confidence.append(
+                accuracy / (accuracy + ((1 - accuracy) * undet_under_i[i]))
+            )
 
-        print(f'Undetected <={i} Ratio: {undet_under_i[i]:.3f} (Undetected Ratio: {undet_inf:.3f} + Detected >{i} Ratio: {det_more_than_i[i]:.3f})')
-        print(f'Confidence score for n={i}: {confidence[i]:.3f}')
+            print(
+                f'\nUndetected <={i} Ratio: {undet_under_i[i]:.3f} '
+                f'(Undetected Ratio: {undet_inf:.3f} + '
+                f'Detected >{i} Ratio: {det_more_than_i[i]:.3f})',
+                file=out,
+            )
+            print(
+                f'Confidence score for n={i}: {confidence[i]:.3f}',
+                file=out,
+            )
 
-    print(f'Trace Numbers: {stats(seen_in_success)}')
-    # print(f'Inspected Traces When No Detection: {stats(seen_in_failure)}')
+        print(f'\nTraces to Detection: {stats(seen_dt)}', file=out)
+        # print(f'Inspected Traces When No Detection: {stats(seen_ndt)}', file=out)
 
-    print(f'Trace Lengths: {stats(trace_lengths)}')
+        print(f'\nTrace Lengths: {stats(lengths)}', file=out)
 
-    props_map = dict(sorted(props_map.items(), key=lambda item: item[1]))
-    for prop in props_map:
-        print(f'{str(prop)}:{props_map[prop]}')
+        print(f'\nMutation Contexts by Usefulness', file=out)
 
-    # cummulative = 0
-    # for i in range(1,max(success_map.keys())):
-    #     if i not in success_map:
-    #         continue
-    #     cummulative += success_map[i]
-    #     print(f'{str(i)}:{(cummulative / success):.3f}')
+        mc_map = dict(sorted(mc_map.items(), key=lambda item: item[1]))
+        for mc in mc_map:
+            print(f'{mc}:{mc_map[mc]}', file=out)
 
+        print(f'\nTraces to Detection List: {[f"{seen:.2f}" for seen in seen_dt]}', file=out)
+
+
+
+if __name__ == "__main__":
+    main()

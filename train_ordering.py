@@ -6,20 +6,12 @@ from sklearn.model_selection import GroupShuffleSplit
 from sklearn.metrics import mean_squared_error
 
 from utils import get_formula_features, simulate_user, trace_len, Mutation
-from mutation_based import mutation_gradual
-
-from utils import top1_context, top1_mut, top5_mut, only_acc, only_rej, acc_and_rej, only_shallow, only_deep, no_filter
+from mutation_based import generate_traces
 
 import joblib
 import argparse
 import csv
 
-
-def generate_traces(formula, fltr):
-
-    traces = mutation_gradual(formula, fltr)
-    traces = [(trace, acceptance, f'{str(mut[0])}_{mut[1]}_{acceptance}') for trace, acceptance, mut in traces]
-    return traces
 
 
 # ==================================================
@@ -77,7 +69,7 @@ def reciprocal_utility(labels, alpha=1.0):
 
 def build_training_data(
     formulas,
-    fltr,
+    restriction,
     alpha_prior=1.0,
     beta_prior=1.0,
 ):
@@ -96,7 +88,7 @@ def build_training_data(
 
             formula_features = get_formula_features(formula[1])
 
-            traces = generate_traces(formula[1], fltr)
+            traces = generate_traces(formula[1], restriction)
 
         except Exception as e:
             print(
@@ -160,7 +152,7 @@ def build_training_data(
 
 def train_model(
     formulas,
-    fltr,
+    restriction,
     alpha_prior=1.0,
     beta_prior=1.0,
     test_size=0.2,
@@ -168,7 +160,7 @@ def train_model(
 ):
     df = build_training_data(
         formulas,
-        fltr,
+        restriction,
         alpha_prior=alpha_prior,
         beta_prior=beta_prior,
     )
@@ -270,13 +262,13 @@ def train_model(
     })
 
     test_formulas_df.to_csv(
-        f"heldout_test_formulas_{fltr}.csv",
+        f"heldout_test_formulas_{restriction}.csv",
         index=False,
     )
 
     print(
         f"Saved {len(test_formulas_df)} held-out formulas "
-        f"to heldout_test_formulas_{fltr}.csv"
+        f"to heldout_test_formulas_{restriction}.csv"
     )
 
     return model, feature_columns, df
@@ -337,7 +329,7 @@ def align_features(
 
 def diversified_trace_ranking(
     formula,
-    fltr,
+    restriction,
     model,
     feature_columns,
     diversification_alpha=1,
@@ -356,7 +348,7 @@ def diversified_trace_ranking(
         0.2 - 0.5
     """
 
-    traces = generate_traces(formula, fltr)
+    traces = generate_traces(formula, restriction)
 
     if not traces:
         return traces, None
@@ -455,20 +447,27 @@ def diversified_trace_ranking(
 
 
 
-def trace_ranking(formula, fltr):
+def trace_ranking(formula, restriction, alpha):
 
-    model = joblib.load(f"mutation_ranker_{fltr}.pkl")
-    feature_columns = joblib.load(f"feature_columns_{fltr}.pkl")
+    model = joblib.load(f"mutation_ranker_{restriction}.pkl")
+    feature_columns = joblib.load(f"feature_columns_{restriction}.pkl")
 
     ranked_traces, mutation_scores = diversified_trace_ranking(
         formula=formula,
-        fltr=fltr,
+        restriction=restriction,
         model=model,
         feature_columns=feature_columns,
         diversification_alpha=1,
     )
 
     return ranked_traces
+
+
+def trace_ranking_0(formula, restriction):
+    return trace_ranking(formula, restriction, 0)
+
+def trace_ranking_1(formula, restriction):
+    return trace_ranking(formula, restriction, 1)
 
 
 def main():
@@ -481,7 +480,7 @@ def main():
         help="Path to data CSV file"
     )
 
-    parser.add_argument("filter", default="no_filter")
+    parser.add_argument("restriction", default="no_restriction")
 
     args = parser.parse_args()
 
@@ -495,11 +494,11 @@ def main():
 
     model, feature_columns, _ = train_model(
         formulas=train_formulas,
-        fltr=args.filter
+        restriction=args.restriction
     )
 
-    joblib.dump(model, f"mutation_ranker_{args.filter}.pkl")
-    joblib.dump(feature_columns, f"feature_columns_{args.filter}.pkl")
+    joblib.dump(model, f"mutation_ranker_{args.restriction}.pkl")
+    joblib.dump(feature_columns, f"feature_columns_{args.restriction}.pkl")
 
 
 if __name__ == "__main__":

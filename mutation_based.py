@@ -11,7 +11,7 @@ import random
 from collections import defaultdict
 import itertools
 
-from utils import top1_context, top1_mut, top5_mut, only_acc, only_rej, acc_and_rej, only_shallow, only_deep, no_filter
+from utils import top1_context, top5_context, top10_context, top20_context
 
 
 
@@ -240,58 +240,19 @@ def rejecting_traces(formula):
 
 
 
-# def mutation_interleaved(candidate):
 
-#     traces = mutation_gradual(candidate)
+def mutation_by_length(candidate, restriction):
 
-#     rank = {value: i for i, value in enumerate(EXPERT_ORDER)}
-#     buckets = defaultdict(list)
-
-#     for trace in traces:
-#         buckets[trace[2]].append(trace)
-
-#     for mutation in buckets:
-#         buckets[mutation].sort(key=lambda trace: str(trace[0]).count(";"))
-
-#     ordered_mutations = sorted(
-#         buckets.keys(),
-#         key=lambda m: rank.get(m, -1)
-#     )
-
-#     result = []
-
-#     max_bucket_size = max(len(buckets[m]) for m in ordered_mutations)
-
-#     for i in range(max_bucket_size):
-#         for mutation in ordered_mutations:
-#             if i < len(buckets[mutation]):
-#                 result.append(buckets[mutation][i])
-
-#     return result
-
-
-
-def mutation_expert(candidate, fltr):
-
-    traces = mutation_gradual(candidate, fltr)
-    rank = {value: i for i, value in enumerate(EXPERT_ORDER)}
-    traces.sort(key=lambda trace: rank.get(trace[2], -1), reverse=True)
-
-    return traces
-
-def mutation_by_length(candidate, fltr):
-
-    traces = mutation_gradual(candidate, fltr)
+    traces = generate_traces(candidate, restriction)
     traces.sort(key=lambda trace: trace_len(trace[0]))
     return traces
 
-
-def mutation_random(formula, fltr):
-    traces = mutation_gradual(formula, fltr)
+def mutation_random(formula, restriction):
+    traces = generate_traces(formula, restriction)
     random.shuffle(traces)
     return traces
 
-def mutation_gradual(formula, fltr):
+def generate_traces(formula, restriction):
     mutants = mutate_ltl_formula(formula)
 
     traces = []
@@ -316,6 +277,5 @@ def mutation_gradual(formula, fltr):
             candidate_acceptance = check_acceptance(original_aut, trace)
             traces.append((trace, candidate_acceptance, mutation_type))
 
-    traces = [(t, ac, mut) for (t, ac, mut) in traces if globals()[fltr](t, ac, mut)]
-
+    traces = [(t, ac, f'{str(mut[0])}_{mut[1]}_{ac}') for (t, ac, mut) in traces if globals()[restriction](ac, mut)]
     return traces
