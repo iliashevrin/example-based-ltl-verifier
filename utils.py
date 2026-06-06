@@ -196,7 +196,7 @@ def get_formula_features(formula_str: str):
     ]
 
 
-def no_restriction(acceptance, mut):
+def all_contexts(acceptance, mut):
     return True
 
 

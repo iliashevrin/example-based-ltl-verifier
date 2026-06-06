@@ -11,7 +11,7 @@ import random
 from collections import defaultdict
 import itertools
 
-from utils import top1_context, top5_context, top10_context, top20_context, no_restriction
+from utils import top1_context, top5_context, top10_context, top20_context, all_contexts
 
 
 

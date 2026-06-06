@@ -1,0 +1,65 @@
+Average Time: 0.179
+Accepting traces for GT: 482.833
+Rejecting traces for GT: 35.133
+Inconclusive traces for GT: 151.867
+
+Accuracy: 0.368
+Total Formulas: 398
+Detected Ratio: 0.470
+
+Undetected <=0 Ratio: 1.000 (Undetected Ratio: 0.530 + Detected >0 Ratio: 0.470)
+Confidence score for n=0: 0.368
+
+Undetected <=1 Ratio: 0.709 (Undetected Ratio: 0.530 + Detected >1 Ratio: 0.178)
+Confidence score for n=1: 0.451
+
+Undetected <=2 Ratio: 0.631 (Undetected Ratio: 0.530 + Detected >2 Ratio: 0.101)
+Confidence score for n=2: 0.480
+
+Undetected <=3 Ratio: 0.545 (Undetected Ratio: 0.530 + Detected >3 Ratio: 0.015)
+Confidence score for n=3: 0.517
+
+Undetected <=4 Ratio: 0.545 (Undetected Ratio: 0.530 + Detected >4 Ratio: 0.015)
+Confidence score for n=4: 0.517
+
+Undetected <=5 Ratio: 0.533 (Undetected Ratio: 0.530 + Detected >5 Ratio: 0.003)
+Confidence score for n=5: 0.523
+
+Undetected <=6 Ratio: 0.530 (Undetected Ratio: 0.530 + Detected >6 Ratio: 0.000)
+Confidence score for n=6: 0.524
+
+Undetected <=7 Ratio: 0.530 (Undetected Ratio: 0.530 + Detected >7 Ratio: 0.000)
+Confidence score for n=7: 0.524
+
+Undetected <=8 Ratio: 0.530 (Undetected Ratio: 0.530 + Detected >8 Ratio: 0.000)
+Confidence score for n=8: 0.524
+
+Undetected <=9 Ratio: 0.530 (Undetected Ratio: 0.530 + Detected >9 Ratio: 0.000)
+Confidence score for n=9: 0.524
+
+Undetected <=10 Ratio: 0.530 (Undetected Ratio: 0.530 + Detected >10 Ratio: 0.000)
+Confidence score for n=10: 0.524
+
+Undetected <=11 Ratio: 0.530 (Undetected Ratio: 0.530 + Detected >11 Ratio: 0.000)
+Confidence score for n=11: 0.524
+
+Undetected <=12 Ratio: 0.530 (Undetected Ratio: 0.530 + Detected >12 Ratio: 0.000)
+Confidence score for n=12: 0.524
+
+Undetected <=13 Ratio: 0.530 (Undetected Ratio: 0.530 + Detected >13 Ratio: 0.000)
+Confidence score for n=13: 0.524
+
+Undetected <=14 Ratio: 0.530 (Undetected Ratio: 0.530 + Detected >14 Ratio: 0.000)
+Confidence score for n=14: 0.524
+
+Undetected <=15 Ratio: 0.530 (Undetected Ratio: 0.530 + Detected >15 Ratio: 0.000)
+Confidence score for n=15: 0.524
+
+Traces to Detection: Avg: 1.448, Median: 1.00, Std: 0.81, P75: 1.57, P90: 2.60, Max: 5.17, Min: 1.00
+
+Trace Lengths: Avg: 1.583, Median: 2.00, Std: 0.86, P75: 2.00, P90: 2.00, Max: 5.00, Min: 0.00
+
+Mutation Contexts by Usefulness
+Mutation.ADD_F_1_True:5610
+
+Traces to Detection List: ['1.00', '1.00', '1.20', '1.20', '1.27', '2.47', '1.00', '1.00', '1.00', '2.40', '1.23', '2.27', '1.00', '1.77', '1.00', '1.00', '1.00', '1.00', '2.77', '1.00', '1.00', '1.00', '1.00', '2.63', '1.00', '1.00', '1.33', '1.00', '1.00', '2.40', '1.00', '2.60', '1.00', '1.00', '1.00', '2.83', '2.73', '2.67', '1.00', '2.40', '1.00', '1.00', '1.00', '1.00', '2.60', '1.00', '1.00', '2.27', '1.00', '1.00', '2.57', '1.00', '1.00', '2.47', '1.00', '1.00', '1.00', '2.23', '1.00', '1.00', '2.53', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '2.63', '4.43', '1.00', '1.00', '1.00', '1.00', '1.00', '1.10', '1.00', '2.77', '1.00', '1.00', '2.80', '1.00', '2.47', '1.00', '1.00', '1.00', '5.17', '1.00', '1.00', '1.00', '1.00', '1.00', '4.50', '1.00', '1.00', '1.00', '2.20', '1.37', '1.00', '1.00', '2.27', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '2.77', '1.27', '1.00', '1.00', '1.00', '1.00', '1.00', '1.00', '2.50', '1.00', '1.00', '1.00', '1.57', '1.00', '1.00', '1.00', '1.00', '1.00', '4.17', '1.00', '1.00', '1.00', '2.50', '1.83', '1.33', '1.00', '1.00', '1.00', '1.00', '1.57', '1.30', '1.10', '1.00', '2.37', '1.10', '1.77', '1.10', '1.20', '1.60', '1.30', '2.37', '1.87', '1.57', '2.43', '1.00', '1.00', '1.23', '1.00', '1.30', '1.00', '4.60', '1.33', '1.20', '1.00', '1.17', '1.00', '1.00', '1.00', '2.40', '4.20', '1.07', '1.00', '2.60', '1.00', '1.37', '2.60', '1.00', '1.00', '1.00', '2.73', '2.70', '1.23', '1.00']
