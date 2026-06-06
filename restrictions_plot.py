@@ -8,74 +8,55 @@ from matplotlib.lines import Line2D
 # =========================
 
 restrictions = [
-    "Top 5 Mut.",
-    "Top 1 Mut.",
     "Top 1 Ctx.",
-    "Only Acc.",
-    "Only Rej.",
-    "Acc. + Rej.",
-    "Depth ≤ 1",
-    "Depth > 1",
-    "All Contexts",
+    "Top 5 Ctx.",
+    "Top 10 Ctx.",
+    "Top 20 Ctx.",
+    "All Ctx.",
 ]
 
 ndt_inf = np.array([
-    0.033,
-    0.088,
-    0.452,
-    0.309,
-    0.334,
-    0.035,
-    0.063,
-    0.055,
+
+    0.530,
+    0.108,
+    0.073,
+    0.040,
     0.020,
 ])
 
 dt_random = np.array([
-    0.160,
-    0.092,
-    0.001,
-    0.072,
-    0.033,
-    0.159,
-    0.144,
-    0.212,
-    0.204,
+
+    0.003,
+    0.043,
+    0.128,
+    0.173,
+    0.216,
 ])
 
 dt_regr = np.array([
+
+    0.005,
+    0.035,
+    0.078,
     0.103,
-    0.025,
-    0.000,
-    0.101,
-    0.018,
-    0.111,
-    0.075,
-    0.143,
     0.118,
 ])
 
 avg_random = np.array([
-    3.47,
-    7.17,
-    1.05,
-    2.42,
-    2.22,
-    3.50,
-    3.37,
-    4.09,
-    4.32,
+
+    1.45,
+    2.40,
+    3.03,
+    3.40,
+    4.24,
 ])
 
 avg_regr = np.array([
-    2.69,
+
+    1.58,
     1.79,
-    1.07,
-    2.69,
-    1.83,
-    2.88,
-    2.59,
-    3.42,
+    2.15,
+    2.55,
     3.10,
 ])
 
@@ -86,7 +67,7 @@ avg_regr = np.array([
 x = np.arange(len(restrictions))
 width = 0.38
 
-fig, ax = plt.subplots(figsize=(20, 5))  # keep compact height
+fig, ax = plt.subplots(figsize=(10, 6.5))  # keep compact height
 
 base_color = "0.80"
 top_color = "0.55"
@@ -137,7 +118,7 @@ for i in range(len(restrictions)):
         f"{total_regr:.3f}\n({avg_regr[i]:.2f})",
         ha="center",
         va="bottom",
-        fontsize=16,
+        fontsize=15,
     )
 
 # =========================
@@ -145,7 +126,7 @@ for i in range(len(restrictions)):
 # =========================
 
 ax.set_xticks(x)
-ax.set_xticklabels(restrictions, rotation=20, ha="right", fontsize=20)
+ax.set_xticklabels(restrictions, rotation=60, ha="right", fontsize=20)
 
 ax.set_xlabel("")
 ax.set_ylabel("")
@@ -165,7 +146,7 @@ regr_patch = mpatches.Patch(
     facecolor=top_color,
     hatch=hatch_regr,
     edgecolor="black",
-    label=r"$DT_{>5}$ (Regression ($\alpha=1$))",
+    label=r"$DT_{>5}$ (LTLTrust ($\alpha=1$))",
 )
 
 avg_handle = Line2D(
