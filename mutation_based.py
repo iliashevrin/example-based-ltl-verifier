@@ -208,7 +208,9 @@ def mutate_ltl_formula(formula_str):
 
 
 def accepting_traces(formula):
-    aut = spot.translate(formula)
+    d = spot.make_bdd_dict()
+    trans = spot.translator(d)
+    aut = trans.run(formula)
     run = aut.accepting_run()
     if run is None:
         return []
@@ -267,8 +269,8 @@ def generate_traces(formula, restriction):
         candidates.extend(accepting_traces(mutant))
         candidates.extend(rejecting_traces(mutant))
 
-
         for trace in candidates:
+
             if trace is None or trace in used_traces:
                 continue
 
@@ -276,6 +278,7 @@ def generate_traces(formula, restriction):
 
             candidate_acceptance = check_acceptance(original_aut, trace)
             traces.append((trace, candidate_acceptance, mutation_type))
+
 
     traces = [(t, ac, f'{str(mut[0])}_{mut[1]}_{ac}') for (t, ac, mut) in traces if globals()[restriction](ac, mut)]
     return traces

@@ -343,9 +343,6 @@ def diversified_trace_ranking(
 
     alpha = 1:
         reciprocal decay
-
-    Suggested:
-        0.2 - 0.5
     """
 
     traces = generate_traces(formula, restriction)
@@ -441,6 +438,7 @@ def diversified_trace_ranking(
         ranked_traces.append(next_trace)
 
         shown_count[best_mutation] += 1
+
 
     return ranked_traces, base_scores
 

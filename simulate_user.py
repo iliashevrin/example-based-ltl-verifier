@@ -42,17 +42,24 @@ def simulate_user(cand, gt, method, restriction):
     end_time = time.perf_counter()
     execution_time = end_time - start_time
 
+    log = ""
+
     seen = 0
     length = 0
     acc_values = {"True": 0, "False": 0, "None": 0}
 
     if not traces:
-        return 0, 0, None, execution_time, acc_values
+        return 0, 0, None, execution_time, acc_values, log
+
+    log += f"Candidate = {cand}\n"
+    log += f"GT = {gt}\n"
 
 
     good_mc = None
 
-    for trace, cand_acc, mc in traces:
+    for index, t in enumerate(traces):
+
+        (trace, cand_acc, mc) = t
 
         seen += 1
         length += (trace.count(";") + 1)
@@ -61,11 +68,15 @@ def simulate_user(cand, gt, method, restriction):
 
         acc_values[str(acc)] += 1
 
+        log += f"trace#{index}, cand_acc={cand_acc}, gt_acc={acc}, {trace}\n"
+
         if acc != cand_acc:
             good_mc = mc
             break
 
-    return seen, length/seen, good_mc, execution_time, acc_values
+    log += "\n"
+
+    return seen, length/seen, good_mc, execution_time, acc_values, log
 
 
 
@@ -133,6 +144,8 @@ def main():
 
     acc_values = {"True": 0, "False": 0, "None": 0}
 
+    full_log = ""
+
 
     dataset = None
     for key in DATASIZE.keys():
@@ -160,13 +173,15 @@ def main():
 
             for _ in range(0, repeats):
 
-                seen, length, mc, exec_time, values = simulate_user(cand, gt, method, restriction)
+                seen, length, mc, exec_time, values, log = simulate_user(cand, gt, method, restriction)
 
                 for val in values:
                     acc_values[val] += values[val]
 
                 curr_length.append(length)
                 times.append(exec_time)
+
+                full_log += log
 
                 # Mismatch was successfully detected, look at the mc of the discriminating trace
                 if mc is not None:
@@ -189,6 +204,12 @@ def main():
             if len(curr_seen_ndt) > 0:
                 seen_ndt.append(curr_seen_ndt[0])
 
+
+
+    if len(sys.argv) > 4 and sys.argv[4] == "True":
+        log_file = f"log_{dataset}_{sys.argv[1]}_{restriction}.txt"
+        with open(log_file, "w", encoding="utf-8") as out:
+            out.write(full_log)
 
 
     det_more_than_i = []
