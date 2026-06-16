@@ -7,7 +7,7 @@ from matplotlib.lines import Line2D
 # Data
 # =========================
 
-restrictions = [
+strategies = [
     "Top 1 Ctx.",
     "Top 5 Ctx.",
     "Top 10 Ctx.",
@@ -27,44 +27,44 @@ ndt_inf = np.array([
 dt_random = np.array([
 
     0.003,
-    0.043,
+    0.045,
     0.128,
-    0.173,
-    0.216,
+    0.166,
+    0.206,
 ])
 
 dt_regr = np.array([
 
     0.005,
     0.035,
-    0.078,
-    0.103,
-    0.118,
+    0.075,
+    0.101,
+    0.123,
 ])
 
 avg_random = np.array([
 
-    1.45,
-    2.40,
-    3.03,
-    3.40,
+    1.43,
+    2.73,
+    3.22,
+    3.48,
     4.24,
 ])
 
 avg_regr = np.array([
 
     1.58,
-    1.79,
-    2.15,
-    2.55,
-    3.10,
+    1.80,
+    2.14,
+    2.53,
+    3.06,
 ])
 
 # =========================
 # Plot setup
 # =========================
 
-x = np.arange(len(restrictions))
+x = np.arange(len(strategies))
 width = 0.38
 
 fig, ax = plt.subplots(figsize=(10, 6.5))  # keep compact height
@@ -99,7 +99,7 @@ ax.bar(x + width / 2, dt_regr, width,
 # Labels (sum + avg traces)
 # =========================
 
-for i in range(len(restrictions)):
+for i in range(len(strategies)):
     total_random = ndt_inf[i] + dt_random[i]
     total_regr = ndt_inf[i] + dt_regr[i]
 
@@ -126,7 +126,7 @@ for i in range(len(restrictions)):
 # =========================
 
 ax.set_xticks(x)
-ax.set_xticklabels(restrictions, rotation=60, ha="right", fontsize=20)
+ax.set_xticklabels(strategies, rotation=60, ha="right", fontsize=20)
 
 ax.set_xlabel("")
 ax.set_ylabel("")

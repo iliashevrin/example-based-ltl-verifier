@@ -87,6 +87,14 @@ def current_node_mutations(f, depth):
 
 
 
+    if f._is(spot.op_Implies) or f._is(spot.op_Equiv) or \
+        f._is(spot.op_And) or f._is(spot.op_Or) or \
+        f._is(spot.op_U) or f._is(spot.op_W):
+
+        if children_count(f) == 2:
+            muts.append((f[0], (Mutation.REMOVE_RIGHT_SUBFORMULA, depth)))
+            muts.append((f[1], (Mutation.REMOVE_LEFT_SUBFORMULA, depth)))
+
 
     # Remove negation from any negated subformula
     if f._is(spot.op_Not) and f.size() == 1:
@@ -105,7 +113,7 @@ def current_node_mutations(f, depth):
     if f._is(spot.op_G):
         muts.append((spot.formula.F(f[0]), (Mutation.SWAP_G_WITH_F, depth)))
         muts.append((spot.formula.X(f[0]), (Mutation.SWAP_G_WITH_X, depth)))
-        # muts.append((f[0], (Mutation.REMOVE_G, depth)))
+        muts.append((f[0], (Mutation.REMOVE_G, depth)))
 
     elif f._is(spot.op_X):
         muts.append((spot.formula.F(f[0]), (Mutation.SWAP_X_WITH_F, depth)))
@@ -120,29 +128,47 @@ def current_node_mutations(f, depth):
         muts.append((spot.formula.U(f[0], f[1]), (Mutation.SWAP_W_WITH_U, depth)))
         muts.append((spot.formula.W(f[1], f[0]), (Mutation.SWAP_W_OPERANDS, depth)))
 
-    # Boolean mutations
+    # Propositional operator mutations:
+    # and, or, implies, iff -> any other one
     if f._is(spot.op_And):
-        muts.append(
-            (
-                spot.formula.Or([f[i] for i in range(children_count(f))]),
-                (Mutation.SWAP_AND_WITH_OR, depth),
-            )
-        )
+        children = [f[i] for i in range(children_count(f))]
+
+        if len(children) == 2:
+            muts.append((spot.formula.Implies(children[0], children[1]),
+                         (Mutation.SWAP_AND_WITH_IMPLIES, depth)))
+            muts.append((spot.formula.Equiv(children[0], children[1]),
+                         (Mutation.SWAP_AND_WITH_EQUIV, depth)))
+
+        muts.append((spot.formula.Or(children),
+                     (Mutation.SWAP_AND_WITH_OR, depth)))
 
     elif f._is(spot.op_Or):
-        muts.append(
-            (
-                spot.formula.And([f[i] for i in range(children_count(f))]),
-                (Mutation.SWAP_OR_WITH_AND, depth),
-            )
-        )
+        children = [f[i] for i in range(children_count(f))]
 
-    # Implication / equivalence mutations
-    if f._is(spot.op_Implies):
-        muts.append((spot.formula.Equiv(f[0], f[1]), (Mutation.SWAP_IMPLIES_WITH_EQUIV, depth)))
+        if len(children) == 2:
+            muts.append((spot.formula.Implies(children[0], children[1]),
+                         (Mutation.SWAP_OR_WITH_IMPLIES, depth)))
+            muts.append((spot.formula.Equiv(children[0], children[1]),
+                         (Mutation.SWAP_OR_WITH_EQUIV, depth)))
+
+        muts.append((spot.formula.And(children),
+                     (Mutation.SWAP_OR_WITH_AND, depth)))
+
+    elif f._is(spot.op_Implies):
+        muts.append((spot.formula.And([f[0], f[1]]),
+                     (Mutation.SWAP_IMPLIES_WITH_AND, depth)))
+        muts.append((spot.formula.Or([f[0], f[1]]),
+                     (Mutation.SWAP_IMPLIES_WITH_OR, depth)))
+        muts.append((spot.formula.Equiv(f[0], f[1]),
+                     (Mutation.SWAP_IMPLIES_WITH_EQUIV, depth)))
 
     elif f._is(spot.op_Equiv):
-        muts.append((spot.formula.Implies(f[0], f[1]), (Mutation.SWAP_EQUIV_WITH_IMPLIES, depth)))
+        muts.append((spot.formula.And([f[0], f[1]]),
+                     (Mutation.SWAP_EQUIV_WITH_AND, depth)))
+        muts.append((spot.formula.Or([f[0], f[1]]),
+                     (Mutation.SWAP_EQUIV_WITH_OR, depth)))
+        muts.append((spot.formula.Implies(f[0], f[1]),
+                     (Mutation.SWAP_EQUIV_WITH_IMPLIES, depth)))
 
 
     return muts
