@@ -332,7 +332,7 @@ def diversified_trace_ranking(
     restriction,
     model,
     feature_columns,
-    diversification_alpha=1,
+    diversification_alpha,
 ):
     """
     diversification_alpha controls
@@ -467,8 +467,8 @@ def trace_ranking_0(formula, restriction):
 def trace_ranking_1(formula, restriction):
     return trace_ranking(formula, restriction, 1)
 
-def trace_ranking_05(formula, restriction):
-    return trace_ranking(formula, restriction, 0.5)
+def trace_ranking_15(formula, restriction):
+    return trace_ranking(formula, restriction, 1.5)
 
 
 def main():

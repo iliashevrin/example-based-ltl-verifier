@@ -1,4 +1,4 @@
-Average Time: 0.245
+Average Time: 0.260
 Accepting traces for GT: 200.000
 Rejecting traces for GT: 286.000
 Inconclusive traces for GT: 427.000
