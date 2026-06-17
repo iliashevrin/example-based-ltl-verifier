@@ -467,6 +467,9 @@ def trace_ranking_0(formula, restriction):
 def trace_ranking_1(formula, restriction):
     return trace_ranking(formula, restriction, 1)
 
+def trace_ranking_05(formula, restriction):
+    return trace_ranking(formula, restriction, 0.5)
+
 
 def main():
     parser = argparse.ArgumentParser(

@@ -6,7 +6,7 @@ spot.setup()
 import itertools
 from mutation_based import mutation_random, mutation_by_length
 from utils import check_acceptance, get_formula_features, collect_aps, trace_len
-from train_ordering import trace_ranking_0, trace_ranking_1
+from train_ordering import trace_ranking_0, trace_ranking_1, trace_ranking_05
 
 import csv
 import random
@@ -127,6 +127,8 @@ def main():
         method = trace_ranking_0
     elif sys.argv[1] == "LTLTRUST_1":
         method = trace_ranking_1
+    elif sys.argv[1] == "LTLTRUST_05":
+        method = trace_ranking_05
 
     else:
         raise ValueError("Incorrect example generation function")

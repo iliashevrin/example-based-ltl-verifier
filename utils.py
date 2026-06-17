@@ -59,47 +59,23 @@ TOP_CONTEXTS = [
 (Mutation.SWAP_G_WITH_F,1,False),
 (Mutation.SWAP_G_WITH_X,1,False),
 (Mutation.ADD_F,3,False),
-(Mutation.ADD_NEGATION,3,True),
 (Mutation.SWAP_IMPLIES_WITH_EQUIV,2,True),
+(Mutation.SWAP_IMPLIES_WITH_OR,2,None),
+(Mutation.ADD_F,2,False),
+(Mutation.ADD_NEGATION,3,None),
+(Mutation.ADD_G,3,False),
 (Mutation.SWAP_G_WITH_F,1,None),
 (Mutation.SWAP_APS,0,True),
 (Mutation.SWAP_APS,0,None),
-(Mutation.ADD_F,2,False),
-(Mutation.ADD_G,3,False),
-(Mutation.ADD_X,1,None),
 (Mutation.ADD_X,3,False),
-(Mutation.ADD_X,1,True),
+(Mutation.ADD_X,1,None),
 (Mutation.ADD_F,1,False),
-(Mutation.ADD_NEGATION,3,None),
+(Mutation.ADD_X,1,True),
 (Mutation.ADD_NEGATION,1,True),
 (Mutation.ADD_NEGATION,1,False),
 (Mutation.ADD_X,3,None),
 (Mutation.ADD_X,1,False),
 (Mutation.ADD_F,1,True),
-
-
-# Mutation.SWAP_G_WITH_F_1_False:162
-# Mutation.SWAP_G_WITH_X_1_False:172
-# Mutation.ADD_F_3_False:188
-# Mutation.SWAP_IMPLIES_WITH_EQUIV_2_True:205
-# Mutation.SWAP_IMPLIES_WITH_OR_2_None:209
-# Mutation.ADD_F_2_False:220
-# Mutation.ADD_NEGATION_3_None:226
-# Mutation.ADD_G_3_False:230
-# Mutation.SWAP_G_WITH_F_1_None:245
-# Mutation.SWAP_APS_0_None:252
-# Mutation.SWAP_APS_0_True:269
-# Mutation.ADD_X_3_False:288
-# Mutation.ADD_X_1_None:309
-# Mutation.ADD_F_1_False:398
-# Mutation.ADD_X_1_True:402
-# Mutation.ADD_NEGATION_1_True:498
-# Mutation.ADD_NEGATION_1_False:521
-# Mutation.ADD_X_3_None:623
-# Mutation.ADD_X_1_False:776
-# Mutation.ADD_F_1_True:1374
-
-
 
 ]
 
