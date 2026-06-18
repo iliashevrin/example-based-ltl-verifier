@@ -359,12 +359,6 @@ def diversified_trace_ranking(
         by_mutation[mutation].sort()
             # key=lambda t: trace_len(t[0]))
 
-
-    # if formula == "G(((x1 & X(x2)) -> (x3 & X(x4))) & ((x3 & X(x4)) -> (x1 & X(x2))))":
-    #     for mutation in by_mutation:
-    #         for trace in by_mutation[mutation]:
-    #             print(f"mutation={mutation}; trace={trace}")
-
     # ----------------------------------------------
     # predict base usefulness per mutation
     # ----------------------------------------------
@@ -435,9 +429,6 @@ def diversified_trace_ranking(
         k = shown_count[best_mutation]
 
         next_trace = by_mutation[best_mutation][k]
-
-        # if formula == "(F(x2 & x1)) -> (x1 U (x2 | X(x2)))":
-        #     print(f"###{len(ranked_traces)} k={k}; best_effective_score={best_effective_score}; best_mutation={best_mutation}; next_trace={next_trace}")
 
         ranked_traces.append(next_trace)
 

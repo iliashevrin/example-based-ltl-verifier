@@ -289,18 +289,10 @@ def generate_traces(formula, strategy):
 
     for mutant, mutation_type in mutants:
 
-        # if formula == "(F(x2 & x1)) -> (x1 U (x2 | X(x2)))":
-        #     print(f"mutant={mutant}; mutation_type={mutation_type}")
-
         # Generate candidate traces from mutant and negated mutant
         candidates = []
         candidates.extend(accepting_traces(mutant))
         candidates.extend(rejecting_traces(mutant))
-
-        # if formula == "(F(x2 & x1)) -> (x1 U (x2 | X(x2)))":
-        #     for cand in candidates:
-        #         print(f"cand={cand}")
-
 
         for trace in candidates:
 
@@ -313,5 +305,5 @@ def generate_traces(formula, strategy):
             traces.append((trace, candidate_acceptance, mutation_type))
 
 
-    traces = [(t, ac, f'{str(mut[0])}_{mut[1]}_{ac}_{trace_len(t)}') for (t, ac, mut) in traces if globals()[strategy](ac, mut)]
+    traces = [(t, ac, f'{str(mut[0])}_{mut[1]}_{ac}_{trace_len(t)}') for (t, ac, mut) in traces if globals()[strategy](ac, mut, trace_len(t))]
     return traces

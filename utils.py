@@ -56,26 +56,27 @@ class Mutation(str, Enum):
 
 TOP_CONTEXTS = [
 
-(Mutation.SWAP_IMPLIES_WITH_EQUIV,2,True),
-(Mutation.SWAP_G_WITH_F,1,False),
-(Mutation.SWAP_G_WITH_X,1,False),
-(Mutation.ADD_F,3,False),
-(Mutation.SWAP_IMPLIES_WITH_OR,2,None),
-(Mutation.ADD_F,2,False),
-(Mutation.SWAP_G_WITH_F,1,None),
-(Mutation.ADD_G,3,False),
-(Mutation.SWAP_APS,0,True),
-(Mutation.ADD_X,3,False),
-(Mutation.ADD_NEGATION,3,None),
-(Mutation.SWAP_APS,0,None),
-(Mutation.ADD_X,1,None),
-(Mutation.ADD_F,1,False),
-(Mutation.ADD_X,1,True),
-(Mutation.ADD_NEGATION,1,True),
-(Mutation.ADD_NEGATION,1,False),
-(Mutation.ADD_X,3,None),
-(Mutation.ADD_X,1,False),
-(Mutation.ADD_F,1,True),
+(Mutation.ADD_X,1,None,2),
+(Mutation.SWAP_G_WITH_F,1,None,2),
+(Mutation.ADD_G,4,True,2),
+(Mutation.ADD_X,4,True,1),
+(Mutation.ADD_F,1,False,1),
+(Mutation.ADD_NEGATION,3,None,2),
+(Mutation.ADD_X,3,False,3),
+(Mutation.ADD_X,1,False,4),
+(Mutation.ADD_F,2,False,2),
+(Mutation.SWAP_IMPLIES_WITH_EQUIV,2,True,1),
+(Mutation.ADD_F,1,False,2),
+(Mutation.ADD_F,3,False,2),
+(Mutation.REMOVE_LEFT_SUBFORMULA,2,True,1),
+(Mutation.ADD_X,3,None,2),
+(Mutation.ADD_X,3,None,3),
+(Mutation.ADD_G,3,True,2),
+(Mutation.ADD_NEGATION,1,False,2),
+(Mutation.ADD_NEGATION,1,True,1),
+(Mutation.ADD_F,1,True,2),
+(Mutation.ADD_X,1,False,3),
+
 ]
 
 
@@ -215,47 +216,18 @@ def get_formula_features(formula_str: str):
     ]
 
 
-def all_contexts(acceptance, mut):
+def all_contexts(acceptance, mut, length):
     return True
 
+def top1_context(acceptance, mut, length):
+    return (mut[0], mut[1], acceptance, length) in TOP_CONTEXTS[-1:]
 
-def top5_mut(acceptance, mut):
-    return mut[0] in [
-        Mutation.ADD_G,
-        Mutation.ADD_F,
-        Mutation.ADD_X,
-        Mutation.ADD_NEGATION,
-        Mutation.SWAP_APS
-    ]
+def top5_context(acceptance, mut, length):
+    return (mut[0], mut[1], acceptance, length) in TOP_CONTEXTS[-5:]
 
-def top1_mut(acceptance, mut):
-    return mut[0] in [
-        Mutation.ADD_X,
-    ]
+def top10_context(acceptance, mut, length):
+    return (mut[0], mut[1], acceptance, length) in TOP_CONTEXTS[-10:]
 
-def top1_context(acceptance, mut):
-    return (mut[0], mut[1], acceptance) in TOP_CONTEXTS[-1:]
+def top20_context(acceptance, mut, length):
+    return (mut[0], mut[1], acceptance, length) in TOP_CONTEXTS[-20:]
 
-def top5_context(acceptance, mut):
-    return (mut[0], mut[1], acceptance) in TOP_CONTEXTS[-5:]
-
-def top10_context(acceptance, mut):
-    return (mut[0], mut[1], acceptance) in TOP_CONTEXTS[-10:]
-
-def top20_context(acceptance, mut):
-    return (mut[0], mut[1], acceptance) in TOP_CONTEXTS[-20:]
-
-def only_acc(acceptance, mut):
-    return acceptance == True
-
-def only_rej(acceptance, mut):
-    return acceptance == False
-
-def acc_and_rej(acceptance, mut):
-    return acceptance is not None
-
-def only_shallow(acceptance, mut):
-    return mut[1] <= 1
-
-def only_deep(acceptance, mut):
-    return mut[1] > 1

@@ -187,10 +187,12 @@ def main():
 
             traces = generate_traces(cand, strategy)
 
-            # if cand == "G(x1 -> (X(x2) & X(!x3)))":
-            #     for i, trace in enumerate(traces):
-            #         print(f"#{i} trace={trace}")
-            #     print("------------")
+            if not traces:
+                for data in orderings:
+                    data.seen_ndt.append(0)
+                    data.lengths.append(0)
+
+                continue
 
             for data in orderings:
 
@@ -202,11 +204,6 @@ def main():
                 for _ in range(0, data.repeats):
 
                     traces = data.order(cand, traces, strategy)
-
-                    # if cand == "G(x1 -> (X(x2) & X(!x3)))" and data.name == "LTLTRUST_1":
-                    #     for i, trace in enumerate(traces):
-                    #         print(f"#{i} trace={trace}")
-                    #     print("------------")
 
                     seen, length, mc, values, log = evaluate(cand, gt, traces)
 
@@ -239,6 +236,8 @@ def main():
 
 
 
+    accuracy = 1 - (total / DATASIZE[dataset])
+
     for data in orderings:
 
         if len(sys.argv) > 4 and sys.argv[4] == "True":
@@ -251,7 +250,6 @@ def main():
         undet_under_i = []
         confidence = []    
         undet_inf = len(data.seen_ndt) / total
-        accuracy = 1 - (total / DATASIZE[dataset])
 
         output_file = f"results_{dataset}_{data.name}_{strategy}.txt"
 
