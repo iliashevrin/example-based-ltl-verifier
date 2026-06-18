@@ -56,18 +56,18 @@ class Mutation(str, Enum):
 
 TOP_CONTEXTS = [
 
+(Mutation.SWAP_IMPLIES_WITH_EQUIV,2,True),
 (Mutation.SWAP_G_WITH_F,1,False),
 (Mutation.SWAP_G_WITH_X,1,False),
 (Mutation.ADD_F,3,False),
-(Mutation.SWAP_IMPLIES_WITH_EQUIV,2,True),
 (Mutation.SWAP_IMPLIES_WITH_OR,2,None),
 (Mutation.ADD_F,2,False),
-(Mutation.ADD_NEGATION,3,None),
-(Mutation.ADD_G,3,False),
 (Mutation.SWAP_G_WITH_F,1,None),
+(Mutation.ADD_G,3,False),
 (Mutation.SWAP_APS,0,True),
-(Mutation.SWAP_APS,0,None),
 (Mutation.ADD_X,3,False),
+(Mutation.ADD_NEGATION,3,None),
+(Mutation.SWAP_APS,0,None),
 (Mutation.ADD_X,1,None),
 (Mutation.ADD_F,1,False),
 (Mutation.ADD_X,1,True),
@@ -76,14 +76,15 @@ TOP_CONTEXTS = [
 (Mutation.ADD_X,3,None),
 (Mutation.ADD_X,1,False),
 (Mutation.ADD_F,1,True),
-
 ]
 
 
 
 def check_acceptance(aut, trace):
 
-    word = spot.parse_word(trace)
+    d = aut.get_dict()
+
+    word = spot.parse_word(trace, d)
     
     if not aut.intersects(word):
         return False
@@ -143,9 +144,10 @@ def get_words_from_conditions(conditions, index):
     for single_cond in itertools.product(*[separate(cond) for cond in conditions]):
 
         word = build_word(single_cond, index)
-        word_ptr = spot.parse_word(word)
+        # word_ptr = spot.parse_word(word)
         # word_ptr.simplify()
-        words.append(str(word_ptr))
+        # words.append(str(word_ptr))
+        words.append(word)
 
     return words
 

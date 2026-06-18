@@ -69,7 +69,7 @@ def reciprocal_utility(labels, alpha=1.0):
 
 def build_training_data(
     formulas,
-    restriction,
+    strategy,
     alpha_prior=1.0,
     beta_prior=1.0,
 ):
@@ -88,7 +88,7 @@ def build_training_data(
 
             formula_features = get_formula_features(formula[1])
 
-            traces = generate_traces(formula[1], restriction)
+            traces = generate_traces(formula[1], strategy)
 
         except Exception as e:
             print(
@@ -108,9 +108,9 @@ def build_training_data(
             # shortest traces first INSIDE mutation
             # --------------------------------------
 
-            mutation_traces.sort(
-                key=lambda t: trace_len(t[0])
-            )
+            # mutation_traces.sort(
+            #     key=lambda t: trace_len(t[0])
+            # )
 
 
             labels = [
@@ -152,7 +152,7 @@ def build_training_data(
 
 def train_model(
     formulas,
-    restriction,
+    strategy,
     alpha_prior=1.0,
     beta_prior=1.0,
     test_size=0.2,
@@ -160,7 +160,7 @@ def train_model(
 ):
     df = build_training_data(
         formulas,
-        restriction,
+        strategy,
         alpha_prior=alpha_prior,
         beta_prior=beta_prior,
     )
@@ -262,13 +262,13 @@ def train_model(
     })
 
     test_formulas_df.to_csv(
-        f"heldout_test_formulas_{restriction}.csv",
+        f"heldout_test_formulas_{strategy}.csv",
         index=False,
     )
 
     print(
         f"Saved {len(test_formulas_df)} held-out formulas "
-        f"to heldout_test_formulas_{restriction}.csv"
+        f"to heldout_test_formulas_{strategy}.csv"
     )
 
     return model, feature_columns, df
@@ -329,7 +329,7 @@ def align_features(
 
 def diversified_trace_ranking(
     formula,
-    restriction,
+    traces,
     model,
     feature_columns,
     diversification_alpha,
@@ -345,24 +345,25 @@ def diversified_trace_ranking(
         reciprocal decay
     """
 
-    traces = generate_traces(formula, restriction)
-
-    if not traces:
-        return traces, None
-
     by_mutation = defaultdict(list)
 
     for trace in traces:
         by_mutation[trace[2]].append(trace)
 
     # ----------------------------------------------
-    # shortest traces first INSIDE mutation
+    # fixed lexicographic sort INSIDE mutation
     # ----------------------------------------------
 
+    # Lexicographic sort to fix some ordering within the same mutation context when all traces are of the same length
     for mutation in by_mutation:
-        by_mutation[mutation].sort(
-            key=lambda t: trace_len(t[0])
-        )
+        by_mutation[mutation].sort()
+            # key=lambda t: trace_len(t[0]))
+
+
+    # if formula == "G(((x1 & X(x2)) -> (x3 & X(x4))) & ((x3 & X(x4)) -> (x1 & X(x2))))":
+    #     for mutation in by_mutation:
+    #         for trace in by_mutation[mutation]:
+    #             print(f"mutation={mutation}; trace={trace}")
 
     # ----------------------------------------------
     # predict base usefulness per mutation
@@ -407,7 +408,7 @@ def diversified_trace_ranking(
         best_mutation = None
         best_effective_score = -float("inf")
 
-        for mutation in mutations:
+        for mutation in sorted(mutations):
 
             k = shown_count[mutation]
 
@@ -435,6 +436,9 @@ def diversified_trace_ranking(
 
         next_trace = by_mutation[best_mutation][k]
 
+        # if formula == "(F(x2 & x1)) -> (x1 U (x2 | X(x2)))":
+        #     print(f"###{len(ranked_traces)} k={k}; best_effective_score={best_effective_score}; best_mutation={best_mutation}; next_trace={next_trace}")
+
         ranked_traces.append(next_trace)
 
         shown_count[best_mutation] += 1
@@ -445,14 +449,14 @@ def diversified_trace_ranking(
 
 
 
-def trace_ranking(formula, restriction, alpha):
+def trace_ranking(formula, traces, strategy, alpha):
 
-    model = joblib.load(f"mutation_ranker_{restriction}.pkl")
-    feature_columns = joblib.load(f"feature_columns_{restriction}.pkl")
+    model = joblib.load(f"mutation_ranker_{strategy}.pkl")
+    feature_columns = joblib.load(f"feature_columns_{strategy}.pkl")
 
     ranked_traces, mutation_scores = diversified_trace_ranking(
         formula=formula,
-        restriction=restriction,
+        traces=traces,
         model=model,
         feature_columns=feature_columns,
         diversification_alpha=alpha,
@@ -461,14 +465,6 @@ def trace_ranking(formula, restriction, alpha):
     return ranked_traces
 
 
-def trace_ranking_0(formula, restriction):
-    return trace_ranking(formula, restriction, 0)
-
-def trace_ranking_1(formula, restriction):
-    return trace_ranking(formula, restriction, 1)
-
-def trace_ranking_15(formula, restriction):
-    return trace_ranking(formula, restriction, 1.5)
 
 
 def main():
@@ -481,7 +477,7 @@ def main():
         help="Path to data CSV file"
     )
 
-    parser.add_argument("restriction", default="no_restriction")
+    parser.add_argument("strategy", default="no_strategy")
 
     args = parser.parse_args()
 
@@ -495,11 +491,11 @@ def main():
 
     model, feature_columns, _ = train_model(
         formulas=train_formulas,
-        restriction=args.restriction
+        strategy=args.strategy
     )
 
-    joblib.dump(model, f"mutation_ranker_{args.restriction}.pkl")
-    joblib.dump(feature_columns, f"feature_columns_{args.restriction}.pkl")
+    joblib.dump(model, f"mutation_ranker_{args.strategy}.pkl")
+    joblib.dump(feature_columns, f"feature_columns_{args.strategy}.pkl")
 
 
 if __name__ == "__main__":

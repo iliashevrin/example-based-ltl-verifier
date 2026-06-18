@@ -1,0 +1,300 @@
+#!/usr/bin/env python3
+import sys
+sys.path.insert(0,'/usr/local/lib/python3.10/site-packages/')
+import spot
+spot.setup()
+import itertools
+from mutation_based import generate_traces
+from utils import check_acceptance, get_formula_features, collect_aps, trace_len
+from train_ordering import trace_ranking
+
+import csv
+import random
+import statistics
+import joblib
+import numpy as np
+
+
+
+DATASIZE = {
+    
+    "textbook":370,
+    "ARTEMIS":125,
+    "spacewire":35,
+    "Dwyer":100,
+
+    "ALL_RL":630,
+
+    "ConformalLTL":678,
+    "Synthetic":1000,
+
+    "heldout": 2548 # Approximation based on the full dataset
+}
+
+
+
+
+def evaluate(cand, gt, traces):
+
+    log = ""
+
+    seen = 0
+    length = 0
+    acc_values = {"True": 0, "False": 0, "None": 0}
+
+    log += f"Candidate = {cand}\n"
+    log += f"GT = {gt}\n"
+
+    good_mc = None
+
+    for index, t in enumerate(traces):
+
+        (trace, cand_acc, mc) = t
+
+        seen += 1
+        length += (trace.count(";") + 1)
+
+        acc = check_acceptance(spot.translate(gt), trace)
+
+        acc_values[str(acc)] += 1
+
+        log += f"trace#{index}, cand_acc={cand_acc}, gt_acc={acc}, {trace}\n"
+
+        if acc != cand_acc:
+            good_mc = mc
+            break
+
+    log += "\n"
+
+    return seen, length/seen if seen > 0 else 0, good_mc, acc_values, log
+
+
+
+
+def stats(data):
+
+    if len(data) <= 1:
+        return f"N/A"
+
+    avg_val = statistics.mean(data)      # Average (Arithmetic Mean)
+    med_val = statistics.median(data)    # Median
+    std_val = statistics.stdev(data)     # Standard Deviation (sample)
+    max_val = max(data)                  # Built-in max function
+    min_val = min(data)                  # Built-in min function
+
+    # Percentiles
+    p75 = np.percentile(data, 75)
+    p90 = np.percentile(data, 90)
+
+    return (
+        f"Avg: {avg_val:.3f}, "
+        f"Median: {med_val:.2f}, "
+        f"Std: {std_val:.2f}, "
+        f"P75: {p75:.2f}, "
+        f"P90: {p90:.2f}, "
+        f"Max: {max_val:.2f}, "
+        f"Min: {min_val:.2f}"
+    )
+
+
+
+def confidence(undetected_under_n, total, dataset):
+
+    mismatch = total / DATASIZE[dataset]
+    match = (1 - mismatch)
+
+    return match / (match + (mismatch * (undetected_under_n / total)))
+
+
+
+class OrderingData:
+
+    def __init__(self, name, order, repeats):
+
+        self.name = name
+        self.order = order
+        self.repeats = repeats
+
+        self.seen_dt = []
+        self.seen_ndt = []
+        self.lengths = []
+        self.total = 0
+        self.mc_map = {}
+        self.acc_values = {"True": 0, "False": 0, "None": 0}
+        self.full_log = ""
+
+
+
+
+def by_length(formula, traces, strategy):
+    traces.sort(key=lambda trace: trace_len(trace[0]))
+    return traces
+
+def ordering_random(formula, traces, strategy):
+    random.shuffle(traces)
+    return traces
+
+def trace_ranking_0(formula, traces, strategy):
+    return trace_ranking(formula, traces, strategy, 0)
+
+def trace_ranking_1(formula, traces, strategy):
+    return trace_ranking(formula, traces, strategy, 1)
+
+
+
+def main():
+
+    ordering_names = sys.argv[1].split(",")
+    orderings = []
+
+    for name in ordering_names:
+
+        if name == "RANDOM":
+            orderings.append(OrderingData(name, ordering_random, 30))
+        elif name == "BY_LENGTH":
+            orderings.append(OrderingData(name, by_length, 1))
+        elif name == "LTLTRUST_0":
+            orderings.append(OrderingData(name, trace_ranking_0, 1))
+        elif name == "LTLTRUST_1":
+            orderings.append(OrderingData(name, trace_ranking_1, 1))
+        else:
+            raise ValueError("Incorrect ordering function")
+
+
+    strategy = sys.argv[3]
+
+
+    dataset = None
+    for key in DATASIZE.keys():
+        if key in sys.argv[2]:
+            dataset = key
+
+    if dataset is None:
+        raise ValueError("Incorrect dataset")
+
+    total = 0
+
+    with open(sys.argv[2], newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+
+        for row in reader:
+            gt = row["Ground Truth"]
+            cand = row["Response"]
+
+            total += 1
+
+            print(f"gt={gt}; cand={cand}")
+
+            traces = generate_traces(cand, strategy)
+
+            # if cand == "G(x1 -> (X(x2) & X(!x3)))":
+            #     for i, trace in enumerate(traces):
+            #         print(f"#{i} trace={trace}")
+            #     print("------------")
+
+            for data in orderings:
+
+                print(f"ordering={data.name}")
+
+                curr_seen_dt = []
+                curr_length = []
+
+                for _ in range(0, data.repeats):
+
+                    traces = data.order(cand, traces, strategy)
+
+                    # if cand == "G(x1 -> (X(x2) & X(!x3)))" and data.name == "LTLTRUST_1":
+                    #     for i, trace in enumerate(traces):
+                    #         print(f"#{i} trace={trace}")
+                    #     print("------------")
+
+                    seen, length, mc, values, log = evaluate(cand, gt, traces)
+
+                    for val in values:
+                        data.acc_values[val] += values[val]
+
+                    curr_length.append(length)
+
+                    data.full_log += log
+
+                    # Mismatch was successfully detected, look at the mc of the discriminating trace
+                    if mc is not None:
+                        curr_seen_dt.append(seen)
+
+                        if mc not in data.mc_map:
+                            data.mc_map[mc] = 1
+                        else:
+                            data.mc_map[mc] += 1
+
+                    else:
+                        # Undetected case does not depend on order, so no need to run it 30 times
+                        data.seen_ndt.append(seen)
+                        break
+
+
+                if len(curr_seen_dt) > 0:
+                    data.seen_dt.append(statistics.mean(curr_seen_dt))
+
+                data.lengths.append(statistics.mean(curr_length))
+
+
+
+    for data in orderings:
+
+        if len(sys.argv) > 4 and sys.argv[4] == "True":
+            log_file = f"log_{dataset}_{data.name}_{strategy}.txt"
+            with open(log_file, "w", encoding="utf-8") as out:
+                out.write(data.full_log)
+
+
+        det_more_than_i = []
+        undet_under_i = []
+        confidence = []    
+        undet_inf = len(data.seen_ndt) / total
+        accuracy = 1 - (total / DATASIZE[dataset])
+
+        output_file = f"results_{dataset}_{data.name}_{strategy}.txt"
+
+        with open(output_file, "w", encoding="utf-8") as out:
+            print(f'Accepting traces for GT: {(data.acc_values["True"] / data.repeats):.3f}', file=out)
+            print(f'Rejecting traces for GT: {(data.acc_values["False"] / data.repeats):.3f}', file=out)
+            print(f'Inconclusive traces for GT: {(data.acc_values["None"] / data.repeats):.3f}', file=out)
+
+            print(f'\nAccuracy: {accuracy:.3f}', file=out)
+            print(f'Detected Ratio: {(1-undet_inf):.3f}', file=out)
+
+            for i in range(0, 16):
+                det_more_than_i.append(len([n for n in data.seen_dt if n > i]) / total)
+                undet_under_i.append(undet_inf + det_more_than_i[i])
+                confidence.append(
+                    accuracy / (accuracy + ((1 - accuracy) * undet_under_i[i]))
+                )
+
+                print(
+                    f'\nUndetected <={i} Ratio: {undet_under_i[i]:.3f} '
+                    f'(Undetected Ratio: {undet_inf:.3f} + '
+                    f'Detected >{i} Ratio: {det_more_than_i[i]:.3f})',
+                    file=out,
+                )
+                print(
+                    f'Confidence score for n={i}: {confidence[i]:.3f}',
+                    file=out,
+                )
+
+            print(f'\nTraces to Detection: {stats(data.seen_dt)}', file=out)
+            # print(f'Inspected Traces When No Detection: {stats(data.seen_ndt)}', file=out)
+
+            print(f'\nTrace Lengths: {stats(data.lengths)}', file=out)
+
+            print(f'\nMutation Contexts by Usefulness', file=out)
+
+            mc_map = dict(sorted(data.mc_map.items(), key=lambda item: item[1]))
+            for mc in mc_map:
+                print(f'{mc}:{mc_map[mc]}', file=out)
+
+            print(f'\nTraces to Detection List: {[f"{seen:.2f}" for seen in data.seen_dt]}', file=out)
+
+
+
+if __name__ == "__main__":
+    main()

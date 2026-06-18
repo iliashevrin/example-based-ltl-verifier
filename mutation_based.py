@@ -233,67 +233,74 @@ def mutate_ltl_formula(formula_str):
     return mutants
 
 
-def accepting_traces(formula):
+def accepting_traces(mutant):
+
     d = spot.make_bdd_dict()
+
+    # optional but stabilizing: parse first only to get AP names
+    f = spot.formula(mutant)
+    aps = sorted(str(ap) for ap in spot.atomic_prop_collect(f))
+
+    anchor = spot.make_twa_graph(d)
+    for ap in aps:
+        anchor.register_ap(ap)
+
     trans = spot.translator(d)
-    aut = trans.run(formula)
+    aut = trans.run(mutant)
+
     run = aut.accepting_run()
+
     if run is None:
         return []
 
+    return [str(spot.twa_word(run))]
 
-    conditions = []
+    # conditions = []
 
-    # Prefix part
-    for edge in run.prefix:
-        conditions.append(
-            spot.bdd_format_formula(aut.get_dict(), edge.label)
-        )
+    # # Prefix part
+    # for edge in run.prefix:
+    #     conditions.append(spot.bdd_format_formula(aut.get_dict(), edge.label))
 
-    cycle_start = len(conditions)
+    # cycle_start = len(conditions)
 
-    # Cycle part
-    for edge in run.cycle:
-        conditions.append(
-            spot.bdd_format_formula(aut.get_dict(), edge.label)
-        )
+    # # Cycle part
+    # for edge in run.cycle:
+    #     conditions.append(spot.bdd_format_formula(aut.get_dict(), edge.label))
 
-    return get_words_from_conditions(conditions, cycle_start)
+    # return get_words_from_conditions(conditions, cycle_start)
 
 
 
-def rejecting_traces(formula):
-    return accepting_traces(f"!({formula})")
+def rejecting_traces(mutant):
+    return accepting_traces(f"!({mutant})")
 
 
 
 
-
-def mutation_by_length(candidate, restriction):
-
-    traces = generate_traces(candidate, restriction)
-    traces.sort(key=lambda trace: trace_len(trace[0]))
-    return traces
-
-def mutation_random(formula, restriction):
-    traces = generate_traces(formula, restriction)
-    random.shuffle(traces)
-    return traces
-
-def generate_traces(formula, restriction):
+def generate_traces(formula, strategy):
     mutants = mutate_ltl_formula(formula)
 
     traces = []
     used_traces = set()
 
-    original_aut = spot.translate(formula)
+    d = spot.make_bdd_dict()
+    trans = spot.translator(d)
+    original_aut = trans.run(formula)
 
     for mutant, mutation_type in mutants:
+
+        # if formula == "(F(x2 & x1)) -> (x1 U (x2 | X(x2)))":
+        #     print(f"mutant={mutant}; mutation_type={mutation_type}")
 
         # Generate candidate traces from mutant and negated mutant
         candidates = []
         candidates.extend(accepting_traces(mutant))
         candidates.extend(rejecting_traces(mutant))
+
+        # if formula == "(F(x2 & x1)) -> (x1 U (x2 | X(x2)))":
+        #     for cand in candidates:
+        #         print(f"cand={cand}")
+
 
         for trace in candidates:
 
@@ -306,5 +313,5 @@ def generate_traces(formula, restriction):
             traces.append((trace, candidate_acceptance, mutation_type))
 
 
-    traces = [(t, ac, f'{str(mut[0])}_{mut[1]}_{ac}') for (t, ac, mut) in traces if globals()[restriction](ac, mut)]
+    traces = [(t, ac, f'{str(mut[0])}_{mut[1]}_{ac}_{trace_len(t)}') for (t, ac, mut) in traces if globals()[strategy](ac, mut)]
     return traces
