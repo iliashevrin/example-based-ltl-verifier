@@ -131,15 +131,15 @@ Mutation.SWAP_G_WITH_X_1_False_2:6
 Mutation.ADD_G_1_True_1:6
 Mutation.ADD_G_3_True_2:7
 Mutation.ADD_NEGATION_1_False_2:7
-Mutation.ADD_X_3_True_1:8
 Mutation.REMOVE_RIGHT_SUBFORMULA_3_True_1:8
+Mutation.ADD_X_3_True_1:9
 Mutation.REMOVE_RIGHT_SUBFORMULA_2_True_1:11
 Mutation.ADD_NEGATION_3_None_2:13
 Mutation.REMOVE_LEFT_SUBFORMULA_2_True_2:13
 Mutation.SWAP_APS_0_True_1:16
 Mutation.ADD_F_1_False_1:17
 Mutation.REMOVE_LEFT_SUBFORMULA_3_True_1:18
-Mutation.ADD_X_4_True_1:22
+Mutation.ADD_X_4_True_1:21
 Mutation.ADD_X_1_False_3:28
 Mutation.ADD_NEGATION_1_True_1:91
 

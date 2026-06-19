@@ -141,10 +141,10 @@ def ordering_random(formula, traces, strategy):
     return traces
 
 def ltltrust(formula, traces, strategy):
-    return trace_ranking(formula, traces, strategy, "smoothed", 0)
+    return trace_ranking(formula, traces, strategy, "smoothed")
 
 def ltltrust_plus(formula, traces, strategy):
-    return trace_ranking(formula, traces, strategy, "smoothed_plus", 0)
+    return trace_ranking(formula, traces, strategy, "smoothed_plus")
 
 
 

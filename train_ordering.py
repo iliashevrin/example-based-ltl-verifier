@@ -299,13 +299,13 @@ def train_model(
     })
 
     test_formulas_df.to_csv(
-        f"heldout_test_formulas_{strategy}.csv",
+        f"heldout_test_formulas_{strategy}_{utility}.csv",
         index=False,
     )
 
     print(
         f"Saved {len(test_formulas_df)} held-out formulas "
-        f"to heldout_test_formulas_{strategy}.csv"
+        f"to heldout_test_formulas_{strategy}_{utility}.csv"
     )
 
     return model, feature_columns, df
