@@ -5,7 +5,7 @@ import spot
 spot.setup()
 import itertools
 from mutation_based import generate_traces
-from utils import check_acceptance, get_formula_features, collect_aps, trace_len
+from utils import check_acceptance, get_formula_features, collect_aps, trace_len, count_literals
 from train_ordering import trace_ranking
 
 import csv
@@ -40,6 +40,7 @@ def evaluate(cand, gt, traces):
 
     seen = 0
     length = 0
+    lit = 0
     acc_values = {"True": 0, "False": 0, "None": 0}
 
     log += f"Candidate = {cand}\n"
@@ -52,7 +53,8 @@ def evaluate(cand, gt, traces):
         (trace, cand_acc, mc) = t
 
         seen += 1
-        length += (trace.count(";") + 1)
+        length += trace_len(trace)
+        lit += count_literals(trace)
 
         acc = check_acceptance(spot.translate(gt), trace)
 
@@ -66,7 +68,10 @@ def evaluate(cand, gt, traces):
 
     log += "\n"
 
-    return seen, length/seen if seen > 0 else 0, good_mc, acc_values, log
+    avg_len = length/seen if seen > 0 else 0
+    avg_lit = lit/seen if lit > 0 else 0
+
+    return seen, avg_len, avg_lit, good_mc, acc_values, log
 
 
 
@@ -118,6 +123,7 @@ class OrderingData:
         self.seen_dt = []
         self.seen_ndt = []
         self.lengths = []
+        self.lits = []
         self.total = 0
         self.mc_map = {}
         self.acc_values = {"True": 0, "False": 0, "None": 0}
@@ -134,11 +140,11 @@ def ordering_random(formula, traces, strategy):
     random.shuffle(traces)
     return traces
 
-def trace_ranking_0(formula, traces, strategy):
-    return trace_ranking(formula, traces, strategy, 0)
+def ltltrust(formula, traces, strategy):
+    return trace_ranking(formula, traces, strategy, "smoothed", 0)
 
-def trace_ranking_1(formula, traces, strategy):
-    return trace_ranking(formula, traces, strategy, 1)
+def ltltrust_plus(formula, traces, strategy):
+    return trace_ranking(formula, traces, strategy, "smoothed_plus", 0)
 
 
 
@@ -153,16 +159,12 @@ def main():
             orderings.append(OrderingData(name, ordering_random, 30))
         elif name == "BY_LENGTH":
             orderings.append(OrderingData(name, by_length, 1))
-        elif name == "LTLTRUST_0":
-            orderings.append(OrderingData(name, trace_ranking_0, 1))
-        elif name == "LTLTRUST_1":
-            orderings.append(OrderingData(name, trace_ranking_1, 1))
+        elif name == "LTLTRUST":
+            orderings.append(OrderingData(name, ltltrust, 1))
+        elif name == "LTLTRUST_PLUS":
+            orderings.append(OrderingData(name, ltltrust_plus, 1))
         else:
             raise ValueError("Incorrect ordering function")
-
-
-    strategy = sys.argv[3]
-
 
     dataset = None
     for key in DATASIZE.keys():
@@ -171,6 +173,8 @@ def main():
 
     if dataset is None:
         raise ValueError("Incorrect dataset")
+
+    strategy = sys.argv[3]
 
     total = 0
 
@@ -200,17 +204,19 @@ def main():
 
                 curr_seen_dt = []
                 curr_length = []
+                curr_lit = []
 
                 for _ in range(0, data.repeats):
 
                     traces = data.order(cand, traces, strategy)
 
-                    seen, length, mc, values, log = evaluate(cand, gt, traces)
+                    seen, length, lit, mc, values, log = evaluate(cand, gt, traces)
 
                     for val in values:
                         data.acc_values[val] += values[val]
 
                     curr_length.append(length)
+                    curr_lit.append(lit)
 
                     data.full_log += log
 
@@ -233,6 +239,7 @@ def main():
                     data.seen_dt.append(statistics.mean(curr_seen_dt))
 
                 data.lengths.append(statistics.mean(curr_length))
+                data.lits.append(statistics.mean(curr_lit))
 
 
 
@@ -240,10 +247,9 @@ def main():
 
     for data in orderings:
 
-        if len(sys.argv) > 4 and sys.argv[4] == "True":
-            log_file = f"log_{dataset}_{data.name}_{strategy}.txt"
-            with open(log_file, "w", encoding="utf-8") as out:
-                out.write(data.full_log)
+        log_file = f"log_{dataset}_{data.name}_{strategy}.txt"
+        with open(log_file, "w", encoding="utf-8") as out:
+            out.write(data.full_log)
 
 
         det_more_than_i = []
@@ -283,6 +289,7 @@ def main():
             # print(f'Inspected Traces When No Detection: {stats(data.seen_ndt)}', file=out)
 
             print(f'\nTrace Lengths: {stats(data.lengths)}', file=out)
+            print(f'\nTrace Literals: {stats(data.lits)}', file=out)
 
             print(f'\nMutation Contexts by Usefulness', file=out)
 

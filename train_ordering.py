@@ -5,13 +5,42 @@ import lightgbm as lgb
 from sklearn.model_selection import GroupShuffleSplit
 from sklearn.metrics import mean_squared_error
 
-from utils import get_formula_features, simulate_user, trace_len, Mutation
+from utils import get_formula_features, simulate_user, trace_len, Mutation, count_literals
 from mutation_based import generate_traces
 
 import joblib
 import argparse
 import csv
 
+
+
+
+
+# ==================================================
+# UPGRADED BAYESIAN-SMOOTHED USEFULNESS RATIO
+# ==================================================
+
+def smoothed_ratio_plus(
+    trace_len,
+    avg_literals,
+    num_helpful,
+    total,
+    alpha_prior=1.0,
+    beta_prior=1.0,
+    len_ref=3,
+    lit_ref=5,
+    gamma=1.0,
+):
+
+    usefulness = smoothed_ratio(num_helpful, total, alpha_prior, beta_prior)
+
+    simplicity = 1 / (
+        1
+        + trace_len / len_ref
+        + avg_literals / lit_ref
+    )
+
+    return usefulness * (simplicity ** gamma)
 
 
 # ==================================================
@@ -70,8 +99,7 @@ def reciprocal_utility(labels, alpha=1.0):
 def build_training_data(
     formulas,
     strategy,
-    alpha_prior=1.0,
-    beta_prior=1.0,
+    utility
 ):
     rows = []
 
@@ -104,15 +132,6 @@ def build_training_data(
 
         for mutation, mutation_traces in by_mutation.items():
 
-            # --------------------------------------
-            # shortest traces first INSIDE mutation
-            # --------------------------------------
-
-            # mutation_traces.sort(
-            #     key=lambda t: trace_len(t[0])
-            # )
-
-
             labels = [
                 int(simulate_user(formula[0], trace[0], trace[1]))
                 for trace in mutation_traces
@@ -121,14 +140,34 @@ def build_training_data(
             helpful_count = sum(labels)
             total_count = len(labels)
 
-            usefulness = smoothed_ratio(
-                helpful_count,
-                total_count,
-                alpha_prior=alpha_prior,
-                beta_prior=beta_prior,
-            )
 
-            # usefulness = reciprocal_utility(labels, alpha=1.0)
+            if utility == "smoothed":
+
+                usefulness = smoothed_ratio(
+                    helpful_count,
+                    total_count
+                )
+
+            elif utility == "smoothed_plus":
+
+                trace_length = 0
+                avg_literals = 0
+                if len(mutation_traces) > 0:
+                    avg_literals = sum([count_literals(t[0]) for t in mutation_traces]) / len(mutation_traces)
+                    trace_length = trace_len(mutation_traces[0])
+
+                usefulness = smoothed_ratio_plus(
+                    trace_length,
+                    avg_literals,
+                    helpful_count,
+                    total_count,
+                )
+
+            elif utility == "reciprocal":
+
+                usefulness = reciprocal_utility(labels, alpha=1.0)
+
+
 
             row = {
                 "formula_id": formula_id,
@@ -153,16 +192,14 @@ def build_training_data(
 def train_model(
     formulas,
     strategy,
-    alpha_prior=1.0,
-    beta_prior=1.0,
+    utility,
     test_size=0.2,
     random_state=42,
 ):
     df = build_training_data(
         formulas,
         strategy,
-        alpha_prior=alpha_prior,
-        beta_prior=beta_prior,
+        utility,
     )
 
     # ----------------------------------------------
@@ -323,6 +360,52 @@ def align_features(
     return X
 
 
+
+
+
+
+def trace_ranking_no_diversification(
+    formula,
+    traces,
+    model,
+    feature_columns,
+):
+    by_mutation = defaultdict(list)
+
+    for trace in traces:
+        by_mutation[trace[2]].append(trace)
+
+    # Fixed ordering inside each mutation/context
+    for mutation in by_mutation:
+        by_mutation[mutation].sort()
+
+    rows, mutations = make_prediction_rows(
+        formula,
+        by_mutation,
+    )
+
+    X_pred = align_features(
+        rows,
+        feature_columns,
+    )
+
+    scores = model.predict(X_pred)
+
+    base_scores = dict(zip(mutations, scores))
+
+    ranked_traces = []
+
+    for mutation in sorted(
+        mutations,
+        key=lambda m: (-base_scores[m], m),
+    ):
+        ranked_traces.extend(by_mutation[mutation])
+
+    return ranked_traces, base_scores
+
+
+
+
 # ==================================================
 # DIVERSIFIED SCHEDULING
 # ==================================================
@@ -332,7 +415,7 @@ def diversified_trace_ranking(
     traces,
     model,
     feature_columns,
-    diversification_alpha,
+    diversification_alpha=0,
 ):
     """
     diversification_alpha controls
@@ -440,17 +523,16 @@ def diversified_trace_ranking(
 
 
 
-def trace_ranking(formula, traces, strategy, alpha):
+def trace_ranking(formula, traces, strategy, utility):
 
-    model = joblib.load(f"mutation_ranker_{strategy}.pkl")
-    feature_columns = joblib.load(f"feature_columns_{strategy}.pkl")
+    model = joblib.load(f"mutation_ranker_{strategy}_{utility}.pkl")
+    feature_columns = joblib.load(f"feature_columns_{strategy}_{utility}.pkl")
 
-    ranked_traces, mutation_scores = diversified_trace_ranking(
+    ranked_traces, mutation_scores = trace_ranking_no_diversification(
         formula=formula,
         traces=traces,
         model=model,
         feature_columns=feature_columns,
-        diversification_alpha=alpha,
     )
 
     return ranked_traces
@@ -468,7 +550,9 @@ def main():
         help="Path to data CSV file"
     )
 
-    parser.add_argument("strategy", default="no_strategy")
+    parser.add_argument("strategy", default="all_contexts")
+
+    parser.add_argument("utility", default="smoothed_ratio")
 
     args = parser.parse_args()
 
@@ -482,11 +566,12 @@ def main():
 
     model, feature_columns, _ = train_model(
         formulas=train_formulas,
-        strategy=args.strategy
+        strategy=args.strategy,
+        utility=args.utility,
     )
 
-    joblib.dump(model, f"mutation_ranker_{args.strategy}.pkl")
-    joblib.dump(feature_columns, f"feature_columns_{args.strategy}.pkl")
+    joblib.dump(model, f"mutation_ranker_{args.strategy}_{args.utility}.pkl")
+    joblib.dump(feature_columns, f"feature_columns_{args.strategy}_{args.utility}.pkl")
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@ sys.path.insert(0,'/usr/local/lib/python3.10/site-packages/')
 import spot
 spot.setup()
 import itertools
+import re
 
 from enum import Enum
 
@@ -126,6 +127,10 @@ def build_word(conditions, index):
     return cycle if not prefix else "{}; {}".format(prefix, cycle)
 
 
+
+def count_literals(trace: str) -> int:
+    lits = re.findall(r'!?[A-Za-z_][A-Za-z0-9_]*', trace)
+    return sum(1 for lit in lits if lit.lstrip('!') != 'cycle')
 
 
 
