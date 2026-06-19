@@ -146,7 +146,7 @@ regr_patch = mpatches.Patch(
     facecolor=top_color,
     hatch=hatch_regr,
     edgecolor="black",
-    label=r"$DT_{>5}$ (LTLTrust ($\alpha=1$))",
+    label=r"$DT_{>5}$ (LTLTrust Ordering)",
 )
 
 avg_handle = Line2D(
