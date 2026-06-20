@@ -11,7 +11,7 @@ import random
 from collections import defaultdict
 import itertools
 
-from utils import top1_context, top5_context, top10_context, top20_context, all_contexts
+from utils import top200_context, top100_context, top50_context, top25_context, all_contexts
 
 
 
@@ -304,6 +304,5 @@ def generate_traces(formula, strategy):
             candidate_acceptance = check_acceptance(original_aut, trace)
             traces.append((trace, candidate_acceptance, mutation_type))
 
-
-    traces = [(t, ac, f'{str(mut[0])}_{mut[1]}_{ac}_{trace_len(t)}') for (t, ac, mut) in traces if globals()[strategy](ac, mut, trace_len(t))]
+    traces = [(t, ac, f'{str(mut[0])}_{mut[1]}_{ac}_{trace_len(t)}') for (t, ac, mut) in traces if globals()[strategy](mut, ac, trace_len(t))]
     return traces

@@ -8,56 +8,56 @@ from matplotlib.lines import Line2D
 # =========================
 
 strategies = [
-    "Top 1 Ctx.",
-    "Top 5 Ctx.",
-    "Top 10 Ctx.",
-    "Top 20 Ctx.",
+    "Top 25 Ctx.",
+    "Top 50 Ctx.",
+    "Top 100 Ctx.",
+    "Top 200 Ctx.",
     "All Ctx.",
 ]
 
 ndt_inf = np.array([
 
-    0.530,
     0.108,
-    0.073,
-    0.040,
-    0.020,
+    0.070,
+    0.035,
+    0.025,
+    0.023,
 ])
 
 dt_random = np.array([
 
-    0.003,
-    0.045,
-    0.128,
-    0.166,
-    0.206,
+    0.040,
+    0.111,
+    0.163,
+    0.158,
+    0.204,
 ])
 
 dt_regr = np.array([
 
-    0.005,
-    0.035,
-    0.075,
-    0.101,
-    0.123,
+    0.023,
+    0.040,
+    0.048,
+    0.053,
+    0.053,
 ])
 
 avg_random = np.array([
 
-    1.43,
-    2.73,
-    3.22,
-    3.48,
-    4.24,
+    2.48,
+    2.89,
+    3.49,
+    3.58,
+    4.16,
 ])
 
 avg_regr = np.array([
 
-    1.58,
-    1.80,
-    2.14,
-    2.53,
-    3.06,
+    1.68,
+    1.81,
+    1.92,
+    2.02,
+    2.15,
 ])
 
 # =========================
@@ -162,7 +162,7 @@ ax.legend(handles=[base_patch, random_patch, regr_patch], fontsize=18)
 # Limits
 # =========================
 
-ax.set_ylim(0, np.max(ndt_inf + np.maximum(dt_random, dt_regr)) * 1.35)
+ax.set_ylim(0, np.max(ndt_inf + np.maximum(dt_random, dt_regr)) * 1.7)
 
 plt.tight_layout()
 

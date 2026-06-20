@@ -55,30 +55,70 @@ class Mutation(str, Enum):
     ADD_NEGATION = "ADD_NEGATION"
 
 
-TOP_CONTEXTS = [
 
-(Mutation.ADD_X,4,True,1),
-(Mutation.ADD_NEGATION,1,True,2),
-(Mutation.ADD_X,3,False,3),
-(Mutation.ADD_X,1,False,4),
-(Mutation.ADD_G,3,False,2),
-(Mutation.SWAP_G_WITH_F,1,None,2),
-(Mutation.SWAP_IMPLIES_WITH_EQUIV,2,True,1),
-(Mutation.ADD_NEGATION,3,None,2),
-(Mutation.ADD_F,2,False,2),
-(Mutation.ADD_F,1,False,2),
-(Mutation.ADD_F,3,False,2),
-(Mutation.ADD_F,1,False,1),
-(Mutation.REMOVE_LEFT_SUBFORMULA,2,True,1),
-(Mutation.ADD_X,3,None,2),
-(Mutation.ADD_X,3,None,3),
-(Mutation.ADD_G,3,True,2),
-(Mutation.ADD_NEGATION,1,False,2),
-(Mutation.ADD_NEGATION,1,True,1),
-(Mutation.ADD_F,1,True,2),
-(Mutation.ADD_X,1,False,3),
+def get_top_contexts(file_path):
+    """
+    Reads a text file, finds the section titled
+    'Mutation Contexts by Usefulness', parses mutation lines, and
+    returns the resulting list in reverse order.
 
-]
+    Example parsed line:
+    Mutation.FOO_12_True_34:56
+
+    -> ("Mutation.FOO", 12, True, 34)
+    """
+
+    pattern = re.compile(
+        r"^(Mutation\..+)_(\d+)_(True|False|None)_(\d+):\d+$"
+    )
+
+    with open(file_path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    # Find the section start
+    start_idx = None
+    for i, line in enumerate(lines):
+        if line.strip() == "Mutation Contexts by Usefulness":
+            start_idx = i + 1
+            break
+
+    if start_idx is None:
+        return []
+
+    result = []
+
+    for line in lines[start_idx:]:
+        line = line.strip()
+
+        match = pattern.match(line)
+        if not match:
+            # Stop when mutation entries end
+            if result:
+                break
+            continue
+
+        mutation_name, number1, truth_value, number2 = match.groups()
+
+        truth_value = (
+            True if truth_value == "True"
+            else False if truth_value == "False"
+            else None
+        )
+
+        result.append(
+            (
+                mutation_name,
+                int(number1),
+                truth_value,
+                int(number2),
+            )
+        )
+
+    return result[::-1]
+
+
+
+TOP_CONTEXTS = get_top_contexts("results_ALL_RL_RANDOM_all_contexts_fixed.txt")
 
 
 
@@ -221,18 +261,22 @@ def get_formula_features(formula_str: str):
     ]
 
 
-def all_contexts(acceptance, mut, length):
+def all_contexts(mut, acceptance, length):
     return True
 
-def top1_context(acceptance, mut, length):
-    return (mut[0], mut[1], acceptance, length) in TOP_CONTEXTS[-1:]
+def top25_context(mut, acceptance, length):
+    return top_contexts(25, mut, acceptance, length)
 
-def top5_context(acceptance, mut, length):
-    return (mut[0], mut[1], acceptance, length) in TOP_CONTEXTS[-5:]
+def top50_context(mut, acceptance, length):
+    return top_contexts(50, mut, acceptance, length)
 
-def top10_context(acceptance, mut, length):
-    return (mut[0], mut[1], acceptance, length) in TOP_CONTEXTS[-10:]
+def top100_context(mut, acceptance, length):
+    return top_contexts(100, mut, acceptance, length)
 
-def top20_context(acceptance, mut, length):
-    return (mut[0], mut[1], acceptance, length) in TOP_CONTEXTS[-20:]
+def top200_context(mut, acceptance, length):
+    return top_contexts(200, mut, acceptance, length)
+
+
+def top_contexts(k, mut, acceptance, length):
+    return (str(mut[0]), mut[1], acceptance, length) in TOP_CONTEXTS[:k]
 
