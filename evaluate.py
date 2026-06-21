@@ -52,6 +52,9 @@ def evaluate(cand, gt, traces):
 
         (trace, cand_acc, mc) = t
 
+        # if cand == "G(x1 -> X(x1))":
+        #     print(t)
+
         seen += 1
         length += trace_len(trace)
         lit += count_literals(trace)
@@ -247,9 +250,9 @@ def main():
 
     for data in orderings:
 
-        log_file = f"log_{dataset}_{data.name}_{strategy}.txt"
-        with open(log_file, "w", encoding="utf-8") as out:
-            out.write(data.full_log)
+        # log_file = f"log_{dataset}_{data.name}_{strategy}.txt"
+        # with open(log_file, "w", encoding="utf-8") as out:
+        #     out.write(data.full_log)
 
 
         det_more_than_i = []

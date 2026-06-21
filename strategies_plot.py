@@ -8,55 +8,55 @@ from matplotlib.lines import Line2D
 # =========================
 
 strategies = [
-    "Top 25 Ctx.",
     "Top 50 Ctx.",
     "Top 100 Ctx.",
     "Top 200 Ctx.",
+    "Top 400 Ctx.",
     "All Ctx.",
 ]
 
 ndt_inf = np.array([
 
-    0.108,
-    0.070,
-    0.035,
-    0.025,
+    0.111,
+    0.063,
+    0.045,
+    0.028,
     0.023,
 ])
 
 dt_random = np.array([
 
-    0.040,
-    0.111,
-    0.163,
-    0.158,
+    0.224,
+    0.188,
+    0.204,
+    0.206,
     0.204,
 ])
 
 dt_regr = np.array([
 
-    0.023,
     0.040,
+    0.050,
     0.048,
-    0.053,
+    0.055,
     0.053,
 ])
 
 avg_random = np.array([
 
-    2.48,
-    2.89,
-    3.49,
-    3.58,
+    3.88,
+    3.75,
+    4.05,
+    4.17,
     4.16,
 ])
 
 avg_regr = np.array([
 
-    1.68,
-    1.81,
-    1.92,
-    2.02,
+    1.99,
+    1.86,
+    1.97,
+    2.10,
     2.15,
 ])
 
@@ -162,7 +162,7 @@ ax.legend(handles=[base_patch, random_patch, regr_patch], fontsize=18)
 # Limits
 # =========================
 
-ax.set_ylim(0, np.max(ndt_inf + np.maximum(dt_random, dt_regr)) * 1.7)
+ax.set_ylim(0, np.max(ndt_inf + np.maximum(dt_random, dt_regr)) * 1.35)
 
 plt.tight_layout()
 

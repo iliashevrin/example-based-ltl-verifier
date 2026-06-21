@@ -5,6 +5,7 @@ import spot
 spot.setup()
 import itertools
 import re
+import csv
 
 from enum import Enum
 
@@ -56,7 +57,50 @@ class Mutation(str, Enum):
 
 
 
+# From csv file
 def get_top_contexts(file_path):
+
+    pattern = re.compile(
+        r"^(Mutation\..*)_(\d+)_(True|False|None)_(\d+)$"
+    )
+
+    mutations = []
+
+    with open(file_path, "r", encoding="utf-8", newline="") as f:
+        reader = csv.reader(f)
+
+        for row in reader:
+            if not row:
+                continue
+
+            value = row[0].strip()
+            match = pattern.match(value)
+
+            if not match:
+                continue
+
+            mutation_name, number1, truth_value, number2 = match.groups()
+
+            truth_value = (
+                True if truth_value == "True"
+                else False if truth_value == "False"
+                else None
+            )
+
+            mutations.append(
+                (
+                    mutation_name,
+                    int(number1),
+                    truth_value,
+                    int(number2),
+                )
+            )
+
+    return mutations
+
+
+# From log file
+def get_top_contexts_log(file_path):
     """
     Reads a text file, finds the section titled
     'Mutation Contexts by Usefulness', parses mutation lines, and
@@ -118,7 +162,7 @@ def get_top_contexts(file_path):
 
 
 
-TOP_CONTEXTS = get_top_contexts("results_ALL_RL_RANDOM_all_contexts_fixed.txt")
+TOP_CONTEXTS = get_top_contexts("freq_ALL_RL_all_contexts.csv")
 
 
 
@@ -137,6 +181,7 @@ def check_acceptance(aut, trace):
         return True
     
     return None
+
 
 
 def collect_aps(f):
@@ -275,6 +320,9 @@ def top100_context(mut, acceptance, length):
 
 def top200_context(mut, acceptance, length):
     return top_contexts(200, mut, acceptance, length)
+
+def top400_context(mut, acceptance, length):
+    return top_contexts(400, mut, acceptance, length)
 
 
 def top_contexts(k, mut, acceptance, length):
