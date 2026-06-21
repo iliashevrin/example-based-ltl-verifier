@@ -181,12 +181,19 @@ def main():
 
     total = 0
 
+    # mp_map = {}
+
     with open(sys.argv[2], newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
 
         for row in reader:
             gt = row["Ground Truth"]
             cand = row["Response"]
+
+            # key = f"GT={spot.mp_class(gt, 'v')}; Cand={spot.mp_class(cand, 'v')}"
+            # print(key)
+            # if key not in mp_map:
+            #     mp_map[key] = []
 
             total += 1
 
@@ -214,6 +221,8 @@ def main():
                     traces = data.order(cand, traces, strategy)
 
                     seen, length, lit, mc, values, log = evaluate(cand, gt, traces)
+
+                    # mp_map[key].append(seen)
 
                     for val in values:
                         data.acc_values[val] += values[val]
@@ -250,9 +259,9 @@ def main():
 
     for data in orderings:
 
-        # log_file = f"log_{dataset}_{data.name}_{strategy}.txt"
-        # with open(log_file, "w", encoding="utf-8") as out:
-        #     out.write(data.full_log)
+        log_file = f"log_{dataset}_{data.name}_{strategy}.txt"
+        with open(log_file, "w", encoding="utf-8") as out:
+            out.write(data.full_log)
 
 
         det_more_than_i = []
