@@ -14,7 +14,6 @@ from openai import OpenAI
 from google import genai
 import anthropic
 
-sys.path.insert(0,'/usr/local/lib/python3.10/site-packages/')
 import spot
 spot.setup()
 
@@ -182,31 +181,20 @@ def extract_ap_mapping(ltl_formula: str) -> str:
 
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Translate natural language requirements to LTL and compare with ground truth."
-    )
-    parser.add_argument("input", help="Input file")
-    parser.add_argument("output_csv", help="Output CSV file")
-    # parser.add_argument(
-    #     "--model",
-    #     default="gpt-5.4-mini",
-    #     help="OpenAI model to use, default: gpt-5.4-mini",
-    # )
+def load_dataset(input_path: str):
+    """
+    Parse an input dataset file (.txt / .xlsx / .csv / spacewire.json / .json)
+    into a list of (requirement, ground_truth, atomic_proposition) tuples.
 
-    args = parser.parse_args()
-
-    # if not os.getenv("OPENAI_API_KEY"):
-    #     raise RuntimeError("OPENAI_API_KEY environment variable is not set.")
-    if not os.getenv("ANTHROPIC_API_KEY"):
-        raise RuntimeError("ANTHROPIC_API_KEY environment variable is not set.")
+    Returns (dataset, parse_errors).
+    """
 
     dataset = []
     parse_errors = 0
 
 
 
-    if args.input.endswith("txt"):
+    if input_path.endswith("txt"):
 
 
 
@@ -327,7 +315,7 @@ def main() -> None:
 
 
 
-        with open(args.input, "r", encoding="utf-8") as f:
+        with open(input_path, "r", encoding="utf-8") as f:
             content = f.read()
 
         # Split entries by blank lines
@@ -433,10 +421,10 @@ def main() -> None:
                 print(f"Malformed item {idx}: {e}")
 
 
-    elif args.input.endswith("xlsx"):
+    elif input_path.endswith("xlsx"):
 
 
-        wb = load_workbook(args.input, data_only=True)
+        wb = load_workbook(input_path, data_only=True)
         ws = wb.active
 
         # ------------------------------------------------------------
@@ -634,9 +622,9 @@ def main() -> None:
 
 
 
-    elif args.input.endswith("csv"):
+    elif input_path.endswith("csv"):
 
-        df = pd.read_csv(args.input, sep=',')
+        df = pd.read_csv(input_path, sep=',')
 
         required_columns = {"Natural Language", "Ground Truth", "Atomic Proposition"}
         missing = required_columns - set(df.columns)
@@ -651,9 +639,9 @@ def main() -> None:
             dataset.append((requirement, ground_truth, atomic_proposition))
 
 
-    elif "spacewire.json" in args.input:
+    elif "spacewire.json" in input_path:
 
-        with open(args.input, "r", encoding="utf-8") as f:
+        with open(input_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
         if not isinstance(data, list):
@@ -709,9 +697,9 @@ def main() -> None:
                 continue
                                   
 
-    elif args.input.endswith("json"):
+    elif input_path.endswith("json"):
 
-        with open(args.input, "r", encoding="utf-8") as f:
+        with open(input_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
         if not isinstance(data, list):
@@ -741,7 +729,30 @@ def main() -> None:
                 continue
 
             dataset.append((requirement, ground_truth, atomic_proposition))
-                       
+
+    return dataset, parse_errors
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Translate natural language requirements to LTL and compare with ground truth."
+    )
+    parser.add_argument("input", help="Input file")
+    parser.add_argument("output_csv", help="Output CSV file")
+    # parser.add_argument(
+    #     "--model",
+    #     default="gpt-5.4-mini",
+    #     help="OpenAI model to use, default: gpt-5.4-mini",
+    # )
+
+    args = parser.parse_args()
+
+    # if not os.getenv("OPENAI_API_KEY"):
+    #     raise RuntimeError("OPENAI_API_KEY environment variable is not set.")
+    if not os.getenv("ANTHROPIC_API_KEY"):
+        raise RuntimeError("ANTHROPIC_API_KEY environment variable is not set.")
+
+    dataset, parse_errors = load_dataset(args.input)
 
     # client = OpenAI()
 
