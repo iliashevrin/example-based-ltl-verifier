@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+from __future__ import annotations
+
 import argparse
 import csv
 import os
@@ -10,9 +12,20 @@ import random
 
 import pandas as pd
 
-from openai import OpenAI
-from google import genai
-import anthropic
+try:
+    from openai import OpenAI
+except ImportError:
+    OpenAI = None
+
+try:
+    from google import genai
+except ImportError:
+    genai = None
+
+try:
+    import anthropic
+except ImportError:
+    anthropic = None
 
 import spot
 spot.setup()

@@ -9,15 +9,13 @@ Unlike generate_gt_pairs.py, this script never looks at any ground-truth
 formula in the input dataset -- only the NL requirement text is used to
 prompt the LLM. Dataset parsing is reused from generate_gt_pairs.load_dataset.
 """
+from __future__ import annotations
+
 import argparse
 import csv
 import math
 import os
 import sys
-
-import anthropic
-from google import genai
-from openai import OpenAI
 
 import spot
 spot.setup()
@@ -58,10 +56,14 @@ Requirement:
 
 
 def ask_claude(client: anthropic.Anthropic, model: str, requirement: str, temperature: float) -> str:
+    # Current-generation models dropped `temperature` as a typed SDK kwarg
+    # (sampling controls are removed/400 on those models anyway); pass it
+    # via extra_body, which still reaches the API for models that honor it
+    # (e.g. claude-sonnet-4-6, the default here).
     response = client.messages.create(
         model=model,
         max_tokens=128,
-        temperature=temperature,
+        extra_body={"temperature": temperature},
         messages=[
             {
                 "role": "user",
@@ -73,7 +75,9 @@ def ask_claude(client: anthropic.Anthropic, model: str, requirement: str, temper
     return normalize_formula(response.content[0].text)
 
 
-def ask_gemini(client: genai.Client, model: str, requirement: str, temperature: float) -> str:
+def ask_gemini(client: "genai.Client", model: str, requirement: str, temperature: float) -> str:
+    from google import genai
+
     response = client.models.generate_content(
         model=model,
         contents=PROMPT.format(requirement=requirement),
@@ -83,7 +87,7 @@ def ask_gemini(client: genai.Client, model: str, requirement: str, temperature: 
     return normalize_formula(response.text or "")
 
 
-def ask_chatgpt(client: OpenAI, model: str, requirement: str, temperature: float) -> str:
+def ask_chatgpt(client: "OpenAI", model: str, requirement: str, temperature: float) -> str:
     response = client.chat.completions.create(
         model=model,
         temperature=temperature,
@@ -113,10 +117,16 @@ ASK_FUNCTIONS = {
 
 def build_client(llm: str):
     if llm == "claude":
+        import anthropic
+
         return anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
     if llm == "gemini":
+        from google import genai
+
         return genai.Client(api_key=os.environ["GEMINI_API_KEY"])
     if llm == "gpt":
+        from openai import OpenAI
+
         return OpenAI()
     raise ValueError(f"Unknown LLM: {llm}")
 
@@ -162,17 +172,15 @@ def cluster_by_semantic_equivalence(formulas: list[str]) -> list[list[str]]:
 
 
 def normalized_entropy(clusters: list[list[str]], n: int) -> float:
-    """Shannon entropy over the cluster-size distribution, normalized by
-    log2(n) -- the maximum possible entropy when all n samples are distinct."""
-    if n <= 1:
-        return 0.0
-
+    """Shannon entropy (nats) over the cluster-size distribution, squashed to
+    [0, 1) via 1 - e^-H. H = 0 (single cluster) maps to 0; H grows unboundedly
+    as clusters flatten out, approaching 1."""
     entropy = 0.0
     for cluster in clusters:
         p = len(cluster) / n
-        entropy -= p * math.log2(p)
+        entropy -= p * math.log(p)
 
-    return entropy / math.log2(n)
+    return 1 - math.exp(-entropy)
 
 
 def main() -> None:
