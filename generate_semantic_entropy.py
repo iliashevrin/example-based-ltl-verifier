@@ -6,8 +6,12 @@ equivalence (via Spot), and report the normalized entropy of that cluster
 distribution per requirement.
 
 Unlike generate_gt_pairs.py, this script never looks at any ground-truth
-formula in the input dataset -- only the NL requirement text is used to
-prompt the LLM. Dataset parsing is reused from generate_gt_pairs.load_dataset.
+formula in the input dataset. The NL requirement and its atomic-proposition
+mapping (needed for a faithful semantic comparison across samples -- without
+it, two formulas with the same meaning but different variable names would
+look unrelated) still drive the prompt, using the same PROMPT template as
+generate_gt_pairs.py. Dataset parsing is reused from
+generate_gt_pairs.load_dataset.
 """
 from __future__ import annotations
 
@@ -21,41 +25,20 @@ import spot
 spot.setup()
 
 import config
-from generate_gt_pairs import load_dataset, normalize_formula, semantically_equivalent
+from generate_gt_pairs import PROMPT, load_dataset, normalize_formula, semantically_equivalent
 
 os.environ["OPENAI_API_KEY"] = config.OPENAI_API_KEY
 os.environ["GEMINI_API_KEY"] = config.GEMINI_API_KEY
 os.environ["ANTHROPIC_API_KEY"] = config.ANTHROPIC_API_KEY
 
 
-PROMPT = """Translate the following natural language requirement into Linear Temporal Logic (LTL).
-
-Use STRICT programming-style notation:
-- F for "finally"
-- G for "globally"
-- X for "next"
-- U for "until"
-- ! for negation
-- & for AND
-- | for OR
-- -> for implication
-- <-> for equivalence (iff)
-
-Do NOT use LaTeX or any mathematical symbols such as ◇, □, ¬, ∧, ∨, etc.
-Do NOT use the equality sign.
-Do NOT include explanations, comments, or multiple formulas.
-
-Choose concise, descriptive atomic proposition names based on the requirement text.
-
-Return EXACTLY one LTL formula as a single line.
-The output must be directly parseable as an LTL formula.
-
-Requirement:
-{requirement}
-"""
-
-
-def ask_claude(client: anthropic.Anthropic, model: str, requirement: str, temperature: float) -> str:
+def ask_claude(
+    client: anthropic.Anthropic,
+    model: str,
+    requirement: str,
+    atomic_proposition: str,
+    temperature: float,
+) -> str:
     # Current-generation models dropped `temperature` as a typed SDK kwarg
     # (sampling controls are removed/400 on those models anyway); pass it
     # via extra_body, which still reaches the API for models that honor it
@@ -67,7 +50,10 @@ def ask_claude(client: anthropic.Anthropic, model: str, requirement: str, temper
         messages=[
             {
                 "role": "user",
-                "content": PROMPT.format(requirement=requirement),
+                "content": PROMPT.format(
+                    requirement=requirement,
+                    atomic_proposition=atomic_proposition,
+                ),
             }
         ],
     )
@@ -75,26 +61,44 @@ def ask_claude(client: anthropic.Anthropic, model: str, requirement: str, temper
     return normalize_formula(response.content[0].text)
 
 
-def ask_gemini(client: "genai.Client", model: str, requirement: str, temperature: float) -> str:
+def ask_gemini(
+    client: "genai.Client",
+    model: str,
+    requirement: str,
+    atomic_proposition: str,
+    temperature: float,
+) -> str:
     from google import genai
 
     response = client.models.generate_content(
         model=model,
-        contents=PROMPT.format(requirement=requirement),
+        contents=PROMPT.format(
+            requirement=requirement,
+            atomic_proposition=atomic_proposition,
+        ),
         config=genai.types.GenerateContentConfig(temperature=temperature),
     )
 
     return normalize_formula(response.text or "")
 
 
-def ask_chatgpt(client: "OpenAI", model: str, requirement: str, temperature: float) -> str:
+def ask_chatgpt(
+    client: "OpenAI",
+    model: str,
+    requirement: str,
+    atomic_proposition: str,
+    temperature: float,
+) -> str:
     response = client.chat.completions.create(
         model=model,
         temperature=temperature,
         messages=[
             {
                 "role": "user",
-                "content": PROMPT.format(requirement=requirement),
+                "content": PROMPT.format(
+                    requirement=requirement,
+                    atomic_proposition=atomic_proposition,
+                ),
             }
         ],
     )
@@ -234,16 +238,22 @@ def main() -> None:
     if parse_errors:
         print(f"Dataset parse errors (ignored, entries skipped): {parse_errors}", file=sys.stderr)
 
-    # Ground truth / atomic propositions are intentionally discarded here:
-    # only the NL requirement text drives the prompt. Dedup requirements so
-    # each distinct text is sampled (and reported) exactly once.
-    requirements = list(dict.fromkeys(requirement for requirement, _, _ in dataset))
+    # Only the ground truth is discarded here -- the requirement and its
+    # atomic-proposition mapping still drive the prompt (same PROMPT as
+    # generate_gt_pairs.py), since a consistent AP mapping is what makes the
+    # semantic-equivalence comparison across samples meaningful. Dedup by
+    # requirement text so each distinct requirement is sampled once, keeping
+    # the atomic_proposition from its first occurrence.
+    requirements = {}
+    for requirement, _, atomic_proposition in dataset:
+        requirements.setdefault(requirement, atomic_proposition)
+    requirements = list(requirements.items())
 
     rows = []
 
-    for requirement in requirements:
+    for requirement, atomic_proposition in requirements:
         samples = [
-            ask(client, model, requirement, args.temperature)
+            ask(client, model, requirement, atomic_proposition, args.temperature)
             for _ in range(args.num_samples)
         ]
 
