@@ -207,7 +207,7 @@ def load_dataset(input_path: str):
 
 
 
-    if input_path.endswith("txt"):
+    if "Dwyer" in input_path:
 
 
 
@@ -434,7 +434,7 @@ def load_dataset(input_path: str):
                 print(f"Malformed item {idx}: {e}")
 
 
-    elif input_path.endswith("xlsx"):
+    elif "ARTEMIS" in input_path:
 
 
         wb = load_workbook(input_path, data_only=True)
@@ -635,7 +635,7 @@ def load_dataset(input_path: str):
 
 
 
-    elif input_path.endswith("csv"):
+    elif "Textbook" in input_path:
 
         df = pd.read_csv(input_path, sep=',')
 
@@ -652,7 +652,7 @@ def load_dataset(input_path: str):
             dataset.append((requirement, ground_truth, atomic_proposition))
 
 
-    elif "spacewire.json" in input_path:
+    elif "SpaceWire" in input_path:
 
         with open(input_path, "r", encoding="utf-8") as f:
             data = json.load(f)
