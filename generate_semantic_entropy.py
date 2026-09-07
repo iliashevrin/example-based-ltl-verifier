@@ -192,7 +192,10 @@ def main() -> None:
         )
     )
     parser.add_argument("input", help="Input dataset file (.txt/.xlsx/.csv/.json)")
-    parser.add_argument("output_csv", help="Output CSV file (columns: req, normalized_entropy)")
+    parser.add_argument(
+        "output_csv",
+        help="Output CSV file (columns: req, normalized_entropy, sample_1..sample_n)",
+    )
     parser.add_argument(
         "--llm",
         choices=sorted(ASK_FUNCTIONS.keys()),
@@ -255,10 +258,14 @@ def main() -> None:
             file=sys.stderr,
         )
 
-        rows.append({"req": requirement, "normalized_entropy": entropy})
+        row = {"req": requirement, "normalized_entropy": entropy}
+        for i, sample in enumerate(samples, start=1):
+            row[f"sample_{i}"] = sample
+        rows.append(row)
 
+    sample_fieldnames = [f"sample_{i}" for i in range(1, args.num_samples + 1)]
     with open(args.output_csv, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=["req", "normalized_entropy"])
+        writer = csv.DictWriter(f, fieldnames=["req", "normalized_entropy"] + sample_fieldnames)
         writer.writeheader()
         writer.writerows(rows)
 
