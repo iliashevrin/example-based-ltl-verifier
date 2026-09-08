@@ -198,7 +198,10 @@ def main() -> None:
     parser.add_argument("input", help="Input dataset file (.txt/.xlsx/.csv/.json)")
     parser.add_argument(
         "output_csv",
-        help="Output CSV file (columns: req, normalized_entropy, sample_1..sample_n)",
+        help=(
+            "Output CSV file (columns: req, normalized_entropy, probabilities "
+            "[';'-separated, descending, e.g. '0.8;0.2'], sample_1..sample_n)"
+        ),
     )
     parser.add_argument(
         "--llm",
@@ -259,23 +262,32 @@ def main() -> None:
 
         clusters = cluster_by_semantic_equivalence(samples)
         entropy = normalized_entropy(clusters, args.num_samples)
+        probabilities = sorted(
+            (len(cluster) / args.num_samples for cluster in clusters), reverse=True
+        )
 
         print(
             f"  Requirement: {requirement}\n"
             f"  Samples:     {samples}\n"
             f"  Clusters:    {len(clusters)}\n"
+            f"  Probabilities: {probabilities}\n"
             f"  Norm. entropy: {entropy:.4f}\n",
             file=sys.stderr,
         )
 
-        row = {"req": requirement, "normalized_entropy": entropy}
+        row = {
+            "req": requirement,
+            "normalized_entropy": entropy,
+            "probabilities": ";".join(str(p) for p in probabilities),
+        }
         for i, sample in enumerate(samples, start=1):
             row[f"sample_{i}"] = sample
         rows.append(row)
 
     sample_fieldnames = [f"sample_{i}" for i in range(1, args.num_samples + 1)]
+    fieldnames = ["req", "normalized_entropy", "probabilities"] + sample_fieldnames
     with open(args.output_csv, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=["req", "normalized_entropy"] + sample_fieldnames)
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
 
